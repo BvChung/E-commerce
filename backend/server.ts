@@ -2,13 +2,14 @@ import dotenv from "dotenv";
 import path from "path";
 import cors from "cors";
 import cookieParser from "cookie-parser";
-import express, { Express, Request, Response } from "express";
-import colors from "colors";
+import express, { Express } from "express";
+import "colors";
 import { connectDatabase } from "./config/mongoDB";
-import { test } from "./test";
-const port = 3001;
-dotenv.config();
+import errorHandler from "./middleware/errorHandler";
+import userRoutes from "./routes/userRoutes/userRoutes";
 
+dotenv.config();
+const port = process.env.PORT || 3001;
 connectDatabase();
 
 const app: Express = express();
@@ -25,8 +26,10 @@ app.use(
 
 app.use(cookieParser());
 
-// app.use("/api/users");
+app.use("/api/users", userRoutes);
+
+app.use(errorHandler);
 
 app.listen(port, () => {
-	console.log(colors.yellow.underline(`Server live on port: ${port}`));
+	console.log(`Server live on port: ${port}`.underline.magenta);
 });
