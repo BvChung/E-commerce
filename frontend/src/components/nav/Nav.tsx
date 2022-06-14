@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { SearchIcon } from "@heroicons/react/solid";
 
-const Nav: React.FC = () => {
+const Nav = () => {
 	const [searchText, setSearchText] = useState<string>("");
 
 	return (
