@@ -4,13 +4,13 @@ import {
 	registerUser,
 	logoutUser,
 } from "../../controllers/userController/userController";
-import validateReq from "../../middleware/validateReq";
 import { registerUserSchema, loginUserSchema } from "../../schemas/userSchema";
+import validateRequest from "../../middleware/validateReq";
 
 const router: IRouter = express.Router();
 
-router.post("/login", validateReq(loginUserSchema), loginUser);
-router.post("/register", validateReq(registerUserSchema), registerUser);
+router.post("/login", validateRequest(loginUserSchema), loginUser);
+router.post("/register", validateRequest(registerUserSchema), registerUser);
 router.put("/logout", logoutUser);
 
 export default router;
