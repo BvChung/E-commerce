@@ -1,15 +1,16 @@
 import React from "react";
 import Nav from "./components/nav/Nav";
 import "./App.css";
+import Home from "./components/home/Home";
 import { Routes, Route, Outlet } from "react-router-dom";
 
 function App() {
 	return (
-		<div className="App dark">
+		<div className="App ">
 			<Nav />
 			<Routes>
 				<Route path="/" element={<Outlet />}>
-					<Route index element={<div>home</div>} />
+					<Route index element={<Home />} />
 
 					<Route path="cart" element={<p>cart</p>} />
 
