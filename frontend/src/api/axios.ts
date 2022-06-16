@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const eCommerceApi = axios.create({
-	baseURL: "http://localhost:30001",
+	baseURL: "http://localhost:3001",
 });
 
 type Products = {
