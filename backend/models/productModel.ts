@@ -6,7 +6,6 @@ interface Product {
 	image: string;
 	imageCloudId: string;
 	price: string;
-	quantity: number;
 }
 
 const productSchema = new Schema<Product>(
@@ -35,10 +34,6 @@ const productSchema = new Schema<Product>(
 			type: String,
 			required: [true, "Price is required"],
 			default: "",
-		},
-		quantity: {
-			type: Number,
-			required: [true, "Quantity is required"],
 		},
 	},
 	{
