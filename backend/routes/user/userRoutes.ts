@@ -3,7 +3,7 @@ import {
 	loginUser,
 	registerUser,
 	logoutUser,
-} from "../../controllers/userController/userController";
+} from "../../controllers/user/userController";
 import { registerUserSchema, loginUserSchema } from "../../schemas/userSchema";
 import validateRequest from "../../middleware/validateReq";
 

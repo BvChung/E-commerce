@@ -6,7 +6,10 @@ import express, { Express } from "express";
 import "colors";
 import { connectDatabase } from "./config/mongoDB";
 import errorHandler from "./middleware/errorHandler";
-import userRoutes from "./routes/userRoutes/userRoutes";
+import userRoutes from "./routes/user/userRoutes";
+import orderRoutes from "./routes/order/orderRoutes";
+import productRoutes from "./routes/product/productRoutes";
+import refreshTokenRoutes from "./routes/refreshToken/refreshTokenRoutes";
 
 dotenv.config();
 const port = process.env.PORT || 3001;
@@ -27,6 +30,9 @@ app.use(
 app.use(cookieParser());
 
 app.use("/api/users", userRoutes);
+app.use("/api/products", productRoutes);
+app.use("/api/orders", orderRoutes);
+app.use("/api/refresh", refreshTokenRoutes);
 
 app.use(errorHandler);
 
