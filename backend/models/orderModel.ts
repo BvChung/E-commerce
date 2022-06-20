@@ -46,10 +46,14 @@ const orderSchema = new Schema<Order>(
 		purchasedItems: [
 			{
 				id: {
-					type: Schema.Types.ObjectId,
+					type: String,
 					required: true,
-					ref: "Product",
 				},
+				// id: {
+				// 	type: Schema.Types.ObjectId,
+				// 	required: true,
+				// 	ref: "Product",
+				// },
 				name: { type: String, required: true, ref: "Product" },
 				quantity: { type: Number, required: true },
 				image: { type: String, required: true, ref: "Product" },
