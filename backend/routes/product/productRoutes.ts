@@ -1,6 +1,7 @@
 import express, { IRouter } from "express";
 import verifyJWT from "../../middleware/authJWT";
 import validateRequest from "../../middleware/validateReq";
+import convertFile from "../../middleware/convertFile";
 import {
 	getProduct,
 	createProduct,

@@ -5,35 +5,35 @@ interface Product {
 	description: string;
 	image: string;
 	imageCloudId: string;
-	price: string;
+	price: number;
 }
 
 const productSchema = new Schema<Product>(
 	{
 		productName: {
 			type: String,
-			required: [true, "Name is required"],
+			required: [true, "Product name is required"],
 			default: "",
 		},
 		description: {
 			type: String,
-			required: [true, "Email is required"],
+			required: [true, "Product description is required"],
 			unique: true,
 			default: "",
 		},
 		image: {
 			type: String,
-			required: [true, "Password is required"],
+			required: [true, "Product image is required"],
 			default: "",
 		},
 		imageCloudId: {
 			type: String,
+			required: [true, "Product image is required"],
 			default: "",
 		},
 		price: {
-			type: String,
-			required: [true, "Price is required"],
-			default: "",
+			type: Number,
+			required: [true, "Product price is required"],
 		},
 	},
 	{
