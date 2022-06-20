@@ -4,7 +4,7 @@ import cors from "cors";
 import cookieParser from "cookie-parser";
 import express, { Express } from "express";
 import "colors";
-import { connectDatabase } from "./config/mongoDB";
+import { connectDatabase } from "./config/database/mongoConfig";
 import errorHandler from "./middleware/errorHandler";
 import userRoutes from "./routes/user/userRoutes";
 import orderRoutes from "./routes/order/orderRoutes";

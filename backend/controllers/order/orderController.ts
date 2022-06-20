@@ -23,25 +23,7 @@ export const createOrder = async (
 	next: NextFunction
 ) => {
 	try {
-		console.log(req.user);
-		const test = [
-			{
-				id: "1",
-				name: "1",
-				quantity: 2,
-				image: "1",
-				price: "1",
-			},
-			{
-				id: "1",
-				name: "1",
-				quantity: 2,
-				image: "1",
-				price: "1",
-			},
-		];
-
-		const createdOrder = await OrderModel.create({
+		const test = {
 			user: req.user.id,
 			customerName: req.user.name,
 			shippingAddress: {
@@ -50,14 +32,31 @@ export const createOrder = async (
 				country: "1",
 				postalCode: "1",
 			},
-			purchasedItems: test,
+			purchasedItems: [
+				{
+					id: "1",
+					name: "1",
+					quantity: 2,
+					image: "1",
+					price: "1",
+				},
+				{
+					id: "1",
+					name: "1",
+					quantity: 2,
+					image: "1",
+					price: "1",
+				},
+			],
 			paymentDetails: {
 				paymentType: "1",
 				cardNumber: "1",
 				totalCost: 23,
 				datePurchased: "1",
 			},
-		});
+		};
+
+		const createdOrder = await OrderModel.create(test);
 
 		res.status(200).json(createdOrder);
 	} catch (error) {

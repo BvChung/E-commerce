@@ -8,6 +8,7 @@ import {
 } from "../../controllers/order/orderController";
 
 const router: IRouter = express.Router();
+
 router.route("/").get(verifyJWT, getOrder).post(verifyJWT, createOrder);
 router.route("/:id").delete(verifyJWT, deleteOrder);
 
