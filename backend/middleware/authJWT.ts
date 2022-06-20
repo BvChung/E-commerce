@@ -1,6 +1,7 @@
 import { Request, Response, NextFunction } from "express";
 import jwt from "jsonwebtoken";
 import UserModel from "../models/userModel";
+import { DecodedToken } from "../types/types";
 
 const verifyJWT = async (req: Request, res: Response, next: NextFunction) => {
 	try {
@@ -17,9 +18,11 @@ const verifyJWT = async (req: Request, res: Response, next: NextFunction) => {
 		const token = req.headers.authorization.split(" ")[1];
 
 		// Verify token
-		const decodedToken = jwt.verify(token, process.env.JWT_ACCESS_SECRET!);
+		const decodedToken = jwt.verify(
+			token,
+			process.env.JWT_ACCESS_SECRET!
+		) as DecodedToken;
 
-		///@ts-ignore
 		req.user = await UserModel.findById(decodedToken.id).select("-password");
 	} catch (error) {
 		res.status(403);

@@ -2,6 +2,7 @@ import { Request, Response, NextFunction } from "express";
 import UserModel from "../../models/userModel";
 import jwt from "jsonwebtoken";
 import { generateAccessToken } from "../../helper/JWTGeneration";
+import { DecodedToken } from "../../types/types";
 
 const handleRefreshToken = async (
 	req: Request,
@@ -22,14 +23,12 @@ const handleRefreshToken = async (
 		const decodedToken = jwt.verify(
 			refreshToken,
 			process.env.JWT_REFRESH_SECRET!
-		);
+		) as DecodedToken;
 
-		///@ts-ignore
 		const accessToken = generateAccessToken(decodedToken.id);
 
 		return res.json(accessToken);
 	} catch (error) {
-		res.status(403);
 		next(error);
 	}
 };
