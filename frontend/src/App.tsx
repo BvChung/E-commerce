@@ -6,7 +6,7 @@ import { Routes, Route, Outlet } from "react-router-dom";
 
 function App() {
 	return (
-		<div className="App ">
+		<div className="h-screen w-screen" data-theme="light">
 			<Nav />
 			<Routes>
 				<Route path="/" element={<Outlet />}>

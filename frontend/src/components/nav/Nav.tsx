@@ -36,7 +36,7 @@ const Nav = () => {
 			</div>
 			<div className="p-4">
 				<Link to="/products">
-					<span className="font-semibold text-gray-700 text-lg">Shop</span>
+					<span className="font-semibold  dark:text-white text-lg">Shop</span>
 				</Link>
 			</div>
 			<div className="p-4">
