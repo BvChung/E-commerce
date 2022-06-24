@@ -29,6 +29,7 @@ const handleRefreshToken = async (
 
 		return res.json(accessToken);
 	} catch (error) {
+		res.status(403);
 		next(error);
 	}
 };

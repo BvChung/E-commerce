@@ -3,9 +3,9 @@ import { Schema, model } from "mongoose";
 interface Product {
 	productName: string;
 	description: string;
+	price: number;
 	image: string;
 	imageCloudId: string;
-	price: number;
 }
 
 const productSchema = new Schema<Product>(
@@ -21,6 +21,10 @@ const productSchema = new Schema<Product>(
 			unique: true,
 			default: "",
 		},
+		price: {
+			type: Number,
+			required: [true, "Product price is required"],
+		},
 		image: {
 			type: String,
 			required: [true, "Product image is required"],
@@ -30,10 +34,6 @@ const productSchema = new Schema<Product>(
 			type: String,
 			required: [true, "Product image is required"],
 			default: "",
-		},
-		price: {
-			type: Number,
-			required: [true, "Product price is required"],
 		},
 	},
 	{

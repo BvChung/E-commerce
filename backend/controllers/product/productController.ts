@@ -47,6 +47,42 @@ export const createProduct = async (
 	}
 };
 
+export const updateProduct = async (
+	req: Request,
+	res: Response,
+	next: NextFunction
+) => {
+	try {
+		const foundProduct = await ProductModel.findById(req.params.id);
+		const { productName, description, price, image, imageCloudId } = req.body;
+		// const uploadedImage = await cloudinary.uploader.upload(req.body.content, {
+		// 	upload_preset: process.env.CLOUDINARY_AVATAR_UPLOAD,
+		// 	public_id: req.file.originalname,
+		// });
+
+		const updatedProduct = await ProductModel.findByIdAndUpdate(
+			req.params.id,
+			{
+				productName: productName ? productName : foundProduct?.productName,
+				description: description ? description : foundProduct?.description,
+				price: price ? price : foundProduct?.price,
+				image: image ? image : foundProduct?.image,
+				imageCloudId: imageCloudId ? imageCloudId : foundProduct?.imageCloudId,
+				// image: uploadedImage.secure_url,
+				// imageCloudId: uploadedImage.public_id,
+			},
+			{
+				new: true,
+			}
+		);
+
+		res.status(200).json(updatedProduct);
+	} catch (error) {
+		res.status(400);
+		next(error);
+	}
+};
+
 export const deleteProduct = async (
 	req: Request,
 	res: Response,
