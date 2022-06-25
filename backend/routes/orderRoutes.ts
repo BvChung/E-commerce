@@ -1,11 +1,11 @@
 import express, { IRouter } from "express";
-import verifyJWT from "../../middleware/authJWT";
-import validateRequest from "../../middleware/validateReq";
+import verifyJWT from "../middleware/authJWT";
+import validateRequest from "../middleware/validateReq";
 import {
 	getOrder,
 	createOrder,
 	deleteOrder,
-} from "../../controllers/order/orderController";
+} from "../controllers/orderController";
 
 const router: IRouter = express.Router();
 

@@ -1,8 +1,8 @@
 import { Request, Response, NextFunction } from "express";
-import UserModel from "../../models/userModel";
+import UserModel from "../models/userModel";
 import jwt from "jsonwebtoken";
-import { generateAccessToken } from "../../helper/JWTGeneration";
-import { DecodedToken } from "../../types/types";
+import { generateAccessToken } from "../helper/JWTGeneration";
+import { DecodedToken } from "../types/types";
 
 const handleRefreshToken = async (
 	req: Request,
