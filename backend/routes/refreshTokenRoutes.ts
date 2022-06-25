@@ -1,5 +1,5 @@
 import express, { IRouter } from "express";
-import handleRefreshToken from "../../controllers/refreshToken/refreshTokenController";
+import handleRefreshToken from "../controllers/refreshTokenController";
 
 const router: IRouter = express.Router();
 

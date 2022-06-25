@@ -3,9 +3,9 @@ import {
 	loginUser,
 	registerUser,
 	logoutUser,
-} from "../../controllers/user/userController";
-import { registerUserSchema, loginUserSchema } from "../../schemas/userSchema";
-import validateRequest from "../../middleware/validateReq";
+} from "../controllers/user/userController";
+import { registerUserSchema, loginUserSchema } from "../schemas/userSchema";
+import validateRequest from "../middleware/validateReq";
 
 const router: IRouter = express.Router();
 
