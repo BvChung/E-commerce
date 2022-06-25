@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from "express";
-import ProductModel from "../../models/productModel";
-import global from "../../types/types";
+import ProductModel from "../models/productModel";
+import global from "../types/types";
 import { v2 as cloudinary } from "cloudinary";
 
 export const getProduct = async (
