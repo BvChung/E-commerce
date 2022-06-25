@@ -4,12 +4,12 @@ import cors from "cors";
 import cookieParser from "cookie-parser";
 import express, { Express } from "express";
 import "colors";
-import { connectDatabase } from "./config/database/mongoConfig";
+import { connectDatabase } from "./config/mongoConfig";
 import errorHandler from "./middleware/errorHandler";
-import userRoutes from "./routes/user/userRoutes";
-import orderRoutes from "./routes/order/orderRoutes";
-import productRoutes from "./routes/product/productRoutes";
-import refreshTokenRoutes from "./routes/refreshToken/refreshTokenRoutes";
+import userRoutes from "./routes/userRoutes";
+import orderRoutes from "./routes/orderRoutes";
+import productRoutes from "./routes/productRoutes";
+import refreshTokenRoutes from "./routes/refreshTokenRoutes";
 
 dotenv.config();
 const port = process.env.PORT || 3001;
