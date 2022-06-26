@@ -1,9 +1,10 @@
 import { Request, Response, NextFunction } from "express";
 import OrderModel from "../models/orderModel";
 import global from "../types/types";
+import { orderInput } from "../schemas/orderSchema";
 
 export const getOrder = async (
-	req: Request,
+	req: Request<orderInput["params"], {}, {}>,
 	res: Response,
 	next: NextFunction
 ) => {
@@ -18,42 +19,19 @@ export const getOrder = async (
 };
 
 export const createOrder = async (
-	req: Request,
+	req: Request<{}, {}, orderInput["body"]>,
 	res: Response,
 	next: NextFunction
 ) => {
 	try {
+		const { shippingAddress, purchasedItems, paymentDetails } = req.body;
+
 		const test = {
 			user: req.user.id,
 			customerName: req.user.name,
-			shippingAddress: {
-				address: "1",
-				city: "1",
-				country: "1",
-				postalCode: "1",
-			},
-			purchasedItems: [
-				{
-					id: "1",
-					name: "1",
-					quantity: 2,
-					image: "1",
-					price: "1",
-				},
-				{
-					id: "1",
-					name: "1",
-					quantity: 2,
-					image: "1",
-					price: "1",
-				},
-			],
-			paymentDetails: {
-				paymentType: "1",
-				cardNumber: "1",
-				totalCost: 23,
-				datePurchased: "1",
-			},
+			shippingAddress,
+			purchasedItems,
+			paymentDetails,
 		};
 
 		const createdOrder = await OrderModel.create(test);
@@ -66,7 +44,7 @@ export const createOrder = async (
 };
 
 export const deleteOrder = async (
-	req: Request,
+	req: Request<orderInput["params"], {}, {}>,
 	res: Response,
 	next: NextFunction
 ) => {

@@ -5,7 +5,7 @@ interface Order {
 	customerName: string;
 	purchasedItems: [
 		{
-			id: Schema.Types.ObjectId;
+			productId: Schema.Types.ObjectId;
 			name: string;
 			quantity: number;
 			image: string;
@@ -45,15 +45,11 @@ const orderSchema = new Schema<Order>(
 		},
 		purchasedItems: [
 			{
-				id: {
-					type: String,
+				productId: {
+					type: Schema.Types.ObjectId,
 					required: true,
+					ref: "Product",
 				},
-				// id: {
-				// 	type: Schema.Types.ObjectId,
-				// 	required: true,
-				// 	ref: "Product",
-				// },
 				name: { type: String, required: true, ref: "Product" },
 				quantity: { type: Number, required: true },
 				image: { type: String, required: true, ref: "Product" },

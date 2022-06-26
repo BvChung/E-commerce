@@ -6,10 +6,14 @@ import {
 	createOrder,
 	deleteOrder,
 } from "../controllers/orderController";
+import { orderSchema } from "../schemas/orderSchema";
 
 const router: IRouter = express.Router();
 
-router.route("/").get(verifyJWT, getOrder).post(verifyJWT, createOrder);
+router
+	.route("/")
+	.get(verifyJWT, getOrder)
+	.post([verifyJWT, validateRequest(orderSchema)], createOrder);
 router.route("/:id").delete(verifyJWT, deleteOrder);
 
 export default router;
