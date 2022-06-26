@@ -2,6 +2,7 @@ import { Request, Response, NextFunction } from "express";
 import ProductModel from "../models/productModel";
 import global from "../types/types";
 import { v2 as cloudinary } from "cloudinary";
+import { productInput } from "../schemas/productSchema";
 
 export const getProduct = async (
 	req: Request,
@@ -19,21 +20,22 @@ export const getProduct = async (
 };
 
 export const createProduct = async (
-	req: Request,
+	req: Request<{}, {}, productInput["body"]>,
 	res: Response,
 	next: NextFunction
 ) => {
 	try {
+		const { name, description, price, image, imageCloudId } = req.body;
 		// const uploadedImage = await cloudinary.uploader.upload(req.body.content, {
 		// 	upload_preset: process.env.CLOUDINARY_AVATAR_UPLOAD,
 		// 	public_id: req.file.originalname,
 		// });
 		const test = {
-			productName: "test",
-			description: "test",
-			image: "test",
-			imageCloudId: "test",
-			price: 100,
+			name,
+			description,
+			image,
+			imageCloudId,
+			price,
 			//image: uploadedImage.secure_url,
 			// imageCloudId: uploadedImage.public_id,
 		};
@@ -48,13 +50,13 @@ export const createProduct = async (
 };
 
 export const updateProduct = async (
-	req: Request,
+	req: Request<productInput["params"], {}, productInput["body"]>,
 	res: Response,
 	next: NextFunction
 ) => {
 	try {
 		const foundProduct = await ProductModel.findById(req.params.id);
-		const { productName, description, price, image, imageCloudId } = req.body;
+		const { name, description, price, image, imageCloudId } = req.body;
 		// const uploadedImage = await cloudinary.uploader.upload(req.body.content, {
 		// 	upload_preset: process.env.CLOUDINARY_AVATAR_UPLOAD,
 		// 	public_id: req.file.originalname,
@@ -63,7 +65,7 @@ export const updateProduct = async (
 		const updatedProduct = await ProductModel.findByIdAndUpdate(
 			req.params.id,
 			{
-				productName: productName ? productName : foundProduct?.productName,
+				name: name ? name : foundProduct?.name,
 				description: description ? description : foundProduct?.description,
 				price: price ? price : foundProduct?.price,
 				image: image ? image : foundProduct?.image,
@@ -84,7 +86,7 @@ export const updateProduct = async (
 };
 
 export const deleteProduct = async (
-	req: Request,
+	req: Request<productInput["params"], {}, {}>,
 	res: Response,
 	next: NextFunction
 ) => {

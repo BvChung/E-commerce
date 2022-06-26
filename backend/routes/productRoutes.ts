@@ -5,12 +5,20 @@ import convertFile from "../middleware/convertFile";
 import {
 	getProduct,
 	createProduct,
+	updateProduct,
 	deleteProduct,
 } from "../controllers/productController";
+import { productSchema } from "../schemas/productSchema";
 
 const router: IRouter = express.Router();
 
-router.route("/").get(verifyJWT, getProduct).post(verifyJWT, createProduct);
-router.route("/:id").delete(verifyJWT, deleteProduct);
+router
+	.route("/")
+	.get(verifyJWT, getProduct)
+	.post([verifyJWT, validateRequest(productSchema)], createProduct);
+router
+	.route("/:id")
+	.put(verifyJWT, updateProduct)
+	.delete(verifyJWT, deleteProduct);
 
 export default router;
