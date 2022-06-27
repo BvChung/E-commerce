@@ -5,6 +5,7 @@ import {
 	generateAccessToken,
 	generateRefreshToken,
 } from "../../helper/JWTGeneration";
+import global from "../../types/types";
 import { registerUserInput, loginUserInput } from "../../schemas/userSchema";
 
 // For schema data:

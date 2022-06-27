@@ -23,7 +23,7 @@ const verifyJWT = async (req: Request, res: Response, next: NextFunction) => {
 			process.env.JWT_ACCESS_SECRET!
 		) as DecodedToken;
 
-		req.user = await UserModel.findById(decodedToken.id).select("-password");
+		req.user = await UserModel.findById(decodedToken.id);
 	} catch (error) {
 		res.status(403);
 		next(error);
