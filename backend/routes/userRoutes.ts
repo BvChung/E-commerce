@@ -11,6 +11,6 @@ const router: IRouter = express.Router();
 
 router.post("/login", validateRequest(loginUserSchema), loginUser);
 router.post("/register", validateRequest(registerUserSchema), registerUser);
-router.put("/logout", logoutUser);
+router.post("/logout", logoutUser);
 
 export default router;

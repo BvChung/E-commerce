@@ -12,8 +12,6 @@ const handleRefreshToken = async (
 	try {
 		const cookies = req.cookies;
 
-		if (!cookies?.jwt) return res.sendStatus(401);
-
 		const refreshToken = cookies.jwt;
 
 		const foundUser = await UserModel.findOne({ refreshToken: refreshToken });

@@ -18,7 +18,7 @@ router
 	.post([verifyJWT, validateRequest(productSchema)], createProduct);
 router
 	.route("/:id")
-	.put(verifyJWT, updateProduct)
+	.patch(verifyJWT, updateProduct)
 	.delete(verifyJWT, deleteProduct);
 
 export default router;
