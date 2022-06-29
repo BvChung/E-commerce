@@ -11,6 +11,6 @@ export const registerUser = async () => {
 };
 
 export const logoutUser = async () => {
-	const response = await eCommerceApiPublic.put("/api/logout");
+	const response = await eCommerceApiPublic.post("/api/logout");
 	return response.data;
 };

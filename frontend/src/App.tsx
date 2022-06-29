@@ -1,5 +1,7 @@
 import React from "react";
 import Nav from "./components/nav/Nav";
+import Login from "./components/account/Login";
+import Register from "./components/account/Register";
 import "./App.css";
 import Home from "./components/home/Home";
 import { Routes, Route, Outlet } from "react-router-dom";
@@ -25,8 +27,8 @@ function App() {
 					</Route>
 				</Route>
 
-				<Route path="/login" element={<p>login</p>} />
-				<Route path="/register" element={<p>register</p>} />
+				<Route path="/login" element={<Login />} />
+				<Route path="/register" element={<Register />} />
 
 				{/* <Route path="/products" element={<Outlet />}>
 					<Route path=":id" element={<p>product id</p>} />

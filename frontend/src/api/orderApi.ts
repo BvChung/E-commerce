@@ -9,12 +9,12 @@ export const getOrders = async () => {
 	return response.data;
 };
 
-export const updateOrders = async (orders: Orders) => {
-	const response = await eCommerceApiPrivate.get(`/api/orders/${orders.id}`);
+export const createOrder = async () => {
+	const response = await eCommerceApiPrivate.post("/api/orders/");
 	return response.data;
 };
 
-export const deleteOrders = async (orders: Orders) => {
-	const response = await eCommerceApiPrivate.get(`/api/orders/${orders.id}`);
+export const deleteOrder = async (orders: Orders) => {
+	const response = await eCommerceApiPrivate.delete(`/api/orders/${orders.id}`);
 	return response.data;
 };
