@@ -1,20 +1,16 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-
-interface Credentials {
-	firstName: string;
-	lastName: string;
-	email: string;
-	password: string;
-}
+import { RegisterCredentials } from "../../interfaces/user";
+import { registerUser } from "../../api/userApi";
 
 export default function Register() {
-	const [loginCredentials, setLoginCredentials] = useState<Credentials>({
-		firstName: "",
-		lastName: "",
-		email: "",
-		password: "",
-	});
+	const [loginCredentials, setLoginCredentials] = useState<RegisterCredentials>(
+		{
+			name: "",
+			email: "",
+			password: "",
+		}
+	);
 	const [showPassword, setShowPassword] = useState<boolean>(false);
 
 	function handleInput(e: React.ChangeEvent<HTMLInputElement>) {
@@ -34,32 +30,19 @@ export default function Register() {
 			<p>Register</p>
 			<div>
 				<div className="form-control w-full max-w-xs">
-					<div className="flex">
-						<label className="label">
-							<span className="label-text-alt">First name</span>
-						</label>
-						<input
-							type="text"
-							name="firstName"
-							value={loginCredentials.firstName}
-							placeholder="Type here"
-							className="input input-bordered rounded-md w-full max-w-xs"
-							onChange={handleInput}
-							required={true}
-						/>
-						<label className="label">
-							<span className="label-text-alt">Last name</span>
-						</label>
-						<input
-							type="text"
-							name="lastName"
-							value={loginCredentials.lastName}
-							placeholder="Type here"
-							className="input input-bordered w-full max-w-xs"
-							onChange={handleInput}
-							required={true}
-						/>
-					</div>
+					<label className="label">
+						<span className="label-text-alt">Name</span>
+					</label>
+					<input
+						type="text"
+						name="name"
+						value={loginCredentials.name}
+						placeholder="First and last name"
+						className="input input-bordered w-full max-w-xs"
+						onChange={handleInput}
+						required={true}
+					/>
+
 					<label className="label">
 						<span className="label-text-alt">Email</span>
 					</label>
@@ -67,7 +50,6 @@ export default function Register() {
 						type="text"
 						name="email"
 						value={loginCredentials.email}
-						placeholder="Type here"
 						className="input input-bordered rounded-md w-full max-w-xs"
 						onChange={handleInput}
 						required={true}
@@ -79,7 +61,7 @@ export default function Register() {
 						type={showPassword ? "text" : "password"}
 						name="password"
 						value={loginCredentials.password}
-						placeholder="Type here"
+						placeholder="At least 6 characters"
 						className="input input-bordered w-full max-w-xs"
 						onChange={handleInput}
 						required={true}
@@ -99,9 +81,9 @@ export default function Register() {
 				<button className="btn">Register</button>
 			</div>
 			<div className="flex justify-center items-center gap-2 px-8">
-				<span className="dark:text-slate-300">New to GroupCord?</span>
+				<span className="dark:text-slate-300">Already have an account?</span>
 				<span className="font-semibold text-sky-600 hover:text-sky-500">
-					<Link to="/login">Login</Link>
+					<Link to="/login">Sign-In</Link>
 				</span>
 			</div>
 		</div>

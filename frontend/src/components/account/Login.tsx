@@ -1,14 +1,17 @@
 import React, { useState } from "react";
+import {
+	useQuery,
+	useMutation,
+	useQueryClient,
+	UseQueryResult,
+} from "react-query";
 import { useNavigate, Link } from "react-router-dom";
-
-interface Credentials {
-	email: string;
-	password: string;
-}
+import { LoginCredentials, UserInfo } from "../../interfaces/user";
+import { loginUser } from "../../api/userApi";
 
 export default function Login() {
 	const navigate = useNavigate();
-	const [loginCredentials, setLoginCredentials] = useState<Credentials>({
+	const [loginCredentials, setLoginCredentials] = useState<LoginCredentials>({
 		email: "",
 		password: "",
 	});
@@ -25,10 +28,16 @@ export default function Login() {
 		});
 	}
 
+	const { status, error, data }: UseQueryResult<UserInfo, Error> = useQuery<
+		UserInfo,
+		Error
+	>("user", loginUser(loginCredentials));
+
 	function handleSubmit(e: React.MouseEvent<HTMLButtonElement>) {
 		e.preventDefault();
 
 		console.log(loginCredentials);
+		//loginUser(loginCredentials)
 	}
 
 	return (
@@ -43,7 +52,6 @@ export default function Login() {
 						type="text"
 						name="email"
 						value={loginCredentials.email}
-						placeholder="Type here"
 						className="input input-bordered rounded-md w-full max-w-xs"
 						onChange={handleInput}
 						required={true}
@@ -55,7 +63,6 @@ export default function Login() {
 						type={showPassword ? "text" : "password"}
 						name="password"
 						value={loginCredentials.password}
-						placeholder="Type here"
 						className="input input-bordered w-full max-w-xs"
 						onChange={handleInput}
 						required={true}

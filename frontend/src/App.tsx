@@ -4,6 +4,7 @@ import Login from "./components/account/Login";
 import Register from "./components/account/Register";
 import "./App.css";
 import Home from "./components/home/Home";
+import Footer from "./components/footer/Footer";
 import { Routes, Route, Outlet } from "react-router-dom";
 
 function App() {
@@ -36,6 +37,7 @@ function App() {
 				</Route> */}
 				<Route path="*" element={<p>Not Found</p>} />
 			</Routes>
+			<Footer />
 		</div>
 	);
 }
