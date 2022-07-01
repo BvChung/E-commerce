@@ -7,10 +7,12 @@ import {
 } from "react-query";
 import { useNavigate, Link } from "react-router-dom";
 import { LoginCredentials, UserInfo } from "../../interfaces/user";
-import { loginUser } from "../../api/userApi";
+import { useSignInUser } from "../../hooks/useSignInUser";
 
 export default function Login() {
 	const navigate = useNavigate();
+	const signInMutation = useSignInUser();
+
 	const [loginCredentials, setLoginCredentials] = useState<LoginCredentials>({
 		email: "",
 		password: "",
@@ -28,22 +30,17 @@ export default function Login() {
 		});
 	}
 
-	const { status, error, data }: UseQueryResult<UserInfo, Error> = useQuery<
-		UserInfo,
-		Error
-	>("user", loginUser(loginCredentials));
-
-	function handleSubmit(e: React.MouseEvent<HTMLButtonElement>) {
+	function handleSubmit(e: React.FormEvent<HTMLButtonElement>) {
 		e.preventDefault();
 
 		console.log(loginCredentials);
-		//loginUser(loginCredentials)
+		signInMutation.mutate(loginCredentials);
 	}
 
 	return (
 		<div className="flex flex-col items-center justify-center">
 			<p>Login</p>
-			<div>
+			<form>
 				<div className="form-control w-full max-w-xs">
 					<label className="label">
 						<span className="label-text-alt">Email</span>
@@ -82,7 +79,7 @@ export default function Login() {
 				<button className="btn" onClick={handleSubmit}>
 					Login
 				</button>
-			</div>
+			</form>
 			<div className="flex justify-center items-center gap-2 ">
 				<span className="">New to GroupCord?</span>
 				<span className="font-semibold ">

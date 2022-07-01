@@ -6,6 +6,7 @@ import "./App.css";
 import Home from "./components/home/Home";
 import Footer from "./components/footer/Footer";
 import { Routes, Route, Outlet } from "react-router-dom";
+import { ToastContainer, Slide } from "react-toastify";
 
 function App() {
 	return (
@@ -38,6 +39,12 @@ function App() {
 				<Route path="*" element={<p>Not Found</p>} />
 			</Routes>
 			<Footer />
+			<ToastContainer
+				limit={1}
+				autoClose={1500}
+				transition={Slide}
+				// theme={darkMode ? "dark" : "light"}
+			/>
 		</div>
 	);
 }
