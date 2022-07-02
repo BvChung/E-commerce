@@ -1,10 +1,8 @@
-import { object, string, TypeOf, number } from "zod";
+import { object, string, TypeOf, number, optional } from "zod";
 
 export const productSchema = object({
 	params: object({
-		id: string({
-			required_error: "Params id is required.",
-		}),
+		id: string().optional(),
 	}),
 	body: object({
 		name: string({

@@ -14,7 +14,7 @@ const router: IRouter = express.Router();
 
 router
 	.route("/")
-	.get(verifyJWT, getProduct)
+	.get(getProduct)
 	.post([verifyJWT, validateRequest(productSchema)], createProduct);
 router
 	.route("/:id")
