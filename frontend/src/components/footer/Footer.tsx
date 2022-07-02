@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 export default function Footer() {
 	return (
-		<footer className="footer absolute bottom-0 p-10">
+		<footer className="footer p-10">
 			<div>
 				<span className="footer-title">Services</span>
 				<a href="/" className="link link-hover">

@@ -2,9 +2,7 @@ import { object, string, array, TypeOf, number } from "zod";
 
 export const orderSchema = object({
 	params: object({
-		id: string({
-			required_error: "Params id is required.",
-		}),
+		id: string().optional(),
 	}),
 	body: object({
 		shippingAddress: object({

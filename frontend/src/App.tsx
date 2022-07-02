@@ -4,13 +4,15 @@ import Login from "./components/account/Login";
 import Register from "./components/account/Register";
 import "./App.css";
 import Home from "./components/home/Home";
+import ProductPage from "./components/products/ProductPage";
 import Footer from "./components/footer/Footer";
 import { Routes, Route, Outlet } from "react-router-dom";
 import { ToastContainer, Slide } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function App() {
 	return (
-		<div className="h-screen w-screen" data-theme="light">
+		<div className="h-screen w-screen overflow-auto" data-theme="light">
 			<Nav />
 			<Routes>
 				<Route path="/" element={<Outlet />}>
@@ -19,7 +21,7 @@ function App() {
 					<Route path="cart" element={<p>cart</p>} />
 
 					<Route path="products" element={<Outlet />}>
-						<Route index element={<div>home products</div>} />
+						<Route index element={<ProductPage />} />
 						<Route path=":id" element={<p>product id</p>} />
 					</Route>
 
@@ -39,12 +41,7 @@ function App() {
 				<Route path="*" element={<p>Not Found</p>} />
 			</Routes>
 			<Footer />
-			<ToastContainer
-				limit={1}
-				autoClose={1500}
-				transition={Slide}
-				// theme={darkMode ? "dark" : "light"}
-			/>
+			<ToastContainer limit={1} autoClose={1500} transition={Slide} />
 		</div>
 	);
 }
