@@ -6,12 +6,14 @@ import {
 	UseQueryResult,
 } from "react-query";
 import { useNavigate, Link } from "react-router-dom";
-import { LoginCredentials, UserInfo } from "../../interfaces/user";
-import { useSignInUser } from "../../hooks/useSignInUser";
+import { LoginCredentials, UserInfo } from "../../interfaces/userInterface";
+import { useLoginUser, useLogin } from "../../hooks/user/useLoginUser";
+import { ReactQueryDevtools } from "react-query/types/devtools";
+import { toast } from "react-toastify";
 
 export default function Login() {
 	const navigate = useNavigate();
-	const signInMutation = useSignInUser();
+	const signInMutation = useLoginUser();
 
 	const [loginCredentials, setLoginCredentials] = useState<LoginCredentials>({
 		email: "",
@@ -19,7 +21,7 @@ export default function Login() {
 	});
 	const [showPassword, setShowPassword] = useState<boolean>(false);
 
-	function handleInput(e: React.ChangeEvent<HTMLInputElement>) {
+	function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
 		const { name, value } = e.target;
 
 		setLoginCredentials((prev) => {
@@ -30,17 +32,18 @@ export default function Login() {
 		});
 	}
 
-	function handleSubmit(e: React.FormEvent<HTMLButtonElement>) {
+	function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
 		e.preventDefault();
 
 		console.log(loginCredentials);
+
 		signInMutation.mutate(loginCredentials);
 	}
 
 	return (
 		<div className="flex flex-col items-center justify-center">
 			<p>Login</p>
-			<form>
+			<form onSubmit={handleSubmit}>
 				<div className="form-control w-full max-w-xs">
 					<label className="label">
 						<span className="label-text-alt">Email</span>
@@ -50,7 +53,7 @@ export default function Login() {
 						name="email"
 						value={loginCredentials.email}
 						className="input input-bordered rounded-md w-full max-w-xs"
-						onChange={handleInput}
+						onChange={handleChange}
 						required={true}
 					/>
 					<label className="label">
@@ -61,7 +64,7 @@ export default function Login() {
 						name="password"
 						value={loginCredentials.password}
 						className="input input-bordered w-full max-w-xs"
-						onChange={handleInput}
+						onChange={handleChange}
 						required={true}
 					/>
 					<label className="label cursor-pointer">
@@ -76,9 +79,7 @@ export default function Login() {
 					</label>
 				</div>
 
-				<button className="btn" onClick={handleSubmit}>
-					Login
-				</button>
+				<button className="btn">Login</button>
 			</form>
 			<div className="flex justify-center items-center gap-2 ">
 				<span className="">New to GroupCord?</span>

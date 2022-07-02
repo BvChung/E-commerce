@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { RegisterCredentials } from "../../interfaces/user";
+import { RegisterCredentials } from "../../interfaces/userInterface";
 import { registerUser } from "../../api/userApi";
 
 export default function Register() {

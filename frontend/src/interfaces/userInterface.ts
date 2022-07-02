@@ -10,6 +10,7 @@ export interface RegisterCredentials {
 }
 
 export interface UserInfo {
+	_id: string;
 	name: string;
 	email: string;
 	password: string;
