@@ -1,4 +1,5 @@
-import axios from "axios";
+import axios, { AxiosRequestConfig } from "axios";
+import { storage } from "../helper/helperFunc";
 
 export const eCommerceApiPublic = axios.create({
 	baseURL: process.env.REACT_APP_API_URL,
@@ -11,17 +12,17 @@ export const eCommerceApiPrivate = axios.create({
 	withCredentials: true,
 });
 
-// eCommerceApiPrivate.interceptors.request.use(
-// 	(config) => {
-// 		const { accessToken } = store?.getState()?.auth?.user;
+eCommerceApiPrivate.interceptors.request.use(
+	(config: AxiosRequestConfig) => {
+		const accessToken = storage.getToken();
+		console.log(accessToken);
 
-// 		if (!config.headers["Authorization"]) {
-// 			config.headers["Authorization"] = `Bearer ${accessToken}`;
-// 		}
-// 		return config;
-// 	},
-// 	(err) => Promise.reject(err)
-// );
+		config.headers!.Authorization = `Bearer ${accessToken}`;
+
+		return config;
+	},
+	(err) => Promise.reject(err)
+);
 
 // // 1) Access token expired => returns 403
 // // 2) Refresh JWT http cookie => dispatches to return a new access token

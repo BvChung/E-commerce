@@ -1,8 +1,9 @@
-import { eCommerceApiPublic } from "./axios";
+import { eCommerceApiPublic, eCommerceApiPrivate } from "./axios";
 import {
 	LoginCredentials,
 	RegisterCredentials,
 } from "../interfaces/userInterface";
+import { storage } from "../helper/helperFunc";
 
 export const loginUser = async (credentials: LoginCredentials) => {
 	const response = await eCommerceApiPublic.post(
@@ -10,7 +11,8 @@ export const loginUser = async (credentials: LoginCredentials) => {
 		credentials
 	);
 
-	console.log(response.data);
+	storage.setToken(response.data.accessToken);
+
 	return response.data;
 };
 
@@ -19,6 +21,12 @@ export const registerUser = async (credentials: RegisterCredentials) => {
 		"/api/users/register",
 		credentials
 	);
+	return response.data;
+};
+
+export const getUser = async () => {
+	const response = await eCommerceApiPrivate.get("/api/users/me");
+
 	return response.data;
 };
 

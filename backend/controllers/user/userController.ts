@@ -7,6 +7,7 @@ import {
 } from "../../helper/JWTGeneration";
 import global from "../../types/types";
 import { registerUserInput, loginUserInput } from "../../schemas/userSchema";
+import { isConstructorDeclaration } from "typescript";
 
 // For schema data:
 // ._id => new ObjectId("6278dd9dadc7cdbc6f7ec28c")
@@ -50,9 +51,6 @@ const loginUser = async (
 					maxAge: 24 * 60 * 60 * 1000,
 				})
 				.json({
-					_id: foundUser.id,
-					name: foundUser.name,
-					email: foundUser.email,
 					accessToken: generateAccessToken(foundUser._id),
 				});
 		} else {
@@ -122,9 +120,6 @@ const registerUser = async (
 					maxAge: 24 * 60 * 60 * 1000,
 				})
 				.json({
-					_id: user.id,
-					name: user.name,
-					email: user.email,
 					accessToken: generateAccessToken(user._id),
 				});
 		} else {
@@ -132,6 +127,24 @@ const registerUser = async (
 			throw new Error("Invalid user data");
 		}
 	} catch (error: any) {
+		next(error);
+	}
+};
+
+// @desc Get user
+// @route GET /api/user/me
+// @access Private
+const getUser = async (req: Request, res: Response, next: NextFunction) => {
+	try {
+		console.log(req.user);
+
+		res.status(200).json({
+			_id: req.user.id,
+			name: req.user.name,
+			email: req.user.email,
+		});
+	} catch (error) {
+		res.status(404);
 		next(error);
 	}
 };
@@ -185,4 +198,4 @@ const logoutUser = async (req: Request, res: Response, next: NextFunction) => {
 	}
 };
 
-export { loginUser, registerUser, logoutUser };
+export { loginUser, registerUser, getUser, logoutUser };
