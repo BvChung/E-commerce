@@ -30,7 +30,8 @@ export const createProduct = async (
 		// 	upload_preset: process.env.CLOUDINARY_AVATAR_UPLOAD,
 		// 	public_id: req.file.originalname,
 		// });
-		const test = {
+
+		const createdProduct = await ProductModel.create({
 			name,
 			description,
 			image,
@@ -38,9 +39,7 @@ export const createProduct = async (
 			price,
 			//image: uploadedImage.secure_url,
 			// imageCloudId: uploadedImage.public_id,
-		};
-
-		const createdProduct = await ProductModel.create(test);
+		});
 
 		res.status(200).json(createdProduct);
 	} catch (error) {
