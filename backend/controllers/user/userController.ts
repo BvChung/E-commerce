@@ -51,6 +51,9 @@ const loginUser = async (
 					maxAge: 24 * 60 * 60 * 1000,
 				})
 				.json({
+					_id: foundUser.id,
+					name: foundUser.name,
+					email: foundUser.email,
 					accessToken: generateAccessToken(foundUser._id),
 				});
 		} else {
@@ -120,6 +123,9 @@ const registerUser = async (
 					maxAge: 24 * 60 * 60 * 1000,
 				})
 				.json({
+					_id: user.id,
+					name: user.name,
+					email: user.email,
 					accessToken: generateAccessToken(user._id),
 				});
 		} else {

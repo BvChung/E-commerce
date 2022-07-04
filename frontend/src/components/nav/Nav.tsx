@@ -1,14 +1,17 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { SearchIcon } from "@heroicons/react/solid";
+import { useAuth } from "../../hooks/auth/useAuth";
 
 const Nav = () => {
+	const navigate = useNavigate();
+	const { auth, setAuth } = useAuth();
 	const [searchText, setSearchText] = useState<string>("");
 	const [inputActive, setInputActive] = useState<boolean>(false);
 	const inputActiveStyle: string = inputActive ? "bg-white" : "bg-gray-100";
 
 	return (
-		<nav className="sticky flex items-center h-14 border-b-[1px] border-b-gray-200">
+		<nav className="sticky flex items-center justify-evenly h-14 border-b-[1px] border-b-gray-200">
 			<div className="w-auto p-4">
 				<Link to="/">
 					<span className="font-semibold text-lg">ModernfyDesign</span>
@@ -40,9 +43,21 @@ const Nav = () => {
 				</Link>
 			</div>
 			<div className="p-4">
-				<Link to="/login">
-					<span className="font-semibold text-gray-700 text-lg">User</span>
-				</Link>
+				{auth?.user ? (
+					<button
+						onClick={() => {
+							setAuth(null);
+							navigate("/login");
+						}}
+						className="btn"
+					>
+						Logout{" "}
+					</button>
+				) : (
+					<Link to="/login">
+						<span className="font-semibold text-gray-700 text-lg">User</span>
+					</Link>
+				)}
 			</div>
 		</nav>
 	);

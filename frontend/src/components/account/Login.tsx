@@ -1,19 +1,37 @@
-import React, { useState } from "react";
-import {
-	useQuery,
-	useMutation,
-	useQueryClient,
-	UseQueryResult,
-} from "react-query";
-import { useNavigate, Link } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { useNavigate, Link, useLocation } from "react-router-dom";
 import { LoginCredentials, UserInfo } from "../../interfaces/userInterface";
-import { useLoginUser, useLogin } from "../../hooks/user/useLoginUser";
-import { ReactQueryDevtools } from "react-query/types/devtools";
+import { useLoginUser } from "../../hooks/user/useLoginUser";
+import { useAuth } from "../../hooks/auth/useAuth";
 import { toast } from "react-toastify";
 
+interface CustomState {
+	pathname: string | null;
+	search: string | null;
+	hash: string | null;
+	state: {
+		from: {
+			hash: string;
+			key: string;
+			pathname: string;
+			search: string;
+			state: null | object;
+		};
+	};
+	key: string | null;
+}
+
+// 1@gmail.com
+// 123456
+
 export default function Login() {
+	const { setAuth } = useAuth();
+
 	const navigate = useNavigate();
-	const signInMutation = useLoginUser();
+	const location = useLocation() as CustomState;
+	const from = location.state?.from?.pathname || "/";
+
+	const { data, isSuccess, mutate } = useLoginUser();
 
 	const [loginCredentials, setLoginCredentials] = useState<LoginCredentials>({
 		email: "",
@@ -35,10 +53,20 @@ export default function Login() {
 	function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
 		e.preventDefault();
 
-		console.log(loginCredentials);
+		mutate(loginCredentials);
 
-		signInMutation.mutate(loginCredentials);
+		setLoginCredentials({
+			email: "",
+			password: "",
+		});
 	}
+
+	useEffect(() => {
+		if (isSuccess) {
+			setAuth({ user: data });
+			navigate(from, { replace: true });
+		}
+	}, [isSuccess, navigate, data, setAuth]);
 
 	return (
 		<div className="flex flex-col items-center justify-center">
@@ -80,6 +108,17 @@ export default function Login() {
 				</div>
 
 				<button className="btn">Login</button>
+				<button
+					onClick={() => {
+						setLoginCredentials({
+							email: process.env.REACT_APP_GUEST_EMAIL!,
+							password: process.env.REACT_APP_GUEST_PASSWORD!,
+						});
+					}}
+					className="btn"
+				>
+					Login as guest
+				</button>
 			</form>
 			<div className="flex justify-center items-center gap-2 ">
 				<span className="">New to GroupCord?</span>
