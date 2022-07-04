@@ -5,6 +5,7 @@ import App from "./App";
 import { BrowserRouter } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { ReactQueryDevtools } from "react-query/devtools";
+import { AuthProvider } from "./context/AuthProvider";
 
 const queryClient = new QueryClient();
 
@@ -16,8 +17,10 @@ root.render(
 	<React.StrictMode>
 		<QueryClientProvider client={queryClient}>
 			<BrowserRouter>
-				<App />
-				<ReactQueryDevtools initialIsOpen />
+				<AuthProvider>
+					<App />
+					<ReactQueryDevtools initialIsOpen />
+				</AuthProvider>
 			</BrowserRouter>
 		</QueryClientProvider>
 	</React.StrictMode>
