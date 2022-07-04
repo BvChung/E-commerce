@@ -3,15 +3,13 @@ import { Types, Schema, model } from "mongoose";
 interface Order {
 	user: Types.ObjectId;
 	customerName: string;
-	purchasedItems: [
-		{
-			productId: Schema.Types.ObjectId;
-			name: string;
-			quantity: number;
-			image: string;
-			price: number;
-		}
-	];
+	purchasedItems: {
+		productId: Schema.Types.ObjectId;
+		name: string;
+		quantity: number;
+		image: string;
+		price: number;
+	}[];
 	shippingAddress: {
 		address: string;
 		city: string;

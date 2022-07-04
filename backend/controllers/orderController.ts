@@ -26,15 +26,13 @@ export const createOrder = async (
 	try {
 		const { shippingAddress, purchasedItems, paymentDetails } = req.body;
 
-		const test = {
+		const createdOrder = await OrderModel.create({
 			user: req.user.id,
 			customerName: req.user.name,
 			shippingAddress,
 			purchasedItems,
 			paymentDetails,
-		};
-
-		const createdOrder = await OrderModel.create(test);
+		});
 
 		res.status(200).json(createdOrder);
 	} catch (error) {

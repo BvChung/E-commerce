@@ -3,14 +3,12 @@ export interface OrderInfo {
 	user: string;
 	customerName: string;
 	purchasedItems: {
-		[index: number]: {
-			productId: string;
-			name: string;
-			quantity: number;
-			image: string;
-			price: number;
-		};
-	};
+		productId: string;
+		name: string;
+		quantity: number;
+		image: string;
+		price: number;
+	}[];
 	shippingAddress: {
 		address: string;
 		city: string;
