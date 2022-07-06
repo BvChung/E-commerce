@@ -5,6 +5,7 @@ interface User {
 	email: string;
 	password: string;
 	refreshToken: string;
+	role: number;
 }
 
 const userSchema = new Schema<User>(
@@ -28,6 +29,10 @@ const userSchema = new Schema<User>(
 		refreshToken: {
 			type: String,
 			default: "",
+		},
+		role: {
+			type: Number,
+			default: 5050,
 		},
 	},
 	{

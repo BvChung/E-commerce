@@ -3,7 +3,7 @@ import {
 	LoginCredentials,
 	RegisterCredentials,
 } from "../interfaces/userInterface";
-import { storage } from "../helper/helperFunc";
+import { storage } from "../helper/tokenStorage";
 
 export const loginUser = async (credentials: LoginCredentials) => {
 	const response = await eCommerceApiPublic.post(

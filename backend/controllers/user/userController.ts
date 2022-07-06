@@ -54,6 +54,7 @@ const loginUser = async (
 					_id: foundUser.id,
 					name: foundUser.name,
 					email: foundUser.email,
+					role: foundUser.role,
 					accessToken: generateAccessToken(foundUser._id),
 				});
 		} else {
@@ -74,7 +75,7 @@ const registerUser = async (
 	next: NextFunction
 ) => {
 	try {
-		const { name, email, password } = req.body;
+		const { name, email, password, role } = req.body;
 
 		// Check if user exists in the database based on email
 		const emailExists = await UserModel.findOne({ email });
@@ -97,6 +98,7 @@ const registerUser = async (
 			name,
 			email,
 			password: hashedPassword,
+			role,
 		});
 
 		// Create JWT refresh token based on Schema Id
@@ -126,6 +128,7 @@ const registerUser = async (
 					_id: user.id,
 					name: user.name,
 					email: user.email,
+					role: user.role,
 					accessToken: generateAccessToken(user._id),
 				});
 		} else {
@@ -142,12 +145,11 @@ const registerUser = async (
 // @access Private
 const getUser = async (req: Request, res: Response, next: NextFunction) => {
 	try {
-		console.log(req.user);
-
 		res.status(200).json({
 			_id: req.user.id,
 			name: req.user.name,
 			email: req.user.email,
+			role: req.user.role,
 		});
 	} catch (error) {
 		res.status(404);

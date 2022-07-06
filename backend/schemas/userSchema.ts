@@ -1,4 +1,4 @@
-import { object, string, TypeOf } from "zod";
+import { object, string, number, TypeOf } from "zod";
 
 // Zod is a TypeScript schema declaration and validation library
 
@@ -15,6 +15,7 @@ export const registerUserSchema = object({
 		})
 			.min(6, "Password must contain at least 6 minimum characters.")
 			.max(30, "Password can only contain 30 maximum characters."),
+		role: number().optional(),
 	}),
 });
 
