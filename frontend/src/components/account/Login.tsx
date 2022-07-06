@@ -63,7 +63,7 @@ export default function Login() {
 
 	useEffect(() => {
 		if (isSuccess) {
-			setAuth({ user: data });
+			setAuth(data);
 			navigate(from, { replace: true });
 		}
 	}, [isSuccess, navigate, data, setAuth]);

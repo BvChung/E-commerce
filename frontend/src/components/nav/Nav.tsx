@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { SearchIcon } from "@heroicons/react/solid";
 import { useAuth } from "../../hooks/auth/useAuth";
+import { storage } from "../../helper/tokenStorage";
 
 const Nav = () => {
 	const navigate = useNavigate();
@@ -43,15 +44,16 @@ const Nav = () => {
 				</Link>
 			</div>
 			<div className="p-4">
-				{auth?.user ? (
+				{auth ? (
 					<button
 						onClick={() => {
 							setAuth(null);
+							storage.clearToken();
 							navigate("/login");
 						}}
 						className="btn"
 					>
-						Logout{" "}
+						Logout
 					</button>
 				) : (
 					<Link to="/login">

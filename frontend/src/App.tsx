@@ -5,10 +5,12 @@ import "./App.css";
 import Landing from "./components/landingPage/LandingPage";
 import ProductPage from "./components/products/ProductPage";
 import ProtectedRoutes from "./components/protected/ProtectedRoutes";
+import Unauthorized from "./components/protected/Unauthorized";
 import Footer from "./components/footer/Footer";
 import { Routes, Route, Outlet } from "react-router-dom";
 import { ToastContainer, Slide } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { accessRoles } from "./helper/accessRoles";
 
 function App() {
 	return (
@@ -30,20 +32,30 @@ function App() {
 
 					<Route path="cart" element={<p>cart</p>} />
 
+					<Route path="unauthorized" element={<Unauthorized />} />
+
 					{/* Private Routes */}
-					<Route element={<ProtectedRoutes />}>
+					<Route
+						element={
+							<ProtectedRoutes
+								authRoles={[accessRoles.Admin, accessRoles.Consumer]}
+							/>
+						}
+					>
 						<Route path="checkout" element={<Outlet />}>
 							<Route path="information" element={<p>info</p>} />
 							<Route path="payment" element={<p>payment</p>} />
 						</Route>
 
+						<Route path="account" element={<p>account</p>} />
+					</Route>
+
+					<Route element={<ProtectedRoutes authRoles={[accessRoles.Admin]} />}>
 						<Route path="admin" element={<Outlet />}>
-							<Route index element={<div>Links</div>} />
+							<Route index element={<div>Admin</div>} />
 							<Route path="products" element={<p>info</p>} />
 							<Route path=":id" element={<p>product id</p>} />
 						</Route>
-
-						<Route path="account" element={<p>account</p>} />
 					</Route>
 
 					<Route path="*" element={<p>Not Found</p>} />
