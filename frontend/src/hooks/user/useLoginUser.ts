@@ -8,7 +8,7 @@ import {
 import { toast } from "react-toastify";
 import { UserInfo, LoginCredentials } from "../../interfaces/userInterface";
 import { loginUser, getUser } from "../../api/userApi";
-import { storage } from "../../helper/helperFunc";
+import { storage } from "../../helper/tokenStorage";
 
 // Make req to api with login info => returns token
 // Store token to local storage

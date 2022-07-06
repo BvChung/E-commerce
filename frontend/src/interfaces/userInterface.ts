@@ -13,6 +13,8 @@ export interface UserInfo {
 	_id: string;
 	name: string;
 	email: string;
+	role: number;
+	accessToken: string;
 }
 
 export interface AccessToken {

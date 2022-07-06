@@ -10,12 +10,11 @@ interface AuthProviderProps {
 }
 
 interface AuthUser {
-	user: {
-		_id: string;
-		name: string;
-		email: string;
-		accessToken: string;
-	};
+	_id: string;
+	name: string;
+	email: string;
+	role: number;
+	accessToken: string | Promise<string>;
 }
 
 const AuthContext = createContext({} as AuthContextInterface);
