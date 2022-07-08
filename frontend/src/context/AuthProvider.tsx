@@ -1,8 +1,8 @@
 import React, { createContext, useState } from "react";
 
 interface AuthContextInterface {
-	auth: AuthUser | null;
-	setAuth: React.Dispatch<React.SetStateAction<AuthUser | null>>;
+	user: AuthUser | null;
+	setUser: React.Dispatch<React.SetStateAction<AuthUser | null>>;
 }
 
 interface AuthProviderProps {
@@ -14,16 +14,16 @@ interface AuthUser {
 	name: string;
 	email: string;
 	role: number;
-	accessToken: string | Promise<string>;
+	accessToken: string;
 }
 
 const AuthContext = createContext({} as AuthContextInterface);
 
 export const AuthProvider = ({ children }: AuthProviderProps) => {
-	const [auth, setAuth] = useState<AuthUser | null>(null);
+	const [user, setUser] = useState<AuthUser | null>(null);
 
 	return (
-		<AuthContext.Provider value={{ auth, setAuth }}>
+		<AuthContext.Provider value={{ user, setUser }}>
 			{children}
 		</AuthContext.Provider>
 	);
