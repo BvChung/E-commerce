@@ -6,7 +6,7 @@ import { storage } from "../../helper/tokenStorage";
 
 const Nav = () => {
 	const navigate = useNavigate();
-	const { auth, setAuth } = useAuth();
+	const { user, setUser } = useAuth();
 	const [searchText, setSearchText] = useState<string>("");
 	const [inputActive, setInputActive] = useState<boolean>(false);
 	const inputActiveStyle: string = inputActive ? "bg-white" : "bg-gray-100";
@@ -44,10 +44,10 @@ const Nav = () => {
 				</Link>
 			</div>
 			<div className="p-4">
-				{auth ? (
+				{user ? (
 					<button
 						onClick={() => {
-							setAuth(null);
+							setUser(null);
 							storage.clearToken();
 							navigate("/login");
 						}}

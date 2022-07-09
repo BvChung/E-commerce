@@ -21,11 +21,8 @@ interface CustomState {
 	key: string | null;
 }
 
-// 1@gmail.com
-// 123456
-
 export default function Login() {
-	const { setAuth } = useAuth();
+	const { setUser } = useAuth();
 
 	const navigate = useNavigate();
 	const location = useLocation() as CustomState;
@@ -63,10 +60,10 @@ export default function Login() {
 
 	useEffect(() => {
 		if (isSuccess) {
-			setAuth(data);
+			setUser(data);
 			navigate(from, { replace: true });
 		}
-	}, [isSuccess, navigate, data, setAuth]);
+	}, [isSuccess, navigate, data, from, setUser]);
 
 	return (
 		<div className="flex flex-col items-center justify-center">

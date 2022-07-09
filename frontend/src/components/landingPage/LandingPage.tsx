@@ -1,9 +1,11 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { refreshToken } from "../../api/tokenApi";
+import { useRefreshToken } from "../../hooks/auth/useRefreshToken";
+// import { refreshToken } from "../../api/tokenApi";
 
 function LandingPage() {
 	const navigate = useNavigate();
+	const refreshToken = useRefreshToken();
 	return (
 		<div className="flex flex-col gap-2 items-center justify-center">
 			<span>LandingPage</span>
@@ -14,6 +16,14 @@ function LandingPage() {
 				className="btn uppercase"
 			>
 				Checkout
+			</button>
+			<button
+				onClick={() => {
+					navigate("/orders");
+				}}
+				className="btn uppercase"
+			>
+				Orders
 			</button>
 			<button
 				onClick={() => {
