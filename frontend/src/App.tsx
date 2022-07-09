@@ -4,6 +4,7 @@ import Register from "./components/account/Register";
 import "./App.css";
 import Landing from "./components/landingPage/LandingPage";
 import ProductPage from "./components/products/ProductPage";
+import OrdersPage from "./components/orders/OrdersPage";
 import ProtectedRoutes from "./components/protected/ProtectedRoutes";
 import Unauthorized from "./components/protected/Unauthorized";
 import Footer from "./components/footer/Footer";
@@ -46,6 +47,8 @@ function App() {
 							<Route path="information" element={<p>info</p>} />
 							<Route path="payment" element={<p>payment</p>} />
 						</Route>
+
+						<Route path="orders" element={<OrdersPage />} />
 
 						<Route path="account" element={<p>account</p>} />
 					</Route>

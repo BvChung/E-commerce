@@ -6,14 +6,14 @@ interface ProtectedRoutesProps {
 }
 
 const ProtectedRoutes = ({ authRoles }: ProtectedRoutesProps) => {
-	const { auth } = useAuth();
+	const { user } = useAuth();
 	const location = useLocation();
 
 	// User is logged in and authenticated role number matches prop roles then return access to child components
 
-	return authRoles.find((role) => role === auth?.role) ? (
+	return authRoles.find((role) => role === user?.role) ? (
 		<Outlet />
-	) : auth ? (
+	) : user ? (
 		// User is logged in and authenticated role does not match then return nav to unauthorized
 
 		<Navigate to="/unauthorized" state={{ from: location }} replace />
