@@ -6,18 +6,17 @@ import {
 	generateRefreshToken,
 } from "../../helper/JWTGeneration";
 import global from "../../types/types";
-import { registerUserInput, loginUserInput } from "../../schemas/userSchema";
-import { isConstructorDeclaration } from "typescript";
+import { registerBody, loginBody } from "../../schemas/userSchema";
 
 // For schema data:
 // ._id => new ObjectId("6278dd9dadc7cdbc6f7ec28c")
 // .id => 6278dd9dadc7cdbc6f7ec28c
 
 // @desc Login user
-// @route POST /api/user/login
+// @route POST /api/users/login
 // @access Public
 const loginUser = async (
-	req: Request<{}, {}, loginUserInput["body"]>,
+	req: Request<{}, {}, loginBody["body"]>,
 	res: Response,
 	next: NextFunction
 ) => {
@@ -50,6 +49,12 @@ const loginUser = async (
 					secure: true,
 					maxAge: 24 * 60 * 60 * 1000,
 				})
+				.cookie("name", foundUser.name, {
+					sameSite: "strict",
+					httpOnly: true,
+					secure: true,
+					maxAge: 24 * 60 * 60 * 1000,
+				})
 				.json({
 					_id: foundUser.id,
 					name: foundUser.name,
@@ -67,10 +72,10 @@ const loginUser = async (
 };
 
 // @desc Register new user
-// @route POST /api/user/register
+// @route POST /api/users/register
 // @access Public
 const registerUser = async (
-	req: Request<{}, {}, registerUserInput["body"]>,
+	req: Request<{}, {}, registerBody["body"]>,
 	res: Response,
 	next: NextFunction
 ) => {
@@ -124,6 +129,12 @@ const registerUser = async (
 					secure: true,
 					maxAge: 24 * 60 * 60 * 1000,
 				})
+				.cookie("name", name, {
+					sameSite: "strict",
+					httpOnly: true,
+					secure: true,
+					maxAge: 24 * 60 * 60 * 1000,
+				})
 				.json({
 					_id: user.id,
 					name: user.name,
@@ -141,7 +152,7 @@ const registerUser = async (
 };
 
 // @desc Get user
-// @route GET /api/user/me
+// @route GET /api/users/me
 // @access Private
 const getUser = async (req: Request, res: Response, next: NextFunction) => {
 	try {
@@ -158,7 +169,7 @@ const getUser = async (req: Request, res: Response, next: NextFunction) => {
 };
 
 // @desc Logout user
-// @route PUT /api/user/logout
+// @route PUT /api/users/logout
 // @access Public
 const logoutUser = async (req: Request, res: Response, next: NextFunction) => {
 	try {

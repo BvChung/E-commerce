@@ -32,5 +32,6 @@ export const getUser = async () => {
 
 export const logoutUser = async () => {
 	const response = await eCommerceApiPublic.post("/api/users/logout");
+
 	return response.data;
 };

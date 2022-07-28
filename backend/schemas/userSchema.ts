@@ -2,7 +2,7 @@ import { object, string, number, TypeOf } from "zod";
 
 // Zod is a TypeScript schema declaration and validation library
 
-export const registerUserSchema = object({
+export const registerSchema = object({
 	body: object({
 		name: string({
 			required_error: "Name is required.",
@@ -19,7 +19,7 @@ export const registerUserSchema = object({
 	}),
 });
 
-export const loginUserSchema = object({
+export const loginSchema = object({
 	body: object({
 		email: string({
 			required_error: "Email is required.",
@@ -30,5 +30,5 @@ export const loginUserSchema = object({
 	}),
 });
 
-export type registerUserInput = TypeOf<typeof registerUserSchema>;
-export type loginUserInput = TypeOf<typeof loginUserSchema>;
+export type registerBody = TypeOf<typeof registerSchema>;
+export type loginBody = TypeOf<typeof loginSchema>;
