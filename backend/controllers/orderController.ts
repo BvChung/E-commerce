@@ -1,17 +1,17 @@
 import { Request, Response, NextFunction } from "express";
 import OrderModel from "../models/orderModel";
 import global from "../types/types";
-import { orderInput } from "../schemas/orderSchema";
+import { orderBody, orderParams } from "../schemas/orderSchema";
 
 export const getOrder = async (
-	req: Request<orderInput["params"], {}, {}>,
+	req: Request<orderParams["params"], {}, {}>,
 	res: Response,
 	next: NextFunction
 ) => {
 	try {
-		const order = await OrderModel.find({ user: req.user.id });
+		const customerOrder = await OrderModel.find({ user: req.user.id });
 
-		res.status(200).json(order);
+		res.status(200).json(customerOrder);
 	} catch (error) {
 		res.status(400);
 		next(error);
@@ -19,14 +19,14 @@ export const getOrder = async (
 };
 
 export const createOrder = async (
-	req: Request<{}, {}, orderInput["body"]>,
+	req: Request<{}, {}, orderBody["body"]>,
 	res: Response,
 	next: NextFunction
 ) => {
 	try {
 		const { shippingAddress, purchasedItems, paymentDetails } = req.body;
 
-		const createdOrder = await OrderModel.create({
+		const newOrder = await OrderModel.create({
 			user: req.user.id,
 			customerName: req.user.name,
 			shippingAddress,
@@ -34,7 +34,7 @@ export const createOrder = async (
 			paymentDetails,
 		});
 
-		res.status(200).json(createdOrder);
+		res.status(200).json(newOrder);
 	} catch (error) {
 		res.status(400);
 		next(error);
@@ -42,7 +42,7 @@ export const createOrder = async (
 };
 
 export const deleteOrder = async (
-	req: Request<orderInput["params"], {}, {}>,
+	req: Request<orderParams["params"], {}, {}>,
 	res: Response,
 	next: NextFunction
 ) => {

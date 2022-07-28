@@ -1,9 +1,12 @@
 import { object, string, array, TypeOf, number } from "zod";
 
-export const orderSchema = object({
+export const orderParamsSchema = object({
 	params: object({
-		id: string().optional(),
+		id: string({ required_error: "Product id params is required." }),
 	}),
+});
+
+export const orderBodySchema = object({
 	body: object({
 		shippingAddress: object({
 			address: string({
@@ -55,4 +58,5 @@ export const orderSchema = object({
 	}),
 });
 
-export type orderInput = TypeOf<typeof orderSchema>;
+export type orderParams = TypeOf<typeof orderParamsSchema>;
+export type orderBody = TypeOf<typeof orderBodySchema>;

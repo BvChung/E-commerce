@@ -6,14 +6,16 @@ import {
 	createOrder,
 	deleteOrder,
 } from "../controllers/orderController";
-import { orderSchema } from "../schemas/orderSchema";
+import { orderBodySchema, orderParamsSchema } from "../schemas/orderSchema";
 
 const router: IRouter = express.Router();
 
 router
 	.route("/")
 	.get(verifyJWT, getOrder)
-	.post([verifyJWT, validateRequest(orderSchema)], createOrder);
-router.route("/:id").delete(verifyJWT, deleteOrder);
+	.post([verifyJWT, validateRequest(orderBodySchema)], createOrder);
+router
+	.route("/:id")
+	.delete([verifyJWT, validateRequest(orderParamsSchema)], deleteOrder);
 
 export default router;
