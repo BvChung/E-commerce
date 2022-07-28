@@ -13,7 +13,7 @@ const ProtectedRoutes = ({ authRoles }: ProtectedRoutesProps) => {
 
 	return authRoles.find((role) => role === user?.role) ? (
 		<Outlet />
-	) : user ? (
+	) : user?.accessToken ? (
 		// User is logged in and authenticated role does not match then return nav to unauthorized
 
 		<Navigate to="/unauthorized" state={{ from: location }} replace />

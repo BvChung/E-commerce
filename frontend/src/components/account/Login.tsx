@@ -1,34 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, Link, useLocation } from "react-router-dom";
-import { LoginCredentials, UserInfo } from "../../interfaces/userInterface";
-import { useLoginUser } from "../../hooks/user/useLoginUser";
-import { useAuth } from "../../hooks/auth/useAuth";
-import { toast } from "react-toastify";
-
-interface CustomState {
-	pathname: string | null;
-	search: string | null;
-	hash: string | null;
-	state: {
-		from: {
-			hash: string;
-			key: string;
-			pathname: string;
-			search: string;
-			state: null | object;
-		};
-	};
-	key: string | null;
-}
+import { LoginCredentials } from "../../interfaces/userInterface";
+import { useLoginUser, useLogin } from "../../hooks/user/useLoginUser";
+import { CustomLocationState } from "../../interfaces/customInterface";
 
 export default function Login() {
-	const { setUser } = useAuth();
-
 	const navigate = useNavigate();
-	const location = useLocation() as CustomState;
+	const location = useLocation() as CustomLocationState;
 	const from = location.state?.from?.pathname || "/";
-
-	const { data, isSuccess, mutate } = useLoginUser();
+	const { isSuccess, mutate } = useLoginUser();
 
 	const [loginCredentials, setLoginCredentials] = useState<LoginCredentials>({
 		email: "",
@@ -60,10 +40,9 @@ export default function Login() {
 
 	useEffect(() => {
 		if (isSuccess) {
-			setUser(data);
 			navigate(from, { replace: true });
 		}
-	}, [isSuccess, navigate, data, from, setUser]);
+	}, [isSuccess, navigate, from]);
 
 	return (
 		<div className="flex flex-col items-center justify-center">

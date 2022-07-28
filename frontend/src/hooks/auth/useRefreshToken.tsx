@@ -6,18 +6,25 @@ export const useRefreshToken = () => {
 	const { setUser } = useAuth();
 
 	const refreshToken = async () => {
-		const response = await eCommerceApiPublic.get("/api/refresh");
+		try {
+			const response = await eCommerceApiPublic.get("/api/refresh");
 
-		storage.setToken(response.data);
+			console.log(`Token obtained : ${response.data}`);
 
-		setUser((prev) => {
-			return {
-				...prev!,
-				accessToken: response.data,
-			};
-		});
+			storage.setToken(response.data);
 
-		return response.data;
+			setUser((prev) => {
+				return {
+					...prev!,
+					accessToken: response.data,
+				};
+			});
+
+			return response.data;
+		} catch (error) {
+			console.log("error refresh token");
+			console.error(error);
+		}
 	};
 
 	return refreshToken;

@@ -4,6 +4,7 @@ import Register from "./components/account/Register";
 import "./App.css";
 import Landing from "./components/landingPage/LandingPage";
 import ProductPage from "./components/products/ProductPage";
+import ProductInfo from "./components/products/ProductInfo";
 import OrdersPage from "./components/orders/OrdersPage";
 import ProtectedRoutes from "./components/protected/ProtectedRoutes";
 import Unauthorized from "./components/protected/Unauthorized";
@@ -12,6 +13,7 @@ import { Routes, Route, Outlet } from "react-router-dom";
 import { ToastContainer, Slide } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { accessRoles } from "./helper/accessRoles";
+import PersistLogin from "./components/protected/PersistLogin";
 
 function App() {
 	return (
@@ -28,7 +30,7 @@ function App() {
 
 					<Route path="products" element={<Outlet />}>
 						<Route index element={<ProductPage />} />
-						<Route path=":id" element={<p>product id</p>} />
+						<Route path=":id" element={<ProductInfo />} />
 					</Route>
 
 					<Route path="cart" element={<p>cart</p>} />
@@ -36,33 +38,37 @@ function App() {
 					<Route path="unauthorized" element={<Unauthorized />} />
 
 					{/* Private Routes */}
-					<Route
-						element={
-							<ProtectedRoutes
-								authRoles={[accessRoles.Admin, accessRoles.Consumer]}
-							/>
-						}
-					>
-						<Route path="checkout" element={<Outlet />}>
-							<Route path="information" element={<p>info</p>} />
-							<Route path="payment" element={<p>payment</p>} />
+					<Route element={<PersistLogin />}>
+						<Route
+							element={
+								<ProtectedRoutes
+									authRoles={[accessRoles.Admin, accessRoles.Consumer]}
+								/>
+							}
+						>
+							<Route path="checkout" element={<Outlet />}>
+								<Route path="information" element={<p>info</p>} />
+								<Route path="payment" element={<p>payment</p>} />
+							</Route>
+
+							<Route path="orders" element={<OrdersPage />} />
+
+							<Route path="account" element={<p>account</p>} />
 						</Route>
 
-						<Route path="orders" element={<OrdersPage />} />
-
-						<Route path="account" element={<p>account</p>} />
-					</Route>
-
-					<Route element={<ProtectedRoutes authRoles={[accessRoles.Admin]} />}>
-						<Route path="admin" element={<Outlet />}>
-							<Route index element={<div>Admin</div>} />
-							<Route path="products" element={<p>info</p>} />
-							<Route path=":id" element={<p>product id</p>} />
+						<Route
+							element={<ProtectedRoutes authRoles={[accessRoles.Admin]} />}
+						>
+							<Route path="admin" element={<Outlet />}>
+								<Route index element={<div>Admin</div>} />
+								<Route path="products" element={<p>info</p>} />
+								<Route path=":id" element={<p>product id</p>} />
+							</Route>
 						</Route>
 					</Route>
-
-					<Route path="*" element={<p>Not Found</p>} />
 				</Route>
+
+				<Route path="*" element={<p>Not Found</p>} />
 			</Routes>
 			<Footer />
 

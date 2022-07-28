@@ -57,7 +57,9 @@ const Nav = () => {
 					</button>
 				) : (
 					<Link to="/login">
-						<span className="font-semibold text-gray-700 text-lg">User</span>
+						<span className="font-semibold text-gray-700 text-lg">
+							Login/Register
+						</span>
 					</Link>
 				)}
 			</div>
