@@ -1,4 +1,5 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
 interface ProductProps {
 	_id: string;
@@ -8,15 +9,22 @@ interface ProductProps {
 	image: string;
 }
 
-export default function ProductItem({
+export default function ProductDisplay({
 	_id,
 	name,
 	description,
 	price,
 	image,
 }: ProductProps) {
+	const navigate = useNavigate();
+
 	return (
-		<div className="card w-96 bg-base-100 shadow-xl">
+		<div
+			className="card w-96 bg-base-100 shadow-xl"
+			onClick={() => {
+				navigate(`/products/${_id}`);
+			}}
+		>
 			<figure>
 				<img src="https://placeimg.com/400/225/arch" alt="Shoes" />
 			</figure>
@@ -24,16 +32,7 @@ export default function ProductItem({
 				<h2 className="card-title">{name}</h2>
 				<p>{description}</p>
 				<p>{price}</p>
-				<div className="card-actions justify-end">
-					<button
-						onClick={() => {
-							console.log(_id);
-						}}
-						className="btn "
-					>
-						Buy Now
-					</button>
-				</div>
+				<div className="card-actions justify-end"></div>
 			</div>
 		</div>
 	);

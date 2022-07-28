@@ -1,7 +1,7 @@
 import React from "react";
-import useGetProducts from "../../hooks/products/useGetProducts";
+import { useGetProducts } from "../../hooks/products/useGetProducts";
 import { ProductInfo } from "../../interfaces/productInterface";
-import ProductItem from "./ProductItem";
+import ProductDisplay from "./ProductDisplay";
 
 export default function ProductPage() {
 	const {
@@ -20,7 +20,7 @@ export default function ProductPage() {
 				{isSuccess &&
 					products.map((product: ProductInfo) => {
 						return (
-							<ProductItem
+							<ProductDisplay
 								key={product._id}
 								_id={product._id}
 								name={product.name}

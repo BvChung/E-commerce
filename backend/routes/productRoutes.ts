@@ -4,21 +4,26 @@ import validateRequest from "../middleware/validateReq";
 import convertFile from "../middleware/convertFile";
 import {
 	getProduct,
+	getProductInfo,
 	createProduct,
 	updateProduct,
 	deleteProduct,
 } from "../controllers/productController";
-import { productSchema } from "../schemas/productSchema";
+import {
+	productBodySchema,
+	productParamsSchema,
+} from "../schemas/productSchema";
 
 const router: IRouter = express.Router();
 
 router
 	.route("/")
 	.get(getProduct)
-	.post([verifyJWT, validateRequest(productSchema)], createProduct);
+	.post([verifyJWT, validateRequest(productBodySchema)], createProduct);
 router
 	.route("/:id")
-	.patch(verifyJWT, updateProduct)
-	.delete(verifyJWT, deleteProduct);
+	.get(validateRequest(productParamsSchema), getProductInfo)
+	.patch([verifyJWT, validateRequest(productParamsSchema)], updateProduct)
+	.delete([verifyJWT, validateRequest(productParamsSchema)], deleteProduct);
 
 export default router;

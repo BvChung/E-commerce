@@ -1,9 +1,6 @@
 import { object, string, TypeOf, number, optional } from "zod";
 
-export const productSchema = object({
-	params: object({
-		id: string().optional(),
-	}),
+export const productBodySchema = object({
 	body: object({
 		name: string({
 			required_error: "Product name is required.",
@@ -23,4 +20,13 @@ export const productSchema = object({
 	}),
 });
 
-export type productInput = TypeOf<typeof productSchema>;
+export const productParamsSchema = object({
+	params: object({
+		id: string({
+			required_error: "Product id params is required.",
+		}),
+	}),
+});
+
+export type productBody = TypeOf<typeof productBodySchema>;
+export type productParams = TypeOf<typeof productParamsSchema>;

@@ -2,7 +2,7 @@ import { Request, Response, NextFunction } from "express";
 import ProductModel from "../models/productModel";
 import global from "../types/types";
 import { v2 as cloudinary } from "cloudinary";
-import { productInput } from "../schemas/productSchema";
+import { productBody, productParams } from "../schemas/productSchema";
 
 export const getProduct = async (
 	req: Request,
@@ -19,8 +19,23 @@ export const getProduct = async (
 	}
 };
 
+export const getProductInfo = async (
+	req: Request<productParams["params"], {}, {}>,
+	res: Response,
+	next: NextFunction
+) => {
+	try {
+		const productInfo = await ProductModel.findById(req.params.id);
+
+		res.status(200).json(productInfo);
+	} catch (error) {
+		res.status(400);
+		next(error);
+	}
+};
+
 export const createProduct = async (
-	req: Request<{}, {}, productInput["body"]>,
+	req: Request<{}, {}, productBody["body"]>,
 	res: Response,
 	next: NextFunction
 ) => {
@@ -49,7 +64,7 @@ export const createProduct = async (
 };
 
 export const updateProduct = async (
-	req: Request<productInput["params"], {}, productInput["body"]>,
+	req: Request<productParams["params"], {}, productBody["body"]>,
 	res: Response,
 	next: NextFunction
 ) => {
@@ -85,7 +100,7 @@ export const updateProduct = async (
 };
 
 export const deleteProduct = async (
-	req: Request<productInput["params"], {}, {}>,
+	req: Request<productParams["params"], {}, {}>,
 	res: Response,
 	next: NextFunction
 ) => {

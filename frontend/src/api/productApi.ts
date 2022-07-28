@@ -1,4 +1,4 @@
-import { eCommerceApiPrivate } from "./axios";
+import { eCommerceApiPrivate, eCommerceApiPublic } from "./axios";
 
 type Products = {
 	id: string;
@@ -6,6 +6,11 @@ type Products = {
 
 export const getProducts = async () => {
 	const response = await eCommerceApiPrivate.get("/api/products");
+	return response.data;
+};
+
+export const getProductInfo = async (product: Products) => {
+	const response = await eCommerceApiPrivate.get(`/api/products/${product.id}`);
 	return response.data;
 };
 
