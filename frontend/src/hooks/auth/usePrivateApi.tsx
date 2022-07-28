@@ -2,7 +2,6 @@ import { useEffect } from "react";
 import { AxiosRequestConfig, AxiosResponse } from "axios";
 import { eCommerceApiPrivate } from "../../api/axios";
 import { useRefreshToken } from "./useRefreshToken";
-import { useAuth } from "./useAuth";
 import { storage } from "../../helper/tokenStorage";
 
 export const usePrivateApi = () => {
@@ -27,7 +26,7 @@ export const usePrivateApi = () => {
 			async (err) => {
 				const prevRequest = err?.config;
 
-				if (err?.response?.status === 403 && !prevRequest._retry) {
+				if (err?.response?.status === 403 && err?.config?._retry === false) {
 					prevRequest._retry = true;
 					const newAccessToken = await refreshToken();
 
@@ -35,6 +34,7 @@ export const usePrivateApi = () => {
 
 					return eCommerceApiPrivate(prevRequest);
 				}
+
 				return Promise.reject(err);
 			}
 		);
@@ -43,7 +43,7 @@ export const usePrivateApi = () => {
 			eCommerceApiPrivate.interceptors.request.eject(reqIntercept);
 			eCommerceApiPrivate.interceptors.response.eject(resIntercept);
 		};
-	}, [refreshToken]);
+	}, []);
 
 	return eCommerceApiPrivate;
 };

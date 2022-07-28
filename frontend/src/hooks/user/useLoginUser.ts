@@ -22,7 +22,7 @@ const login = async (credentials: LoginCredentials) => {
 
 export const useLogin = (credentials: LoginCredentials) => {
 	return useQuery(
-		["user", credentials],
+		["user"],
 		async (credentials) => {
 			const response = await eCommerceApiPublic.post(
 				"/api/users/login",
@@ -31,7 +31,7 @@ export const useLogin = (credentials: LoginCredentials) => {
 
 			return response.data;
 		},
-		{ enabled: !!credentials, cacheTime: Infinity }
+		{ enabled: false, cacheTime: Infinity }
 	);
 };
 
