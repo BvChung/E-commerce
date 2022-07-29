@@ -10,5 +10,7 @@ export const useGetOrders = () => {
 		return response.data;
 	};
 
-	return useQuery("orders", getOrders);
+	return useQuery("orders", getOrders, {
+		retry: false,
+	});
 };

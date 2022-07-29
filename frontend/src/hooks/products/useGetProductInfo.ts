@@ -2,16 +2,15 @@ import { useQuery } from "react-query";
 import { Params } from "react-router-dom";
 import { eCommerceApiPublic } from "../../api/axios";
 
-// interface ProductParams {
-// 	id: ;
-// }
-
-export const useGetProductInfo = (id: string | undefined) => {
-	const getProductInfo = async (id: string | undefined) => {
-		const response = await eCommerceApiPublic.get(`/api/products/${id}`);
+export const useGetProductInfo = (productId: string | undefined) => {
+	const getProductInfo = async (productId: string | undefined) => {
+		const response = await eCommerceApiPublic.get(`/api/products/${productId}`);
 
 		return response.data;
 	};
 
-	return useQuery("productInfo", () => getProductInfo(id));
+	return useQuery(["productInfo", productId], () => getProductInfo(productId), {
+		// The query will not execute until the productId exists
+		enabled: !!productId,
+	});
 };

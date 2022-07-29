@@ -2,7 +2,6 @@ import { eCommerceApiPublic } from "../../api/axios";
 import { useQuery } from "react-query";
 
 // const queryClient = useQueryClient() provides access to the queryclient created in the index
-// Then you can mutate values
 
 export const useGetProducts = () => {
 	const getProducts = async () => {
