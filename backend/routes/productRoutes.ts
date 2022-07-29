@@ -23,7 +23,14 @@ router
 router
 	.route("/:id")
 	.get(validateRequest(productParamsSchema), getProductInfo)
-	.patch([verifyJWT, validateRequest(productParamsSchema)], updateProduct)
+	.patch(
+		[
+			verifyJWT,
+			validateRequest(productParamsSchema),
+			validateRequest(productBodySchema),
+		],
+		updateProduct
+	)
 	.delete([verifyJWT, validateRequest(productParamsSchema)], deleteProduct);
 
 export default router;

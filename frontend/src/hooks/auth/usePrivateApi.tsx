@@ -21,12 +21,13 @@ export const usePrivateApi = () => {
 			(err) => Promise.reject(err)
 		);
 
+		// Have to set react query retry to false in order for response interceptor to work
 		const resIntercept = eCommerceApiPrivate.interceptors.response.use(
 			(res: AxiosResponse) => res,
 			async (err) => {
 				const prevRequest = err?.config;
 
-				if (err?.response?.status === 403 && err?.config?._retry === false) {
+				if (err?.response?.status === 403 && !prevRequest?._retry) {
 					prevRequest._retry = true;
 					const newAccessToken = await refreshToken();
 
@@ -43,7 +44,7 @@ export const usePrivateApi = () => {
 			eCommerceApiPrivate.interceptors.request.eject(reqIntercept);
 			eCommerceApiPrivate.interceptors.response.eject(resIntercept);
 		};
-	}, []);
+	}, [refreshToken]);
 
 	return eCommerceApiPrivate;
 };

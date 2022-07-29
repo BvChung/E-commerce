@@ -4,16 +4,6 @@ type Products = {
 	id: string;
 };
 
-export const getProducts = async () => {
-	const response = await eCommerceApiPrivate.get("/api/products");
-	return response.data;
-};
-
-export const getProductInfo = async (product: Products) => {
-	const response = await eCommerceApiPrivate.get(`/api/products/${product.id}`);
-	return response.data;
-};
-
 export const createProduct = async () => {
 	const response = await eCommerceApiPrivate.post("/api/products/");
 	return response.data;
