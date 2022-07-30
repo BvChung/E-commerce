@@ -11,15 +11,6 @@ import { storage } from "../../helper/tokenStorage";
 // Store token to local storage
 // Then make req api with token => returns account information using useQuery() to store
 
-const login = async (credentials: LoginCredentials) => {
-	const response = await eCommerceApiPublic.post(
-		"/api/users/login",
-		credentials
-	);
-
-	return response.data;
-};
-
 export const useLogin = (credentials: LoginCredentials) => {
 	return useQuery(
 		["user"],
@@ -38,6 +29,15 @@ export const useLogin = (credentials: LoginCredentials) => {
 export const useLoginUser = () => {
 	const queryClient = useQueryClient();
 	const { setUser } = useAuth();
+
+	const login = async (credentials: LoginCredentials) => {
+		const response = await eCommerceApiPublic.post(
+			"/api/users/login",
+			credentials
+		);
+
+		return response.data;
+	};
 
 	return useMutation(login, {
 		onSuccess: (data: UserInfo) => {

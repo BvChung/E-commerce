@@ -1,13 +1,25 @@
-import React from "react";
-import { useQuery } from "react-query";
 import { usePrivateApi } from "../auth/usePrivateApi";
+import { useMutation, useQueryClient } from "react-query";
+import { OrderInfo } from "../../interfaces/orderInterface";
+import { CustomError } from "../../interfaces/customInterface";
+import { toast } from "react-toastify";
 
 export const useDeleteOrders = () => {
 	const eCommerceApiPrivate = usePrivateApi();
+	const queryClient = useQueryClient();
 
-	return useQuery("orders", async () => {
-		const response = await eCommerceApiPrivate.post(`/api/orders`);
-
+	const createOrder = async (order: OrderInfo) => {
+		const response = await eCommerceApiPrivate.post("/api/orders/", order);
 		return response.data;
+	};
+
+	return useMutation(createOrder, {
+		onSuccess: (data: OrderInfo) => {
+			queryClient.invalidateQueries(["orders"]);
+			toast.success("Your order has been made");
+		},
+		onError: (error: CustomError) => {
+			toast.error(error.response?.data?.message);
+		},
 	});
 };

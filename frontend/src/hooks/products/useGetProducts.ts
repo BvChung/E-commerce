@@ -10,5 +10,5 @@ export const useGetProducts = () => {
 		return response.data;
 	};
 
-	return useQuery("products", getProducts);
+	return useQuery(["products"], getProducts);
 };
