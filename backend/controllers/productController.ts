@@ -41,19 +41,24 @@ export const createProduct = async (
 ) => {
 	try {
 		const { name, description, price, image, imageCloudId } = req.body;
-		// const uploadedImage = await cloudinary.uploader.upload(req.body.content, {
-		// 	upload_preset: process.env.CLOUDINARY_AVATAR_UPLOAD,
-		// 	public_id: req.file.originalname,
-		// });
+		// console.log(req.body);
+
+		const uploadedImage = await cloudinary.uploader.upload(req.body.content, {
+			upload_preset: process.env.CLOUDINARY_PRODUCT_UPLOAD,
+			public_id: req.file.originalname,
+		});
+
+		console.log(uploadedImage);
 
 		const createdProduct = await ProductModel.create({
 			name,
 			description,
-			image,
-			imageCloudId,
-			price,
-			//image: uploadedImage.secure_url,
-			// imageCloudId: uploadedImage.public_id,
+			// image,
+			// imageCloudId,
+			// price,
+			price: 1,
+			image: uploadedImage.secure_url,
+			imageCloudId: uploadedImage.public_id,
 		});
 
 		res.status(200).json(createdProduct);

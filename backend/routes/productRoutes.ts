@@ -19,7 +19,10 @@ const router: IRouter = express.Router();
 router
 	.route("/")
 	.get(getProduct)
-	.post([verifyJWT, validateRequest(productBodySchema)], createProduct);
+	.post(
+		[verifyJWT, convertFile, validateRequest(productBodySchema)],
+		createProduct
+	);
 router
 	.route("/:id")
 	.get(validateRequest(productParamsSchema), getProductInfo)
