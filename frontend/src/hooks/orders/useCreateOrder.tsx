@@ -4,7 +4,7 @@ import { OrderInfo } from "../../interfaces/orderInterface";
 import { CustomError } from "../../interfaces/customInterface";
 import { toast } from "react-toastify";
 
-export const useDeleteOrders = () => {
+export const useCreateOrder = () => {
 	const eCommerceApiPrivate = usePrivateApi();
 	const queryClient = useQueryClient();
 
@@ -14,8 +14,8 @@ export const useDeleteOrders = () => {
 	};
 
 	return useMutation(createOrder, {
-		onSuccess: (data: OrderInfo) => {
-			queryClient.invalidateQueries(["orders"]);
+		onSuccess: () => {
+			queryClient.invalidateQueries("orders");
 			toast.success("Your order has been made");
 		},
 		onError: (error: CustomError) => {

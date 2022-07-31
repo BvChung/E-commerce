@@ -1,17 +1,29 @@
-import { updateProducts } from "../../api/productApi";
+import { usePrivateApi } from "../auth/usePrivateApi";
+import { useMutation, useQueryClient } from "react-query";
+import { ProductInfo } from "../../interfaces/productInterface";
+import { CustomError } from "../../interfaces/customInterface";
 import { toast } from "react-toastify";
-import { useQuery, useQueryClient, useMutation } from "react-query";
 
-export default function useUpdateProducts() {
+export default function useUpdateProducts(productId: string) {
+	const eCommerceApiPrivate = usePrivateApi();
 	const queryClient = useQueryClient();
 
-	return useMutation(updateProducts, {
-		onSuccess: (data) => {
-			toast.success("User logged in");
-			queryClient.invalidateQueries("products");
+	const updateProduct = async (productInfo: ProductInfo) => {
+		const response = await eCommerceApiPrivate.patch(
+			`/api/products/${productId}`,
+			productInfo
+		);
+
+		return response.data;
+	};
+
+	return useMutation(updateProduct, {
+		onSuccess: (data: ProductInfo) => {
+			queryClient.invalidateQueries(["products"]);
+			toast.success(`${data.name} has been created.`);
 		},
-		onError: (error: Error) => {
-			toast.error(`Error: ${error.message}`);
+		onError: (error: CustomError) => {
+			toast.error(error.response?.data?.message);
 		},
 	});
 }

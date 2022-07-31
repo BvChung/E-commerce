@@ -30,7 +30,7 @@ export const useLoginUser = () => {
 	const queryClient = useQueryClient();
 	const { setUser } = useAuth();
 
-	const login = async (credentials: LoginCredentials) => {
+	const login = async (credentials: LoginCredentials): Promise<UserInfo> => {
 		const response = await eCommerceApiPublic.post(
 			"/api/users/login",
 			credentials

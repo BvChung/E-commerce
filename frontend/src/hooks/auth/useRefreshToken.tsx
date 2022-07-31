@@ -1,6 +1,8 @@
 import { eCommerceApiPublic } from "../../api/axios";
+
 import { storage } from "../../helper/tokenStorage";
 import { useAuth } from "./useAuth";
+import { toast } from "react-toastify";
 
 export const useRefreshToken = () => {
 	const { setUser } = useAuth();
@@ -22,8 +24,7 @@ export const useRefreshToken = () => {
 
 			return response.data;
 		} catch (error) {
-			console.log("error refresh token");
-			console.error(error);
+			toast.error("Your session has expired");
 		}
 	};
 
