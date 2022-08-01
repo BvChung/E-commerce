@@ -1,6 +1,7 @@
 export const storage = {
 	getToken: () => {
 		const accessToken = localStorage.getItem("auth_token");
+
 		if (accessToken) {
 			return JSON.parse(accessToken);
 		}

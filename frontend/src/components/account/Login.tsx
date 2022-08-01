@@ -16,7 +16,7 @@ export default function Login() {
 	});
 	const [showPassword, setShowPassword] = useState<boolean>(false);
 
-	function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
+	function handleChange(e: React.ChangeEvent<HTMLInputElement>): void {
 		const { name, value } = e.target;
 
 		setLoginCredentials((prev) => {
@@ -27,7 +27,7 @@ export default function Login() {
 		});
 	}
 
-	function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+	function handleSubmit(e: React.FormEvent<HTMLFormElement>): void {
 		e.preventDefault();
 
 		mutate(loginCredentials);

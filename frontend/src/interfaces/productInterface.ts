@@ -4,5 +4,4 @@ export interface ProductInfo {
 	description: string;
 	price: number;
 	image: string;
-	imageCloudId: string;
 }
