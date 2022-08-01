@@ -32,7 +32,7 @@ module.exports = {
 		},
 	},
 	daisyui: {
-		themes: ["lofi", "dark"],
+		themes: ["lofi", "black", "winter", "night"],
 	},
 	daisyui: {
 		styled: true,
@@ -42,7 +42,7 @@ module.exports = {
 		logs: true,
 		rtl: false,
 		prefix: "",
-		darkTheme: "dark",
+		darkTheme: "black",
 	},
 	plugins: [require("daisyui")],
 };

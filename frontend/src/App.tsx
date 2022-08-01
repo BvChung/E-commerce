@@ -14,10 +14,16 @@ import { ToastContainer, Slide } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { accessRoles } from "./helper/accessRoles";
 import PersistLogin from "./components/protected/PersistLogin";
+import { useSetTheme } from "./hooks/theme/useSetTheme";
 
 function App() {
+	const { theme } = useSetTheme();
+
 	return (
-		<div className="h-screen w-screen overflow-auto" data-theme="light">
+		<div
+			className="h-screen w-screen overflow-auto"
+			data-theme={theme ? "night" : "winter"}
+		>
 			<Nav />
 			<Routes>
 				<Route path="/" element={<Outlet />}>
