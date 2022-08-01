@@ -41,27 +41,31 @@ export const createProduct = async (
 ) => {
 	try {
 		const { name, description, price, image, imageCloudId } = req.body;
-		// console.log(req.body);
+		console.log(req.body.image);
 
-		const uploadedImage = await cloudinary.uploader.upload(req.body.content, {
-			upload_preset: process.env.CLOUDINARY_PRODUCT_UPLOAD,
-			public_id: req.file.originalname,
-		});
+		const uploadedImage = await cloudinary.uploader.upload(
+			req.body.image.content,
+			{
+				upload_preset: process.env.CLOUDINARY_PRODUCT_UPLOAD,
+				public_id: req.file.originalname,
+			}
+		);
 
 		console.log(uploadedImage);
 
-		const createdProduct = await ProductModel.create({
-			name,
-			description,
-			// image,
-			// imageCloudId,
-			// price,
-			price: 1,
-			image: uploadedImage.secure_url,
-			imageCloudId: uploadedImage.public_id,
-		});
+		// const createdProduct = await ProductModel.create({
+		// 	name: "test",
+		// 	description: "test",
+		// 	// image,
+		// 	// imageCloudId,
+		// 	// price,
+		// 	price: 1,
+		// 	image: uploadedImage.secure_url,
+		// 	imageCloudId: uploadedImage.public_id,
+		// });
 
-		res.status(200).json(createdProduct);
+		res.status(200);
+		// res.status(200).json(createdProduct);
 	} catch (error) {
 		res.status(400);
 		next(error);

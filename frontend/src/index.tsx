@@ -6,6 +6,7 @@ import { BrowserRouter } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { ReactQueryDevtools } from "react-query/devtools";
 import { AuthProvider } from "./context/AuthProvider";
+import { ThemeProvider } from "./context/ThemeProvider";
 
 const queryClient = new QueryClient();
 
@@ -16,10 +17,12 @@ const root = ReactDOM.createRoot(
 root.render(
 	<QueryClientProvider client={queryClient}>
 		<BrowserRouter>
-			<AuthProvider>
-				<App />
-				<ReactQueryDevtools initialIsOpen />
-			</AuthProvider>
+			<ThemeProvider>
+				<AuthProvider>
+					<App />
+					<ReactQueryDevtools initialIsOpen />
+				</AuthProvider>
+			</ThemeProvider>
 		</BrowserRouter>
 	</QueryClientProvider>
 );

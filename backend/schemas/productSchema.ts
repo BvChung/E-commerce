@@ -11,7 +11,7 @@ export const productBodySchema = object({
 		price: number({
 			required_error: "Price is required.",
 		}).optional(),
-		image: string().optional(),
+		image: any(),
 		imageCloudId: string().optional(),
 		content: any(),
 	}),
