@@ -12,10 +12,12 @@ interface ThemeProviderProps {
 const ThemeContext = createContext({} as ThemeContextInterface);
 
 export const ThemeProvider = ({ children }: ThemeProviderProps) => {
-	const [theme, setTheme] = useState<boolean>(false);
+	const [theme, setTheme] = useState<boolean>(
+		JSON.parse(localStorage.getItem("darkMode")!) || false
+	);
 
 	useEffect(() => {
-		localStorage.setItem("theme", JSON.stringify(theme));
+		localStorage.setItem("darkMode", JSON.stringify(theme));
 	}, [theme]);
 
 	return (

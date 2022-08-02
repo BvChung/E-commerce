@@ -51,6 +51,14 @@ function LandingPage() {
 			</button>
 			<button
 				onClick={() => {
+					navigate("/products/creation");
+				}}
+				className="btn btn-secondary w-20 uppercase"
+			>
+				Create Product
+			</button>
+			<button
+				onClick={() => {
 					refreshToken();
 				}}
 				className="btn w-20 uppercase"

@@ -5,6 +5,7 @@ import "./App.css";
 import Landing from "./components/landingPage/LandingPage";
 import ProductPage from "./components/products/ProductPage";
 import ProductInfo from "./components/products/ProductInfo";
+import ProductCreation from "./components/products/ProductCreation";
 import OrdersPage from "./components/orders/OrdersPage";
 import ProtectedRoutes from "./components/protected/ProtectedRoutes";
 import Unauthorized from "./components/protected/Unauthorized";
@@ -37,6 +38,7 @@ function App() {
 					<Route path="products" element={<Outlet />}>
 						<Route index element={<ProductPage />} />
 						<Route path=":id" element={<ProductInfo />} />
+						<Route path="creation" element={<ProductCreation />} />
 					</Route>
 
 					<Route path="cart" element={<p>cart</p>} />
