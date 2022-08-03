@@ -1,6 +1,6 @@
 import { usePrivateApi } from "../auth/usePrivateApi";
 import { useMutation, useQueryClient } from "react-query";
-import { ProductInfo } from "../../interfaces/productInterface";
+import { ProductInfo, TestImage } from "../../interfaces/productInterface";
 import { CustomError } from "../../interfaces/customInterface";
 import { toast } from "react-toastify";
 
@@ -8,7 +8,7 @@ export const useCreateProduct = () => {
 	const eCommerceApiPrivate = usePrivateApi();
 	const queryClient = useQueryClient();
 
-	const createProduct = async (productInfo: ProductInfo) => {
+	const createProduct = async (productInfo: TestImage) => {
 		const response = await eCommerceApiPrivate.post(
 			"/api/products/",
 			productInfo
@@ -18,9 +18,11 @@ export const useCreateProduct = () => {
 	};
 
 	return useMutation(createProduct, {
-		onSuccess: (data: ProductInfo) => {
+		onSuccess: (data: TestImage) => {
 			queryClient.invalidateQueries(["products"]);
-			toast.success(`${data.name} has been created.`);
+			toast.success(`Prod has been created.`);
+			console.log(data);
+			// toast.success(`${data.name} has been created.`);
 		},
 		onError: (error: CustomError) => {
 			toast.error(error.response?.data?.message);

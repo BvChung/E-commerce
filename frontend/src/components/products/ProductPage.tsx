@@ -26,6 +26,7 @@ export default function ProductPage() {
 								name={product.name}
 								description={product.description}
 								price={product.price}
+								category={product.category}
 								image={product.image}
 							/>
 						);
