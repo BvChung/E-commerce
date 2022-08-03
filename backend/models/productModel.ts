@@ -4,6 +4,7 @@ interface Product {
 	name: string;
 	description: string;
 	price: number;
+	category: string;
 	image: string;
 	imageCloudId: string;
 }
@@ -23,6 +24,11 @@ const productSchema = new Schema<Product>(
 		price: {
 			type: Number,
 			required: [true, "Product price is required"],
+		},
+		category: {
+			type: String,
+			required: [true, "Product category is required"],
+			default: "",
 		},
 		image: {
 			type: String,

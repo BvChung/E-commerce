@@ -21,7 +21,7 @@ const convertFile = async (req: Request, res: Response, next: NextFunction) => {
 				req.file.buffer
 			);
 
-			req.body = convertFileBuffer;
+			req.body.image = convertFileBuffer;
 
 			next();
 		} catch (error) {

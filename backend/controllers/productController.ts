@@ -1,8 +1,10 @@
 import { Request, Response, NextFunction } from "express";
 import ProductModel from "../models/productModel";
 import global from "../types/types";
-import { v2 as cloudinary } from "cloudinary";
+import cloudinaryConnection from "../config/cloudinaryConfig";
 import { productBody, productParams } from "../schemas/productSchema";
+import dotenv from "dotenv";
+dotenv.config();
 
 export const getProduct = async (
 	req: Request,
@@ -40,32 +42,31 @@ export const createProduct = async (
 	next: NextFunction
 ) => {
 	try {
-		const { name, description, price, image, imageCloudId } = req.body;
-		console.log(req.body.image);
+		const { name, description, price, category, image, fileName } = req.body;
 
-		const uploadedImage = await cloudinary.uploader.upload(
-			req.body.image.content,
+		const uploadedImage = await cloudinaryConnection.uploader.upload(
+			image,
 			{
 				upload_preset: process.env.CLOUDINARY_PRODUCT_UPLOAD,
-				public_id: req.file.originalname,
+				public_id: Date.now() + fileName.split(".")[0],
+			},
+			(err) => {
+				if (err) {
+					console.log(err);
+				}
 			}
 		);
 
-		console.log(uploadedImage);
+		const createdProduct = await ProductModel.create({
+			name,
+			description,
+			price,
+			category,
+			image: uploadedImage.secure_url,
+			imageCloudId: uploadedImage.public_id,
+		});
 
-		// const createdProduct = await ProductModel.create({
-		// 	name: "test",
-		// 	description: "test",
-		// 	// image,
-		// 	// imageCloudId,
-		// 	// price,
-		// 	price: 1,
-		// 	image: uploadedImage.secure_url,
-		// 	imageCloudId: uploadedImage.public_id,
-		// });
-
-		res.status(200);
-		// res.status(200).json(createdProduct);
+		res.status(200).json(createdProduct);
 	} catch (error) {
 		res.status(400);
 		next(error);
@@ -79,22 +80,30 @@ export const updateProduct = async (
 ) => {
 	try {
 		const foundProduct = await ProductModel.findById(req.params.id);
-		const { name, description, price, image, imageCloudId } = req.body;
-		// const uploadedImage = await cloudinary.uploader.upload(req.body.content, {
-		// 	upload_preset: process.env.CLOUDINARY_AVATAR_UPLOAD,
-		// 	public_id: req.file.originalname,
-		// });
+		const { name, description, price, category, image, fileName } = req.body;
+
+		const uploadedImage = await cloudinaryConnection.uploader.upload(
+			image,
+			{
+				upload_preset: process.env.CLOUDINARY_PRODUCT_UPLOAD,
+				public_id: Date.now() + fileName.split(".")[0],
+			},
+			(err) => {
+				if (err) {
+					console.log(err);
+				}
+			}
+		);
 
 		const updatedProduct = await ProductModel.findByIdAndUpdate(
 			req.params.id,
 			{
-				name: name ? name : foundProduct?.name,
-				description: description ? description : foundProduct?.description,
-				price: price ? price : foundProduct?.price,
-				image: image ? image : foundProduct?.image,
-				imageCloudId: imageCloudId ? imageCloudId : foundProduct?.imageCloudId,
-				// image: uploadedImage.secure_url,
-				// imageCloudId: uploadedImage.public_id,
+				name,
+				description,
+				price,
+				category,
+				image: uploadedImage.secure_url,
+				imageCloudId: uploadedImage.public_id,
 			},
 			{
 				new: true,
