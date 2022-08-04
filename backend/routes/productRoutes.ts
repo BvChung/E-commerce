@@ -10,7 +10,8 @@ import {
 	deleteProduct,
 } from "../controllers/productController";
 import {
-	productBodySchema,
+	productCreationBodySchema,
+	productUpdateBodySchema,
 	productParamsSchema,
 } from "../schemas/productSchema";
 
@@ -19,10 +20,16 @@ const router: IRouter = express.Router();
 router
 	.route("/")
 	.get(getProduct)
-	.post(
-		[verifyJWT, convertFile, validateRequest(productBodySchema)],
-		createProduct
-	);
+	.post(validateRequest(productCreationBodySchema), createProduct);
+
+// router
+// 	.route("/")
+// 	.get(getProduct)
+// 	.post(
+// 		[verifyJWT, convertFile, validateRequest(productBodySchema)],
+// 		createProduct
+// 	);
+
 router
 	.route("/:id")
 	.get(validateRequest(productParamsSchema), getProductInfo)
@@ -30,7 +37,7 @@ router
 		[
 			verifyJWT,
 			validateRequest(productParamsSchema),
-			validateRequest(productBodySchema),
+			validateRequest(productUpdateBodySchema),
 		],
 		updateProduct
 	)

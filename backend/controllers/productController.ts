@@ -2,7 +2,11 @@ import { Request, Response, NextFunction } from "express";
 import ProductModel from "../models/productModel";
 import global from "../types/types";
 import cloudinaryConnection from "../config/cloudinaryConfig";
-import { productBody, productParams } from "../schemas/productSchema";
+import {
+	productCreationBody,
+	productParams,
+	productUpdateBody,
+} from "../schemas/productSchema";
 import dotenv from "dotenv";
 dotenv.config();
 
@@ -37,7 +41,7 @@ export const getProductInfo = async (
 };
 
 export const createProduct = async (
-	req: Request<{}, {}, productBody["body"]>,
+	req: Request<{}, {}, productCreationBody["body"]>,
 	res: Response,
 	next: NextFunction
 ) => {
@@ -74,26 +78,31 @@ export const createProduct = async (
 };
 
 export const updateProduct = async (
-	req: Request<productParams["params"], {}, productBody["body"]>,
+	req: Request<productParams["params"], {}, productUpdateBody["body"]>,
 	res: Response,
 	next: NextFunction
 ) => {
 	try {
-		const foundProduct = await ProductModel.findById(req.params.id);
 		const { name, description, price, category, image, fileName } = req.body;
 
-		const uploadedImage = await cloudinaryConnection.uploader.upload(
-			image,
-			{
-				upload_preset: process.env.CLOUDINARY_PRODUCT_UPLOAD,
-				public_id: Date.now() + fileName.split(".")[0],
-			},
-			(err) => {
-				if (err) {
-					console.log(err);
+		const foundProduct = await ProductModel.findById(req.params.id);
+		if (!foundProduct) throw new Error("Product not found.");
+
+		let uploadedImage;
+		if (image && fileName) {
+			uploadedImage = await cloudinaryConnection.uploader.upload(
+				image,
+				{
+					upload_preset: process.env.CLOUDINARY_PRODUCT_UPLOAD,
+					public_id: Date.now() + fileName.split(".")[0],
+				},
+				(err) => {
+					if (err) {
+						console.log(err);
+					}
 				}
-			}
-		);
+			);
+		}
 
 		const updatedProduct = await ProductModel.findByIdAndUpdate(
 			req.params.id,
@@ -102,8 +111,10 @@ export const updateProduct = async (
 				description,
 				price,
 				category,
-				image: uploadedImage.secure_url,
-				imageCloudId: uploadedImage.public_id,
+				image: uploadedImage ? uploadedImage.secure_url : foundProduct.image,
+				imageCloudId: uploadedImage
+					? uploadedImage.secure_url
+					: foundProduct.imageCloudId,
 			},
 			{
 				new: true,

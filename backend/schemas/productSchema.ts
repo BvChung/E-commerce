@@ -1,19 +1,36 @@
 import { object, string, TypeOf, number, optional, any } from "zod";
 
-export const productBodySchema = object({
+export const productCreationBodySchema = object({
 	body: object({
 		name: string({
 			required_error: "Product name is required.",
-		}).optional(),
+		}),
 		description: string({
-			required_error: "Description is required.",
-		}).optional(),
+			required_error: "Product description is required.",
+		}),
 		price: number({
-			required_error: "Price is required.",
-		}).optional(),
-		image: any(),
-		imageCloudId: string().optional(),
-		content: any(),
+			required_error: "Product price is required.",
+		}),
+		category: string({
+			required_error: "Product category is required.",
+		}),
+		image: string({
+			required_error: "Product image is required.",
+		}),
+		fileName: string({
+			required_error: "Product file name is required.",
+		}),
+	}),
+});
+
+export const productUpdateBodySchema = object({
+	body: object({
+		name: string().optional(),
+		description: string().optional(),
+		price: number().optional(),
+		category: string().optional(),
+		image: string().optional(),
+		fileName: string().optional(),
 	}),
 });
 
@@ -25,5 +42,6 @@ export const productParamsSchema = object({
 	}),
 });
 
-export type productBody = TypeOf<typeof productBodySchema>;
+export type productCreationBody = TypeOf<typeof productCreationBodySchema>;
+export type productUpdateBody = TypeOf<typeof productUpdateBodySchema>;
 export type productParams = TypeOf<typeof productParamsSchema>;
