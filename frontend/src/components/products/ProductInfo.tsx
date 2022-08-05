@@ -12,18 +12,20 @@ export default function ProductInfo() {
 		data: productInfo,
 	} = useGetProductInfo(params.id);
 
-	console.log(productInfo);
-
 	return (
 		<div>
 			<h1>ProductInfo</h1>
 			{isSuccess && (
-				<div>
-					<p>{productInfo._id}</p>
-					<p>{productInfo.name}</p>
-					<p>{productInfo.description}</p>
-					<p>{productInfo.image}</p>
-					<p>{productInfo.price}</p>
+				<div className="grid md:grid-cols-2">
+					<img src={productInfo.image} alt="Product"></img>
+					<div className="flex flex-col justify-center">
+						<p>{productInfo.name}</p>
+						<p>{productInfo.price}</p>
+						<div className="card-body">
+							<h1 className="card-title">Product Description</h1>
+							<p>{productInfo.description}</p>
+						</div>
+					</div>
 				</div>
 			)}
 			<button
