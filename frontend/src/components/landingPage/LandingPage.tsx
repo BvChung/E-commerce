@@ -59,6 +59,14 @@ function LandingPage() {
 			</button>
 			<button
 				onClick={() => {
+					navigate("/cart");
+				}}
+				className="btn btn-info w-20 uppercase"
+			>
+				Cart
+			</button>
+			<button
+				onClick={() => {
 					refreshToken();
 				}}
 				className="btn w-20 uppercase"

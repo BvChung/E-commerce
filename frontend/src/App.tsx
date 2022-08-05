@@ -2,11 +2,13 @@ import Nav from "./components/nav/Nav";
 import Login from "./components/account/Login";
 import Register from "./components/account/Register";
 import "./App.css";
+import Layout from "./components/layout/Layout";
 import Landing from "./components/landingPage/LandingPage";
 import ProductPage from "./components/products/ProductPage";
 import ProductInfo from "./components/products/ProductInfo";
 import ProductCreation from "./components/products/ProductCreation";
 import OrdersPage from "./components/orders/OrdersPage";
+import Cart from "./components/cart/Cart";
 import ProtectedRoutes from "./components/protected/ProtectedRoutes";
 import Unauthorized from "./components/protected/Unauthorized";
 import Footer from "./components/footer/Footer";
@@ -27,7 +29,7 @@ function App() {
 		>
 			<Nav />
 			<Routes>
-				<Route path="/" element={<Outlet />}>
+				<Route path="/" element={<Layout />}>
 					{/* Public routes */}
 					<Route index element={<Landing />} />
 
@@ -41,7 +43,7 @@ function App() {
 						<Route path="creation" element={<ProductCreation />} />
 					</Route>
 
-					<Route path="cart" element={<p>cart</p>} />
+					<Route path="cart" element={<Cart />} />
 
 					<Route path="unauthorized" element={<Unauthorized />} />
 

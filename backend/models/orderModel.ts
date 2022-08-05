@@ -8,6 +8,7 @@ interface Order {
 		name: string;
 		quantity: number;
 		image: string;
+		imageCloudId: string;
 		price: number;
 	}[];
 	shippingAddress: {
@@ -51,6 +52,7 @@ const orderSchema = new Schema<Order>(
 				name: { type: String, required: true, ref: "Product" },
 				quantity: { type: Number, required: true },
 				image: { type: String, required: true, ref: "Product" },
+				imageCloudId: { type: String, required: true, ref: "Product" },
 				price: { type: Number, required: true, ref: "Product" },
 			},
 		],
