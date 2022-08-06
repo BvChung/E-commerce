@@ -1,7 +1,7 @@
 import { usePrivateApi } from "../auth/usePrivateApi";
 import { useMutation, useQueryClient } from "react-query";
 import {
-	ProductDetails,
+	ProductInfo,
 	ProductCreation,
 } from "../../interfaces/productInterface";
 import { CustomError } from "../../interfaces/customInterface";
@@ -21,7 +21,7 @@ export const useCreateProduct = () => {
 	};
 
 	return useMutation(createProduct, {
-		onSuccess: (data: ProductDetails) => {
+		onSuccess: (data: ProductInfo) => {
 			queryClient.invalidateQueries("products");
 			toast.success(`${data.name} has been created.`);
 			console.log(data);

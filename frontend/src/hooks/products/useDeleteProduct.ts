@@ -1,6 +1,6 @@
 import { usePrivateApi } from "../auth/usePrivateApi";
 import { useMutation, useQueryClient } from "react-query";
-import { ProductDetails } from "../../interfaces/productInterface";
+import { ProductInfo } from "../../interfaces/productInterface";
 import { CustomError } from "../../interfaces/customInterface";
 import { toast } from "react-toastify";
 
@@ -17,7 +17,7 @@ export default function useDeleteProducts(productId: string) {
 	};
 
 	return useMutation(deleteProduct, {
-		onSuccess: (data: ProductDetails) => {
+		onSuccess: (data: ProductInfo) => {
 			queryClient.invalidateQueries("products");
 			toast.success(`${data.name} has been deleted.`);
 		},
