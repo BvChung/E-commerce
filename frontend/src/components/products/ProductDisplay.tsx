@@ -1,16 +1,17 @@
 import { Link } from "react-router-dom";
-import { ProductDetails } from "../../interfaces/productInterface";
-import { addCart } from "../../hooks/cart/useAddItem";
+import { ProductInfo } from "../../interfaces/productInterface";
 import { toast } from "react-toastify";
+import { useCartContext } from "../../hooks/context/useCartContext";
 
 export default function ProductDisplay({
 	_id,
 	name,
-	description,
 	price,
 	category,
 	image,
-}: ProductDetails) {
+}: ProductInfo) {
+	const { addCartItem } = useCartContext();
+
 	return (
 		<div className="grid items-center justify-center">
 			<div className="card w-96 bg-base-100 border-[1px] shadow-sm hover:shadow-xl transition-shadow">
@@ -32,7 +33,8 @@ export default function ProductDisplay({
 						onClick={() => {
 							// console.log(_id);
 							toast.success(`${name} has been added to your cart.`);
-							addCart({ _id, quantity: 1 });
+							// addCart({ _id, quantity: 1 });
+							addCartItem({ _id, quantity: 1 });
 						}}
 						className="btn btn-md btn-primary"
 					>

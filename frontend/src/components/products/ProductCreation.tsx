@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { toast } from "react-toastify";
 import { useCreateProduct } from "../../hooks/products/useCreateProduct";
 import { ProductForm } from "../../interfaces/productInterface";
@@ -9,6 +9,7 @@ interface UploadedFile {
 
 export default function ProductCreation() {
 	const { mutate } = useCreateProduct();
+	const imageRef = useRef<HTMLInputElement>(null);
 
 	const [productFormData, setProductFormData] = useState<ProductForm>({
 		name: "",
@@ -19,6 +20,7 @@ export default function ProductCreation() {
 
 	const [file, setFile] = useState<UploadedFile | File | null>(null);
 	const [image, setImage] = useState<string | null>(null);
+	console.log(image);
 
 	function handleChange(
 		e:
@@ -79,6 +81,10 @@ export default function ProductCreation() {
 			image,
 			fileName: file.name,
 		});
+
+		if (imageRef.current) {
+			imageRef.current.value = "";
+		}
 
 		setProductFormData({
 			name: "",
@@ -166,6 +172,7 @@ export default function ProductCreation() {
 				</label>
 				<input
 					className="file-input"
+					ref={imageRef}
 					type="file"
 					id="image"
 					name="image"

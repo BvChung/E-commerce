@@ -1,5 +1,5 @@
 import { useGetProducts } from "../../hooks/products/useGetProducts";
-import { ProductDetails } from "../../interfaces/productInterface";
+import { ProductInfo } from "../../interfaces/productInterface";
 import ProductDisplay from "./ProductDisplay";
 
 export default function ProductPage() {
@@ -11,7 +11,7 @@ export default function ProductPage() {
 			{isLoading && <div className="text-9xl">Loading</div>}
 			<div className="grid items-center justify-center gap-8 grid-cols-1 lg:grid-cols-2">
 				{isSuccess &&
-					products.map((product: ProductDetails) => {
+					products.map((product: ProductInfo) => {
 						return (
 							<ProductDisplay
 								key={product._id}
