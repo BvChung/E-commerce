@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 import { Outlet } from "react-router-dom";
-import { useAuth } from "../../hooks/auth/useAuth";
+import { useAuthContext } from "../../hooks/context/useAuthContext";
 import { useGetUser } from "../../hooks/user/useGetUser";
 
 export default function PersistLogin() {
 	const [isLoading, setIsLoading] = useState<boolean>(true);
-	const { user } = useAuth();
+	const { user } = useAuthContext();
 	const getUser = useGetUser();
 
 	// Get user with cookie => if cookie expired redirect to login else return outlet

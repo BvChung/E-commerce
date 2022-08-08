@@ -1,7 +1,7 @@
 import { useMutation, useQueryClient, useQuery } from "react-query";
 import { toast } from "react-toastify";
 import { LoginCredentials, UserInfo } from "../../interfaces/userInterface";
-import { useAuth } from "../auth/useAuth";
+import { useAuthContext } from "../context/useAuthContext";
 import { getUser } from "../../api/userApi";
 import { eCommerceApiPublic } from "../../api/axios";
 import { CustomError } from "../../interfaces/customInterface";
@@ -28,7 +28,7 @@ export const useLogin = (credentials: LoginCredentials) => {
 
 export const useLoginUser = () => {
 	const queryClient = useQueryClient();
-	const { setUser } = useAuth();
+	const { setUser } = useAuthContext();
 
 	const login = async (credentials: LoginCredentials): Promise<UserInfo> => {
 		const response = await eCommerceApiPublic.post(

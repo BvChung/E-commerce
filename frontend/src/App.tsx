@@ -17,10 +17,10 @@ import { ToastContainer, Slide } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { accessRoles } from "./helper/accessRoles";
 import PersistLogin from "./components/protected/PersistLogin";
-import { useSetTheme } from "./hooks/theme/useSetTheme";
+import { useThemeContext } from "./hooks/context/useThemeContext";
 
 function App() {
-	const { theme } = useSetTheme();
+	const { theme } = useThemeContext();
 
 	return (
 		<div

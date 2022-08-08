@@ -1,11 +1,11 @@
 import { eCommerceApiPublic } from "../../api/axios";
 
 import { storage } from "../../helper/tokenStorage";
-import { useAuth } from "./useAuth";
+import { useAuthContext } from "../context/useAuthContext";
 import { toast } from "react-toastify";
 
 export const useRefreshToken = () => {
-	const { setUser } = useAuth();
+	const { setUser } = useAuthContext();
 
 	const refreshToken = async () => {
 		try {

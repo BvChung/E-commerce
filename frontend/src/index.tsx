@@ -7,6 +7,7 @@ import { QueryClient, QueryClientProvider } from "react-query";
 import { ReactQueryDevtools } from "react-query/devtools";
 import { AuthProvider } from "./context/AuthProvider";
 import { ThemeProvider } from "./context/ThemeProvider";
+import { CartProvider } from "./context/CartProvider";
 
 const queryClient = new QueryClient();
 
@@ -19,7 +20,9 @@ root.render(
 		<BrowserRouter>
 			<ThemeProvider>
 				<AuthProvider>
-					<App />
+					<CartProvider>
+						<App />
+					</CartProvider>
 					<ReactQueryDevtools initialIsOpen />
 				</AuthProvider>
 			</ThemeProvider>

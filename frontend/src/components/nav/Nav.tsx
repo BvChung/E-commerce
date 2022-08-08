@@ -1,19 +1,22 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { SearchIcon } from "@heroicons/react/solid";
-import { useAuth } from "../../hooks/auth/useAuth";
+import { useAuthContext } from "../../hooks/context/useAuthContext";
+import { useThemeContext } from "../../hooks/context/useThemeContext";
+import { useCartContext } from "../../hooks/context/useCartContext";
 import { storage } from "../../helper/tokenStorage";
-import { useSetTheme } from "../../hooks/theme/useSetTheme";
-import { SunIcon, MoonIcon } from "@heroicons/react/solid";
 
 const Nav = () => {
-	const navigate = useNavigate();
-	const { user, setUser } = useAuth();
-	const { setTheme } = useSetTheme();
-	const [searchText, setSearchText] = useState<string>("");
-	const [inputActive, setInputActive] = useState<boolean>(false);
+	//const navigate = useNavigate();
+	//const { user, setUser } = useAuthContext();
+	const { myCart } = useCartContext();
+	const { setTheme } = useThemeContext();
+	//const [searchText, setSearchText] = useState<string>("");
+	//const [inputActive, setInputActive] = useState<boolean>(false);
 
-	const inputActiveStyle: string = inputActive ? "bg-white" : "bg-gray-100";
+	const numCartItems = myCart.reduce((prev, curr) => prev + curr.quantity, 0);
+
+	//const inputActiveStyle: string = inputActive ? "bg-white" : "bg-gray-100";
 
 	return (
 		<nav className="navbar h-14 px-4 border-b-[1px]">
@@ -148,7 +151,9 @@ const Nav = () => {
 										d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"
 									/>
 								</svg>
-								<span className="badge badge-sm indicator-item">10</span>
+								<span className="badge badge-sm indicator-item">
+									{numCartItems}
+								</span>
 							</div>
 						</button>
 					</Link>

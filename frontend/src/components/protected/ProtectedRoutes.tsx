@@ -1,12 +1,12 @@
 import { Navigate, Outlet, useLocation } from "react-router-dom";
-import { useAuth } from "../../hooks/auth/useAuth";
+import { useAuthContext } from "../../hooks/context/useAuthContext";
 
 interface ProtectedRoutesProps {
 	authRoles: Array<number>;
 }
 
 const ProtectedRoutes = ({ authRoles }: ProtectedRoutesProps) => {
-	const { user } = useAuth();
+	const { user } = useAuthContext();
 	const location = useLocation();
 
 	// User is logged in and authenticated role number matches prop roles then return access to child components

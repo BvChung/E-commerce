@@ -1,10 +1,10 @@
 import React from "react";
-import { useAuth } from "../auth/useAuth";
+import { useAuthContext } from "../context/useAuthContext";
 import { usePrivateApi } from "../auth/usePrivateApi";
 import { toast } from "react-toastify";
 
 export const useGetUser = () => {
-	const { setUser } = useAuth();
+	const { setUser } = useAuthContext();
 	const eCommerceApiPrivate = usePrivateApi();
 
 	const getUser = async () => {
