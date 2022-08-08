@@ -1,35 +1,32 @@
-import React, { createContext, useState } from "react";
-import Cart from "../components/cart/Cart";
+import React, { createContext, useEffect, useState } from "react";
+import { CartStorageData } from "../interfaces/cartInterface";
 
 interface CartContextInterface {
-	myCart: Cart | null;
-	setMyCart: React.Dispatch<React.SetStateAction<Cart[]>>;
+	myCart: CartStorageData[];
+	setMyCart: React.Dispatch<React.SetStateAction<CartStorageData[]>>;
 	addCartItem: any;
+	updateCartItemQuantity: any;
+	clearMyCart: any;
 }
 
 interface AuthProviderProps {
 	children: React.ReactNode;
 }
 
-interface Cart {
-	_id: string;
-	quantity: number;
-}
-
 const CartContext = createContext({} as CartContextInterface);
 
 export const CartProvider = ({ children }: AuthProviderProps) => {
-	const [myCart, setMyCart] = useState(
+	const [myCart, setMyCart] = useState<CartStorageData[]>(
 		JSON.parse(localStorage.getItem("cart")!) || []
 	);
 
-	function addCartItem(newItem: Cart) {
+	function addCartItem(newItem: CartStorageData) {
 		const foundItem = myCart.find(
-			(product: Cart) => product._id === newItem._id
+			(product: CartStorageData) => product._id === newItem._id
 		);
 
 		if (foundItem) {
-			const updatedCart = myCart.map((product: Cart) => {
+			const updatedCart = myCart.map((product: CartStorageData) => {
 				if (product._id === newItem._id) {
 					return {
 						...product,
@@ -42,12 +39,30 @@ export const CartProvider = ({ children }: AuthProviderProps) => {
 
 			return setMyCart(updatedCart);
 		} else {
-			return setMyCart((prev: Cart[]) => [...prev, newItem]);
+			return setMyCart((prev: CartStorageData[]) => [...prev, newItem]);
 		}
 	}
 
+	function updateCartItemQuantity() {}
+
+	function clearMyCart() {
+		setMyCart([]);
+	}
+
+	useEffect(() => {
+		localStorage.setItem("cart", JSON.stringify(myCart));
+	}, [myCart]);
+
 	return (
-		<CartContext.Provider value={{ myCart, setMyCart, addCartItem }}>
+		<CartContext.Provider
+			value={{
+				myCart,
+				setMyCart,
+				addCartItem,
+				updateCartItemQuantity,
+				clearMyCart,
+			}}
+		>
 			{children}
 		</CartContext.Provider>
 	);

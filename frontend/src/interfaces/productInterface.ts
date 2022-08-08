@@ -4,7 +4,7 @@ interface Product {
 	category: string;
 }
 
-export interface ProductDetails extends Product {
+export interface ProductInfo extends Product {
 	_id: string;
 	price: number;
 	image: string;
