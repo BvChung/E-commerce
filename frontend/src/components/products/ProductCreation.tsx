@@ -20,7 +20,6 @@ export default function ProductCreation() {
 
 	const [file, setFile] = useState<UploadedFile | File | null>(null);
 	const [image, setImage] = useState<string | null>(null);
-	console.log(image);
 
 	function handleChange(
 		e:
@@ -56,7 +55,7 @@ export default function ProductCreation() {
 			setFile(productImageFile);
 			readFile(productImageFile);
 		} else {
-			console.log(e.target.files[0]);
+			//console.log(e.target.files[0]);
 
 			return toast.error("File must be less than 5 MB");
 		}

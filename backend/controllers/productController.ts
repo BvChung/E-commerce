@@ -25,6 +25,23 @@ export const getProduct = async (
 	}
 };
 
+export const getSpecifiedProducts = async (
+	req: Request,
+	res: Response,
+	next: NextFunction
+) => {
+	try {
+		const myCartItems = await ProductModel.find({
+			_id: { $in: req.query.productIds },
+		});
+
+		res.status(200).json(myCartItems);
+	} catch (error) {
+		res.status(400);
+		next(error);
+	}
+};
+
 export const getProductInfo = async (
 	req: Request<productParams["params"], {}, {}>,
 	res: Response,

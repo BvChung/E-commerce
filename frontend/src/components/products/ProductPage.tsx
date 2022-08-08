@@ -9,7 +9,7 @@ export default function ProductPage() {
 		<div>
 			<h1>Products</h1>
 			{isLoading && <div className="text-9xl">Loading</div>}
-			<div className="grid items-center justify-center gap-8 grid-cols-1 lg:grid-cols-2">
+			<div className="grid items-center justify-center gap-8 grid-cols-1 lg:grid-cols-2 xl:grid-cols-3">
 				{isSuccess &&
 					products.map((product: ProductInfo) => {
 						return (

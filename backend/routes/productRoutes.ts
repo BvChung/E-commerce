@@ -1,10 +1,11 @@
 import express, { IRouter } from "express";
 import verifyJWT from "../middleware/authJWT";
 import validateRequest from "../middleware/validateReq";
-import convertFile from "../middleware/convertFile";
+
 import {
 	getProduct,
 	getProductInfo,
+	getSpecifiedProducts,
 	createProduct,
 	updateProduct,
 	deleteProduct,
@@ -29,6 +30,7 @@ router
 // 		[verifyJWT, convertFile, validateRequest(productBodySchema)],
 // 		createProduct
 // 	);
+router.route("/cart").get(getSpecifiedProducts);
 
 router
 	.route("/:id")

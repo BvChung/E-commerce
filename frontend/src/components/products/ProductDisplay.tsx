@@ -14,10 +14,10 @@ export default function ProductDisplay({
 
 	return (
 		<div className="grid items-center justify-center">
-			<div className="card w-96 bg-base-100 border-[1px] shadow-sm hover:shadow-xl transition-shadow">
+			<div className="card w-[22rem] bg-base-100 border-[1px] shadow-sm hover:shadow-xl transition-shadow">
 				<Link to={_id}>
 					<figure>
-						<img src={image} alt="Product" className="h-[255px] w-96 " />
+						<img src={image} alt="Product" className="h-[255px] w-[22rem] " />
 					</figure>
 				</Link>
 				<div className="card-body justify-evenly">
