@@ -4,9 +4,10 @@ import { CartStorageData } from "../interfaces/cartInterface";
 interface CartContextInterface {
 	myCart: CartStorageData[];
 	setMyCart: React.Dispatch<React.SetStateAction<CartStorageData[]>>;
-	addCartItem: any;
-	updateCartItemQuantity: any;
-	clearMyCart: any;
+	addCartItem(newItem: CartStorageData): void;
+	removeCartItem(removedItem: CartStorageData): void;
+	updateCartItemQuantity(updatedItem: CartStorageData): void;
+	clearMyCart(): void;
 }
 
 interface AuthProviderProps {
@@ -26,24 +27,56 @@ export const CartProvider = ({ children }: AuthProviderProps) => {
 		);
 
 		if (foundItem) {
-			const updatedCart = myCart.map((product: CartStorageData) => {
-				if (product._id === newItem._id) {
-					return {
-						...product,
-						quantity: product.quantity + newItem.quantity,
-					};
-				} else {
-					return { ...product };
-				}
-			});
+			// const updatedCart = myCart.map((product: CartStorageData) => {
+			// 	if (product._id === newItem._id) {
+			// 		return {
+			// 			...product,
+			// 			quantity: product.quantity + newItem.quantity,
+			// 		};
+			// 	} else {
+			// 		return { ...product };
+			// 	}
+			// });
 
-			return setMyCart(updatedCart);
+			// return setMyCart(updatedCart);
+
+			return setMyCart((prev) => {
+				return prev.map((item) => {
+					if (item._id === newItem._id) {
+						return {
+							...item,
+							quantity: item.quantity + newItem.quantity,
+						};
+					} else {
+						return { ...item };
+					}
+				});
+			});
 		} else {
-			return setMyCart((prev: CartStorageData[]) => [...prev, newItem]);
+			return setMyCart((prev) => [...prev, newItem]);
 		}
 	}
 
-	function updateCartItemQuantity() {}
+	function removeCartItem(removedItem: CartStorageData) {
+		return setMyCart((prev) =>
+			prev.filter((item) => item._id !== removedItem._id)
+		);
+	}
+
+	function updateCartItemQuantity(updatedItem: CartStorageData) {
+		return setMyCart((prev) => {
+			return prev.map((item) => {
+				if (item._id === updatedItem._id) {
+					return {
+						...item,
+						quantity: updatedItem.quantity,
+					};
+				} else {
+					return { ...item };
+				}
+			});
+		});
+	}
 
 	function clearMyCart() {
 		setMyCart([]);
@@ -59,6 +92,7 @@ export const CartProvider = ({ children }: AuthProviderProps) => {
 				myCart,
 				setMyCart,
 				addCartItem,
+				removeCartItem,
 				updateCartItemQuantity,
 				clearMyCart,
 			}}
