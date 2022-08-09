@@ -3,10 +3,6 @@ import { toast } from "react-toastify";
 import { useCreateProduct } from "../../hooks/products/useCreateProduct";
 import { ProductForm } from "../../interfaces/productInterface";
 
-interface UploadedFile {
-	name: string;
-}
-
 export default function ProductCreation() {
 	const { mutate } = useCreateProduct();
 	const imageRef = useRef<HTMLInputElement>(null);
@@ -18,7 +14,7 @@ export default function ProductCreation() {
 		category: "",
 	});
 
-	const [file, setFile] = useState<UploadedFile | File | null>(null);
+	const [file, setFile] = useState<File | null>(null);
 	const [image, setImage] = useState<string | null>(null);
 
 	function handleChange(

@@ -5,33 +5,37 @@ import { CartStorageData, CartInfo } from "../../interfaces/cartInterface";
 import qs from "qs";
 
 export const useGetCartItems = (myCartItems: CartStorageData[]) => {
-	const productIds = myCartItems.map((item: CartStorageData) => item._id);
-	const sortedItems = myCartItems.sort(
-		(a: CartStorageData, b: CartStorageData) => {
-			if (a._id > b._id) {
-				return 1;
-			}
-			if (a._id < b._id) {
-				return -1;
-			}
-			return 0;
-		}
-	);
-
-	const getCartItems = async (productIds: string[]): Promise<CartInfo[]> => {
+	const getCartItems = async (
+		myCartItems: CartStorageData[]
+	): Promise<CartInfo[]> => {
+		// Send productsIds through params => on backend accessed through req.query b/c of using qs.stringify() library
+		//Ex: http://localhost:3000/api/products/cart?productIds[0]=1&productIds[1]=2&productIds[2]=3
 		const response = await eCommerceApiPublic.get("/api/products/cart", {
 			params: {
-				productIds,
+				productIds: myCartItems.map((item) => item._id),
 			},
 			paramsSerializer: (params) => qs.stringify(params),
 		});
 
-		const addItemQuantity: CartInfo[] = await response.data.map(
+		// MongoDB returns items sorted in alphabetical order by id therefore have to match by sorting myCartItems in order to assign the quantites properly.
+		const sortItems = myCartItems.sort(
+			(a: CartStorageData, b: CartStorageData) => {
+				if (a._id > b._id) {
+					return 1;
+				}
+				if (a._id < b._id) {
+					return -1;
+				}
+				return 0;
+			}
+		);
+
+		const addItemQuantity: CartInfo[] = response.data.map(
 			(product: ProductInfo, i: number) => {
-				if (product._id === sortedItems[i]._id) {
+				if (product._id === sortItems[i]._id) {
 					return {
 						...product,
-						quantity: sortedItems[i].quantity,
+						quantity: sortItems[i].quantity,
 					};
 				} else {
 					return { ...product };
@@ -42,7 +46,46 @@ export const useGetCartItems = (myCartItems: CartStorageData[]) => {
 		return addItemQuantity;
 	};
 
-	return useQuery(["cart", productIds], () => getCartItems(productIds), {
-		enabled: !!productIds,
-	});
+	return useQuery(["cart", myCartItems], () => getCartItems(myCartItems));
 };
+
+// export const useGetCartItems = (myCartItems: CartStorageData[]) => {
+// 	const productIds = myCartItems.map((item: CartStorageData) => item._id);
+// 	const sortedItems = myCartItems.sort(
+// 		(a: CartStorageData, b: CartStorageData) => {
+// 			if (a._id > b._id) {
+// 				return 1;
+// 			}
+// 			if (a._id < b._id) {
+// 				return -1;
+// 			}
+// 			return 0;
+// 		}
+// 	);
+
+// 	const getCartItems = async (productIds: string[]): Promise<CartInfo[]> => {
+// 		const response = await eCommerceApiPublic.get("/api/products/cart", {
+// 			params: {
+// 				productIds,
+// 			},
+// 			paramsSerializer: (params) => qs.stringify(params),
+// 		});
+
+// 		const addItemQuantity: CartInfo[] = await response.data.map(
+// 			(product: ProductInfo, i: number) => {
+// 				if (product._id === sortedItems[i]._id) {
+// 					return {
+// 						...product,
+// 						quantity: sortedItems[i].quantity,
+// 					};
+// 				} else {
+// 					return { ...product };
+// 				}
+// 			}
+// 		);
+
+// 		return addItemQuantity;
+// 	};
+
+// 	return useQuery(["cart", productIds], () => getCartItems(productIds));
+// };

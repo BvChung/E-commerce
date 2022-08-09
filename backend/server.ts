@@ -2,7 +2,7 @@ import dotenv from "dotenv";
 import path from "path";
 import cors from "cors";
 import cookieParser from "cookie-parser";
-import express, { Express } from "express";
+import express, { Express, Request, Response, NextFunction } from "express";
 import "colors";
 import { connectDatabase } from "./config/mongoConfig";
 import errorHandler from "./middleware/errorHandler";
@@ -22,12 +22,41 @@ app.use(express.urlencoded({ extended: false }));
 
 app.use(
 	cors({
-		origin: ["http://localhost:3000", " http://127.0.0.1:5500"],
+		origin: [
+			"http://localhost:3000",
+			"http://127.0.0.1:5500",
+			"http://localhost:3001",
+		],
 		credentials: true,
 	})
 );
 
+// origin: [
+// 	"http://localhost:3000",
+// 	"http://127.0.0.1:5500",
+// 	"http://localhost:3001",
+// ]
+
 app.use(cookieParser());
+// app.use(function (req: Request, res: Response, next: NextFunction) {
+// 	res.header("Access-Control-Allow-Origin", "http://localhost:3000");
+// 	res.setHeader(
+// 		"Access-Control-Allow-Methods",
+// 		"GET, POST, OPTIONS, PUT, PATCH, DELETE"
+// 	);
+// 	// res.setHeader(
+// 	// 	"Access-Control-Allow-Headers",
+// 	// 	"X-Requested-With,content-type"
+// 	// );
+// 	res.header(
+// 		"Access-Control-Allow-Headers",
+// 		"Origin, X-Requested-With, Content-Type, Accept"
+// 	);
+// 	// @ts-ignore
+// 	res.setHeader("Access-Control-Allow-Credentials", true);
+
+// 	next();
+// });
 
 app.use("/api/users", userRoutes);
 app.use("/api/products", productRoutes);
