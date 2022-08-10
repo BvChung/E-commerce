@@ -9,9 +9,9 @@ export const getOrder = async (
 	next: NextFunction
 ) => {
 	try {
-		const customerOrder = await OrderModel.find({ user: req.user.id });
+		const myOrder = await OrderModel.find({ user: req.user.id });
 
-		res.status(200).json(customerOrder);
+		res.status(200).json(myOrder);
 	} catch (error) {
 		res.status(400);
 		next(error);
@@ -24,9 +24,15 @@ export const createOrder = async (
 	next: NextFunction
 ) => {
 	try {
-		const { shippingAddress, purchasedItems, paymentDetails } = req.body;
+		const {
+			customerId,
+			customerName,
+			shippingAddress,
+			purchasedItems,
+			paymentDetails,
+		} = req.body;
 
-		const newOrder = await OrderModel.create({
+		const createdOrder = await OrderModel.create({
 			user: req.user.id,
 			customerName: req.user.name,
 			shippingAddress,
@@ -34,7 +40,7 @@ export const createOrder = async (
 			paymentDetails,
 		});
 
-		res.status(200).json(newOrder);
+		res.status(200).json(createdOrder);
 	} catch (error) {
 		res.status(400);
 		next(error);

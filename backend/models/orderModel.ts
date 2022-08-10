@@ -1,15 +1,17 @@
 import { Types, Schema, model } from "mongoose";
 
 interface Order {
-	user: Types.ObjectId;
+	customerId: Types.ObjectId;
 	customerName: string;
 	purchasedItems: {
 		productId: Schema.Types.ObjectId;
 		name: string;
+		description: string;
+		category: string;
+		price: number;
 		quantity: number;
 		image: string;
 		imageCloudId: string;
-		price: number;
 	}[];
 	shippingAddress: {
 		address: string;
@@ -27,7 +29,7 @@ interface Order {
 
 const orderSchema = new Schema<Order>(
 	{
-		user: {
+		customerId: {
 			type: Schema.Types.ObjectId,
 			ref: "User",
 		},
@@ -50,10 +52,12 @@ const orderSchema = new Schema<Order>(
 					ref: "Product",
 				},
 				name: { type: String, required: true, ref: "Product" },
+				description: { type: String, required: true, ref: "Product" },
+				category: { type: String, required: true, ref: "Product" },
+				price: { type: Number, required: true, ref: "Product" },
 				quantity: { type: Number, required: true },
 				image: { type: String, required: true, ref: "Product" },
 				imageCloudId: { type: String, required: true, ref: "Product" },
-				price: { type: Number, required: true, ref: "Product" },
 			},
 		],
 		paymentDetails: {

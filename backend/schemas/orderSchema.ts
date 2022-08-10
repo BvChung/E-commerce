@@ -8,6 +8,8 @@ export const orderParamsSchema = object({
 
 export const orderBodySchema = object({
 	body: object({
+		customerId: string({ required_error: "Customer id is required." }),
+		customerName: string({ required_error: "Customer name is required." }),
 		shippingAddress: object({
 			address: string({
 				required_error: "Address is required.",
@@ -30,14 +32,23 @@ export const orderBodySchema = object({
 				name: string({
 					required_error: "Name is required.",
 				}),
+				description: string({
+					required_error: "Description is required.",
+				}),
+				category: string({
+					required_error: "Category is required.",
+				}),
+				price: number({
+					required_error: "Price is required.",
+				}),
 				quantity: number({
 					required_error: "Quantity is required.",
 				}),
 				image: string({
 					required_error: "Image is required.",
 				}),
-				price: number({
-					required_error: "Price is required.",
+				imageCloudId: string({
+					required_error: "ImageCloudId is required.",
 				}),
 			})
 		),

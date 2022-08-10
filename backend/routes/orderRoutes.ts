@@ -12,8 +12,12 @@ const router: IRouter = express.Router();
 
 router
 	.route("/")
-	.get(verifyJWT, getOrder)
-	.post([verifyJWT, validateRequest(orderBodySchema)], createOrder);
+	.get(getOrder)
+	.post([validateRequest(orderBodySchema)], createOrder);
+// router
+// 	.route("/")
+// 	.get(verifyJWT, getOrder)
+// 	.post([verifyJWT, validateRequest(orderBodySchema)], createOrder);
 router
 	.route("/:id")
 	.delete([verifyJWT, validateRequest(orderParamsSchema)], deleteOrder);
