@@ -8,6 +8,8 @@ import { ReactQueryDevtools } from "react-query/devtools";
 import { AuthProvider } from "./context/AuthProvider";
 import { ThemeProvider } from "./context/ThemeProvider";
 import { CartProvider } from "./context/CartProvider";
+import { OrderProvider } from "./context/OrderProvider";
+import { ToastContainer, Slide } from "react-toastify";
 
 const queryClient = new QueryClient();
 
@@ -21,8 +23,11 @@ root.render(
 			<ThemeProvider>
 				<AuthProvider>
 					<CartProvider>
-						<App />
+						<OrderProvider>
+							<App />
+						</OrderProvider>
 					</CartProvider>
+					<ToastContainer limit={1} autoClose={1500} transition={Slide} />
 					<ReactQueryDevtools initialIsOpen />
 				</AuthProvider>
 			</ThemeProvider>

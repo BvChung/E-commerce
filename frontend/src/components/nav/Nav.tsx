@@ -21,21 +21,23 @@ const Nav = () => {
 	return (
 		<nav className="navbar h-14 px-4 border-b-[1px]">
 			<div className="navbar-start">
-				<button className="btn btn-square btn-ghost">
-					<svg
-						xmlns="http://www.w3.org/2000/svg"
-						fill="none"
-						viewBox="0 0 24 24"
-						className="inline-block w-6 h-6 stroke-current"
-					>
-						<path
-							strokeLinecap="round"
-							strokeLinejoin="round"
-							strokeWidth="2"
-							d="M4 6h16M4 12h16M4 18h16"
-						></path>
-					</svg>
-				</button>
+				<div className="flex-none lg:hidden">
+					<label htmlFor="app-drawer" className="btn btn-square btn-ghost">
+						<svg
+							xmlns="http://www.w3.org/2000/svg"
+							fill="none"
+							viewBox="0 0 24 24"
+							className="inline-block w-6 h-6 stroke-current"
+						>
+							<path
+								strokeLinecap="round"
+								strokeLinejoin="round"
+								strokeWidth="2"
+								d="M4 6h16M4 12h16M4 18h16"
+							></path>
+						</svg>
+					</label>
+				</div>
 
 				<div className="w-auto p-4">
 					<Link to="/">

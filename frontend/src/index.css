@@ -23,3 +23,8 @@ body {
 .file-input::file-selector-button {
 	@apply btn;
 }
+
+.fade {
+	animation-name: fadeIn;
+	animation-duration: 500ms;
+}
