@@ -19,7 +19,7 @@ export default function CartItem({
 	}, [itemQuantity]);
 
 	return (
-		<div className="flex flex-col">
+		<div className="flex flex-col transition-all fade">
 			<div>
 				<figure>
 					<img src={image} alt="Product"></img>

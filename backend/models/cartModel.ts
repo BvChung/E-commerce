@@ -2,15 +2,16 @@ import { Types, Schema, model } from "mongoose";
 
 interface Cart {
 	user: Types.ObjectId;
-	cartItems: [
-		{
-			productId: Schema.Types.ObjectId;
-			name: string;
-			quantity: number;
-			image: string;
-			price: number;
-		}
-	];
+	cartItems: {
+		productId: Schema.Types.ObjectId;
+		name: string;
+		description: string;
+		category: string;
+		price: number;
+		quantity: number;
+		image: string;
+		imageCloudId: string;
+	}[];
 }
 
 const cartSchema = new Schema<Cart>(
@@ -27,9 +28,12 @@ const cartSchema = new Schema<Cart>(
 					ref: "Product",
 				},
 				name: { type: String, required: true, ref: "Product" },
+				description: { type: String, required: true, ref: "Product" },
+				category: { type: String, required: true, ref: "Product" },
+				price: { type: Number, required: true, ref: "Product" },
 				quantity: { type: Number, required: true },
 				image: { type: String, required: true, ref: "Product" },
-				price: { type: Number, required: true, ref: "Product" },
+				imageCloudId: { type: String, required: true, ref: "Product" },
 			},
 		],
 	},

@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { useCartContext } from "../../hooks/context/useCartContext";
 import { CartInfo } from "../../interfaces/cartInterface";
 import { useGetCartItems } from "../../hooks/cart/useGetCartItems";
@@ -20,8 +21,7 @@ export default function Cart() {
 	);
 	return (
 		<div className="grid grid-cols-2 gap-2">
-			{isFetching && <div className="stat-title">Loading...</div>}
-			<div>
+			<div className="transition-all">
 				{isSuccess &&
 					displayMyCart.map((item: CartInfo) => {
 						return (
@@ -39,12 +39,15 @@ export default function Cart() {
 						);
 					})}
 			</div>
+
 			<div className="stats shadow flex flex-col items-center justify-center gap-2">
 				<div className="stat flex flex-col items-center justify-center">
 					<div className="stat-title">Subtotal ({numCartItems} items)</div>
 					<div className="stat-value">${cartSubtotal}</div>
 				</div>
-				<button className="btn btn-error">Checkout</button>
+				<Link className="btn btn-error" to={"/checkout/shipping"}>
+					Proceed to checkout
+				</Link>
 				<button onClick={clearMyCart} className="btn btn-error">
 					Clear
 				</button>

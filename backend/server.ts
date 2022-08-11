@@ -31,12 +31,6 @@ app.use(
 	})
 );
 
-// origin: [
-// 	"http://localhost:3000",
-// 	"http://127.0.0.1:5500",
-// 	"http://localhost:3001",
-// ]
-
 app.use(cookieParser());
 // app.use(function (req: Request, res: Response, next: NextFunction) {
 // 	res.header("Access-Control-Allow-Origin", "http://localhost:3000");

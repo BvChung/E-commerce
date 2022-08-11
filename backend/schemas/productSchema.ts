@@ -1,5 +1,13 @@
 import { object, string, TypeOf, number, optional, any } from "zod";
 
+export const productParamsSchema = object({
+	params: object({
+		id: string({
+			required_error: "Product id params is required.",
+		}),
+	}),
+});
+
 export const productCreationBodySchema = object({
 	body: object({
 		name: string({
@@ -31,14 +39,6 @@ export const productUpdateBodySchema = object({
 		category: string().optional(),
 		image: string().optional(),
 		fileName: string().optional(),
-	}),
-});
-
-export const productParamsSchema = object({
-	params: object({
-		id: string({
-			required_error: "Product id params is required.",
-		}),
 	}),
 });
 

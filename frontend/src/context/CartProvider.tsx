@@ -27,19 +27,6 @@ export const CartProvider = ({ children }: AuthProviderProps) => {
 		);
 
 		if (foundItem) {
-			// const updatedCart = myCart.map((product: CartStorageData) => {
-			// 	if (product._id === newItem._id) {
-			// 		return {
-			// 			...product,
-			// 			quantity: product.quantity + newItem.quantity,
-			// 		};
-			// 	} else {
-			// 		return { ...product };
-			// 	}
-			// });
-
-			// return setMyCart(updatedCart);
-
 			return setMyCart((prev) => {
 				return prev.map((item) => {
 					if (item._id === newItem._id) {
