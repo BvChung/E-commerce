@@ -15,7 +15,7 @@ export default function CartItem({
 	const [itemQuantity, setItemQuantity] = useState(quantity);
 
 	useEffect(() => {
-		updateCartItemQuantity({ _id, quantity: itemQuantity });
+		updateCartItemQuantity({ _id, price, quantity: itemQuantity });
 	}, [itemQuantity]);
 
 	return (
@@ -57,7 +57,7 @@ export default function CartItem({
 				</div>
 				<button
 					onClick={() => {
-						removeCartItem({ _id, quantity });
+						removeCartItem({ _id, price, quantity });
 					}}
 					className="btn btn-accent"
 				>

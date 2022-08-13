@@ -15,7 +15,7 @@ export default function Cart() {
 	// console.log(displayMyCart);
 
 	const numCartItems = myCart.reduce((prev, curr) => prev + curr.quantity, 0);
-	const cartSubtotal = displayMyCart?.reduce(
+	const cartSubtotal = myCart.reduce(
 		(prev, curr) => prev + curr.price * curr.quantity,
 		0
 	);
