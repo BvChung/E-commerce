@@ -3,11 +3,9 @@ import { OrderInfo } from "../../interfaces/orderInterface";
 
 export default function OrderDisplay({
 	_id,
-	customerId,
-	customerName,
 	purchasedItems,
-	shippingAddress,
-	paymentDetails,
+	shippingInfo,
+	paymentInfo,
 }: OrderInfo) {
 	return (
 		<div className="card w-96 bg-base-100 shadow-xl">
@@ -15,9 +13,11 @@ export default function OrderDisplay({
 				<img src="https://placeimg.com/400/225/arch" alt="Shoes" />
 			</figure>
 			<div className="card-body">
-				<h2 className="card-title">{customerId}</h2>
-				<p>{customerName}</p>
-				<p>{shippingAddress.address}</p>
+				<h2 className="card-title">My order</h2>
+				<p>
+					{shippingInfo.firstName} {shippingInfo.lastName}
+				</p>
+				<p>{shippingInfo.address}</p>
 				<div className="card-actions justify-end">
 					<button
 						onClick={() => {

@@ -1,8 +1,6 @@
 import { Types, Schema, model } from "mongoose";
 
 interface Order {
-	customerId: Types.ObjectId;
-	customerName: string;
 	purchasedItems: {
 		productId: Schema.Types.ObjectId;
 		name: string;
@@ -13,15 +11,24 @@ interface Order {
 		image: string;
 		imageCloudId: string;
 	}[];
-	shippingAddress: {
+	shippingInfo: {
+		firstName: string;
+		lastName: string;
 		address: string;
+		aptSuiteEtc: string;
+		state: string;
 		city: string;
-		country: string;
 		postalCode: string;
+		phone: string;
+		email: string;
 	};
-	paymentDetails: {
+	paymentInfo: {
 		paymentType: string;
 		cardNumber: string;
+		cardHolder: string;
+		expiryDateMonth: string;
+		expiryDateYear: string;
+		securityCode: string;
 		totalCost: number;
 		datePurchased: string;
 	};
@@ -29,20 +36,16 @@ interface Order {
 
 const orderSchema = new Schema<Order>(
 	{
-		customerId: {
-			type: Schema.Types.ObjectId,
-			ref: "User",
-		},
-		customerName: {
-			type: String,
-			required: [true, "Name is required"],
-			ref: "User",
-		},
-		shippingAddress: {
+		shippingInfo: {
+			firstName: { type: String, required: true },
+			lastName: { type: String, required: true },
 			address: { type: String, required: true },
+			aptSuiteEtc: { type: String, required: true },
+			state: { type: String, required: true },
 			city: { type: String, required: true },
-			country: { type: String, required: true },
 			postalCode: { type: String, required: true },
+			phone: { type: String, required: true },
+			email: { type: String, required: true },
 		},
 		purchasedItems: [
 			{
@@ -60,9 +63,13 @@ const orderSchema = new Schema<Order>(
 				imageCloudId: { type: String, required: true, ref: "Product" },
 			},
 		],
-		paymentDetails: {
+		paymentInfo: {
 			paymentType: { type: String, required: true },
 			cardNumber: { type: String, required: true },
+			cardHolder: { type: String, required: true },
+			expiryDateMonth: { type: String, required: true },
+			expiryDateYear: { type: String, required: true },
+			securityCode: { type: String, required: true },
 			totalCost: { type: Number, required: true },
 			datePurchased: { type: String, required: true },
 		},

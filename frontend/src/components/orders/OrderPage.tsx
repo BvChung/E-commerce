@@ -15,11 +15,9 @@ export default function OrdersPage() {
 						<OrderDisplay
 							key={order._id}
 							_id={order._id}
-							customerId={order.customerId}
-							customerName={order.customerName}
 							purchasedItems={order.purchasedItems}
-							shippingAddress={order.shippingAddress}
-							paymentDetails={order.paymentDetails}
+							shippingInfo={order.shippingInfo}
+							paymentInfo={order.paymentInfo}
 						/>
 					);
 				})}

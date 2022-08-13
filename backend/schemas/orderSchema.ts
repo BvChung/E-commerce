@@ -8,20 +8,33 @@ export const orderParamsSchema = object({
 
 export const orderBodySchema = object({
 	body: object({
-		customerId: string({ required_error: "Customer id is required." }),
-		customerName: string({ required_error: "Customer name is required." }),
-		shippingAddress: object({
+		shippingInfo: object({
+			firstName: string({
+				required_error: "First name is required.",
+			}),
+			lastName: string({
+				required_error: "Last name is required.",
+			}),
 			address: string({
 				required_error: "Address is required.",
+			}),
+			aptSuiteEtc: string({
+				required_error: "Apt, suite, etc. is required.",
+			}),
+			state: string({
+				required_error: "State is required.",
 			}),
 			city: string({
 				required_error: "City is required.",
 			}),
-			country: string({
-				required_error: "Country is required.",
-			}),
 			postalCode: string({
 				required_error: "Postal code is required.",
+			}),
+			phone: string({
+				required_error: "Phone is required.",
+			}),
+			email: string({
+				required_error: "Phone is required.",
 			}),
 		}),
 		purchasedItems: array(
@@ -52,11 +65,23 @@ export const orderBodySchema = object({
 				}),
 			})
 		),
-		paymentDetails: object({
+		paymentInfo: object({
 			paymentType: string({
 				required_error: "Payment type is required.",
 			}),
 			cardNumber: string({
+				required_error: "Card number is required.",
+			}),
+			cardHolder: string({
+				required_error: "Card number is required.",
+			}),
+			expiryDateMonth: string({
+				required_error: "Card number is required.",
+			}),
+			expiryDateYear: string({
+				required_error: "Card number is required.",
+			}),
+			securityCode: string({
 				required_error: "Card number is required.",
 			}),
 			totalCost: number({

@@ -20,28 +20,27 @@ export const OrderContext = createContext({} as OrderContextInterface);
 
 export const OrderProvider = ({ children }: OrderProviderProps) => {
 	const [myOrder, setMyOrder] = useState<OrderForm>({
-		customerId: "",
-		customerName: "",
-		paymentDetails: {
+		shippingInfo: {
+			firstName: "",
+			lastName: "",
+			address: "",
+			aptSuiteEtc: "",
+			state: "",
+			city: "",
+			postalCode: "",
+			phone: "",
+			email: "",
+		},
+		paymentInfo: {
 			paymentType: "",
 			cardNumber: "",
+			cardHolder: "",
+			expiryDateMonth: "",
+			expiryDateYear: "",
+			securityCode: "",
 			totalCost: "",
 			datePurchased: "",
 		},
-		shippingAddress: {
-			address: "",
-			city: "",
-			country: "",
-			postalCode: "",
-		},
-		// paymentType: "",
-		// cardNumber: "",
-		// totalCost: "",
-		// datePurchased: "",
-		// address: "",
-		// city: "",
-		// country: "",
-		// postalCode: "",
 	});
 
 	function handlePayment(
@@ -54,8 +53,8 @@ export const OrderProvider = ({ children }: OrderProviderProps) => {
 		setMyOrder((prev) => {
 			return {
 				...prev,
-				paymentDetails: {
-					...prev.paymentDetails,
+				paymentInfo: {
+					...prev.paymentInfo,
 					[name]: value,
 				},
 			};
@@ -68,8 +67,8 @@ export const OrderProvider = ({ children }: OrderProviderProps) => {
 		setMyOrder((prev) => {
 			return {
 				...prev,
-				shippingAddress: {
-					...prev.shippingAddress,
+				shippingInfo: {
+					...prev.shippingInfo,
 					[name]: value,
 				},
 			};

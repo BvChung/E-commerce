@@ -24,20 +24,12 @@ export const createOrder = async (
 	next: NextFunction
 ) => {
 	try {
-		const {
-			customerId,
-			customerName,
-			shippingAddress,
-			purchasedItems,
-			paymentDetails,
-		} = req.body;
+		const { shippingInfo, purchasedItems, paymentInfo } = req.body;
 
 		const createdOrder = await OrderModel.create({
-			user: req.user.id,
-			customerName: req.user.name,
-			shippingAddress,
+			shippingInfo,
 			purchasedItems,
-			paymentDetails,
+			paymentInfo,
 		});
 
 		res.status(200).json(createdOrder);

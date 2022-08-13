@@ -1,39 +1,31 @@
 import { CartInfo } from "./cartInterface";
 
 export interface OrderForm {
-	customerId: string;
-	customerName: string;
-	shippingAddress: {
+	shippingInfo: {
+		firstName: string;
+		lastName: string;
 		address: string;
+		aptSuiteEtc?: string;
+		state: string;
 		city: string;
-		country: string;
 		postalCode: string;
+		phone: string;
+		email: string;
 	};
-	paymentDetails: {
+	paymentInfo: {
 		paymentType: string;
 		cardNumber: string;
+		cardHolder: string;
+		expiryDateMonth: string;
+		expiryDateYear: string;
+		securityCode: string;
 		totalCost: string | number;
 		datePurchased: string;
 	};
 }
 
-// export interface OrderForm {
-// 	customerId: string;
-// 	customerName: string;
-// 	address: string;
-// 	city: string;
-// 	country: string;
-// 	postalCode: string;
-// 	paymentType: string;
-// 	cardNumber: string;
-// 	totalCost: string | number;
-// 	datePurchased: string;
-// }
-
 export interface OrderInfo {
 	_id: string;
-	customerId: string;
-	customerName: string;
 	purchasedItems: {
 		productId: string;
 		name: string;
@@ -44,15 +36,24 @@ export interface OrderInfo {
 		image: string;
 		imageCloudId: string;
 	}[];
-	shippingAddress: {
+	shippingInfo: {
+		firstName: string;
+		lastName: string;
 		address: string;
+		aptSuiteEtc: string;
+		state: string;
 		city: string;
-		country: string;
 		postalCode: string;
+		phone: string;
+		email: string;
 	};
-	paymentDetails: {
+	paymentInfo: {
 		paymentType: string;
 		cardNumber: string;
+		cardHolder: string;
+		expiryDateMonth: string;
+		expiryDateYear: string;
+		securityCode: string;
 		totalCost: number;
 		datePurchased: string;
 	};

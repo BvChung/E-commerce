@@ -31,10 +31,8 @@ export default function ProductDisplay({
 					<div className="stat-value text-xl">${price}</div>
 					<button
 						onClick={() => {
-							// console.log(_id);
 							toast.success(`${name} has been added to your cart.`);
-							// addCart({ _id, quantity: 1 });
-							addCartItem({ _id, quantity: 1 });
+							addCartItem({ _id, price, quantity: 1 });
 						}}
 						className="btn btn-md btn-primary"
 					>
