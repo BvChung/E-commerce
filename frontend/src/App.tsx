@@ -8,6 +8,7 @@ import ProductInfo from "./components/products/ProductInfo";
 import ProductCreation from "./components/products/ProductCreation";
 import PaySelect from "./components/checkout/PaySelect";
 import Shipping from "./components/checkout/Shipping";
+import ConfirmOrder from "./components/checkout/ConfirmOrder";
 import OrdersPage from "./components/orders/OrderPage";
 import Cart from "./components/cart/Cart";
 import ProtectedRoutes from "./components/protected/ProtectedRoutes";
@@ -50,8 +51,9 @@ function App() {
 						}
 					>
 						<Route path="checkout" element={<Outlet />}>
-							<Route path="payselect" element={<PaySelect />} />
+							<Route path="payment" element={<PaySelect />} />
 							<Route path="shipping" element={<Shipping />} />
+							<Route path="confirmation" element={<ConfirmOrder />} />
 						</Route>
 
 						{/* <Route path="orders" element={<OrdersPage />} /> */}
