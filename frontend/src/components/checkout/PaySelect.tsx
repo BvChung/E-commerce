@@ -1,14 +1,71 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useId } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { useOrderContext } from "../../hooks/context/useOrderContext";
 import { useCartContext } from "../../hooks/context/useCartContext";
+import { FormInputProps } from "../../interfaces/formInterface";
+import FormInput from "../form/FormInput";
 
 export default function PaySelect() {
 	const { myOrder, handlePayment } = useOrderContext();
+	const navigate = useNavigate();
 	console.log(myOrder.paymentInfo);
 
+	const shippingInput1: FormInputProps[] = [
+		{
+			key: useId(),
+			errorMessage: "Please fill in a valid value for First name.",
+			id: "firstName",
+			label: "First name*",
+			required: true,
+			pattern: "^[a-zA-Z0-9]{2,20}$",
+			name: "firstName",
+			onChange: handlePayment,
+			type: "text",
+			value: myOrder.shippingInfo.firstName,
+		},
+		{
+			key: useId(),
+			errorMessage: "Please fill in a valid value for Last name.",
+			id: "lastName",
+			label: "Last Name*",
+			required: true,
+			pattern: "^[a-zA-Z0-9]{2,20}$",
+			name: "lastName",
+			onChange: handlePayment,
+			type: "text",
+			value: myOrder.shippingInfo.lastName,
+		},
+		{
+			key: useId(),
+			errorMessage: "Please fill in a valid value for Address.",
+			id: "address",
+			label: "Address*",
+			required: true,
+			name: "address",
+			onChange: handlePayment,
+			type: "text",
+			value: myOrder.shippingInfo.address,
+		},
+		{
+			key: useId(),
+			errorMessage: "Please fill in a valid value for Apt, suite, etc.",
+			id: "aptSuiteEtc",
+			label: "Apt, suite, etc. (optional)",
+			required: false,
+			name: "aptSuiteEtc",
+			onChange: handlePayment,
+			type: "text",
+			value: myOrder.shippingInfo.aptSuiteEtc,
+		},
+	];
+
 	return (
-		<div>
+		<form
+			onSubmit={(e) => {
+				e.preventDefault();
+				navigate("/checkout/confirmation");
+			}}
+		>
 			<div className="flex flex-col items-center">
 				<h1>PaySelect</h1>
 				<ul className="steps">
@@ -130,12 +187,13 @@ export default function PaySelect() {
 					</div>
 				</div>
 				<div>
+					<button className="btn btn-primary">Continue</button>
 					<Link to="/checkout/shipping" className="btn btn-primary">
 						Return
 					</Link>
 				</div>
 			</div>
 			<div></div>
-		</div>
+		</form>
 	);
 }
