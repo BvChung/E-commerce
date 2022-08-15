@@ -1,27 +1,29 @@
-import { CartInfo } from "./cartInterface";
+export interface OrderShippingInfo {
+	firstName: string;
+	lastName: string;
+	address: string;
+	aptSuiteEtc?: string;
+	state: string;
+	city: string;
+	postalCode: string;
+	phone: string;
+	email: string;
+}
+
+export interface OrderPaymentInfo {
+	paymentType: string;
+	cardNumber: string;
+	cardHolder: string;
+	expiryDateMonth: string;
+	expiryDateYear: string;
+	securityCode: string;
+	totalCost: string | number;
+	datePurchased: string;
+}
 
 export interface OrderForm {
-	shippingInfo: {
-		firstName: string;
-		lastName: string;
-		address: string;
-		aptSuiteEtc?: string;
-		state: string;
-		city: string;
-		postalCode: string;
-		phone: string;
-		email: string;
-	};
-	paymentInfo: {
-		paymentType: string;
-		cardNumber: string;
-		cardHolder: string;
-		expiryDateMonth: string;
-		expiryDateYear: string;
-		securityCode: string;
-		totalCost: string | number;
-		datePurchased: string;
-	};
+	shippingInfo: OrderShippingInfo;
+	paymentInfo: OrderPaymentInfo;
 }
 
 export interface OrderInfo {

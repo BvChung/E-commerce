@@ -1,5 +1,6 @@
 import { Outlet, useLocation } from "react-router-dom";
 import Nav from "../nav/Nav";
+import CheckoutNav from "../nav/CheckoutNav";
 import Footer from "../footer/Footer";
 import { useThemeContext } from "../../hooks/context/useThemeContext";
 import { ToastContainer, Slide } from "react-toastify";
@@ -13,7 +14,8 @@ export default function Layout() {
 			<input id="app-drawer" type="checkbox" className="drawer-toggle" />
 			<div className="drawer-content flex flex-col">
 				{/* <!-- Navbar --> */}
-				<Nav />
+				{!location.pathname.startsWith("/checkout") ? <Nav /> : <CheckoutNav />}
+
 				{/* <!-- Page content here --> */}
 				<div className="h-screen w-screen overflow-auto">
 					<Outlet />

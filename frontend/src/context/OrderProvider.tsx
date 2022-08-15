@@ -9,7 +9,11 @@ interface OrderContextInterface {
 			| React.ChangeEvent<HTMLInputElement>
 			| React.ChangeEvent<HTMLSelectElement>
 	): void;
-	handleShipping(e: React.ChangeEvent<HTMLInputElement>): void;
+	handleShipping(
+		e:
+			| React.ChangeEvent<HTMLInputElement>
+			| React.ChangeEvent<HTMLSelectElement>
+	): void;
 }
 
 interface OrderProviderProps {
@@ -61,7 +65,11 @@ export const OrderProvider = ({ children }: OrderProviderProps) => {
 		});
 	}
 
-	function handleShipping(e: React.ChangeEvent<HTMLInputElement>) {
+	function handleShipping(
+		e:
+			| React.ChangeEvent<HTMLInputElement>
+			| React.ChangeEvent<HTMLSelectElement>
+	) {
 		const { name, value } = e.target;
 
 		setMyOrder((prev) => {
