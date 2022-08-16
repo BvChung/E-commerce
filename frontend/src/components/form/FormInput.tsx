@@ -11,12 +11,14 @@ export default function FormInput({
 	value,
 	label,
 	errorMessage,
+	inputMode,
+	maxLength,
 }: FormInputProps) {
-	const [focused, setFocused] = useState(false);
+	const [inpurFocused, setInputFocused] = useState(false);
 
-	const displayErrorMsg = focused && "peer-invalid:visible";
+	const displayErrorMsg = inpurFocused && "peer-invalid:visible";
 	const displayErrorInput =
-		focused && "invalid:input-error invalid:focus:outline-none";
+		inpurFocused && "invalid:input-error invalid:focus:outline-none";
 	return (
 		<div className="form-control w-full max-w-md">
 			<label className="label">
@@ -28,17 +30,16 @@ export default function FormInput({
 				name={name}
 				value={value}
 				onChange={onChange}
+				inputMode={inputMode}
 				className={`peer input ${displayErrorInput} input-sm input-bordered w-full max-w-sm `}
 				pattern={pattern}
 				required={required}
+				maxLength={maxLength}
 				onFocus={() => {
-					setFocused(true);
+					setInputFocused(true);
 				}}
 				onBlur={() => {
-					setFocused(false);
-				}}
-				onInvalid={() => {
-					console.log("invalid");
+					setInputFocused(false);
 				}}
 			/>
 			<span

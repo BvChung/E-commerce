@@ -5,57 +5,81 @@ import { useCartContext } from "../../hooks/context/useCartContext";
 import { FormInputProps } from "../../interfaces/formInterface";
 import FormInput from "../form/FormInput";
 
-export default function PaySelect() {
+export default function Payment() {
 	const { myOrder, handlePayment } = useOrderContext();
 	const navigate = useNavigate();
 	console.log(myOrder.paymentInfo);
 
-	const shippingInput1: FormInputProps[] = [
+	const paymentInput1: FormInputProps[] = [
 		{
 			key: useId(),
-			errorMessage: "Please fill in a valid value for First name.",
-			id: "firstName",
+			errorMessage: "Please enter a valid card number.",
+			id: "cardNumber",
+			label: "Card number*",
+			required: true,
+			pattern: "^[0-9]{15,19}$",
+			name: "cardNumber",
+			onChange: handlePayment,
+			type: "text",
+			value: myOrder.paymentInfo.cardNumber,
+			inputMode: "numeric",
+		},
+		{
+			key: useId(),
+			errorMessage: "Please enter a valid first name.",
+			id: "cardHolderFirstName",
 			label: "First name*",
 			required: true,
-			pattern: "^[a-zA-Z0-9]{2,20}$",
-			name: "firstName",
+			pattern: "^[a-zA-Z]{1,25}$",
+			name: "cardHolderFirstName",
 			onChange: handlePayment,
 			type: "text",
-			value: myOrder.shippingInfo.firstName,
+			value: myOrder.paymentInfo.cardHolderFirstName,
+			maxLength: 25,
 		},
 		{
 			key: useId(),
-			errorMessage: "Please fill in a valid value for Last name.",
-			id: "lastName",
-			label: "Last Name*",
+			errorMessage: "Please enter a valid last name.",
+			id: "cardHolderLastName",
+			label: "Last name*",
 			required: true,
-			pattern: "^[a-zA-Z0-9]{2,20}$",
-			name: "lastName",
+			pattern: "^[a-zA-Z]{1,25}$",
+			name: "cardHolderLastName",
 			onChange: handlePayment,
 			type: "text",
-			value: myOrder.shippingInfo.lastName,
+			value: myOrder.paymentInfo.cardHolderLastName,
+			maxLength: 25,
 		},
+	];
+
+	const paymentInput2: FormInputProps[] = [
 		{
 			key: useId(),
-			errorMessage: "Please fill in a valid value for Address.",
-			id: "address",
-			label: "Address*",
+			errorMessage: "Please enter a valid CVV.",
+			id: "securityCode",
+			label: "CVV*",
 			required: true,
-			name: "address",
+			pattern: "^[0-9]{3,4}$",
+			name: "securityCode",
 			onChange: handlePayment,
 			type: "text",
-			value: myOrder.shippingInfo.address,
+			value: myOrder.paymentInfo.securityCode,
+			inputMode: "numeric",
+			maxLength: 4,
 		},
 		{
 			key: useId(),
-			errorMessage: "Please fill in a valid value for Apt, suite, etc.",
-			id: "aptSuiteEtc",
-			label: "Apt, suite, etc. (optional)",
-			required: false,
-			name: "aptSuiteEtc",
+			errorMessage: "Please enter a valid phone number.",
+			id: "phone",
+			label: "Phone*",
+			required: true,
+			name: "phone",
+			pattern: "^[+]?[(]?[0-9]{3}[)]?[-s.]?[0-9]{3}[-s.]?[0-9]{4,6}$",
 			onChange: handlePayment,
 			type: "text",
-			value: myOrder.shippingInfo.aptSuiteEtc,
+			value: myOrder.paymentInfo.phone,
+			inputMode: "tel",
+			maxLength: 14,
 		},
 	];
 
@@ -67,7 +91,7 @@ export default function PaySelect() {
 			}}
 		>
 			<div className="flex flex-col items-center">
-				<h1>PaySelect</h1>
+				<h1>Payment method</h1>
 				<ul className="steps">
 					<li className="step step-primary uppercase text-sm">Sign in</li>
 					<li className="step step-primary uppercase text-sm">Shipping</li>
@@ -75,59 +99,34 @@ export default function PaySelect() {
 					<li className="step uppercase text-xs">Place order</li>
 				</ul>
 				<div className="flex flex-col">
-					<div className="form-control w-full max-w-xs">
-						<label className="label">
-							<span className="label-text">Payment Type</span>
-						</label>
-						<select
-							name="paymentType"
-							value={myOrder.paymentInfo.paymentType}
-							onChange={handlePayment}
-							className="select select-sm select-bordered"
-							required
-						>
-							<option disabled value="">
-								Payment type
-							</option>
-							<option value="Credit">Credit</option>
-							<option value="Debit">Debit</option>
-						</select>
-					</div>
-					<div className="form-control w-full max-w-sm">
-						<label className="label">
-							<span className="label-text">Card Number</span>
-						</label>
-						<input
-							type="text"
-							placeholder=""
-							className="input input-sm input-bordered w-full max-w-sm "
-							name="cardNumber"
-							value={myOrder.paymentInfo.cardNumber}
-							onChange={handlePayment}
-							required
-						/>
-					</div>
+					<label className="label">
+						<span className="label-text">Card Information</span>
+					</label>
 
-					<div className="form-control w-full max-w-sm">
-						<label className="label">
-							<span className="label-text">Name on card</span>
-						</label>
-						<input
-							type="text"
-							placeholder=""
-							className="input input-sm input-bordered w-full max-w-sm "
-							name="cardHolder"
-							value={myOrder.paymentInfo.cardHolder}
-							onChange={handlePayment}
-							required
-						/>
-					</div>
+					{paymentInput1.map((input) => {
+						return (
+							<FormInput
+								key={input.key}
+								errorMessage={input.errorMessage}
+								id={input.id}
+								label={input.label}
+								name={input.name}
+								onChange={input.onChange}
+								required={input.required}
+								type={input.type}
+								value={input.value}
+								pattern={input.pattern}
+								inputMode={input.inputMode}
+								maxLength={input.maxLength}
+							/>
+						);
+					})}
 
 					<div className="form-control w-full max-w-sm">
 						<label className="label">
 							<span className="label-text">Expiration date</span>
 						</label>
-						<div className="flex gap-4">
+						<div className="grid grid-cols-2 gap-4">
 							<select
 								name="expiryDateMonth"
 								value={myOrder.paymentInfo.expiryDateMonth}
@@ -151,7 +150,7 @@ export default function PaySelect() {
 								<option value="11">11</option>
 								<option value="12">12</option>
 							</select>
-							/
+
 							<select
 								name="expiryDateYear"
 								value={myOrder.paymentInfo.expiryDateYear}
@@ -171,20 +170,24 @@ export default function PaySelect() {
 						</div>
 					</div>
 
-					<div className="form-control w-full max-w-sm">
-						<label className="label">
-							<span className="label-text">Security code</span>
-						</label>
-						<input
-							type="text"
-							placeholder=""
-							className="input input-sm input-bordered w-full max-w-sm "
-							name="securityCode"
-							value={myOrder.paymentInfo.securityCode}
-							onChange={handlePayment}
-							required
-						/>
-					</div>
+					{paymentInput2.map((input) => {
+						return (
+							<FormInput
+								key={input.key}
+								errorMessage={input.errorMessage}
+								id={input.id}
+								label={input.label}
+								name={input.name}
+								onChange={input.onChange}
+								required={input.required}
+								type={input.type}
+								value={input.value}
+								pattern={input.pattern}
+								inputMode={input.inputMode}
+								maxLength={input.maxLength}
+							/>
+						);
+					})}
 				</div>
 				<div>
 					<button className="btn btn-primary">Continue</button>

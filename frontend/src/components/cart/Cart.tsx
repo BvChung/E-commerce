@@ -5,25 +5,19 @@ import { useGetCartItems } from "../../hooks/cart/useGetCartItems";
 import CartItem from "./CartItem";
 
 export default function Cart() {
-	const { myCart, clearMyCart } = useCartContext();
+	const { myCart, clearMyCart, cartItemsInfo } = useCartContext();
 	const {
-		data: displayMyCart,
+		data: displayCartItems,
 		isSuccess,
 		isLoading,
 		isFetching,
 	} = useGetCartItems(myCart);
-	// console.log(displayMyCart);
 
-	const numCartItems = myCart.reduce((prev, curr) => prev + curr.quantity, 0);
-	const cartSubtotal = myCart.reduce(
-		(prev, curr) => prev + curr.price * curr.quantity,
-		0
-	);
 	return (
 		<div className="grid grid-cols-2 gap-2">
 			<div className="transition-all fade ">
 				{isSuccess ? (
-					displayMyCart.map((item: CartInfo) => {
+					displayCartItems.map((item: CartInfo) => {
 						return (
 							<CartItem
 								key={item._id}
@@ -63,8 +57,10 @@ export default function Cart() {
 
 			<div className="stats shadow flex flex-col items-center justify-center gap-2">
 				<div className="stat flex flex-col items-center justify-center">
-					<div className="stat-title">Subtotal ({numCartItems} items)</div>
-					<div className="stat-value">${cartSubtotal}</div>
+					<div className="stat-title">
+						Subtotal ({cartItemsInfo.numItems} items)
+					</div>
+					<div className="stat-value">${cartItemsInfo.subTotal}</div>
 				</div>
 				<Link className="btn btn-error" to={"/checkout/shipping"}>
 					Proceed to checkout

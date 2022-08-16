@@ -1,9 +1,11 @@
 import React, { createContext, useEffect, useState } from "react";
-import { CartStorageData } from "../interfaces/cartInterface";
+import { CartStorageData, CartItemsInfo } from "../interfaces/cartInterface";
 
 interface CartContextInterface {
 	myCart: CartStorageData[];
 	setMyCart: React.Dispatch<React.SetStateAction<CartStorageData[]>>;
+	cartItemsInfo: CartItemsInfo;
+	setCartItemsInfo: React.Dispatch<React.SetStateAction<CartItemsInfo>>;
 	addCartItem(newItem: CartStorageData): void;
 	removeCartItem(removedItem: CartStorageData): void;
 	updateCartItemQuantity(updatedItem: CartStorageData): void;
@@ -20,6 +22,11 @@ export const CartProvider = ({ children }: AuthProviderProps) => {
 	const [myCart, setMyCart] = useState<CartStorageData[]>(
 		JSON.parse(localStorage.getItem("cart")!) || []
 	);
+
+	const [cartItemsInfo, setCartItemsInfo] = useState<CartItemsInfo>({
+		subTotal: 0,
+		numItems: 0,
+	});
 
 	function addCartItem(newItem: CartStorageData) {
 		const foundItem = myCart.find(
@@ -71,6 +78,15 @@ export const CartProvider = ({ children }: AuthProviderProps) => {
 
 	useEffect(() => {
 		localStorage.setItem("cart", JSON.stringify(myCart));
+		setCartItemsInfo(() => {
+			return {
+				subTotal: myCart.reduce(
+					(prev, curr) => prev + curr.price * curr.quantity,
+					0
+				),
+				numItems: myCart.reduce((prev, curr) => prev + curr.quantity, 0),
+			};
+		});
 	}, [myCart]);
 
 	return (
@@ -78,6 +94,8 @@ export const CartProvider = ({ children }: AuthProviderProps) => {
 			value={{
 				myCart,
 				setMyCart,
+				cartItemsInfo,
+				setCartItemsInfo,
 				addCartItem,
 				removeCartItem,
 				updateCartItemQuantity,

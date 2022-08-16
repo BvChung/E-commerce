@@ -1,5 +1,5 @@
-import React, { useId } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useId } from "react";
+import { useNavigate } from "react-router-dom";
 import { useOrderContext } from "../../hooks/context/useOrderContext";
 import { useCartContext } from "../../hooks/context/useCartContext";
 import FormInput from "../form/FormInput";
@@ -7,93 +7,95 @@ import { FormInputProps } from "../../interfaces/formInterface";
 
 export default function Shipping() {
 	const { myOrder, handleShipping } = useOrderContext();
-	const { myCart } = useCartContext();
+	const { cartItemsInfo } = useCartContext();
 	const navigate = useNavigate();
-	const randId = useId();
-	console.log(randId);
 	console.log(myOrder.shippingInfo);
-
-	const numCartItems = myCart.reduce((prev, curr) => prev + curr.quantity, 0);
-	const cartSubtotal = myCart.reduce(
-		(prev, curr) => prev + curr.price * curr.quantity,
-		0
-	);
 
 	const shippingInput1: FormInputProps[] = [
 		{
 			key: useId(),
-			errorMessage: "Please fill in a valid value for First name.",
+			errorMessage: "Please enter a valid first name.",
 			id: "firstName",
 			label: "First name*",
 			required: true,
-			pattern: "^[a-zA-Z0-9]{2,20}$",
+			pattern: "^[a-zA-Z0-9]{1,25}$",
 			name: "firstName",
 			onChange: handleShipping,
 			type: "text",
 			value: myOrder.shippingInfo.firstName,
+			maxLength: 25,
 		},
 		{
 			key: useId(),
-			errorMessage: "Please fill in a valid value for Last name.",
+			errorMessage: "Please enter a valid last name.",
 			id: "lastName",
 			label: "Last Name*",
 			required: true,
-			pattern: "^[a-zA-Z0-9]{2,20}$",
+			pattern: "^[a-zA-Z]{1,25}$",
 			name: "lastName",
 			onChange: handleShipping,
 			type: "text",
 			value: myOrder.shippingInfo.lastName,
+			maxLength: 25,
 		},
 		{
 			key: useId(),
-			errorMessage: "Please fill in a valid value for Address.",
+			errorMessage: "Please enter a valid address.",
 			id: "address",
 			label: "Address*",
 			required: true,
 			name: "address",
+			pattern: "^[a-zA-Z0-9_ ]{1,50}$",
 			onChange: handleShipping,
 			type: "text",
 			value: myOrder.shippingInfo.address,
+			maxLength: 50,
 		},
 		{
 			key: useId(),
-			errorMessage: "Please fill in a valid value for Apt, suite, etc.",
+			errorMessage: "Please enter a valid apt, suite, etc.",
 			id: "aptSuiteEtc",
 			label: "Apt, suite, etc. (optional)",
 			required: false,
 			name: "aptSuiteEtc",
+			pattern: "^[a-zA-Z0-9_ ]{1,50}$",
 			onChange: handleShipping,
 			type: "text",
 			value: myOrder.shippingInfo.aptSuiteEtc,
+			maxLength: 50,
 		},
 	];
 	const shippingInput2: FormInputProps[] = [
 		{
 			key: useId(),
-			errorMessage: "Please fill in a valid value for City.",
+			errorMessage: "Please enter a valid city.",
 			id: "city",
 			label: "City*",
 			required: true,
 			name: "city",
+			pattern: "^[a-zA-Z]{1,30}$",
 			onChange: handleShipping,
 			type: "text",
 			value: myOrder.shippingInfo.city,
+			maxLength: 30,
 		},
 		{
 			key: useId(),
-			errorMessage: "Please fill in a valid value for Postal code.",
-			id: "postalCode",
-			label: "Postal code*",
+			errorMessage: "Please enter a valid zip code.",
+			id: "zipCode",
+			label: "Zip code*",
 			required: true,
 			pattern: "^[0-9]{5}(?:-[0-9]{4})?$",
-			name: "postalCode",
+			name: "zipCode",
 			onChange: handleShipping,
 			type: "text",
-			value: myOrder.shippingInfo.postalCode,
+			value: myOrder.shippingInfo.zipCode,
+			maxLength: 5,
+			inputMode: "numeric",
 		},
 		{
 			key: useId(),
-			errorMessage: "Please fill in a valid value for Phone.",
+			errorMessage: "Please enter a valid phone number.",
 			id: "phone",
 			label: "Phone*",
 			required: true,
@@ -102,10 +104,12 @@ export default function Shipping() {
 			onChange: handleShipping,
 			type: "text",
 			value: myOrder.shippingInfo.phone,
+			inputMode: "tel",
+			maxLength: 14,
 		},
 		{
 			key: useId(),
-			errorMessage: "Please fill in a valid value for Email.",
+			errorMessage: "Please enter a valid email.",
 			id: "email",
 			label: "Email*",
 			required: true,
@@ -113,6 +117,7 @@ export default function Shipping() {
 			onChange: handleShipping,
 			type: "email",
 			value: myOrder.shippingInfo.email,
+			maxLength: 50,
 		},
 	];
 
@@ -146,6 +151,8 @@ export default function Shipping() {
 								type={input.type}
 								value={input.value}
 								pattern={input.pattern}
+								inputMode={input.inputMode}
+								maxLength={input.maxLength}
 							/>
 						);
 					})}
@@ -164,7 +171,7 @@ export default function Shipping() {
 							<option disabled value="">
 								Select a State
 							</option>
-							<option value="Alabama">Alabama</option>
+							<option value="AL">Alabama</option>
 							<option value="AK">Alaska</option>
 							<option value="AZ">Arizona</option>
 							<option value="AR">Arkansas</option>
@@ -231,6 +238,8 @@ export default function Shipping() {
 								type={input.type}
 								value={input.value}
 								pattern={input.pattern}
+								inputMode={input.inputMode}
+								maxLength={input.maxLength}
 							/>
 						);
 					})}
@@ -243,8 +252,8 @@ export default function Shipping() {
 				</div>
 			</div>
 			<div className="flex flex-col">
-				<p>Subtotal {cartSubtotal}</p>
-				<p>Number items {numCartItems}</p>
+				<p>Subtotal {cartItemsInfo.subTotal}</p>
+				<p>Number items {cartItemsInfo.numItems}</p>
 			</div>
 		</form>
 	);
