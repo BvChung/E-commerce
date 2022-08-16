@@ -9,4 +9,15 @@ export interface FormInputProps {
 	pattern?: string;
 	label: string;
 	errorMessage: string;
+	inputMode?:
+		| "text"
+		| "email"
+		| "search"
+		| "tel"
+		| "url"
+		| "none"
+		| "numeric"
+		| "decimal"
+		| undefined;
+	maxLength?: number;
 }

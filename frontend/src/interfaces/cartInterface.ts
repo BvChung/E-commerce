@@ -6,6 +6,11 @@ export interface CartStorageData {
 	quantity: number;
 }
 
+export interface CartItemsInfo {
+	subTotal: number;
+	numItems: number;
+}
+
 export interface CartInfo extends ProductInfo {
 	quantity: number;
 }
