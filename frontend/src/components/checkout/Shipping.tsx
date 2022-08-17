@@ -1,15 +1,32 @@
-import { useId } from "react";
+import { useEffect, useId } from "react";
 import { useNavigate } from "react-router-dom";
 import { useOrderContext } from "../../hooks/context/useOrderContext";
 import { useCartContext } from "../../hooks/context/useCartContext";
+import { useAuthContext } from "../../hooks/context/useAuthContext";
 import FormInput from "../form/FormInput";
 import { FormInputProps } from "../../interfaces/formInterface";
 
 export default function Shipping() {
-	const { myOrder, handleShipping } = useOrderContext();
+	const { myOrder, handleShipping, setMyOrder } = useOrderContext();
 	const { cartItemsInfo } = useCartContext();
+	const { user } = useAuthContext();
 	const navigate = useNavigate();
-	console.log(myOrder.shippingInfo);
+	console.log(user);
+
+	useEffect(() => {
+		console.log("render");
+		setMyOrder((prev) => {
+			return {
+				...prev,
+				shippingInfo: {
+					...prev.shippingInfo,
+					firstName: user.firstName,
+					lastName: user.lastName,
+					email: user.email,
+				},
+			};
+		});
+	}, []);
 
 	const shippingInput1: FormInputProps[] = [
 		{
@@ -24,6 +41,7 @@ export default function Shipping() {
 			type: "text",
 			value: myOrder.shippingInfo.firstName,
 			maxLength: 25,
+			htmlInputSize: "sm",
 		},
 		{
 			key: useId(),
@@ -37,6 +55,7 @@ export default function Shipping() {
 			type: "text",
 			value: myOrder.shippingInfo.lastName,
 			maxLength: 25,
+			htmlInputSize: "sm",
 		},
 		{
 			key: useId(),
@@ -50,6 +69,7 @@ export default function Shipping() {
 			type: "text",
 			value: myOrder.shippingInfo.address,
 			maxLength: 50,
+			htmlInputSize: "sm",
 		},
 		{
 			key: useId(),
@@ -63,6 +83,7 @@ export default function Shipping() {
 			type: "text",
 			value: myOrder.shippingInfo.aptSuiteEtc,
 			maxLength: 50,
+			htmlInputSize: "sm",
 		},
 	];
 	const shippingInput2: FormInputProps[] = [
@@ -78,6 +99,7 @@ export default function Shipping() {
 			type: "text",
 			value: myOrder.shippingInfo.city,
 			maxLength: 30,
+			htmlInputSize: "sm",
 		},
 		{
 			key: useId(),
@@ -92,6 +114,7 @@ export default function Shipping() {
 			value: myOrder.shippingInfo.zipCode,
 			maxLength: 5,
 			inputMode: "numeric",
+			htmlInputSize: "sm",
 		},
 		{
 			key: useId(),
@@ -106,6 +129,7 @@ export default function Shipping() {
 			value: myOrder.shippingInfo.phone,
 			inputMode: "tel",
 			maxLength: 14,
+			htmlInputSize: "sm",
 		},
 		{
 			key: useId(),
@@ -118,6 +142,7 @@ export default function Shipping() {
 			type: "email",
 			value: myOrder.shippingInfo.email,
 			maxLength: 50,
+			htmlInputSize: "sm",
 		},
 	];
 
@@ -153,6 +178,7 @@ export default function Shipping() {
 								pattern={input.pattern}
 								inputMode={input.inputMode}
 								maxLength={input.maxLength}
+								htmlInputSize={input.htmlInputSize}
 							/>
 						);
 					})}
@@ -240,6 +266,7 @@ export default function Shipping() {
 								pattern={input.pattern}
 								inputMode={input.inputMode}
 								maxLength={input.maxLength}
+								htmlInputSize={input.htmlInputSize}
 							/>
 						);
 					})}

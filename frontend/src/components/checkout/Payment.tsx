@@ -8,7 +8,6 @@ import FormInput from "../form/FormInput";
 export default function Payment() {
 	const { myOrder, handlePayment } = useOrderContext();
 	const navigate = useNavigate();
-	console.log(myOrder.paymentInfo);
 
 	const paymentInput1: FormInputProps[] = [
 		{
@@ -23,6 +22,7 @@ export default function Payment() {
 			type: "text",
 			value: myOrder.paymentInfo.cardNumber,
 			inputMode: "numeric",
+			htmlInputSize: "sm",
 		},
 		{
 			key: useId(),
@@ -36,6 +36,7 @@ export default function Payment() {
 			type: "text",
 			value: myOrder.paymentInfo.cardHolderFirstName,
 			maxLength: 25,
+			htmlInputSize: "sm",
 		},
 		{
 			key: useId(),
@@ -49,6 +50,7 @@ export default function Payment() {
 			type: "text",
 			value: myOrder.paymentInfo.cardHolderLastName,
 			maxLength: 25,
+			htmlInputSize: "sm",
 		},
 	];
 
@@ -66,6 +68,7 @@ export default function Payment() {
 			value: myOrder.paymentInfo.securityCode,
 			inputMode: "numeric",
 			maxLength: 4,
+			htmlInputSize: "sm",
 		},
 		{
 			key: useId(),
@@ -80,6 +83,7 @@ export default function Payment() {
 			value: myOrder.paymentInfo.phone,
 			inputMode: "tel",
 			maxLength: 14,
+			htmlInputSize: "sm",
 		},
 	];
 
@@ -118,6 +122,7 @@ export default function Payment() {
 								pattern={input.pattern}
 								inputMode={input.inputMode}
 								maxLength={input.maxLength}
+								htmlInputSize={input.htmlInputSize}
 							/>
 						);
 					})}
@@ -185,6 +190,7 @@ export default function Payment() {
 								pattern={input.pattern}
 								inputMode={input.inputMode}
 								maxLength={input.maxLength}
+								htmlInputSize={input.htmlInputSize}
 							/>
 						);
 					})}

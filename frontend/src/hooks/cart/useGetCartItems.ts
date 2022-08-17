@@ -1,13 +1,13 @@
 import { eCommerceApiPublic } from "../../api/axios";
 import { useQuery } from "react-query";
 import { ProductInfo } from "../../interfaces/productInterface";
-import { CartStorageData, CartInfo } from "../../interfaces/cartInterface";
+import { CartStorageData, CartItemInfo } from "../../interfaces/cartInterface";
 import qs from "qs";
 
 export const useGetCartItems = (myCartItems: CartStorageData[]) => {
 	const getCartItems = async (
 		myCartItems: CartStorageData[]
-	): Promise<CartInfo[]> => {
+	): Promise<CartItemInfo[]> => {
 		// Send productsIds through params => on backend accessed through req.query(qs.stringify(params) converts params to query)
 		//Ex: http://localhost:3000/api/products/cart?productIds[0]=1&productIds[1]=2&productIds[2]=3
 
@@ -31,7 +31,7 @@ export const useGetCartItems = (myCartItems: CartStorageData[]) => {
 			}
 		);
 
-		const addItemQuantity: CartInfo[] = response.data.map(
+		const addItemQuantity: CartItemInfo[] = response.data.map(
 			(product: ProductInfo, i: number) => {
 				if (product._id === sortItems[i]._id) {
 					return {

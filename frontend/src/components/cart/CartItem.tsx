@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { CartInfo } from "../../interfaces/cartInterface";
+import { useEffect, useState } from "react";
+import { CartItemInfo } from "../../interfaces/cartInterface";
 import { useCartContext } from "../../hooks/context/useCartContext";
 
 export default function CartItem({
@@ -9,13 +9,13 @@ export default function CartItem({
 	image,
 	price,
 	quantity,
-}: CartInfo) {
-	const { updateCartItemQuantity, removeCartItem } = useCartContext();
+}: CartItemInfo) {
+	const { updateItemQuantity, removeCartItem } = useCartContext();
 
 	const [itemQuantity, setItemQuantity] = useState(quantity);
 
 	useEffect(() => {
-		updateCartItemQuantity({ _id, price, quantity: itemQuantity });
+		updateItemQuantity({ _id, price, quantity: itemQuantity });
 	}, [itemQuantity]);
 
 	return (

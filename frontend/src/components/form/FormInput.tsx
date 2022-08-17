@@ -13,14 +13,15 @@ export default function FormInput({
 	errorMessage,
 	inputMode,
 	maxLength,
+	htmlInputSize,
 }: FormInputProps) {
 	const [inpurFocused, setInputFocused] = useState(false);
 
-	const displayErrorMsg = inpurFocused && "peer-invalid:visible";
+	const displayErrorMsg = inpurFocused && "peer-invalid:inline-flex";
 	const displayErrorInput =
 		inpurFocused && "invalid:input-error invalid:focus:outline-none";
 	return (
-		<div className="form-control w-full max-w-md">
+		<div className="form-control w-64 max-w-md">
 			<label className="label">
 				<span className="label-text">{label}</span>
 			</label>
@@ -31,7 +32,7 @@ export default function FormInput({
 				value={value}
 				onChange={onChange}
 				inputMode={inputMode}
-				className={`peer input ${displayErrorInput} input-sm input-bordered w-full max-w-sm `}
+				className={`peer input ${displayErrorInput} input-${htmlInputSize} input-bordered w-full max-w-sm `}
 				pattern={pattern}
 				required={required}
 				maxLength={maxLength}
@@ -42,10 +43,10 @@ export default function FormInput({
 					setInputFocused(false);
 				}}
 			/>
-			<span
-				className={`label pt-1 pb-0 invisible ${displayErrorMsg} justify-start items-center gap-1 label-text-alt text-red-600 font-medium transition-all`}
+			<div
+				className={`label pt-1 pb-0 hidden ${displayErrorMsg} justify-start items-center gap-1 label-text-alt text-red-600 font-medium transition-all`}
 			>
-				{errorMessage}
+				<span className="w-fit max-w-xs">{errorMessage}</span>
 				<svg
 					xmlns="http://www.w3.org/2000/svg"
 					className="h-5 w-5"
@@ -58,7 +59,7 @@ export default function FormInput({
 						clipRule="evenodd"
 					/>
 				</svg>
-			</span>
+			</div>
 		</div>
 	);
 }

@@ -20,4 +20,5 @@ export interface FormInputProps {
 		| "decimal"
 		| undefined;
 	maxLength?: number;
+	htmlInputSize?: string;
 }

@@ -6,15 +6,15 @@ interface Product {
 
 export interface ProductInfo extends Product {
 	_id: string;
-	price: number;
 	image: string;
 	imageCloudId: string;
+	price: number;
 }
 
 export interface ProductCreation extends Product {
-	price: number;
 	fileName: string | null;
 	image: string | null;
+	price: number;
 }
 
 export interface ProductForm extends Product {

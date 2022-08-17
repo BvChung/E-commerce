@@ -5,7 +5,7 @@ import { useOrderContext } from "../../hooks/context/useOrderContext";
 
 export default function CheckoutNav() {
 	const { setTheme } = useThemeContext();
-	const { setMyOrder } = useOrderContext();
+	const { clearMyOrder } = useOrderContext();
 	const navigate = useNavigate();
 
 	return (
@@ -54,30 +54,8 @@ export default function CheckoutNav() {
 							htmlFor="return-modal"
 							className="btn btn-accent normal-case"
 							onClick={() => {
-								navigate("/");
-								setMyOrder({
-									shippingInfo: {
-										firstName: "",
-										lastName: "",
-										address: "",
-										aptSuiteEtc: "",
-										state: "",
-										city: "",
-										postalCode: "",
-										phone: "",
-										email: "",
-									},
-									paymentInfo: {
-										paymentType: "",
-										cardNumber: "",
-										cardHolder: "",
-										expiryDateMonth: "",
-										expiryDateYear: "",
-										securityCode: "",
-										totalCost: "",
-										datePurchased: "",
-									},
-								});
+								navigate("/cart");
+								clearMyOrder();
 							}}
 						>
 							Cancel order

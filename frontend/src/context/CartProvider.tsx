@@ -1,14 +1,14 @@
 import React, { createContext, useEffect, useState } from "react";
-import { CartStorageData, CartItemsInfo } from "../interfaces/cartInterface";
+import { CartStorageData, CartCheckoutInfo } from "../interfaces/cartInterface";
 
 interface CartContextInterface {
 	myCart: CartStorageData[];
 	setMyCart: React.Dispatch<React.SetStateAction<CartStorageData[]>>;
-	cartItemsInfo: CartItemsInfo;
-	setCartItemsInfo: React.Dispatch<React.SetStateAction<CartItemsInfo>>;
+	cartItemsInfo: CartCheckoutInfo;
+	setCartItemsInfo: React.Dispatch<React.SetStateAction<CartCheckoutInfo>>;
 	addCartItem(newItem: CartStorageData): void;
 	removeCartItem(removedItem: CartStorageData): void;
-	updateCartItemQuantity(updatedItem: CartStorageData): void;
+	updateItemQuantity(updatedItem: CartStorageData): void;
 	clearMyCart(): void;
 }
 
@@ -23,7 +23,7 @@ export const CartProvider = ({ children }: AuthProviderProps) => {
 		JSON.parse(localStorage.getItem("cart")!) || []
 	);
 
-	const [cartItemsInfo, setCartItemsInfo] = useState<CartItemsInfo>({
+	const [cartItemsInfo, setCartItemsInfo] = useState<CartCheckoutInfo>({
 		subTotal: 0,
 		numItems: 0,
 	});
@@ -57,7 +57,7 @@ export const CartProvider = ({ children }: AuthProviderProps) => {
 		);
 	}
 
-	function updateCartItemQuantity(updatedItem: CartStorageData) {
+	function updateItemQuantity(updatedItem: CartStorageData) {
 		return setMyCart((prev) => {
 			return prev.map((item) => {
 				if (item._id === updatedItem._id) {
@@ -98,7 +98,7 @@ export const CartProvider = ({ children }: AuthProviderProps) => {
 				setCartItemsInfo,
 				addCartItem,
 				removeCartItem,
-				updateCartItemQuantity,
+				updateItemQuantity,
 				clearMyCart,
 			}}
 		>

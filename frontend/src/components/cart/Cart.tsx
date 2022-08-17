@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { useCartContext } from "../../hooks/context/useCartContext";
-import { CartInfo } from "../../interfaces/cartInterface";
+import { CartItemInfo } from "../../interfaces/cartInterface";
 import { useGetCartItems } from "../../hooks/cart/useGetCartItems";
 import CartItem from "./CartItem";
 
@@ -17,7 +17,7 @@ export default function Cart() {
 		<div className="grid grid-cols-2 gap-2">
 			<div className="transition-all fade ">
 				{isSuccess ? (
-					displayCartItems.map((item: CartInfo) => {
+					displayCartItems.map((item: CartItemInfo) => {
 						return (
 							<CartItem
 								key={item._id}
@@ -62,7 +62,12 @@ export default function Cart() {
 					</div>
 					<div className="stat-value">${cartItemsInfo.subTotal}</div>
 				</div>
-				<Link className="btn btn-error" to={"/checkout/shipping"}>
+				<Link
+					className={`btn ${
+						cartItemsInfo.numItems === 0 ? "btn-disabled" : "btn-error"
+					}`}
+					to={"/checkout/shipping"}
+				>
 					Proceed to checkout
 				</Link>
 				<button onClick={clearMyCart} className="btn btn-error">
