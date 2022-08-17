@@ -1,4 +1,3 @@
-import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
 import App from "./App";
@@ -9,7 +8,6 @@ import { AuthProvider } from "./context/AuthProvider";
 import { ThemeProvider } from "./context/ThemeProvider";
 import { CartProvider } from "./context/CartProvider";
 import { OrderProvider } from "./context/OrderProvider";
-import { ToastContainer, Slide } from "react-toastify";
 
 const queryClient = new QueryClient();
 
@@ -25,10 +23,9 @@ root.render(
 					<CartProvider>
 						<OrderProvider>
 							<App />
+							<ReactQueryDevtools initialIsOpen />
 						</OrderProvider>
 					</CartProvider>
-					<ToastContainer limit={1} autoClose={1500} transition={Slide} />
-					<ReactQueryDevtools initialIsOpen />
 				</AuthProvider>
 			</ThemeProvider>
 		</BrowserRouter>

@@ -5,12 +5,14 @@ import { useAuthContext } from "../../hooks/context/useAuthContext";
 import { useThemeContext } from "../../hooks/context/useThemeContext";
 import { useCartContext } from "../../hooks/context/useCartContext";
 import { storage } from "../../helper/tokenStorage";
+import { useLogoutUser } from "../../hooks/user/useLogout";
 
 const Nav = () => {
 	//const navigate = useNavigate();
 	//const { user, setUser } = useAuthContext();
 	const { myCart } = useCartContext();
 	const { setTheme } = useThemeContext();
+	const { mutate } = useLogoutUser();
 	//const [searchText, setSearchText] = useState<string>("");
 	//const [inputActive, setInputActive] = useState<boolean>(false);
 
@@ -183,7 +185,13 @@ const Nav = () => {
 							<span>Settings</span>
 						</li>
 						<li>
-							<span>Logout</span>
+							<span
+								onClick={() => {
+									mutate();
+								}}
+							>
+								Logout
+							</span>
 						</li>
 					</ul>
 				</div>

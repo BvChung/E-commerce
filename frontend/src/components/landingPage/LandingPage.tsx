@@ -6,17 +6,10 @@ import { useRefreshToken } from "../../hooks/auth/useRefreshToken";
 function LandingPage() {
 	const navigate = useNavigate();
 	const refreshToken = useRefreshToken();
+
 	return (
 		<div className="flex flex-col gap-2 items-center justify-center">
 			<span>LandingPage</span>
-			<button
-				onClick={() => {
-					navigate("/checkout");
-				}}
-				className="btn uppercase"
-			>
-				Checkout
-			</button>
 			<button
 				onClick={() => {
 					navigate("/orders");
@@ -24,22 +17,6 @@ function LandingPage() {
 				className="btn uppercase"
 			>
 				Orders
-			</button>
-			<button
-				onClick={() => {
-					navigate("/checkout/information");
-				}}
-				className="btn w-20 uppercase"
-			>
-				Info
-			</button>
-			<button
-				onClick={() => {
-					navigate("/checkout/payment");
-				}}
-				className="btn w-20 uppercase"
-			>
-				Payment
 			</button>
 			<button
 				onClick={() => {

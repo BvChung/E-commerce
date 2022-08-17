@@ -20,7 +20,12 @@ export default function Layout() {
 				<div className="h-screen w-screen overflow-auto">
 					<Outlet />
 				</div>
-				{/* <ToastContainer limit={1} autoClose={1500} transition={Slide} /> */}
+				<ToastContainer
+					limit={1}
+					autoClose={1500}
+					transition={Slide}
+					theme={theme ? "dark" : "light"}
+				/>
 				{location.pathname === "/" && <Footer />}
 			</div>
 			<div className="drawer-side">
