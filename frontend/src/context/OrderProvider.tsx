@@ -14,6 +14,7 @@ interface OrderContextInterface {
 			| React.ChangeEvent<HTMLInputElement>
 			| React.ChangeEvent<HTMLSelectElement>
 	): void;
+	clearMyOrder(): void;
 }
 
 interface OrderProviderProps {
@@ -44,7 +45,6 @@ export const OrderProvider = ({ children }: OrderProviderProps) => {
 			securityCode: "",
 			phone: "",
 			subTotal: 0,
-			datePurchased: "",
 		},
 	});
 
@@ -84,9 +84,41 @@ export const OrderProvider = ({ children }: OrderProviderProps) => {
 		});
 	}
 
+	function clearMyOrder() {
+		setMyOrder({
+			shippingInfo: {
+				firstName: "",
+				lastName: "",
+				address: "",
+				aptSuiteEtc: "",
+				state: "",
+				city: "",
+				zipCode: "",
+				phone: "",
+				email: "",
+			},
+			paymentInfo: {
+				cardNumber: "",
+				cardHolderFirstName: "",
+				cardHolderLastName: "",
+				expiryDateMonth: "",
+				expiryDateYear: "",
+				securityCode: "",
+				phone: "",
+				subTotal: 0,
+			},
+		});
+	}
+
 	return (
 		<OrderContext.Provider
-			value={{ myOrder, setMyOrder, handlePayment, handleShipping }}
+			value={{
+				myOrder,
+				setMyOrder,
+				handlePayment,
+				handleShipping,
+				clearMyOrder,
+			}}
 		>
 			{children}
 		</OrderContext.Provider>

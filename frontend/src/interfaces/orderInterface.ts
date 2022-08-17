@@ -1,6 +1,6 @@
-import { CartInfo } from "./cartInterface";
+import { CartItemInfo } from "./cartInterface";
 
-export interface OrderShippingInfo {
+interface OrderShippingInfo {
 	firstName: string;
 	lastName: string;
 	address: string;
@@ -12,7 +12,7 @@ export interface OrderShippingInfo {
 	email: string;
 }
 
-export interface OrderCardInfo {
+interface OrderPaymentInfo {
 	cardNumber: string;
 	cardHolderFirstName: string;
 	cardHolderLastName: string;
@@ -21,37 +21,18 @@ export interface OrderCardInfo {
 	securityCode: string;
 	phone: string;
 	subTotal: number;
-	datePurchased: string;
 }
 
 export interface OrderForm {
 	shippingInfo: OrderShippingInfo;
-	paymentInfo: OrderCardInfo;
+	paymentInfo: OrderPaymentInfo;
 }
 
+// const now = new Date("2022-07-08T23:43:14.121+00:00"); => from mongoDB created at
+// console.log(now.toDateString());
 export interface OrderInfo {
 	_id?: string;
-	purchasedItems: CartInfo[];
-	shippingInfo: {
-		firstName: string;
-		lastName: string;
-		address: string;
-		aptSuiteEtc?: string;
-		state: string;
-		city: string;
-		zipCode: string;
-		phone: string;
-		email: string;
-	};
-	paymentInfo: {
-		cardNumber: string;
-		cardHolderFirstName: string;
-		cardHolderLastName: string;
-		expiryDateMonth: string;
-		expiryDateYear: string;
-		securityCode: string;
-		phone: string;
-		subTotal: number;
-		datePurchased: string;
-	};
+	purchasedItems: CartItemInfo[];
+	shippingInfo: OrderShippingInfo;
+	paymentInfo: OrderPaymentInfo;
 }

@@ -1,30 +1,21 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useOrderContext } from "../../hooks/context/useOrderContext";
 import { useCartContext } from "../../hooks/context/useCartContext";
 import { OrderInfo } from "../../interfaces/orderInterface";
 import { useGetCartItems } from "../../hooks/cart/useGetCartItems";
+import { useCreateOrder } from "../../hooks/orders/useCreateOrder";
 
 export default function ConfirmOrder() {
-	const { myOrder } = useOrderContext();
-	const { myCart, cartItemsInfo } = useCartContext();
+	const { myOrder, setMyOrder, clearMyOrder } = useOrderContext();
+	const { myCart, cartItemsInfo, clearMyCart } = useCartContext();
+	const { mutate } = useCreateOrder();
+	const navigate = useNavigate();
 	const {
 		data: displayCartItems,
 		isSuccess,
 		isLoading,
 		isFetching,
 	} = useGetCartItems(myCart);
-	console.log(displayCartItems);
-	// const order: OrderInfo = {
-	// 	...myOrder,
-	// 	purchasedItems: displayCartItems!,
-	// 	paymentInfo: {
-	// 		...myOrder.paymentInfo,
-	// 		subTotal: cartItemsInfo.subTotal,
-	// 		datePurchased:
-	// 	},
-	// };
-	// console.log();
 
 	return (
 		<div className="flex flex-col">
@@ -104,7 +95,18 @@ export default function ConfirmOrder() {
 			<div>
 				<button
 					onClick={() => {
-						console.log(myOrder);
+						mutate({
+							...myOrder,
+							purchasedItems: displayCartItems!,
+							paymentInfo: {
+								...myOrder.paymentInfo,
+								subTotal: cartItemsInfo.subTotal,
+							},
+						});
+
+						clearMyCart();
+						clearMyOrder();
+						navigate("/");
 					}}
 					className="btn btn-primary"
 				>

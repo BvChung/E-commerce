@@ -18,17 +18,15 @@ export const orderBodySchema = object({
 			address: string({
 				required_error: "Address is required.",
 			}),
-			aptSuiteEtc: string({
-				required_error: "Apt, suite, etc. is required.",
-			}),
+			aptSuiteEtc: string().optional(),
 			state: string({
 				required_error: "State is required.",
 			}),
 			city: string({
 				required_error: "City is required.",
 			}),
-			postalCode: string({
-				required_error: "Postal code is required.",
+			zipCode: string({
+				required_error: "Zip code is required.",
 			}),
 			phone: string({
 				required_error: "Phone is required.",
@@ -39,7 +37,7 @@ export const orderBodySchema = object({
 		}),
 		purchasedItems: array(
 			object({
-				productId: string({
+				_id: string({
 					required_error: "Id is required.",
 				}),
 				name: string({
@@ -66,13 +64,13 @@ export const orderBodySchema = object({
 			})
 		),
 		paymentInfo: object({
-			paymentType: string({
-				required_error: "Payment type is required.",
-			}),
 			cardNumber: string({
 				required_error: "Card number is required.",
 			}),
-			cardHolder: string({
+			cardHolderFirstName: string({
+				required_error: "Card number is required.",
+			}),
+			cardHolderLastName: string({
 				required_error: "Card number is required.",
 			}),
 			expiryDateMonth: string({
@@ -84,11 +82,8 @@ export const orderBodySchema = object({
 			securityCode: string({
 				required_error: "Card number is required.",
 			}),
-			totalCost: number({
+			subTotal: number({
 				required_error: "Total cost is required.",
-			}),
-			datePurchased: string({
-				required_error: "Date purchased is required.",
 			}),
 		}),
 	}),
