@@ -1,24 +1,30 @@
-import {
-	useMutation,
-	useQueryClient,
-	UseMutationResult,
-	useQuery,
-} from "react-query";
+import { useMutation, useQueryClient } from "react-query";
 import { toast } from "react-toastify";
-import { UserInfo, LoginCredentials } from "../../interfaces/userInterface";
-import { registerUser } from "../../api/userApi";
+import { UserInfo, RegisterCredentials } from "../../interfaces/authInterface";
+import { eCommerceApiPublic } from "../../api/axios";
+import { CustomError } from "../../interfaces/customInterface";
 
-export const useLoginUser = () => {
+export const useRegisterUser = () => {
 	const queryClient = useQueryClient();
 
-	return useMutation(registerUser, {
+	const register = async (
+		credentials: RegisterCredentials
+	): Promise<UserInfo> => {
+		const response = await eCommerceApiPublic.post(
+			"/api/users/register",
+			credentials
+		);
+
+		return response.data;
+	};
+
+	return useMutation(register, {
 		onSuccess: () => {
-			console.log("Logged in");
-			toast.success("User logged in");
+			toast.success("User has been registered");
 			queryClient.invalidateQueries("user");
 		},
-		onError: (error: Error) => {
-			toast.error(`Error: ${error.message}`);
+		onError: (error: CustomError) => {
+			toast.error(error.response?.data?.message);
 		},
 	});
 };

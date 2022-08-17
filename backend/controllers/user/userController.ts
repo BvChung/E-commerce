@@ -49,7 +49,7 @@ const loginUser = async (
 					secure: true,
 					maxAge: 24 * 60 * 60 * 1000,
 				})
-				.cookie("name", foundUser.name, {
+				.cookie("name", `${foundUser.firstName}_${foundUser.lastName}`, {
 					sameSite: "strict",
 					httpOnly: true,
 					secure: true,
@@ -57,7 +57,8 @@ const loginUser = async (
 				})
 				.json({
 					_id: foundUser.id,
-					name: foundUser.name,
+					firstName: foundUser.firstName,
+					lastName: foundUser.lastName,
 					email: foundUser.email,
 					role: foundUser.role,
 					accessToken: generateAccessToken(foundUser._id),
@@ -80,7 +81,7 @@ const registerUser = async (
 	next: NextFunction
 ) => {
 	try {
-		const { name, email, password, role } = req.body;
+		const { firstName, lastName, email, password, role } = req.body;
 
 		// Check if user exists in the database based on email
 		const emailExists = await UserModel.findOne({ email });
@@ -100,11 +101,14 @@ const registerUser = async (
 
 		// Create User using mongoose schema
 		const user = await UserModel.create({
-			name,
+			firstName,
+			lastName,
 			email,
 			password: hashedPassword,
 			role,
 		});
+
+		if (!user) throw new Error("Invalid user data");
 
 		// Create JWT refresh token based on Schema Id
 		const refreshToken = generateRefreshToken(user._id);
@@ -119,34 +123,30 @@ const registerUser = async (
 			}
 		);
 
-		// If user is succesfully created
-		if (user) {
-			return res
-				.status(201)
-				.cookie("jwt", refreshToken, {
-					sameSite: "strict",
-					httpOnly: true,
-					secure: true,
-					maxAge: 24 * 60 * 60 * 1000,
-				})
-				.cookie("name", name, {
-					sameSite: "strict",
-					httpOnly: true,
-					secure: true,
-					maxAge: 24 * 60 * 60 * 1000,
-				})
-				.json({
-					_id: user.id,
-					name: user.name,
-					email: user.email,
-					role: user.role,
-					accessToken: generateAccessToken(user._id),
-				});
-		} else {
-			res.status(401);
-			throw new Error("Invalid user data");
-		}
+		return res
+			.status(201)
+			.cookie("jwt", refreshToken, {
+				sameSite: "strict",
+				httpOnly: true,
+				secure: true,
+				maxAge: 24 * 60 * 60 * 1000,
+			})
+			.cookie("name", `${user.firstName}_${user.lastName}`, {
+				sameSite: "strict",
+				httpOnly: true,
+				secure: true,
+				maxAge: 24 * 60 * 60 * 1000,
+			})
+			.json({
+				_id: user.id,
+				firstName: user.firstName,
+				lastName: user.lastName,
+				email: user.email,
+				role: user.role,
+				accessToken: generateAccessToken(user._id),
+			});
 	} catch (error: any) {
+		res.status(401);
 		next(error);
 	}
 };
@@ -158,7 +158,8 @@ const getUser = async (req: Request, res: Response, next: NextFunction) => {
 	try {
 		res.status(200).json({
 			_id: req.user.id,
-			name: req.user.name,
+			firstName: req.user.firstName,
+			lastName: req.user.lastName,
 			email: req.user.email,
 			role: req.user.role,
 		});
@@ -205,11 +206,17 @@ const logoutUser = async (req: Request, res: Response, next: NextFunction) => {
 			}
 		);
 
-		res.clearCookie("jwt", {
-			httpOnly: true,
-			sameSite: "strict",
-			secure: true,
-		});
+		res
+			.clearCookie("jwt", {
+				httpOnly: true,
+				sameSite: "strict",
+				secure: true,
+			})
+			.clearCookie("name", {
+				httpOnly: true,
+				sameSite: "strict",
+				secure: true,
+			});
 
 		return res.sendStatus(204);
 	} catch (error) {

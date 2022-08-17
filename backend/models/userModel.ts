@@ -1,7 +1,8 @@
 import { Schema, model } from "mongoose";
 
 interface User {
-	name: string;
+	firstName: string;
+	lastName: string;
 	email: string;
 	password: string;
 	refreshToken: string;
@@ -10,9 +11,14 @@ interface User {
 
 const userSchema = new Schema<User>(
 	{
-		name: {
+		firstName: {
 			type: String,
-			required: [true, "Name is required"],
+			required: [true, "First name is required"],
+			default: "",
+		},
+		lastName: {
+			type: String,
+			required: [true, "Last name is required"],
 			default: "",
 		},
 		email: {

@@ -1,8 +1,10 @@
-import React, { useEffect, useState } from "react";
-import { useNavigate, Link, useLocation, Location } from "react-router-dom";
-import { LoginCredentials } from "../../interfaces/userInterface";
-import { useLoginUser, useLogin } from "../../hooks/user/useLoginUser";
+import React, { useEffect, useState, useId } from "react";
+import { useNavigate, Link, useLocation } from "react-router-dom";
+import { LoginCredentials } from "../../interfaces/authInterface";
+import { useLoginUser } from "../../hooks/user/useLoginUser";
 import { CustomLocationState } from "../../interfaces/customInterface";
+import { FormInputProps } from "../../interfaces/formInterface";
+import FormInput from "../form/FormInput";
 
 export default function Login() {
 	const navigate = useNavigate();
@@ -44,33 +46,60 @@ export default function Login() {
 		}
 	}, [isSuccess, navigate, from]);
 
+	const loginInput: FormInputProps[] = [
+		{
+			key: useId(),
+			errorMessage: "Please enter a valid email.",
+			id: "email",
+			label: "Email",
+			required: true,
+			name: "email",
+			onChange: handleChange,
+			type: "email",
+			value: loginCredentials.email,
+			maxLength: 50,
+			htmlInputSize: "md",
+		},
+		{
+			key: useId(),
+			errorMessage: "Please enter a valid password.",
+			id: "password",
+			label: "Password",
+			required: true,
+			name: "password",
+			onChange: handleChange,
+			type: showPassword ? "text" : "password",
+			value: loginCredentials.password,
+			maxLength: 25,
+			htmlInputSize: "md",
+		},
+	];
+
 	return (
 		<div className="flex flex-col items-center justify-center">
 			<p>Login</p>
 			<form onSubmit={handleSubmit}>
-				<div className="form-control w-full max-w-xs">
-					<label className="label">
-						<span className="label-text-alt">Email</span>
-					</label>
-					<input
-						type="text"
-						name="email"
-						value={loginCredentials.email}
-						className="input input-bordered rounded-md w-full max-w-xs"
-						onChange={handleChange}
-						required={true}
-					/>
-					<label className="label">
-						<span className="label-text-alt">Password</span>
-					</label>
-					<input
-						type={showPassword ? "text" : "password"}
-						name="password"
-						value={loginCredentials.password}
-						className="input input-bordered w-full max-w-xs"
-						onChange={handleChange}
-						required={true}
-					/>
+				<div>
+					{loginInput.map((input) => {
+						return (
+							<FormInput
+								key={input.key}
+								errorMessage={input.errorMessage}
+								id={input.id}
+								label={input.label}
+								name={input.name}
+								onChange={input.onChange}
+								required={input.required}
+								type={input.type}
+								value={input.value}
+								pattern={input.pattern}
+								inputMode={input.inputMode}
+								maxLength={input.maxLength}
+								htmlInputSize={input.htmlInputSize}
+							/>
+						);
+					})}
+
 					<label className="label cursor-pointer">
 						<span className="label-text">Show password</span>
 						<input

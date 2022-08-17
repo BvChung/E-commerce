@@ -1,8 +1,7 @@
 import { useMutation, useQueryClient, useQuery } from "react-query";
 import { toast } from "react-toastify";
-import { LoginCredentials, UserInfo } from "../../interfaces/userInterface";
+import { LoginCredentials, UserInfo } from "../../interfaces/authInterface";
 import { useAuthContext } from "../context/useAuthContext";
-import { getUser } from "../../api/userApi";
 import { eCommerceApiPublic } from "../../api/axios";
 import { CustomError } from "../../interfaces/customInterface";
 import { storage } from "../../helper/tokenStorage";
@@ -10,21 +9,6 @@ import { storage } from "../../helper/tokenStorage";
 // Make req to api with login info => returns token
 // Store token to local storage
 // Then make req api with token => returns account information using useQuery() to store
-
-export const useLogin = (credentials: LoginCredentials) => {
-	return useQuery(
-		["user"],
-		async (credentials) => {
-			const response = await eCommerceApiPublic.post(
-				"/api/users/login",
-				credentials
-			);
-
-			return response.data;
-		},
-		{ enabled: false, cacheTime: Infinity }
-	);
-};
 
 export const useLoginUser = () => {
 	const queryClient = useQueryClient();
@@ -41,7 +25,7 @@ export const useLoginUser = () => {
 
 	return useMutation(login, {
 		onSuccess: (data: UserInfo) => {
-			toast.success(`${data.name} logged in`);
+			toast.success(`${data.firstName} ${data.lastName} logged in.`);
 			queryClient.setQueryData("login", { ...data, isLoggedIn: true });
 
 			setUser(data);
@@ -53,10 +37,17 @@ export const useLoginUser = () => {
 	});
 };
 
-export const useGetUser = () => {
-	const token = storage.getToken();
+// export const useLogin = (credentials: LoginCredentials) => {
+// 	return useQuery(
+// 		["user"],
+// 		async (credentials) => {
+// 			const response = await eCommerceApiPublic.post(
+// 				"/api/users/login",
+// 				credentials
+// 			);
 
-	return useQuery(["user", token], getUser, {
-		enabled: !!token,
-	});
-};
+// 			return response.data;
+// 		},
+// 		{ enabled: false, cacheTime: Infinity }
+// 	);
+// };
