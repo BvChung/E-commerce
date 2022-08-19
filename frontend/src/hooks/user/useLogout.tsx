@@ -24,7 +24,6 @@ export const useLogoutUser = () => {
 			logoutUser();
 			storage.clearToken();
 			navigate("/");
-			console.log(user);
 		},
 		onError: (error: CustomError) => {
 			toast.error(error.response?.data?.message);

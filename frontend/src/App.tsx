@@ -1,6 +1,7 @@
-import Login from "./components/account/Login";
-import Register from "./components/account/Register";
 import "./App.css";
+import Login from "./components/auth/Login";
+import Register from "./components/auth/Register";
+import Profile from "./components/auth/Account";
 import Layout from "./components/layout/Layout";
 import Landing from "./components/landingPage/LandingPage";
 import ProductPage from "./components/products/ProductPage";
@@ -58,7 +59,7 @@ function App() {
 
 						{/* <Route path="orders" element={<OrdersPage />} /> */}
 
-						<Route path="account" element={<p>account</p>} />
+						<Route path="account" element={<Profile />} />
 					</Route>
 
 					<Route element={<ProtectedRoutes authRoles={[accessRoles.Admin]} />}>
