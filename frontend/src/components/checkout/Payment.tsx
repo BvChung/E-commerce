@@ -22,6 +22,7 @@ export default function Payment() {
 			type: "text",
 			value: myOrder.paymentInfo.cardNumber,
 			inputMode: "numeric",
+			maxLength: 19,
 			htmlInputSize: "sm",
 		},
 		{

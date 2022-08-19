@@ -5,6 +5,8 @@ import { CartStorageData, CartItemInfo } from "../../interfaces/cartInterface";
 import qs from "qs";
 
 export const useGetCartItems = (myCartItems: CartStorageData[]) => {
+	const productIds = myCartItems.map((item: CartStorageData) => item._id);
+
 	const getCartItems = async (
 		myCartItems: CartStorageData[]
 	): Promise<CartItemInfo[]> => {
@@ -13,7 +15,8 @@ export const useGetCartItems = (myCartItems: CartStorageData[]) => {
 
 		const response = await eCommerceApiPublic.get("/api/products/cart", {
 			params: {
-				productIds: myCartItems.map((item) => item._id),
+				productIds,
+				// productIds: myCartItems.map((item) => item._id),
 			},
 			paramsSerializer: (params) => qs.stringify(params),
 		});
@@ -47,5 +50,6 @@ export const useGetCartItems = (myCartItems: CartStorageData[]) => {
 		return addItemQuantity;
 	};
 
-	return useQuery(["cart", myCartItems], () => getCartItems(myCartItems));
+	return useQuery(["cart", productIds], () => getCartItems(myCartItems));
+	// return useQuery(["cart", myCartItems], () => getCartItems(myCartItems));
 };

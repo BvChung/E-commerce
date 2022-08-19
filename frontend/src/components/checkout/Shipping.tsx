@@ -11,10 +11,8 @@ export default function Shipping() {
 	const { cartItemsInfo } = useCartContext();
 	const { user } = useAuthContext();
 	const navigate = useNavigate();
-	console.log(user);
 
 	useEffect(() => {
-		console.log("render");
 		setMyOrder((prev) => {
 			return {
 				...prev,

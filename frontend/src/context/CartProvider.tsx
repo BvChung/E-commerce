@@ -7,8 +7,11 @@ interface CartContextInterface {
 	cartItemsInfo: CartCheckoutInfo;
 	setCartItemsInfo: React.Dispatch<React.SetStateAction<CartCheckoutInfo>>;
 	addCartItem(newItem: CartStorageData): void;
-	removeCartItem(removedItem: CartStorageData): void;
-	updateItemQuantity(updatedItem: CartStorageData): void;
+	incrementCartQuantity(_id: string): void;
+	decrementCartQuantity(_id: string): void;
+	findCartItem(_id: string | undefined): CartStorageData | undefined;
+	removeCartItem(_id: string): void;
+	updateCartQuantity(updatedItem: CartStorageData): void;
 	clearMyCart(): void;
 }
 
@@ -27,6 +30,10 @@ export const CartProvider = ({ children }: AuthProviderProps) => {
 		subTotal: 0,
 		numItems: 0,
 	});
+
+	function findCartItem(_id: string | undefined) {
+		return myCart.find((item) => item._id === _id);
+	}
 
 	function addCartItem(newItem: CartStorageData) {
 		const foundItem = myCart.find(
@@ -49,15 +56,15 @@ export const CartProvider = ({ children }: AuthProviderProps) => {
 		} else {
 			return setMyCart((prev) => [...prev, newItem]);
 		}
+
+		// return setMyCart((prev) => [...prev, newItem]);
 	}
 
-	function removeCartItem(removedItem: CartStorageData) {
-		return setMyCart((prev) =>
-			prev.filter((item) => item._id !== removedItem._id)
-		);
+	function removeCartItem(_id: string) {
+		return setMyCart((prev) => prev.filter((item) => item._id !== _id));
 	}
 
-	function updateItemQuantity(updatedItem: CartStorageData) {
+	function updateCartQuantity(updatedItem: CartStorageData) {
 		return setMyCart((prev) => {
 			return prev.map((item) => {
 				if (item._id === updatedItem._id) {
@@ -70,6 +77,44 @@ export const CartProvider = ({ children }: AuthProviderProps) => {
 				}
 			});
 		});
+	}
+
+	function incrementCartQuantity(_id: string) {
+		return setMyCart((prev) => {
+			return prev.map((item) => {
+				if (item._id === _id) {
+					return {
+						...item,
+						quantity: (item.quantity += 1),
+					};
+				} else {
+					return { ...item };
+				}
+			});
+		});
+	}
+
+	function decrementCartQuantity(_id: string) {
+		const foundItem = myCart.find(
+			(product: CartStorageData) => product._id === _id
+		);
+
+		if (foundItem?.quantity === 1) {
+			return removeCartItem(_id);
+		} else {
+			return setMyCart((prev) => {
+				return prev.map((item) => {
+					if (item._id === _id) {
+						return {
+							...item,
+							quantity: (item.quantity -= 1),
+						};
+					} else {
+						return { ...item };
+					}
+				});
+			});
+		}
 	}
 
 	function clearMyCart() {
@@ -97,8 +142,11 @@ export const CartProvider = ({ children }: AuthProviderProps) => {
 				cartItemsInfo,
 				setCartItemsInfo,
 				addCartItem,
+				incrementCartQuantity,
+				decrementCartQuantity,
+				findCartItem,
 				removeCartItem,
-				updateItemQuantity,
+				updateCartQuantity,
 				clearMyCart,
 			}}
 		>

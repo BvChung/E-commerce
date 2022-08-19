@@ -10,12 +10,14 @@ export default function CartItem({
 	price,
 	quantity,
 }: CartItemInfo) {
-	const { updateItemQuantity, removeCartItem } = useCartContext();
+	const { myCart, updateCartQuantity, removeCartItem, findCartItem } =
+		useCartContext();
+	const foundItem = findCartItem(_id);
 
 	const [itemQuantity, setItemQuantity] = useState(quantity);
 
 	useEffect(() => {
-		updateItemQuantity({ _id, price, quantity: itemQuantity });
+		updateCartQuantity({ _id, price, quantity: itemQuantity });
 	}, [itemQuantity]);
 
 	return (
@@ -29,7 +31,7 @@ export default function CartItem({
 				<p>{category}</p>
 				<p>{name}</p>
 				<p>{price}</p>
-				<p>{quantity}</p>
+				<p>{foundItem?.quantity}</p>
 				<div className="form-control w-fit max-w-xs">
 					<label className="label">
 						<span className="label-text">Quantity</span>
@@ -57,7 +59,7 @@ export default function CartItem({
 				</div>
 				<button
 					onClick={() => {
-						removeCartItem({ _id, price, quantity });
+						removeCartItem(_id);
 					}}
 					className="btn btn-accent"
 				>
