@@ -1,15 +1,15 @@
 import React from "react";
 import { useAuthContext } from "../../hooks/context/useAuthContext";
 
-export default function Account() {
+export default function EditAccount() {
 	const { user } = useAuthContext();
 	return (
 		<div>
-			<h1>My Account</h1>
+			<h1>Edit Account</h1>
 			<p>
-				{user.firstName} {user.lastName}
+				Name: {user.firstName} {user.lastName}
 			</p>
-			<p>{user.email}</p>
+			<p>Email: {user.email}</p>
 		</div>
 	);
 }
