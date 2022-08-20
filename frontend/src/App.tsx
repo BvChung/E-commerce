@@ -1,7 +1,7 @@
 import "./App.css";
-import Login from "./components/auth/Login";
-import Register from "./components/auth/Register";
-import Profile from "./components/auth/Account";
+import Login from "./components/user/Login";
+import Register from "./components/user/Register";
+import AccountPage from "./components/account/AccountPage";
 import Layout from "./components/layout/Layout";
 import Landing from "./components/landingPage/LandingPage";
 import ProductPage from "./components/products/ProductPage";
@@ -12,11 +12,12 @@ import Shipping from "./components/checkout/Shipping";
 import ConfirmOrder from "./components/checkout/ConfirmOrder";
 import OrdersPage from "./components/orders/OrderPage";
 import Cart from "./components/cart/Cart";
+import EditName from "./components/account/EditName";
 import ProtectedRoutes from "./components/protected/ProtectedRoutes";
 import Unauthorized from "./components/protected/Unauthorized";
 import { Routes, Route, Outlet } from "react-router-dom";
-import "react-toastify/dist/ReactToastify.css";
 import { accessRoles } from "./helper/accessRoles";
+import "react-toastify/dist/ReactToastify.css";
 import PersistLogin from "./components/protected/PersistLogin";
 
 function App() {
@@ -59,7 +60,11 @@ function App() {
 
 						{/* <Route path="orders" element={<OrdersPage />} /> */}
 
-						<Route path="account" element={<Profile />} />
+						<Route path="account" element={<Outlet />}>
+							<Route index element={<div>Not Found</div>} />
+							<Route path="name" element={<EditName />} />
+							<Route path="info" element={<AccountPage />} />
+						</Route>
 					</Route>
 
 					<Route element={<ProtectedRoutes authRoles={[accessRoles.Admin]} />}>

@@ -8,13 +8,14 @@ import { storage } from "../../helper/tokenStorage";
 import { useLogoutUser } from "../../hooks/user/useLogout";
 
 const Nav = () => {
-	//const navigate = useNavigate();
-	//const { user, setUser } = useAuthContext();
+	// const navigate = useNavigate();
+	const { user } = useAuthContext();
 	const { myCart } = useCartContext();
 	const { setTheme } = useThemeContext();
 	const { mutate } = useLogoutUser();
 	//const [searchText, setSearchText] = useState<string>("");
 	//const [inputActive, setInputActive] = useState<boolean>(false);
+	console.log(user);
 
 	const numCartItems = myCart.reduce((prev, curr) => prev + curr.quantity, 0);
 
@@ -173,16 +174,17 @@ const Nav = () => {
 						tabIndex={0}
 						className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52"
 					>
+						{!user.accessToken && (
+							<li>
+								<Link to="/login">
+									<span>Login/Register</span>
+								</Link>
+							</li>
+						)}
 						<li>
-							<Link to="/login">
-								<span>Login/Register</span>
+							<Link to="/account/info">
+								<span className="justify-between">Manage Account</span>
 							</Link>
-						</li>
-						<li>
-							<span className="justify-between">Profile</span>
-						</li>
-						<li>
-							<span>Settings</span>
 						</li>
 						<li>
 							<span
