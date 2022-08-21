@@ -1,14 +1,16 @@
 import { useMutation } from "react-query";
 import { toast } from "react-toastify";
 import { EditPasswordCredentials } from "../../interfaces/authInterface";
-import { eCommerceApiPublic } from "../../api/axios";
 import { CustomError } from "../../interfaces/customInterface";
+import { usePrivateApi } from "../auth/usePrivateApi";
 
 export const useEditPassword = () => {
+	const eCommerceApiPrivate = usePrivateApi();
+
 	const editPassword = async (
 		credentials: EditPasswordCredentials
 	): Promise<void> => {
-		await eCommerceApiPublic.patch("/api/users/edit/password", credentials);
+		await eCommerceApiPrivate.patch("/api/users/edit/password", credentials);
 
 		// const response = await eCommerceApiPublic.patch(
 		// 	"/api/users/edit/password",

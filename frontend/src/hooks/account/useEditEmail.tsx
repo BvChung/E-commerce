@@ -2,17 +2,18 @@ import { useMutation } from "react-query";
 import { toast } from "react-toastify";
 import { EditEmailCredentials } from "../../interfaces/authInterface";
 import { useAuthContext } from "../context/useAuthContext";
-import { eCommerceApiPublic } from "../../api/axios";
 import { CustomError } from "../../interfaces/customInterface";
+import { usePrivateApi } from "../auth/usePrivateApi";
 
 export const useEditEmail = () => {
 	const { setUser } = useAuthContext();
+	const eCommerceApiPrivate = usePrivateApi();
 
 	const editEmail = async (
 		credentials: EditEmailCredentials
 	): Promise<EditEmailCredentials> => {
-		const response = await eCommerceApiPublic.patch(
-			"/api/edit/email",
+		const response = await eCommerceApiPrivate.patch(
+			"/api/users/edit/email",
 			credentials
 		);
 

@@ -1,24 +1,24 @@
 import React, { useState, useId, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
 import { useAuthContext } from "../../hooks/context/useAuthContext";
 import FormInput from "../form/FormInput";
 import { FormInputProps } from "../../interfaces/formInterface";
-import { EditNameCredentials } from "../../interfaces/authInterface";
-import { useEditName } from "../../hooks/account/useEditName";
+import { EditEmailCredentials } from "../../interfaces/authInterface";
+import { useEditEmail } from "../../hooks/account/useEditEmail";
+import { useNavigate } from "react-router-dom";
 
-export default function EditName() {
+export default function EditEmail() {
 	const { user } = useAuthContext();
-	const { mutate, isSuccess } = useEditName();
+	const { mutate, isSuccess } = useEditEmail();
 	const navigate = useNavigate();
-	const [nameCredentials, setNameCredentials] = useState<EditNameCredentials>({
-		firstName: user.firstName,
-		lastName: user.lastName,
-	});
+	const [emailCredentials, setEmailCredentials] =
+		useState<EditEmailCredentials>({
+			email: user.email,
+		});
 
 	function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
 		const { name, value } = e.target;
 
-		setNameCredentials((prev) => {
+		setEmailCredentials((prev) => {
 			return {
 				...prev,
 				[name]: value,
@@ -29,51 +29,36 @@ export default function EditName() {
 	function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
 		e.preventDefault();
 
-		mutate(nameCredentials);
+		mutate(emailCredentials);
 	}
 
 	useEffect(() => {
-		setNameCredentials({
-			firstName: user.firstName,
-			lastName: user.lastName,
+		setEmailCredentials({
+			email: user.email,
 		});
 	}, [isSuccess]);
 
-	const nameInput: FormInputProps[] = [
+	const emailInput: FormInputProps[] = [
 		{
 			key: useId(),
-			errorMessage: "Please enter a valid first name.",
-			id: "firstName",
-			label: "First name",
+			errorMessage: "Please enter a valid email.",
+			id: "email",
+			label: "Email",
 			required: true,
-			pattern: "^[a-zA-Z0-9]{1,25}$",
-			name: "firstName",
+			name: "email",
 			onChange: handleChange,
 			type: "text",
-			value: nameCredentials.firstName,
-			maxLength: 25,
-			htmlInputSize: "md",
-		},
-		{
-			key: useId(),
-			errorMessage: "Please enter a valid last name.",
-			id: "lastName",
-			label: "Last name",
-			required: true,
-			pattern: "^[a-zA-Z]{1,25}$",
-			name: "lastName",
-			onChange: handleChange,
-			type: "text",
-			value: nameCredentials.lastName,
-			maxLength: 25,
+			value: emailCredentials.email,
+			pattern: "^[a-zA-Z0-9]+@[a-zA-Z]+(?:.[a-zA-Z]+)*$",
+			maxLength: 50,
 			htmlInputSize: "md",
 		},
 	];
 
 	return (
 		<form onSubmit={handleSubmit}>
-			<p>Name: {user.firstName}</p>
-			{nameInput.map((input) => {
+			<div>Edit Email</div>
+			{emailInput.map((input) => {
 				return (
 					<FormInput
 						key={input.key}
@@ -97,9 +82,8 @@ export default function EditName() {
 					onClick={(e) => {
 						e.preventDefault();
 
-						setNameCredentials({
-							firstName: user.firstName,
-							lastName: user.lastName,
+						setEmailCredentials({
+							email: user.email,
 						});
 						navigate("/account/info");
 					}}
