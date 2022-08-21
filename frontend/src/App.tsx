@@ -13,6 +13,8 @@ import ConfirmOrder from "./components/checkout/ConfirmOrder";
 import OrdersPage from "./components/orders/OrderPage";
 import Cart from "./components/cart/Cart";
 import EditName from "./components/account/EditName";
+import EditEmail from "./components/account/EditEmail";
+import EditPassword from "./components/account/EditPassword";
 import ProtectedRoutes from "./components/protected/ProtectedRoutes";
 import Unauthorized from "./components/protected/Unauthorized";
 import { Routes, Route, Outlet } from "react-router-dom";
@@ -62,8 +64,10 @@ function App() {
 
 						<Route path="account" element={<Outlet />}>
 							<Route index element={<div>Not Found</div>} />
-							<Route path="name" element={<EditName />} />
 							<Route path="info" element={<AccountPage />} />
+							<Route path="name" element={<EditName />} />
+							<Route path="email" element={<EditEmail />} />
+							<Route path="password" element={<EditPassword />} />
 						</Route>
 					</Route>
 

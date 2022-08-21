@@ -15,7 +15,6 @@ const Nav = () => {
 	const { mutate } = useLogoutUser();
 	//const [searchText, setSearchText] = useState<string>("");
 	//const [inputActive, setInputActive] = useState<boolean>(false);
-	console.log(user);
 
 	const numCartItems = myCart.reduce((prev, curr) => prev + curr.quantity, 0);
 

@@ -1,11 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 import bcrypt from "bcrypt";
 import UserModel from "../../models/userModel";
-import OrderModel from "../../models/orderModel";
-import {
-	generateAccessToken,
-	generateRefreshToken,
-} from "../../helper/JWTGeneration";
 import global from "../../types/types";
 import {
 	editNameBody,
@@ -14,20 +9,15 @@ import {
 } from "../../schemas/userSchema";
 
 // @desc Update name
-// @route PUT /api/account/name
+// @route PATCH /api/users/edit/name
 // @access Private
-const updateName = async (
+export const updateName = async (
 	req: Request<{}, {}, editNameBody["body"]>,
 	res: Response,
 	next: NextFunction
 ) => {
 	try {
 		const { firstName, lastName } = req.body;
-
-		if (req.user.firstName === firstName || req.user.lastName === lastName) {
-			res.status(400);
-			throw new Error("Your new name cannot be the same as the original.");
-		}
 
 		// Update user information
 		await UserModel.findByIdAndUpdate(
@@ -41,16 +31,9 @@ const updateName = async (
 			}
 		);
 
-		// Find messages in Message schema with user id then update username
-		// await OrderModel.updateMany(
-		// 	{ customerName: req.user.name },
-		// 	{ customerName: name }
-		// );
-
 		return res.status(200).json({
-			_id: req.user.id,
-			name: name,
-			email: req.user.email,
+			firstName,
+			lastName,
 		});
 	} catch (error) {
 		res.status(400);
@@ -59,9 +42,9 @@ const updateName = async (
 };
 
 // @desc Update email
-// @route PUT /api/account/email
+// @route PATCH /api/users/edit/email
 // @access Private
-const updateEmail = async (
+export const updateEmail = async (
 	req: Request<{}, {}, editEmailBody["body"]>,
 	res: Response,
 	next: NextFunction
@@ -85,7 +68,7 @@ const updateEmail = async (
 			}
 		);
 
-		return res.status(200).json(email);
+		return res.status(200).json({ email });
 	} catch (error) {
 		res.status(400);
 		next(error);
@@ -93,9 +76,9 @@ const updateEmail = async (
 };
 
 // @desc Update password
-// @route PUT /api/account/password
+// @route PATCH /api/users/edit/password
 // @access Private
-const updatePassword = async (
+export const updatePassword = async (
 	req: Request<{}, {}, editPasswordBody["body"]>,
 	res: Response,
 	next: NextFunction
@@ -103,10 +86,7 @@ const updatePassword = async (
 	try {
 		const { currentPassword, newPassword } = req.body;
 
-		if (
-			currentPassword &&
-			!(await bcrypt.compare(currentPassword, req.user.password))
-		) {
+		if (!(await bcrypt.compare(currentPassword, req.user.password))) {
 			res.status(400);
 			throw new Error("Current password is incorrect. Try again.");
 		}
@@ -114,13 +94,6 @@ const updatePassword = async (
 		if (currentPassword === newPassword) {
 			res.status(400);
 			throw new Error("Your new password cannot be the same as the original.");
-		}
-
-		if (newPassword.slice(0, 1) === " " || newPassword.slice(-1) === " ") {
-			res.status(400);
-			throw new Error(
-				"Your new password cannot begin or end with a blank space."
-			);
 		}
 
 		const salt = await bcrypt.genSalt(10);
@@ -142,10 +115,4 @@ const updatePassword = async (
 		res.status(400);
 		next(error);
 	}
-};
-
-module.exports = {
-	updateName,
-	updateEmail,
-	updatePassword,
 };
