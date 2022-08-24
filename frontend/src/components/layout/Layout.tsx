@@ -3,14 +3,17 @@ import Nav from "../nav/Nav";
 import CheckoutNav from "../nav/CheckoutNav";
 import Footer from "../footer/Footer";
 import { useThemeContext } from "../../hooks/context/useThemeContext";
-import { ToastContainer, Slide } from "react-toastify";
+import { ToastContainer, Flip } from "react-toastify";
 
 export default function Layout() {
 	const { theme } = useThemeContext();
 	const location = useLocation();
 
 	return (
-		<div className="drawer" data-theme={theme ? "night" : "winter"}>
+		<div
+			className={`drawer ${theme && "dark"}`}
+			data-theme={theme ? "night" : "lofi"}
+		>
 			<input id="app-drawer" type="checkbox" className="drawer-toggle" />
 			<div className="drawer-content flex flex-col">
 				{/* <!-- Navbar --> */}
@@ -21,9 +24,9 @@ export default function Layout() {
 					<Outlet />
 				</div>
 				<ToastContainer
-					limit={1}
+					limit={5}
 					autoClose={1500}
-					transition={Slide}
+					transition={Flip}
 					theme={theme ? "dark" : "light"}
 				/>
 				{location.pathname === "/" && <Footer />}

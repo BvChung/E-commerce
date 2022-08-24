@@ -2,11 +2,13 @@ import "./App.css";
 import Login from "./components/user/Login";
 import Register from "./components/user/Register";
 import AccountPage from "./components/account/AccountPage";
+import Admin from "./components/admin/Admin";
 import Layout from "./components/layout/Layout";
 import Landing from "./components/landingPage/LandingPage";
 import ProductPage from "./components/products/ProductPage";
 import ProductInfo from "./components/products/ProductInfo";
-import ProductCreation from "./components/products/ProductCreation";
+import ProductCreation from "./components/admin/ProductCreation";
+import ProductUpdate from "./components/admin/ProductUpdate";
 import Payment from "./components/checkout/Payment";
 import Shipping from "./components/checkout/Shipping";
 import ConfirmOrder from "./components/checkout/ConfirmOrder";
@@ -36,12 +38,9 @@ function App() {
 				<Route path="products" element={<Outlet />}>
 					<Route index element={<ProductPage />} />
 					<Route path=":id" element={<ProductInfo />} />
-					<Route path="creation" element={<ProductCreation />} />
 				</Route>
 
 				<Route path="cart" element={<Cart />} />
-
-				<Route path="orders" element={<OrdersPage />} />
 
 				<Route path="unauthorized" element={<Unauthorized />} />
 
@@ -60,7 +59,7 @@ function App() {
 							<Route path="confirmation" element={<ConfirmOrder />} />
 						</Route>
 
-						{/* <Route path="orders" element={<OrdersPage />} /> */}
+						<Route path="orders" element={<OrdersPage />} />
 
 						<Route path="account" element={<Outlet />}>
 							<Route index element={<div>Not Found</div>} />
@@ -73,9 +72,9 @@ function App() {
 
 					<Route element={<ProtectedRoutes authRoles={[accessRoles.Admin]} />}>
 						<Route path="admin" element={<Outlet />}>
-							<Route index element={<div>Admin</div>} />
-							<Route path="products" element={<p>info</p>} />
-							<Route path=":id" element={<p>product id</p>} />
+							<Route index element={<Admin />} />
+							<Route path="createproduct" element={<ProductCreation />} />
+							<Route path="updateproduct" element={<ProductUpdate />} />
 						</Route>
 					</Route>
 				</Route>

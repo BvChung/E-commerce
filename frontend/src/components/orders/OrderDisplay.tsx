@@ -1,33 +1,41 @@
 import React from "react";
 import { OrderInfo } from "../../interfaces/orderInterface";
+import { Link } from "react-router-dom";
 
 export default function OrderDisplay({
 	_id,
+	createdAt,
 	purchasedItems,
 	shippingInfo,
 	paymentInfo,
 }: OrderInfo) {
+	console.log(purchasedItems);
+
+	const datePurchased = new Date(createdAt!).toDateString().split(" ");
+	// console.log(datePurchased);
+
 	return (
-		<div className="card w-96 bg-base-100 shadow-xl">
-			<figure>
-				<img src="https://placeimg.com/400/225/arch" alt="Shoes" />
-			</figure>
-			<div className="card-body">
-				<h2 className="card-title">My order</h2>
-				<p>
-					{shippingInfo.firstName} {shippingInfo.lastName}
-				</p>
-				<p>{shippingInfo.address}</p>
-				<div className="card-actions justify-end">
-					<button
-						onClick={() => {
-							console.log(_id);
-						}}
-						className="btn "
-					>
-						Buy Now
-					</button>
-				</div>
+		<div className="border-2 mb-4">
+			<div>
+				Date purchased: {datePurchased[1]} {datePurchased[2]} {datePurchased[3]}
+			</div>
+			<div>
+				{purchasedItems.map((item) => {
+					return (
+						<div key={item._id}>
+							<Link to={`/products/${item._id}`}>
+								<figure>
+									<img
+										src={item.image}
+										alt="product"
+										className="h-52 w-52"
+									></img>
+								</figure>
+							</Link>
+							<div>{item.name}</div>
+						</div>
+					);
+				})}
 			</div>
 		</div>
 	);

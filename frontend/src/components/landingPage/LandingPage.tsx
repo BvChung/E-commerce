@@ -22,18 +22,11 @@ function LandingPage() {
 				onClick={() => {
 					navigate("/admin");
 				}}
-				className="btn w-20 uppercase"
+				className="btn btn-secondary uppercase"
 			>
 				Admin
 			</button>
-			<button
-				onClick={() => {
-					navigate("/products/creation");
-				}}
-				className="btn btn-secondary w-20 uppercase"
-			>
-				Create Product
-			</button>
+
 			<button
 				onClick={() => {
 					navigate("/cart");
