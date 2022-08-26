@@ -82,7 +82,7 @@ const Nav = () => {
 					</label>
 				</button>
 
-				<div className="tooltip tooltip-bottom " data-tip="Search Products">
+				<div className="tooltip tooltip-bottom z-50" data-tip="Search Products">
 					<label htmlFor="product-search" className="btn btn-ghost btn-circle">
 						<svg
 							xmlns="http://www.w3.org/2000/svg"
@@ -114,7 +114,7 @@ const Nav = () => {
 					</label>
 				</label>
 
-				<div className="tooltip tooltip-bottom " data-tip="Shop">
+				<div className="tooltip tooltip-bottom z-50" data-tip="Shop">
 					<Link to="/products">
 						<button className="btn btn-ghost btn-circle">
 							<div className="indicator">
@@ -137,7 +137,7 @@ const Nav = () => {
 					</Link>
 				</div>
 
-				<div className="tooltip tooltip-bottom " data-tip="My Cart">
+				<div className="tooltip tooltip-bottom z-50" data-tip="My Cart">
 					<Link to="/cart">
 						<button className="btn btn-ghost btn-circle">
 							<div className="indicator">

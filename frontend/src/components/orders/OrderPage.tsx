@@ -4,7 +4,6 @@ import { OrderInfo } from "../../interfaces/orderInterface";
 
 export default function OrdersPage() {
 	const { data: orders, isSuccess, isError, isLoading } = useGetOrders();
-	console.log(orders);
 
 	return (
 		<div>
@@ -15,6 +14,7 @@ export default function OrdersPage() {
 						<OrderDisplay
 							key={order._id}
 							_id={order._id}
+							createdAt={order.createdAt}
 							purchasedItems={order.purchasedItems}
 							shippingInfo={order.shippingInfo}
 							paymentInfo={order.paymentInfo}

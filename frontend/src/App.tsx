@@ -6,6 +6,7 @@ import Admin from "./components/admin/Admin";
 import Layout from "./components/layout/Layout";
 import Landing from "./components/landingPage/LandingPage";
 import ProductPage from "./components/products/ProductPage";
+import ProductTable from "./components/admin/ProductTable";
 import ProductInfo from "./components/products/ProductInfo";
 import ProductCreation from "./components/admin/ProductCreation";
 import ProductUpdate from "./components/admin/ProductUpdate";
@@ -74,7 +75,10 @@ function App() {
 						<Route path="admin" element={<Outlet />}>
 							<Route index element={<Admin />} />
 							<Route path="createproduct" element={<ProductCreation />} />
-							<Route path="updateproduct" element={<ProductUpdate />} />
+							<Route path="updateproduct" element={<Outlet />}>
+								<Route index element={<ProductTable />} />
+								<Route path=":id" element={<ProductUpdate />} />
+							</Route>
 						</Route>
 					</Route>
 				</Route>

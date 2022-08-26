@@ -10,7 +10,8 @@ export default function ProductDisplay({
 	category,
 	image,
 }: ProductInfo) {
-	const { addCartItem } = useCartContext();
+	const { addCartItem, findCartItem } = useCartContext();
+	const foundItem = findCartItem(_id);
 
 	return (
 		<div className="grid items-center justify-center">
@@ -29,15 +30,21 @@ export default function ProductDisplay({
 						<div className="badge badge-secondary">NEW</div>
 					</h2>
 					<div className="stat-value text-xl">${price}</div>
-					<button
-						onClick={() => {
-							toast.success(`${name} has been added to your cart.`);
-							addCartItem({ _id, price, quantity: 1 });
-						}}
-						className="btn btn-md btn-primary"
-					>
-						Add to cart
-					</button>
+					{foundItem?.quantity !== 9 ? (
+						<button
+							onClick={() => {
+								toast.success(`${name} has been added to your cart.`);
+								addCartItem({ _id, price, quantity: 1 });
+							}}
+							className="btn btn-md btn-primary"
+						>
+							Add to cart
+						</button>
+					) : (
+						<button className="btn btn-md btn-primary btn-disabled">
+							{foundItem?.quantity} items max
+						</button>
+					)}
 				</div>
 			</div>
 		</div>
