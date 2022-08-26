@@ -1,4 +1,4 @@
-import { object, string, TypeOf, number, optional, any } from "zod";
+import { object, string, TypeOf, number } from "zod";
 
 export const productParamsSchema = object({
 	params: object({
@@ -33,10 +33,18 @@ export const productCreationBodySchema = object({
 
 export const productUpdateBodySchema = object({
 	body: object({
-		name: string().optional(),
-		description: string().optional(),
-		price: number().optional(),
-		category: string().optional(),
+		name: string({
+			required_error: "Product name is required.",
+		}),
+		description: string({
+			required_error: "Product description is required.",
+		}),
+		price: number({
+			required_error: "Product price is required.",
+		}),
+		category: string({
+			required_error: "Product category is required.",
+		}),
 		image: string().optional(),
 		fileName: string().optional(),
 	}),

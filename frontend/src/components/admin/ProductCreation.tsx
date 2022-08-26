@@ -62,14 +62,6 @@ export default function ProductCreation() {
 	function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
 		e.preventDefault();
 
-		if (
-			productFormData.name === " " ||
-			productFormData.description === " " ||
-			productFormData.price === " "
-		) {
-			return toast.error("Form cannot contain only spaces");
-		}
-
 		if (!file) return toast.error("Missing image file.");
 
 		mutate({

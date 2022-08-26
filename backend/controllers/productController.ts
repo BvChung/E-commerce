@@ -119,6 +119,8 @@ export const updateProduct = async (
 					}
 				}
 			);
+
+			await cloudinaryConnection.uploader.destroy(foundProduct.imageCloudId);
 		}
 
 		const updatedProduct = await ProductModel.findByIdAndUpdate(
@@ -152,6 +154,10 @@ export const deleteProduct = async (
 ) => {
 	try {
 		const deletedProduct = await ProductModel.findByIdAndDelete(req.params.id);
+
+		if (!deletedProduct) throw new Error("Product not found.");
+
+		await cloudinaryConnection.uploader.destroy(deletedProduct.imageCloudId);
 
 		res.status(200).json(deletedProduct);
 	} catch (error) {
