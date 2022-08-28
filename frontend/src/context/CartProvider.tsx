@@ -1,5 +1,10 @@
 import React, { createContext, useEffect, useState } from "react";
-import { CartStorageData, CartCheckoutInfo } from "../interfaces/cartInterface";
+import {
+	CartStorageData,
+	CartCheckoutInfo,
+	CartItemPrice,
+	CartItemQuantity,
+} from "../interfaces/cartInterface";
 
 interface CartContextInterface {
 	myCart: CartStorageData[];
@@ -11,7 +16,8 @@ interface CartContextInterface {
 	decrementCartQuantity(_id: string): void;
 	findCartItem(_id: string | undefined): CartStorageData | undefined;
 	removeCartItem(_id: string): void;
-	updateCartQuantity(updatedItem: CartStorageData): void;
+	updateCartQuantity(updatedItem: CartItemQuantity): void;
+	updateCartPrice(updatedItem: CartItemPrice): void;
 	clearMyCart(): void;
 }
 
@@ -56,21 +62,34 @@ export const CartProvider = ({ children }: AuthProviderProps) => {
 		} else {
 			return setMyCart((prev) => [...prev, newItem]);
 		}
-
-		// return setMyCart((prev) => [...prev, newItem]);
 	}
 
 	function removeCartItem(_id: string) {
 		return setMyCart((prev) => prev.filter((item) => item._id !== _id));
 	}
 
-	function updateCartQuantity(updatedItem: CartStorageData) {
+	function updateCartQuantity(updatedItem: CartItemQuantity) {
 		return setMyCart((prev) => {
 			return prev.map((item) => {
 				if (item._id === updatedItem._id) {
 					return {
 						...item,
 						quantity: updatedItem.quantity,
+					};
+				} else {
+					return { ...item };
+				}
+			});
+		});
+	}
+
+	function updateCartPrice(updatedItem: CartItemPrice) {
+		return setMyCart((prev) => {
+			return prev.map((item) => {
+				if (item._id === updatedItem._id) {
+					return {
+						...item,
+						price: updatedItem.price,
 					};
 				} else {
 					return { ...item };
@@ -147,6 +166,7 @@ export const CartProvider = ({ children }: AuthProviderProps) => {
 				findCartItem,
 				removeCartItem,
 				updateCartQuantity,
+				updateCartPrice,
 				clearMyCart,
 			}}
 		>
@@ -156,3 +176,38 @@ export const CartProvider = ({ children }: AuthProviderProps) => {
 };
 
 export default CartContext;
+
+// function updateCartItem(updatedItem: CartStorageData, itemProperty: string) {
+// 		switch (itemProperty) {
+// 			case "quantity":
+// 				setMyCart((prev) => {
+// 					return prev.map((item) => {
+// 						if (item._id === updatedItem._id) {
+// 							return {
+// 								...item,
+// 								quantity: updatedItem.quantity,
+// 							};
+// 						} else {
+// 							return { ...item };
+// 						}
+// 					});
+// 				});
+// 				break;
+// 			case "price":
+// 				setMyCart((prev) => {
+// 					return prev.map((item) => {
+// 						if (item._id === updatedItem._id) {
+// 							return {
+// 								...item,
+// 								price: updatedItem.price,
+// 							};
+// 						} else {
+// 							return { ...item };
+// 						}
+// 					});
+// 				});
+// 				break;
+// 			default:
+// 				break;
+// 		}
+// 	}

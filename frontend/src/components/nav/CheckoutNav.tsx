@@ -39,11 +39,11 @@ export default function CheckoutNav() {
 					>
 						✕
 					</label>
-					<h3 className="text-lg font-bold">Cancel Confirmation</h3>
+					<h3 className="text-lg font-bold">Confirm cancellation</h3>
 					<p className="py-4">
-						You will have to start over again if you leave checkout.
+						You will have to start over again if you leave the checkout page.
 					</p>
-					<div className="modal-action justify-center gap-4">
+					<div className="modal-action justify-end gap-4">
 						<label
 							htmlFor="return-modal"
 							className="btn btn-primary normal-case"

@@ -1,7 +1,10 @@
-import { ProductInfo } from "./productInterface";
+// import { ProductInfo } from "./productInterface";
 
-export interface CartStorageData {
+interface Cart {
 	_id: string;
+}
+
+export interface CartStorageData extends Cart {
 	price: number;
 	quantity: number;
 }
@@ -11,6 +14,24 @@ export interface CartCheckoutInfo {
 	numItems: number;
 }
 
-export interface CartItemInfo extends ProductInfo {
+export interface CartItemQuantity extends Cart {
 	quantity: number;
 }
+
+export interface CartItemPrice extends Cart {
+	price: number;
+}
+
+export interface CartItemInfo {
+	_id: string;
+	image: string;
+	imageCloudId: string;
+	price: number;
+	name: string;
+	description: string;
+	category: string;
+}
+
+// export interface CartItemInfo extends ProductInfo {
+// 	quantity: number;
+// }

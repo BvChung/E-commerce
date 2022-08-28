@@ -8,16 +8,14 @@ export default function CartItem({
 	category,
 	image,
 	price,
-	quantity,
 }: CartItemInfo) {
-	const { myCart, updateCartQuantity, removeCartItem, findCartItem } =
-		useCartContext();
+	const { updateCartQuantity, removeCartItem, findCartItem } = useCartContext();
 	const foundItem = findCartItem(_id);
 
-	const [itemQuantity, setItemQuantity] = useState(quantity);
+	const [itemQuantity, setItemQuantity] = useState(foundItem?.quantity);
 
 	useEffect(() => {
-		updateCartQuantity({ _id, price, quantity: itemQuantity });
+		updateCartQuantity({ _id, quantity: itemQuantity! });
 	}, [itemQuantity]);
 
 	return (

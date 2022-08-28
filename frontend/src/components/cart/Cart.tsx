@@ -12,6 +12,7 @@ export default function Cart() {
 		isLoading,
 		isFetching,
 	} = useGetCartItems(myCart);
+	console.log(displayCartItems);
 
 	return (
 		<div className="grid grid-cols-2 gap-2">
@@ -28,7 +29,6 @@ export default function Cart() {
 								image={item.image}
 								imageCloudId={item.imageCloudId}
 								price={item.price}
-								quantity={item.quantity}
 							/>
 						);
 					})
