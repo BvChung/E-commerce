@@ -35,4 +35,5 @@ export interface OrderInfo {
 	purchasedItems: CartItemInfo[];
 	shippingInfo: OrderShippingInfo;
 	paymentInfo: OrderPaymentInfo;
+	createdAt?: string | number | Date;
 }

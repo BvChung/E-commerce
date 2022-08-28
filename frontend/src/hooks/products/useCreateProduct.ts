@@ -11,7 +11,9 @@ export const useCreateProduct = () => {
 	const eCommerceApiPrivate = usePrivateApi();
 	const queryClient = useQueryClient();
 
-	const createProduct = async (productData: ProductCreation) => {
+	const createProduct = async (
+		productData: ProductCreation
+	): Promise<ProductInfo> => {
 		const response = await eCommerceApiPrivate.post(
 			"/api/products/",
 			productData
@@ -24,7 +26,6 @@ export const useCreateProduct = () => {
 		onSuccess: (data: ProductInfo) => {
 			queryClient.invalidateQueries("products");
 			toast.success(`${data.name} has been created.`);
-			console.log(data);
 		},
 		onError: (error: CustomError) => {
 			toast.error(error.response?.data?.message);

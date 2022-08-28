@@ -1,4 +1,3 @@
-import React from "react";
 import { Link } from "react-router-dom";
 import { ProductInfo } from "../../interfaces/productInterface";
 
@@ -10,6 +9,8 @@ export default function TableRow({
 	imageCloudId,
 	name,
 	price,
+	setDeleteConfirmation,
+	setItemId,
 }: ProductInfo) {
 	return (
 		<>
@@ -41,12 +42,15 @@ export default function TableRow({
 								<path d="M5.25 5.25a3 3 0 00-3 3v10.5a3 3 0 003 3h10.5a3 3 0 003-3V13.5a.75.75 0 00-1.5 0v5.25a1.5 1.5 0 01-1.5 1.5H5.25a1.5 1.5 0 01-1.5-1.5V8.25a1.5 1.5 0 011.5-1.5h5.25a.75.75 0 000-1.5H5.25z" />
 							</svg>
 						</Link>
-						{/* <button >
-							
-						</button> */}
 					</div>
 					<div className="tooltip tooltip-bottom" data-tip="Delete">
-						<button className="btn btn-ghost btn-circle">
+						<button
+							className="btn btn-ghost btn-circle"
+							onClick={() => {
+								setDeleteConfirmation!(true);
+								setItemId!(_id);
+							}}
+						>
 							<svg
 								xmlns="http://www.w3.org/2000/svg"
 								viewBox="0 0 24 24"

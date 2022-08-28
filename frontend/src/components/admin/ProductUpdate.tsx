@@ -19,11 +19,13 @@ export default function ProductUpdate() {
 	});
 
 	useEffect(() => {
+		if (!productInfo) return;
+
 		setProductFormData({
-			name: productInfo?.name!,
-			description: productInfo?.description!,
-			price: String(productInfo?.price!),
-			category: productInfo?.category!,
+			name: productInfo.name,
+			description: productInfo.description,
+			price: String(productInfo.price),
+			category: productInfo.category,
 		});
 	}, [isSuccess]);
 
@@ -125,7 +127,7 @@ export default function ProductUpdate() {
 						<span className="label-text">Description</span>
 					</label>
 					<textarea
-						className="textarea textarea-bordered w-full max-w-sm "
+						className="textarea textarea-bordered w-full max-w-sm h-44"
 						placeholder="Enter product description"
 						name="description"
 						value={productFormData.description}
@@ -139,7 +141,7 @@ export default function ProductUpdate() {
 						<span className="label-text">Price</span>
 					</label>
 					<input
-						type="number"
+						type="text"
 						placeholder="Enter product price"
 						className="input input-bordered w-full max-w-sm "
 						name="price"
@@ -184,7 +186,6 @@ export default function ProductUpdate() {
 						name="image"
 						accept=".png,.jpeg,.jpg"
 						onChange={handleFile}
-						required
 					/>
 				</div>
 

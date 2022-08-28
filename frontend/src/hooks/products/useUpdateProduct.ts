@@ -1,17 +1,21 @@
 import { usePrivateApi } from "../auth/usePrivateApi";
 import { useMutation, useQueryClient } from "react-query";
-import { ProductInfo } from "../../interfaces/productInterface";
+import { ProductUpdate, ProductInfo } from "../../interfaces/productInterface";
 import { CustomError } from "../../interfaces/customInterface";
+import { useCartContext } from "../context/useCartContext";
 import { toast } from "react-toastify";
 
-export default function useUpdateProducts(productId: string) {
+export const useUpdateProduct = (productId: string | undefined) => {
 	const eCommerceApiPrivate = usePrivateApi();
 	const queryClient = useQueryClient();
+	const { updateCartPrice, findCartItem } = useCartContext();
 
-	const updateProduct = async (productInfo: ProductInfo) => {
+	const updateProduct = async (
+		updatedInfo: ProductUpdate
+	): Promise<ProductInfo> => {
 		const response = await eCommerceApiPrivate.patch(
 			`/api/products/${productId}`,
-			productInfo
+			updatedInfo
 		);
 
 		return response.data;
@@ -19,11 +23,17 @@ export default function useUpdateProducts(productId: string) {
 
 	return useMutation(updateProduct, {
 		onSuccess: (data: ProductInfo) => {
-			queryClient.invalidateQueries(["products"]);
-			toast.success(`${data.name} has been created.`);
+			queryClient.invalidateQueries(`product-${productId}`);
+			queryClient.invalidateQueries("products");
+			queryClient.invalidateQueries("cart");
+
+			if (findCartItem(productId)?.price !== data.price) {
+				updateCartPrice({ _id: data._id, price: data.price });
+			}
+			toast.success(`${data.name} has been updated.`);
 		},
 		onError: (error: CustomError) => {
 			toast.error(error.response?.data?.message);
 		},
 	});
-}
+};
