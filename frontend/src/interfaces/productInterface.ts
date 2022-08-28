@@ -1,3 +1,5 @@
+import ProductInfo from "../components/products/ProductInfo";
+
 interface Product {
 	name: string;
 	description: string;
@@ -9,6 +11,7 @@ export interface ProductInfo extends Product {
 	image: string;
 	imageCloudId: string;
 	price: number;
+	[key: string]: any;
 	setItemId?: React.Dispatch<React.SetStateAction<string>>;
 	setDeleteConfirmation?: React.Dispatch<React.SetStateAction<boolean>>;
 }
@@ -27,4 +30,18 @@ export interface ProductUpdate extends Product {
 
 export interface ProductForm extends Product {
 	price: string;
+}
+
+export interface SortProducts {
+	field: string;
+	name: {
+		sortDescending: boolean;
+	};
+	category: {
+		sortDescending: boolean;
+	};
+	price: {
+		sortDescending: boolean;
+	};
+	[key: string]: any;
 }
