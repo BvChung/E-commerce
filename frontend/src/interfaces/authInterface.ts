@@ -8,6 +8,7 @@ export interface RegisterCredentials {
 	lastName: string;
 	email: string;
 	password: string;
+	verifyPassword: string;
 }
 
 export interface UserInfo {
@@ -19,6 +20,17 @@ export interface UserInfo {
 	accessToken: string;
 }
 
-export interface AccessToken {
-	accessToken: string;
+export interface EditNameCredentials {
+	firstName: string;
+	lastName: string;
+}
+
+export interface EditEmailCredentials {
+	email: string;
+}
+
+export interface EditPasswordCredentials {
+	currentPassword: string;
+	newPassword: string;
+	verifyNewPassword?: string;
 }

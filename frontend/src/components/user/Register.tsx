@@ -5,6 +5,7 @@ import { useRegisterUser } from "../../hooks/user/useRegisterUser";
 import { FormInputProps } from "../../interfaces/formInterface";
 import { CustomLocationState } from "../../interfaces/customInterface";
 import FormInput from "../form/FormInput";
+import { toast } from "react-toastify";
 
 export default function Register() {
 	const navigate = useNavigate();
@@ -18,6 +19,7 @@ export default function Register() {
 			lastName: "",
 			email: "",
 			password: "",
+			verifyPassword: "",
 		});
 
 	const [showPassword, setShowPassword] = useState<boolean>(false);
@@ -33,8 +35,12 @@ export default function Register() {
 		});
 	}
 
-	function handleSubmit(e: React.FormEvent<HTMLFormElement>): void {
+	function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
 		e.preventDefault();
+
+		if (registerCredentials.password !== registerCredentials.verifyPassword) {
+			return toast.error("Passwords do not match");
+		}
 
 		mutate(registerCredentials);
 
@@ -43,6 +49,7 @@ export default function Register() {
 			lastName: "",
 			email: "",
 			password: "",
+			verifyPassword: "",
 		});
 	}
 
@@ -71,7 +78,7 @@ export default function Register() {
 			key: useId(),
 			errorMessage: "Please enter a valid last name.",
 			id: "lastName",
-			label: "Last Name*",
+			label: "Last name*",
 			required: true,
 			pattern: "^[a-zA-Z]{1,25}$",
 			name: "lastName",
@@ -106,6 +113,23 @@ export default function Register() {
 			onChange: handleChange,
 			type: showPassword ? "text" : "password",
 			value: registerCredentials.password,
+			pattern: "(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])[A-Za-z0-9d=!-@._*]{8,25}$",
+			// prettier-ignore
+			// pattern: "(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])[A-Za-z0-9\d=!\-@._*]{8,25}$",
+			maxLength: 25,
+			htmlInputSize: "md",
+		},
+		{
+			key: useId(),
+			errorMessage:
+				"Must be at least eight characters, include one uppercase letter, one lowercase letter, and one number",
+			id: "verifyPassword",
+			label: "Verify password",
+			required: true,
+			name: "verifyPassword",
+			onChange: handleChange,
+			type: showPassword ? "text" : "password",
+			value: registerCredentials.verifyPassword,
 			pattern: "(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])[A-Za-z0-9d=!-@._*]{8,25}$",
 			// prettier-ignore
 			// pattern: "(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])[A-Za-z0-9\d=!\-@._*]{8,25}$",
