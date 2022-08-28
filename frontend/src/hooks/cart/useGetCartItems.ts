@@ -20,36 +20,7 @@ export const useGetCartItems = (myCartItems: CartStorageData[]) => {
 		});
 
 		return response.data;
-
-		// MongoDB returns items sorted in alphabetical order by id therefore have to match by sorting myCartItems in order to assign the quantites properly.
-		// const sortItems = myCartItems.sort(
-		// 	(a: CartStorageData, b: CartStorageData) => {
-		// 		if (a._id > b._id) {
-		// 			return 1;
-		// 		}
-		// 		if (a._id < b._id) {
-		// 			return -1;
-		// 		}
-		// 		return 0;
-		// 	}
-		// );
-
-		// const addItemQuantity: CartItemInfo[] = response.data.map(
-		// 	(product: ProductInfo, i: number) => {
-		// 		if (product._id === sortItems[i]._id) {
-		// 			return {
-		// 				...product,
-		// 				quantity: sortItems[i].quantity,
-		// 			};
-		// 		} else {
-		// 			return { ...product };
-		// 		}
-		// 	}
-		// );
-
-		// return addItemQuantity;
 	};
 
 	return useQuery(["cart", productIds], () => getCartItems());
-	// return useQuery(["cart", productIds], () => getCartItems(myCartItems));
 };
