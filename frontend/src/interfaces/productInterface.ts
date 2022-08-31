@@ -12,6 +12,8 @@ export interface ProductInfo extends Product {
 	imageCloudId: string;
 	price: number;
 	[key: string]: any;
+	setSearchText?: React.Dispatch<React.SetStateAction<string>>;
+	setOpenSearch?: React.Dispatch<React.SetStateAction<boolean>>;
 	setItemId?: React.Dispatch<React.SetStateAction<string>>;
 	setDeleteConfirmation?: React.Dispatch<React.SetStateAction<boolean>>;
 }

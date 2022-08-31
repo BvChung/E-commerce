@@ -5,27 +5,25 @@ import { useAuthContext } from "../../hooks/context/useAuthContext";
 import { useThemeContext } from "../../hooks/context/useThemeContext";
 import { useCartContext } from "../../hooks/context/useCartContext";
 import { useSearchProducts } from "../../hooks/products/useSearchProducts";
-import { storage } from "../../helper/tokenStorage";
+import SearchedProducts from "./SearchedProducts";
 import { useLogoutUser } from "../../hooks/user/useLogout";
 
 const Nav = () => {
 	// const navigate = useNavigate();
 	const { user } = useAuthContext();
-	const { myCart } = useCartContext();
+	const { myCart, cartItemsInfo } = useCartContext();
 	const { setTheme } = useThemeContext();
 	const { mutate } = useLogoutUser();
 	const [searchText, setSearchText] = useState<string>("");
+	const [openSearch, setOpenSearch] = useState<boolean>(false);
 	const {
 		refetch,
 		data: searchedProducts,
-		isFetched,
-		isFetching,
 		isSuccess,
+		remove,
 	} = useSearchProducts();
 	console.log(searchedProducts);
 	//const [inputActive, setInputActive] = useState<boolean>(false);
-
-	const numCartItems = myCart.reduce((prev, curr) => prev + curr.quantity, 0);
 
 	//const inputActiveStyle: string = inputActive ? "bg-white" : "bg-gray-100";
 
@@ -79,7 +77,7 @@ const Nav = () => {
 							viewBox="0 0 24 24"
 							strokeWidth={1.5}
 							stroke="currentColor"
-							className="swap-on fill-current w-7 h-7"
+							className="flex items-center justify-center swap-on fill-current w-6 h-6"
 						>
 							<path
 								strokeLinecap="round"
@@ -94,7 +92,7 @@ const Nav = () => {
 							viewBox="0 0 24 24"
 							strokeWidth={1.5}
 							stroke="currentColor"
-							className="swap-off w-7 h-7"
+							className="flex items-center justify-center swap-off w-6 h-6"
 						>
 							<path
 								strokeLinecap="round"
@@ -105,7 +103,14 @@ const Nav = () => {
 					</label>
 				</button>
 
-				<div className="tooltip tooltip-bottom z-50" data-tip="Search Products">
+				<div
+					onClick={() => {
+						refetch();
+						setOpenSearch(true);
+					}}
+					className="tooltip tooltip-bottom z-50"
+					data-tip="Search Products"
+				>
 					<label htmlFor="product-search" className="btn btn-ghost btn-circle">
 						<svg
 							xmlns="http://www.w3.org/2000/svg"
@@ -124,26 +129,32 @@ const Nav = () => {
 					</label>
 				</div>
 
-				<input
-					type="checkbox"
-					onClick={() => {
-						refetch();
-					}}
-					id="product-search"
-					className="modal-toggle"
-				/>
-				<div className="modal">
+				<div className={`modal ${openSearch && "modal-open"} `}>
 					<div className="modal-box relative">
-						<label
-							htmlFor="product-search"
+						<button
+							onClick={() => {
+								setOpenSearch(false);
+							}}
 							className="btn btn-sm btn-circle absolute right-2 top-2"
 						>
 							✕
-						</label>
+						</button>
+
 						<h3 className="text-lg font-bold mb-4">Search for products</h3>
-						<div className="flex justify-center w-full">
-							<div className="form-control w-full">
+						<div className="flex flex-col justify-center w-full">
+							<div
+								className={`form-control w-full ${
+									searchText.length > 0 && "mb-4"
+								}`}
+							>
 								<label className="input-group">
+									<input
+										type="text"
+										placeholder="Search for product name"
+										value={searchText}
+										onChange={(e) => setSearchText(e.target.value)}
+										className="input input-bordered w-full"
+									/>
 									<span>
 										<svg
 											xmlns="http://www.w3.org/2000/svg"
@@ -160,16 +171,39 @@ const Nav = () => {
 											/>
 										</svg>
 									</span>
-									<input
-										type="text"
-										placeholder="Search for product name"
-										value={searchText}
-										onChange={(e) => setSearchText(e.target.value)}
-										className="input input-bordered w-full"
-									/>
 								</label>
 							</div>
-							{/* {isSuccess && searchedProducts.filter(product => product.name.toLowerCase().includes(searchText.toLowerCase()))} */}
+							<div
+								className={`${
+									searchText.length > 0 && "border-[1px] rounded-lg"
+								}`}
+							>
+								{isSuccess &&
+									searchedProducts
+										.filter((product) => {
+											return searchText.length > 0
+												? product.name
+														.toLowerCase()
+														.includes(searchText.toLowerCase())
+												: !product;
+										})
+										.map((product) => {
+											return (
+												<SearchedProducts
+													key={product._id}
+													_id={product._id}
+													category={product.category}
+													description={product.description}
+													image={product.image}
+													imageCloudId={product.imageCloudId}
+													name={product.name}
+													price={product.price}
+													setSearchText={setSearchText}
+													setOpenSearch={setOpenSearch}
+												/>
+											);
+										})}
+							</div>
 						</div>
 					</div>
 				</div>
@@ -216,7 +250,7 @@ const Nav = () => {
 									/>
 								</svg>
 								<span className="badge badge-sm indicator-item">
-									{numCartItems}
+									{cartItemsInfo.numItems}
 								</span>
 							</div>
 						</button>
