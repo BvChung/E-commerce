@@ -15,7 +15,7 @@ export default function TableRow({
 	return (
 		<>
 			<tr>
-				<td>
+				<td className="pl-4">
 					<div className="flex items-center space-x-6">
 						<div className="avatar">
 							<div className="mask mask-square w-28 h-w-28">
@@ -29,7 +29,7 @@ export default function TableRow({
 				</td>
 				<td className="text-base">{category}</td>
 				<td className="text-base">${price}</td>
-				<td>
+				<td className="pr-4  mx-4">
 					<div className="tooltip tooltip-bottom mr-4" data-tip="Edit">
 						<Link to={_id} className="btn btn-ghost btn-circle">
 							<svg

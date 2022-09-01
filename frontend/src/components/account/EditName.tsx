@@ -71,44 +71,50 @@ export default function EditName() {
 	];
 
 	return (
-		<form onSubmit={handleSubmit}>
-			<p>Name: {user.firstName}</p>
-			{nameInput.map((input) => {
-				return (
-					<FormInput
-						key={input.key}
-						errorMessage={input.errorMessage}
-						id={input.id}
-						label={input.label}
-						name={input.name}
-						onChange={input.onChange}
-						required={input.required}
-						type={input.type}
-						value={input.value}
-						pattern={input.pattern}
-						inputMode={input.inputMode}
-						maxLength={input.maxLength}
-						htmlInputSize={input.htmlInputSize}
-					/>
-				);
-			})}
-			<div className="flex gap-4">
-				<button
-					onClick={(e) => {
-						e.preventDefault();
+		<div className="flex justify-center">
+			<form
+				onSubmit={handleSubmit}
+				className="flex flex-col items-center w-[25rem] border-[1px] rounded-lg"
+			>
+				<div>
+					{nameInput.map((input) => {
+						return (
+							<FormInput
+								key={input.key}
+								errorMessage={input.errorMessage}
+								id={input.id}
+								label={input.label}
+								name={input.name}
+								onChange={input.onChange}
+								required={input.required}
+								type={input.type}
+								value={input.value}
+								pattern={input.pattern}
+								inputMode={input.inputMode}
+								maxLength={input.maxLength}
+								htmlInputSize={input.htmlInputSize}
+							/>
+						);
+					})}
+					<div className="flex justify-end gap-4">
+						<button
+							onClick={(e) => {
+								e.preventDefault();
 
-						setNameCredentials({
-							firstName: user.firstName,
-							lastName: user.lastName,
-						});
-						navigate("/account/info");
-					}}
-					className="btn btn-primary"
-				>
-					Cancel
-				</button>
-				<button className="btn btn-primary">Save</button>
-			</div>
-		</form>
+								setNameCredentials({
+									firstName: user.firstName,
+									lastName: user.lastName,
+								});
+								navigate("/account/info");
+							}}
+							className="btn btn-primary normal-case"
+						>
+							Cancel
+						</button>
+						<button className="btn btn-primary normal-case">Save</button>
+					</div>
+				</div>
+			</form>
+		</div>
 	);
 }

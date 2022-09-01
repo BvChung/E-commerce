@@ -20,7 +20,7 @@ export default function Layout() {
 				{!location.pathname.startsWith("/checkout") ? <Nav /> : <CheckoutNav />}
 
 				{/* <!-- Page content here --> */}
-				<div className="h-screen w-screen overflow-auto">
+				<div className="h-full w-full overflow-auto">
 					<Outlet />
 				</div>
 				<ToastContainer
