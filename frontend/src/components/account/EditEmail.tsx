@@ -56,29 +56,9 @@ export default function EditEmail() {
 	];
 
 	return (
-		<form onSubmit={handleSubmit}>
-			<div>Edit Email</div>
-			{emailInput.map((input) => {
-				return (
-					<FormInput
-						key={input.key}
-						errorMessage={input.errorMessage}
-						id={input.id}
-						label={input.label}
-						name={input.name}
-						onChange={input.onChange}
-						required={input.required}
-						type={input.type}
-						value={input.value}
-						pattern={input.pattern}
-						inputMode={input.inputMode}
-						maxLength={input.maxLength}
-						htmlInputSize={input.htmlInputSize}
-					/>
-				);
-			})}
-			<div className="flex gap-4">
-				<button
+		<div className="flex flex-col items-center justify-center">
+			<div className="flex items-center justify-center mt-10 mb-6 ">
+				<div
 					onClick={(e) => {
 						e.preventDefault();
 
@@ -87,12 +67,73 @@ export default function EditEmail() {
 						});
 						navigate("/account/info");
 					}}
-					className="btn btn-primary"
+					className="flex items-center w-[30rem]"
 				>
-					Cancel
-				</button>
-				<button className="btn btn-primary">Save</button>
+					<div className="mr-4 cursor-pointer">
+						<svg
+							xmlns="http://www.w3.org/2000/svg"
+							fill="none"
+							viewBox="0 0 24 24"
+							strokeWidth={1.5}
+							stroke="currentColor"
+							className="w-6 h-6"
+						>
+							<path
+								strokeLinecap="round"
+								strokeLinejoin="round"
+								d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18"
+							/>
+						</svg>
+					</div>
+
+					<p className="font-medium text-xl">Update Email</p>
+				</div>
 			</div>
-		</form>
+
+			<form
+				onSubmit={handleSubmit}
+				className="flex flex-col items-center w-[30rem] border-[1px] rounded-lg shadow-sm"
+			>
+				<div className="my-7">
+					<div className="flex flex-col items-center mb-10">
+						{emailInput.map((input) => {
+							return (
+								<FormInput
+									key={input.key}
+									errorMessage={input.errorMessage}
+									id={input.id}
+									label={input.label}
+									name={input.name}
+									onChange={input.onChange}
+									required={input.required}
+									type={input.type}
+									value={input.value}
+									pattern={input.pattern}
+									inputMode={input.inputMode}
+									maxLength={input.maxLength}
+									htmlInputSize={input.htmlInputSize}
+								/>
+							);
+						})}
+					</div>
+					<div className="flex items-center justify-end gap-4">
+						<button
+							onClick={(e) => {
+								e.preventDefault();
+
+								setEmailCredentials({
+									email: user.email,
+								});
+								navigate("/account/info");
+							}}
+							className="btn btn-accent btn-outline h-11"
+						>
+							Cancel
+						</button>
+						<button className="btn btn-primary h-11">Save</button>
+					</div>
+				</div>
+			</form>
+		</div>
 	);
 }

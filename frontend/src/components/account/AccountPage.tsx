@@ -6,9 +6,13 @@ export default function AccountPage() {
 	const { user } = useAuthContext();
 
 	return (
-		<div className="flex flex-col gap-10 items-center ">
-			<h1>Personal info</h1>
-			<div className="flex flex-col max-w-3xl items-center w-full rounded-lg border-[1px] shadow-sm">
+		<div className="flex flex-col items-center mt-8">
+			<div className="max-w-4xl items-center w-full mb-6">
+				<h1 className="font-medium text-xl text-center">
+					{user.firstName}'s Personal Information
+				</h1>
+			</div>
+			<div className="flex flex-col max-w-4xl items-center w-full rounded-lg border-[1px] shadow-sm">
 				<Link
 					to="/account/name"
 					className="w-full px-6 rounded-t-lg hover:bg-gray-100 dark:hover:bg-gray-900 cursor-pointer"
