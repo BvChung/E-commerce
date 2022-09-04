@@ -3,12 +3,22 @@ import { useMutation, useQueryClient } from "react-query";
 import { OrderInfo } from "../../interfaces/orderInterface";
 import { CustomError } from "../../interfaces/customInterface";
 import { toast } from "react-toastify";
+import { useOrderContext } from "../context/useOrderContext";
+import { useCartContext } from "../context/useCartContext";
+import { useNavigate } from "react-router-dom";
+import { CartStorageData } from "../../interfaces/cartInterface";
+import { ProductInfo } from "../../interfaces/productInterface";
 
-export const useCreateOrder = () => {
+export const useCreateOrder = (myCartItems: CartStorageData[]) => {
 	const eCommerceApiPrivate = usePrivateApi();
 	const queryClient = useQueryClient();
+	const { clearMyOrder } = useOrderContext();
+	const { clearMyCart } = useCartContext();
+	const navigate = useNavigate();
 
 	const createOrder = async (myOrder: OrderInfo): Promise<OrderInfo[]> => {
+		console.log(myOrder);
+
 		const response = await eCommerceApiPrivate.post("/api/orders/", myOrder);
 
 		return response.data;
@@ -17,6 +27,9 @@ export const useCreateOrder = () => {
 	return useMutation(createOrder, {
 		onSuccess: (data) => {
 			queryClient.invalidateQueries("orders");
+			clearMyCart();
+			clearMyOrder();
+			navigate("/");
 			toast.success("Your order has been made.");
 			console.log(data);
 		},

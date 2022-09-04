@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect } from "react";
 import { toast } from "react-toastify";
 import { useParams } from "react-router-dom";
 import { useGetProductInfo } from "../../hooks/products/useGetProductInfo";
-import { useUpdateProduct } from "../../hooks/products/useUpdateProduct";
+import { useUpdateProduct } from "../../hooks/admin/useUpdateProduct";
 import { ProductForm } from "../../interfaces/productInterface";
 
 export default function ProductUpdate() {

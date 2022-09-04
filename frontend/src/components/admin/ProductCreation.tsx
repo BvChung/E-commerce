@@ -1,6 +1,6 @@
 import React, { useState, useRef } from "react";
 import { toast } from "react-toastify";
-import { useCreateProduct } from "../../hooks/products/useCreateProduct";
+import { useCreateProduct } from "../../hooks/admin/useCreateProduct";
 import { ProductForm } from "../../interfaces/productInterface";
 
 export default function ProductCreation() {

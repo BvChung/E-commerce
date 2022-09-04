@@ -33,8 +33,8 @@ export default function ProductDisplay({
 					{foundItem?.quantity !== 9 ? (
 						<button
 							onClick={() => {
-								toast.success(`${name} has been added to your cart.`);
 								addCartItem({ _id, price, quantity: 1 });
+								toast.success(`${name} has been added to your cart.`);
 							}}
 							className="btn btn-md btn-primary"
 						>
