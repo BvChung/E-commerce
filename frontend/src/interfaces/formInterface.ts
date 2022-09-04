@@ -21,4 +21,5 @@ export interface FormInputProps {
 		| undefined;
 	maxLength?: number;
 	htmlInputSize?: string;
+	width?: string;
 }

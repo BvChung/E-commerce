@@ -19,7 +19,16 @@ export const useGetCartItems = (myCartItems: CartStorageData[]) => {
 			paramsSerializer: (params) => qs.stringify(params),
 		});
 
-		return response.data;
+		return response.data.sort((a: ProductInfo, b: ProductInfo) => {
+			if (a.name < b.name) {
+				return -1;
+			}
+			if (a.name > b.name) {
+				return 1;
+			}
+			// names must be equal
+			return 0;
+		});
 	};
 
 	return useQuery(["cart", productIds], () => getCartItems());

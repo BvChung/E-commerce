@@ -8,7 +8,7 @@ import { useCreateOrder } from "../../hooks/orders/useCreateOrder";
 export default function ConfirmOrder() {
 	const { myOrder, setMyOrder, clearMyOrder } = useOrderContext();
 	const { myCart, cartItemsInfo, clearMyCart } = useCartContext();
-	const { mutate } = useCreateOrder();
+	const { mutate } = useCreateOrder(myCart);
 	const navigate = useNavigate();
 	const {
 		data: displayCartItems,
@@ -16,6 +16,8 @@ export default function ConfirmOrder() {
 		isLoading,
 		isFetching,
 	} = useGetCartItems(myCart);
+	console.log(displayCartItems);
+	// console.log(myOrder);
 
 	return (
 		<div className="flex flex-col">
@@ -97,16 +99,32 @@ export default function ConfirmOrder() {
 					onClick={() => {
 						mutate({
 							...myOrder,
-							purchasedItems: displayCartItems!,
+							purchasedItems: displayCartItems!
+								.sort((a, b) => {
+									if (a._id < b._id) {
+										return -1;
+									}
+									if (a._id > b._id) {
+										return 1;
+									}
+									// names must be equal
+									return 0;
+								})
+								.map((product, i: number) => {
+									if (product._id === myCart[i]._id) {
+										return {
+											...product,
+											quantity: myCart[i].quantity,
+										};
+									} else {
+										return { ...product };
+									}
+								}),
 							paymentInfo: {
 								...myOrder.paymentInfo,
 								subTotal: cartItemsInfo.subTotal,
 							},
 						});
-
-						clearMyCart();
-						clearMyOrder();
-						navigate("/");
 					}}
 					className="btn btn-primary"
 				>

@@ -14,6 +14,7 @@ export default function FormInput({
 	inputMode,
 	maxLength,
 	htmlInputSize,
+	width,
 }: FormInputProps) {
 	const [inputFocused, setInputFocused] = useState(false);
 
@@ -22,7 +23,7 @@ export default function FormInput({
 	const displayErrorInput =
 		inputFocused && "invalid:input-error invalid:focus:outline-none";
 	return (
-		<div className="form-control w-64 max-w-md">
+		<div className="form-control w-[20rem] max-w-xl">
 			<label className="label">
 				<span className="label-text">{label}</span>
 			</label>
