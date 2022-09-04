@@ -4,7 +4,7 @@ import global from "../types/types";
 import { orderBody, orderParams } from "../schemas/orderSchema";
 
 export const getOrder = async (
-	req: Request<orderParams["params"], {}, {}>,
+	req: Request,
 	res: Response,
 	next: NextFunction
 ) => {
@@ -12,6 +12,21 @@ export const getOrder = async (
 		const myOrder = await OrderModel.find({ user: req.user.id });
 
 		res.status(200).json(myOrder);
+	} catch (error) {
+		res.status(400);
+		next(error);
+	}
+};
+
+export const getOrderInfo = async (
+	req: Request<orderParams["params"], {}, {}>,
+	res: Response,
+	next: NextFunction
+) => {
+	try {
+		const foundOrder = await OrderModel.findById(req.params.id);
+
+		res.status(200).json(foundOrder);
 	} catch (error) {
 		res.status(400);
 		next(error);

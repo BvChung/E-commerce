@@ -2,7 +2,7 @@ import { object, string, array, TypeOf, number } from "zod";
 
 export const orderParamsSchema = object({
 	params: object({
-		id: string({ required_error: "Product id params is required." }),
+		id: string({ required_error: "Order id params is required." }),
 	}),
 });
 

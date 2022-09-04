@@ -28,6 +28,17 @@ export interface OrderForm {
 	paymentInfo: OrderPaymentInfo;
 }
 
+export interface OrderPurchasedItems {
+	_id: string;
+	image: string;
+	imageCloudId: string;
+	price: number;
+	name: string;
+	description: string;
+	category: string;
+	quantity: number;
+}
+
 // const now = new Date("2022-07-08T23:43:14.121+00:00"); => from mongoDB created at
 // console.log(now.toDateString());
 export interface OrderInfo {
