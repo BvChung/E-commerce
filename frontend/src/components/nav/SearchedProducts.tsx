@@ -7,6 +7,9 @@ export default function SearchedProducts({
 	setSearchText,
 	setOpenSearch,
 }: ProductInfo) {
+	if (_id === "") {
+		console.log("none");
+	}
 	return (
 		<Link
 			to={`/products/${_id}`}
@@ -14,7 +17,7 @@ export default function SearchedProducts({
 				setSearchText!("");
 				setOpenSearch!(false);
 			}}
-			className="flex items-center justify-between p-3 border-b-[1px] hover:bg-gray-200 first:rounded-t-lg last:rounded-b-lg last:border-b-0"
+			className="flex items-center justify-between p-3 border-b-[1px] border-l-[1px] border-r-[1px] hover:bg-gray-200 first:rounded-t-lg first:border-t-[1px]  last:rounded-b-lg "
 		>
 			<span>{name}</span>
 			<svg

@@ -13,7 +13,8 @@ import ProductUpdate from "./components/admin/ProductUpdate";
 import Payment from "./components/checkout/Payment";
 import Shipping from "./components/checkout/Shipping";
 import ConfirmOrder from "./components/checkout/ConfirmOrder";
-import OrdersPage from "./components/orders/OrderPage";
+import OrderPage from "./components/orders/OrderPage";
+import OrderInfo from "./components/orders/OrderInfo";
 import Cart from "./components/cart/Cart";
 import EditName from "./components/account/EditName";
 import EditEmail from "./components/account/EditEmail";
@@ -60,7 +61,10 @@ function App() {
 							<Route path="confirmation" element={<ConfirmOrder />} />
 						</Route>
 
-						<Route path="orders" element={<OrdersPage />} />
+						<Route path="orders" element={<Outlet />}>
+							<Route index element={<OrderPage />} />
+							<Route path=":id" element={<OrderInfo />} />
+						</Route>
 
 						<Route path="account" element={<Outlet />}>
 							<Route index element={<div>Not Found</div>} />

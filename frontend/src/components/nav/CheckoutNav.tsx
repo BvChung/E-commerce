@@ -52,7 +52,7 @@ export default function CheckoutNav() {
 						</label>
 						<label
 							htmlFor="return-modal"
-							className="btn btn-accent normal-case"
+							className="btn btn-accent btn-outline normal-case"
 							onClick={() => {
 								navigate("/cart");
 								clearMyOrder();

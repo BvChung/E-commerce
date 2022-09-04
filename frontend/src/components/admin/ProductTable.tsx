@@ -1,7 +1,7 @@
 import { useState, useMemo } from "react";
 import { useGetProducts } from "../../hooks/products/useGetProducts";
 import TableRow from "./TableRow";
-import { useDeleteProduct } from "../../hooks/products/useDeleteProduct";
+import { useDeleteProduct } from "../../hooks/admin/useDeleteProduct";
 import { ProductInfo, SortProducts } from "../../interfaces/productInterface";
 
 export default function ProductTable() {

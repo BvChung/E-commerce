@@ -11,7 +11,7 @@ export default function Layout() {
 
 	return (
 		<div
-			className={`drawer ${theme && "dark"}`}
+			className={`drawer ${theme && "dark"} min-h-full`}
 			data-theme={theme ? "night" : "lofi"}
 		>
 			<input id="app-drawer" type="checkbox" className="drawer-toggle" />

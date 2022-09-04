@@ -22,7 +22,6 @@ const Nav = () => {
 		isSuccess,
 		remove,
 	} = useSearchProducts();
-	console.log(searchedProducts);
 	//const [inputActive, setInputActive] = useState<boolean>(false);
 
 	//const inputActiveStyle: string = inputActive ? "bg-white" : "bg-gray-100";
@@ -133,6 +132,7 @@ const Nav = () => {
 					<div className="modal-box relative">
 						<button
 							onClick={() => {
+								setSearchText("");
 								setOpenSearch(false);
 							}}
 							className="btn btn-sm btn-circle absolute right-2 top-2"
@@ -144,7 +144,7 @@ const Nav = () => {
 						<div className="flex flex-col justify-center w-full">
 							<div
 								className={`form-control w-full ${
-									searchText.length > 0 && "mb-4"
+									searchText.length > 0 && "mb-6"
 								}`}
 							>
 								<label className="input-group">
@@ -175,7 +175,7 @@ const Nav = () => {
 							</div>
 							<div
 								className={`${
-									searchText.length > 0 && "border-[1px] rounded-lg"
+									searchText.length < 0 && "border-[1px] rounded-lg"
 								}`}
 							>
 								{isSuccess &&
@@ -187,21 +187,27 @@ const Nav = () => {
 														.includes(searchText.toLowerCase())
 												: !product;
 										})
-										.map((product) => {
-											return (
-												<SearchedProducts
-													key={product._id}
-													_id={product._id}
-													category={product.category}
-													description={product.description}
-													image={product.image}
-													imageCloudId={product.imageCloudId}
-													name={product.name}
-													price={product.price}
-													setSearchText={setSearchText}
-													setOpenSearch={setOpenSearch}
-												/>
-											);
+										.map((product, i, arr) => {
+											console.log(searchedProducts.length);
+											if (arr.length > 0) {
+												return (
+													<SearchedProducts
+														key={product._id}
+														_id={product._id}
+														category={product.category}
+														description={product.description}
+														image={product.image}
+														imageCloudId={product.imageCloudId}
+														name={product.name}
+														price={product.price}
+														setSearchText={setSearchText}
+														setOpenSearch={setOpenSearch}
+													/>
+												);
+											} else {
+												console.log("asssd");
+												return <div>Not found</div>;
+											}
 										})}
 							</div>
 						</div>
@@ -276,17 +282,49 @@ const Nav = () => {
 						)}
 						<li>
 							<Link to="/account/info">
-								<span className="justify-between">Manage Account</span>
+								<div className="flex items-center gap-2">
+									<svg
+										xmlns="http://www.w3.org/2000/svg"
+										fill="none"
+										viewBox="0 0 24 24"
+										strokeWidth={1.5}
+										stroke="currentColor"
+										className="w-6 h-6"
+									>
+										<path
+											strokeLinecap="round"
+											strokeLinejoin="round"
+											d="M15 9h3.75M15 12h3.75M15 15h3.75M4.5 19.5h15a2.25 2.25 0 002.25-2.25V6.75A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25v10.5A2.25 2.25 0 004.5 19.5zm6-10.125a1.875 1.875 0 11-3.75 0 1.875 1.875 0 013.75 0zm1.294 6.336a6.721 6.721 0 01-3.17.789 6.721 6.721 0 01-3.168-.789 3.376 3.376 0 016.338 0z"
+										/>
+									</svg>
+
+									<span>Manage Account</span>
+								</div>
 							</Link>
 						</li>
 						<li>
-							<span
+							<div
 								onClick={() => {
 									mutate();
 								}}
+								className="flex items-center gap-2"
 							>
-								Logout
-							</span>
+								<svg
+									xmlns="http://www.w3.org/2000/svg"
+									fill="none"
+									viewBox="0 0 24 24"
+									strokeWidth={1.5}
+									stroke="currentColor"
+									className="w-6 h-6"
+								>
+									<path
+										strokeLinecap="round"
+										strokeLinejoin="round"
+										d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15M12 9l-3 3m0 0l3 3m-3-3h12.75"
+									/>
+								</svg>
+								<span>Logout</span>
+							</div>
 						</li>
 					</ul>
 				</div>

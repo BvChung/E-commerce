@@ -31,6 +31,11 @@ input[type="number"]::-webkit-outer-spin-button {
 	@apply btn;
 }
 
+.btn {
+	@apply min-h-0;
+	@apply normal-case;
+}
+
 .fade {
 	animation-name: fadeIn;
 	animation-duration: 500ms;
