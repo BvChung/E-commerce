@@ -10,9 +10,7 @@ export default function OrderItem({
 	shippingInfo,
 	paymentInfo,
 }: OrderInfo) {
-	const { addCartItem, findCartItem, myCart } = useCartContext();
-	// console.log(myCart);
-	console.log(findCartItem("62ea35c7e743d53ff75c48aac"));
+	const { addCartItem, findCartItem } = useCartContext();
 	const datePurchased = new Date(createdAt!).toDateString().split(" ");
 
 	return (
@@ -88,12 +86,14 @@ export default function OrderItem({
 											);
 										}}
 										className={`btn ${
+											!findCartItem(item._id)?.quantity ||
 											findCartItem(item._id)?.quantity! < 9
 												? "btn-outline"
 												: "btn-disabled"
-										} flex items-center h-8 gap-2`}
+										} rounded-lg btn-secondary flex items-center h-8 gap-2`}
 									>
-										{findCartItem(item._id)?.quantity! < 9 && (
+										{(!findCartItem(item._id)?.quantity ||
+											findCartItem(item._id)?.quantity! < 9) && (
 											<svg
 												xmlns="http://www.w3.org/2000/svg"
 												fill="none"
@@ -110,11 +110,10 @@ export default function OrderItem({
 											</svg>
 										)}
 										<span className="text-xs">
-											{findCartItem(item._id) ||
+											{!findCartItem(item._id)?.quantity ||
 											findCartItem(item._id)?.quantity! < 9
 												? "Buy again"
 												: "9 items max"}
-											{findCartItem(item._id)?.quantity!}
 										</span>
 									</button>
 								</div>

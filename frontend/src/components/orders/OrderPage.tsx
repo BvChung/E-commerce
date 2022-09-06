@@ -6,7 +6,7 @@ export default function OrdersPage() {
 	const { data: orders, isSuccess, isError, isLoading } = useGetOrders();
 
 	return (
-		<div className="flex flex-col items-center justify-center mb-6">
+		<div className="flex flex-col items-center justify-center mb-10">
 			<div className="flex items-center gap-2 w-full my-8 lg:max-w-4xl xl:max-w-5xl">
 				<span className="font-semibold text-2xl">Orders</span>
 			</div>

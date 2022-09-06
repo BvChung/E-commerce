@@ -36,14 +36,14 @@ export interface OrderPurchasedItems {
 	name: string;
 	description: string;
 	category: string;
-	quantity: number;
+	quantity?: number;
 }
 
 // const now = new Date("2022-07-08T23:43:14.121+00:00"); => from mongoDB created at
 // console.log(now.toDateString());
 export interface OrderInfo {
 	_id?: string;
-	purchasedItems: CartItemInfo[];
+	purchasedItems: OrderPurchasedItems[];
 	shippingInfo: OrderShippingInfo;
 	paymentInfo: OrderPaymentInfo;
 	createdAt?: string | number | Date;
