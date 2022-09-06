@@ -143,11 +143,11 @@ export default function EditName() {
 								});
 								navigate("/account/info");
 							}}
-							className="btn btn-accent btn-outline h-11"
+							className="btn btn-accent btn-outline rounded-lg h-11"
 						>
 							Cancel
 						</button>
-						<button className="btn btn-primary h-11">Save</button>
+						<button className="btn btn-primary rounded-lg h-11">Save</button>
 					</div>
 				</div>
 			</form>

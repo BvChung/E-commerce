@@ -15,7 +15,7 @@ export default function ProductDisplay({
 
 	return (
 		<div className="grid items-center justify-center">
-			<div className="card w-[22rem] bg-base-100 border-[1px] shadow-sm hover:shadow-xl transition-shadow">
+			<div className="card w-[22rem] bg-base-100 border-[1px] shadow-sm hover:shadow-lg transition-shadow">
 				<Link to={_id}>
 					<figure>
 						<img src={image} alt="Product" className="h-[255px] w-[22rem] " />
@@ -36,12 +36,12 @@ export default function ProductDisplay({
 								addCartItem({ _id, price, quantity: 1 });
 								toast.success(`${name} has been added to your cart.`);
 							}}
-							className="btn btn-md btn-primary"
+							className="btn btn-md rounded-lg btn-primary"
 						>
 							Add to cart
 						</button>
 					) : (
-						<button className="btn btn-md btn-primary btn-disabled">
+						<button className="btn btn-md rounded-lg btn-primary btn-disabled">
 							{foundItem?.quantity} items max
 						</button>
 					)}

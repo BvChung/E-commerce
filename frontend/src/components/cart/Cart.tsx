@@ -5,7 +5,7 @@ import { useGetCartItems } from "../../hooks/cart/useGetCartItems";
 import CartItem from "./CartItem";
 
 export default function Cart() {
-	const { myCart, clearMyCart, cartItemsInfo } = useCartContext();
+	const { myCart, cartItemsInfo } = useCartContext();
 	const {
 		data: displayCartItems,
 		isSuccess,
@@ -25,6 +25,14 @@ export default function Cart() {
 			</div>
 			<div className="flex justify-center h-max w-full gap-4 lg:max-w-5xl xl:max-w-7xl">
 				<div className="border-[1px] p-4 h-max rounded-lg shadow-md transition-all fade w-2/3">
+					{displayCartItems?.length === 0 && (
+						<div className="flex flex-col items-center justify-center gap-6 h-[262px]">
+							<div className="text-2xl font-semibold">Your cart is empty</div>
+							<Link to={"/products"} className="btn btn-primary rounded-full">
+								Browse our products
+							</Link>
+						</div>
+					)}
 					{isSuccess ? (
 						displayCartItems.map((item: CartItemInfo) => {
 							return (

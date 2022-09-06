@@ -178,6 +178,19 @@ const Nav = () => {
 									searchText.length < 0 && "border-[1px] rounded-lg"
 								}`}
 							>
+								{searchedProducts?.length === 0 && (
+									<div className="flex flex-col items-center justify-center gap-6 h-[262px]">
+										<div className="text-2xl font-semibold">
+											Your cart is empty
+										</div>
+										<Link
+											to={"/products"}
+											className="btn btn-primary rounded-full"
+										>
+											Browse our products
+										</Link>
+									</div>
+								)}
 								{isSuccess &&
 									searchedProducts
 										.filter((product) => {
@@ -187,27 +200,21 @@ const Nav = () => {
 														.includes(searchText.toLowerCase())
 												: !product;
 										})
-										.map((product, i, arr) => {
-											console.log(searchedProducts.length);
-											if (arr.length > 0) {
-												return (
-													<SearchedProducts
-														key={product._id}
-														_id={product._id}
-														category={product.category}
-														description={product.description}
-														image={product.image}
-														imageCloudId={product.imageCloudId}
-														name={product.name}
-														price={product.price}
-														setSearchText={setSearchText}
-														setOpenSearch={setOpenSearch}
-													/>
-												);
-											} else {
-												console.log("asssd");
-												return <div>Not found</div>;
-											}
+										.map((product) => {
+											return (
+												<SearchedProducts
+													key={product._id}
+													_id={product._id}
+													category={product.category}
+													description={product.description}
+													image={product.image}
+													imageCloudId={product.imageCloudId}
+													name={product.name}
+													price={product.price}
+													setSearchText={setSearchText}
+													setOpenSearch={setOpenSearch}
+												/>
+											);
 										})}
 							</div>
 						</div>

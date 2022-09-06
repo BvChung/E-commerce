@@ -30,7 +30,7 @@ export interface CartItemInfo {
 	name: string;
 	description: string;
 	category: string;
-	quantity?: number;
+	// quantity?: number;
 }
 
 // export interface CartItemInfo extends ProductInfo {
