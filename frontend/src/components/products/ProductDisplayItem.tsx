@@ -3,7 +3,7 @@ import { ProductInfo } from "../../interfaces/productInterface";
 import { toast } from "react-toastify";
 import { useCartContext } from "../../hooks/context/useCartContext";
 
-export default function ProductDisplay({
+export default function ProductDisplayItem({
 	_id,
 	name,
 	price,
@@ -21,15 +21,12 @@ export default function ProductDisplay({
 						<img src={image} alt="Product" className="h-[255px] w-[22rem] " />
 					</figure>
 				</Link>
-				<div className="card-body justify-evenly">
+				<div className="card-body">
 					<div className="card-actions">
 						<div className="badge badge-outline">{category}</div>
 					</div>
-					<h2 className="card-title">
-						{name}
-						<div className="badge badge-secondary">NEW</div>
-					</h2>
-					<div className="stat-value text-xl">${price}</div>
+					<h2 className="card-title">{name}</h2>
+					<div className="stat-value text-xl mb-2">${price.toFixed(2)}</div>
 					{foundItem?.quantity !== 9 ? (
 						<button
 							onClick={() => {
