@@ -1,23 +1,24 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useCartContext } from "../../hooks/context/useCartContext";
 import { CartItemInfo } from "../../interfaces/cartInterface";
 import { useGetCartItems } from "../../hooks/cart/useGetCartItems";
 import CartItem from "./CartItem";
+import { useOrderContext } from "../../hooks/context/useOrderContext";
 
 export default function Cart() {
 	const { myCart, cartItemsInfo } = useCartContext();
+	const { setMyOrder } = useOrderContext();
+	const navigate = useNavigate();
 	const {
 		data: displayCartItems,
 		isSuccess,
 		isLoading,
 		isFetching,
 	} = useGetCartItems(myCart);
-	console.log(displayCartItems);
-	console.log(myCart);
 
 	return (
 		<div className="flex flex-col items-center justify-center mb-6">
-			<div className="flex items-center gap-2 w-full my-8 lg:max-w-5xl xl:max-w-7xl">
+			<div className="flex items-center gap-2 w-full mt-8 mb-6 lg:max-w-5xl xl:max-w-7xl">
 				<span className="font-semibold text-2xl">Cart</span>
 				<span className="font-base text-lg">
 					({cartItemsInfo.numItems} items)
@@ -81,6 +82,47 @@ export default function Cart() {
 						>
 							Continue to checkout
 						</Link>
+					</div>
+
+					<div className="w-full border-b-[1px] mb-6">
+						<button
+							className={`btn ${
+								cartItemsInfo.numItems === 0 ? "btn-disabled" : "btn-primary"
+							}  rounded-full btn-info mb-6 w-full `}
+							onClick={() => {
+								setMyOrder({
+									shippingInfo: {
+										firstName: process.env.REACT_APP_GUEST_CARDFIRSTNAME!,
+										lastName: process.env.REACT_APP_GUEST_CARDLASTNAME!,
+										address: process.env.REACT_APP_GUEST_ADDRESS!,
+										aptSuiteEtc: "",
+										state: process.env.REACT_APP_GUEST_STATE!,
+										city: process.env.REACT_APP_GUEST_CITY!,
+										zipCode: process.env.REACT_APP_GUEST_ZIPCODE!,
+										phone: process.env.REACT_APP_GUEST_PHONE!,
+										email: process.env.REACT_APP_GUEST_EMAIL!,
+									},
+									paymentInfo: {
+										cardNumber: process.env.REACT_APP_GUEST_CARDNUMBER!,
+										cardHolderFirstName:
+											process.env.REACT_APP_GUEST_CARDFIRSTNAME!,
+										cardHolderLastName:
+											process.env.REACT_APP_GUEST_CARDLASTNAME!,
+										expiryDateMonth: process.env.REACT_APP_GUEST_CARDEXPMONTH!,
+										expiryDateYear: process.env.REACT_APP_GUEST_CARDEXPYEAR!,
+										securityCode: process.env.REACT_APP_GUEST_CARDCVV!,
+										phone: process.env.REACT_APP_GUEST_PHONE!,
+										subTotal: 0,
+									},
+									completedPaymentForm: true,
+									completedShippingForm: true,
+								});
+
+								navigate("/checkout/confirmation");
+							}}
+						>
+							Checkout with demo info
+						</button>
 					</div>
 
 					<div className="w-full flex items-center justify-between mb-6">

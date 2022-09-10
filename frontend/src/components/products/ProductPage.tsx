@@ -20,18 +20,23 @@ interface test {
 
 export default function ProductPage() {
 	const { isLoading, isError, isSuccess, data: products } = useGetProducts();
-	const [filterProducts, setFilterProducts] = useState<test>({
-		category: "Table",
+	const [filterProducts, setFilterProducts] = useState<Filter>({
+		sofa: "Sofa",
+		table: "Table",
+		chair: "",
+		desk: "",
+		drawer: "",
+		shelf: "",
 	});
 
 	const test = {
-		sofa: "s",
-		table: "t",
-		chair: "c",
-		desk: "d",
-		drawer: "d",
-		shelf: "s",
+		sofa: "Sofa",
+		table: "Table",
 	};
+	const t = ["Sofa", "Table"];
+	for (const key in test) {
+		console.log(key);
+	}
 	//console.log(test["sofa"]);
 	//Object.entries(test).map(([key, value]) => console.log(key, value));
 
@@ -69,9 +74,11 @@ export default function ProductPage() {
 				{isSuccess &&
 					products
 						.filter((product) => {
-							if (filterProducts.category !== "") {
-								return product.category === filterProducts.category;
-							}
+							// for (const [key, value] of Object.entries(test)) {
+							// 	if (value === product.category) {
+							// 		return product.category === value;
+							// 	}
+							// }
 							return product;
 						})
 						.map((product: ProductInfo) => {

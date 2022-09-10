@@ -29,7 +29,12 @@ export default function CartItem({
 
 			<div className="flex flex-col flex-1 justify-center h-full px-6 py-4">
 				<div className="flex items-center justify-between h-3/4">
-					<p className="font-medium text-md">{name}</p>
+					<Link to={`/products/${_id}`}>
+						<span className="hover:text-gray-600 font-medium text-md">
+							{name}
+						</span>
+					</Link>
+					{/* <p className="font-medium text-md">{name}</p> */}
 					<p className="font-semibold text-lg">
 						${(foundItem?.price! * foundItem?.quantity!).toFixed(2)}
 					</p>

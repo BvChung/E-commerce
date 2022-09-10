@@ -1,4 +1,4 @@
-import React, { useId } from "react";
+import { useId } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useOrderContext } from "../../hooks/context/useOrderContext";
 import { useCartContext } from "../../hooks/context/useCartContext";
@@ -6,10 +6,11 @@ import { FormInputProps } from "../../interfaces/formInterface";
 import FormInput from "../form/FormInput";
 
 export default function Payment() {
-	const { myOrder, handlePayment } = useOrderContext();
+	const { myOrder, handlePayment, setMyOrder } = useOrderContext();
+	const { cartItemsInfo } = useCartContext();
 	const navigate = useNavigate();
 
-	const paymentInput1: FormInputProps[] = [
+	const paymentInput3: FormInputProps[] = [
 		{
 			key: useId(),
 			errorMessage: "Please enter a valid card number.",
@@ -23,8 +24,11 @@ export default function Payment() {
 			value: myOrder.paymentInfo.cardNumber,
 			inputMode: "numeric",
 			maxLength: 19,
-			htmlInputSize: "sm",
+			htmlInputSize: "input-md",
 		},
+	];
+
+	const paymentInput1: FormInputProps[] = [
 		{
 			key: useId(),
 			errorMessage: "Please enter a valid first name.",
@@ -37,7 +41,7 @@ export default function Payment() {
 			type: "text",
 			value: myOrder.paymentInfo.cardHolderFirstName,
 			maxLength: 25,
-			htmlInputSize: "sm",
+			htmlInputSize: "input-md",
 		},
 		{
 			key: useId(),
@@ -51,7 +55,7 @@ export default function Payment() {
 			type: "text",
 			value: myOrder.paymentInfo.cardHolderLastName,
 			maxLength: 25,
-			htmlInputSize: "sm",
+			htmlInputSize: "input-md",
 		},
 	];
 
@@ -69,7 +73,7 @@ export default function Payment() {
 			value: myOrder.paymentInfo.securityCode,
 			inputMode: "numeric",
 			maxLength: 4,
-			htmlInputSize: "sm",
+			htmlInputSize: "input-md",
 		},
 		{
 			key: useId(),
@@ -84,126 +88,356 @@ export default function Payment() {
 			value: myOrder.paymentInfo.phone,
 			inputMode: "tel",
 			maxLength: 14,
-			htmlInputSize: "sm",
+			htmlInputSize: "input-md",
 		},
 	];
 
 	return (
-		<form
-			onSubmit={(e) => {
-				e.preventDefault();
-				navigate("/checkout/confirmation");
-			}}
-		>
-			<div className="flex flex-col items-center">
-				<h1>Payment method</h1>
-				<ul className="steps">
-					<li className="step step-primary uppercase text-sm">Sign in</li>
-					<li className="step step-primary uppercase text-sm">Shipping</li>
-					<li className="step step-primary uppercase text-sm">Payment</li>
-					<li className="step uppercase text-xs">Place order</li>
-				</ul>
-				<div className="flex flex-col">
-					<label className="label">
-						<span className="label-text">Card Information</span>
-					</label>
-
-					{paymentInput1.map((input) => {
-						return (
-							<FormInput
-								key={input.key}
-								errorMessage={input.errorMessage}
-								id={input.id}
-								label={input.label}
-								name={input.name}
-								onChange={input.onChange}
-								required={input.required}
-								type={input.type}
-								value={input.value}
-								pattern={input.pattern}
-								inputMode={input.inputMode}
-								maxLength={input.maxLength}
-								htmlInputSize={input.htmlInputSize}
-							/>
-						);
-					})}
-
-					<div className="form-control w-full max-w-sm">
-						<label className="label">
-							<span className="label-text">Expiration date</span>
-						</label>
-						<div className="grid grid-cols-2 gap-4">
-							<select
-								name="expiryDateMonth"
-								value={myOrder.paymentInfo.expiryDateMonth}
-								onChange={handlePayment}
-								className="select select-sm select-bordered"
-								required
+		<div className="flex flex-col items-center justify-center mb-10">
+			<div className="flex flex-col gap-2 w-full mt-8 mb-4 lg:max-w-5xl xl:max-w-6xl">
+				<span className="font-semibold text-2xl">Payment</span>
+				<div className="text-sm breadcrumbs">
+					<ul>
+						<li>
+							<svg
+								xmlns="http://www.w3.org/2000/svg"
+								fill="none"
+								viewBox="0 0 24 24"
+								strokeWidth={1.5}
+								stroke="currentColor"
+								className="w-4 h-4 mr-2 stroke-current"
 							>
-								<option disabled value="">
-									Month
-								</option>
-								<option value="01">01</option>
-								<option value="02">02</option>
-								<option value="03">03</option>
-								<option value="04">04</option>
-								<option value="05">05</option>
-								<option value="06">06</option>
-								<option value="07">07</option>
-								<option value="08">08</option>
-								<option value="09">09</option>
-								<option value="10">10</option>
-								<option value="11">11</option>
-								<option value="12">12</option>
-							</select>
-
-							<select
-								name="expiryDateYear"
-								value={myOrder.paymentInfo.expiryDateYear}
-								onChange={handlePayment}
-								className="select select-sm select-bordered"
-								required
+								<path
+									strokeLinecap="round"
+									strokeLinejoin="round"
+									d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15m3 0l3-3m0 0l-3-3m3 3H9"
+								/>
+							</svg>
+							Sign in
+						</li>
+						<li>
+							<svg
+								xmlns="http://www.w3.org/2000/svg"
+								fill="none"
+								viewBox="0 0 24 24"
+								strokeWidth={1.5}
+								stroke="currentColor"
+								className="w-4 h-4 mr-2 stroke-current"
 							>
-								<option disabled value="">
-									Year
-								</option>
-								<option value="22">22</option>
-								<option value="23">23</option>
-								<option value="24">24</option>
-								<option value="25">25</option>
-								<option value="26">26</option>
-							</select>
+								<path
+									strokeLinecap="round"
+									strokeLinejoin="round"
+									d="M8.25 18.75a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h6m-9 0H3.375a1.125 1.125 0 01-1.125-1.125V14.25m17.25 4.5a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h1.125c.621 0 1.129-.504 1.09-1.124a17.902 17.902 0 00-3.213-9.193 2.056 2.056 0 00-1.58-.86H14.25M16.5 18.75h-2.25m0-11.177v-.958c0-.568-.422-1.048-.987-1.106a48.554 48.554 0 00-10.026 0 1.106 1.106 0 00-.987 1.106v7.635m12-6.677v6.677m0 4.5v-4.5m0 0h-12"
+								/>
+							</svg>
+							Shipping
+						</li>
+						<li>
+							<svg
+								xmlns="http://www.w3.org/2000/svg"
+								fill="none"
+								viewBox="0 0 24 24"
+								strokeWidth={1.5}
+								stroke="currentColor"
+								className="w-4 h-4 mr-2 stroke-blue-400"
+							>
+								<path
+									strokeLinecap="round"
+									strokeLinejoin="round"
+									d="M2.25 8.25h19.5M2.25 9h19.5m-16.5 5.25h6m-6 2.25h3m-3.75 3h15a2.25 2.25 0 002.25-2.25V6.75A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25v10.5A2.25 2.25 0 004.5 19.5z"
+								/>
+							</svg>
+							<span className="text-blue-400 font-semibold">Payment</span>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+			<form
+				className="flex flex-col-reverse items-center md:items-baseline md:flex-row justify-between w-full lg:max-w-5xl xl:max-w-6xl"
+				onSubmit={(e) => {
+					e.preventDefault();
+					setMyOrder((prev) => {
+						return {
+							...prev,
+							completedPaymentForm: true,
+						};
+					});
+					navigate("/checkout/confirmation");
+				}}
+			>
+				<div className="flex flex-col border-[1px] items-center justify-center p-4 shadow-md rounded-lg">
+					<div className="w-full">
+						{paymentInput3.map((input) => {
+							return (
+								<FormInput
+									key={input.key}
+									errorMessage={input.errorMessage}
+									id={input.id}
+									label={input.label}
+									name={input.name}
+									onChange={input.onChange}
+									required={input.required}
+									type={input.type}
+									value={input.value}
+									pattern={input.pattern}
+									inputMode={input.inputMode}
+									maxLength={input.maxLength}
+									htmlInputSize={input.htmlInputSize}
+								/>
+							);
+						})}
+					</div>
+					<div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-4 mb-6">
+						{paymentInput1.map((input) => {
+							return (
+								<FormInput
+									key={input.key}
+									errorMessage={input.errorMessage}
+									id={input.id}
+									label={input.label}
+									name={input.name}
+									onChange={input.onChange}
+									required={input.required}
+									type={input.type}
+									value={input.value}
+									pattern={input.pattern}
+									inputMode={input.inputMode}
+									maxLength={input.maxLength}
+									htmlInputSize={input.htmlInputSize}
+								/>
+							);
+						})}
+
+						<div className="form-control w-full max-w-sm">
+							<label className="label">
+								<span className="label-text">Expiration date</span>
+							</label>
+							<div className="grid grid-cols-2 gap-4">
+								<select
+									name="expiryDateMonth"
+									value={myOrder.paymentInfo.expiryDateMonth}
+									onChange={handlePayment}
+									className="select select-md select-bordered"
+									required
+								>
+									<option disabled value="">
+										Month
+									</option>
+									<option value="01">01</option>
+									<option value="02">02</option>
+									<option value="03">03</option>
+									<option value="04">04</option>
+									<option value="05">05</option>
+									<option value="06">06</option>
+									<option value="07">07</option>
+									<option value="08">08</option>
+									<option value="09">09</option>
+									<option value="10">10</option>
+									<option value="11">11</option>
+									<option value="12">12</option>
+								</select>
+
+								<select
+									name="expiryDateYear"
+									value={myOrder.paymentInfo.expiryDateYear}
+									onChange={handlePayment}
+									className="select select-md select-bordered"
+									required
+								>
+									<option disabled value="">
+										Year
+									</option>
+									<option value="22">22</option>
+									<option value="23">23</option>
+									<option value="24">24</option>
+									<option value="25">25</option>
+									<option value="26">26</option>
+								</select>
+							</div>
+						</div>
+
+						{paymentInput2.map((input) => {
+							return (
+								<FormInput
+									key={input.key}
+									errorMessage={input.errorMessage}
+									id={input.id}
+									label={input.label}
+									name={input.name}
+									onChange={input.onChange}
+									required={input.required}
+									type={input.type}
+									value={input.value}
+									pattern={input.pattern}
+									inputMode={input.inputMode}
+									maxLength={input.maxLength}
+									htmlInputSize={input.htmlInputSize}
+								/>
+							);
+						})}
+					</div>
+
+					<div className="flex w-full gap-4 justify-end">
+						<Link
+							to="/checkout/shipping"
+							className="btn btn-outline btn-accent rounded-lg"
+						>
+							Return
+						</Link>
+						<button className="btn btn-primary rounded-lg">Continue</button>
+					</div>
+				</div>
+
+				<div className="rounded-lg shadow-sm h-fit w-80 border-[1px] py-6 px-4 flex flex-col items-center">
+					<div className="w-full flex items-center justify-between mb-6">
+						<div>
+							<span className="font-semibold mr-2 ">Subtotal</span>
+							<span className="text-gray-700">
+								({cartItemsInfo.numItems} items)
+							</span>
+						</div>
+						<div className="text-gray-700">${cartItemsInfo.subTotal}</div>
+					</div>
+
+					<div className="w-full flex items-center justify-between mb-6">
+						<div>
+							<span className="font-semibold mr-2 ">Shipping</span>
+						</div>
+						<div className="text-gray-700">Free</div>
+					</div>
+
+					<div className="w-full flex items-center justify-between border-b-[1px] pb-6 mb-6">
+						<div className=" font-semibold ">Estimated taxes</div>
+						<div className="text-gray-700">
+							${(cartItemsInfo.subTotal * 0.0625).toFixed(2)}
 						</div>
 					</div>
 
-					{paymentInput2.map((input) => {
-						return (
-							<FormInput
-								key={input.key}
-								errorMessage={input.errorMessage}
-								id={input.id}
-								label={input.label}
-								name={input.name}
-								onChange={input.onChange}
-								required={input.required}
-								type={input.type}
-								value={input.value}
-								pattern={input.pattern}
-								inputMode={input.inputMode}
-								maxLength={input.maxLength}
-								htmlInputSize={input.htmlInputSize}
-							/>
-						);
-					})}
+					<div className="w-full flex items-center justify-between">
+						<div className="text-lg font-semibold ">Estimated total</div>
+						<div className="text-lg font-semibold">
+							$
+							{(
+								cartItemsInfo.subTotal +
+								cartItemsInfo.subTotal * 0.0625
+							).toFixed(2)}
+						</div>
+					</div>
 				</div>
-				<div>
-					<button className="btn btn-primary">Continue</button>
-					<Link to="/checkout/shipping" className="btn btn-primary">
-						Return
-					</Link>
-				</div>
-			</div>
-			<div></div>
-		</form>
+			</form>
+		</div>
 	);
+}
+
+{
+	/* <form
+				onSubmit={(e) => {
+					e.preventDefault();
+					navigate("/checkout/confirmation");
+				}}
+			>
+				<div className="flex flex-col items-center">
+					<div className="flex flex-col">
+						<label className="label">
+							<span className="label-text">Card Information</span>
+						</label>
+
+						{paymentInput1.map((input) => {
+							return (
+								<FormInput
+									key={input.key}
+									errorMessage={input.errorMessage}
+									id={input.id}
+									label={input.label}
+									name={input.name}
+									onChange={input.onChange}
+									required={input.required}
+									type={input.type}
+									value={input.value}
+									pattern={input.pattern}
+									inputMode={input.inputMode}
+									maxLength={input.maxLength}
+									htmlInputSize={input.htmlInputSize}
+								/>
+							);
+						})}
+
+						<div className="form-control w-full max-w-sm">
+							<label className="label">
+								<span className="label-text">Expiration date</span>
+							</label>
+							<div className="grid grid-cols-2 gap-4">
+								<select
+									name="expiryDateMonth"
+									value={myOrder.paymentInfo.expiryDateMonth}
+									onChange={handlePayment}
+									className="select select-md select-bordered"
+									required
+								>
+									<option disabled value="">
+										Month
+									</option>
+									<option value="01">01</option>
+									<option value="02">02</option>
+									<option value="03">03</option>
+									<option value="04">04</option>
+									<option value="05">05</option>
+									<option value="06">06</option>
+									<option value="07">07</option>
+									<option value="08">08</option>
+									<option value="09">09</option>
+									<option value="10">10</option>
+									<option value="11">11</option>
+									<option value="12">12</option>
+								</select>
+
+								<select
+									name="expiryDateYear"
+									value={myOrder.paymentInfo.expiryDateYear}
+									onChange={handlePayment}
+									className="select select-md select-bordered"
+									required
+								>
+									<option disabled value="">
+										Year
+									</option>
+									<option value="22">22</option>
+									<option value="23">23</option>
+									<option value="24">24</option>
+									<option value="25">25</option>
+									<option value="26">26</option>
+								</select>
+							</div>
+						</div>
+
+						{paymentInput2.map((input) => {
+							return (
+								<FormInput
+									key={input.key}
+									errorMessage={input.errorMessage}
+									id={input.id}
+									label={input.label}
+									name={input.name}
+									onChange={input.onChange}
+									required={input.required}
+									type={input.type}
+									value={input.value}
+									pattern={input.pattern}
+									inputMode={input.inputMode}
+									maxLength={input.maxLength}
+									htmlInputSize={input.htmlInputSize}
+								/>
+							);
+						})}
+					</div>
+					<div>
+						<button className="btn btn-primary">Continue</button>
+						<Link to="/checkout/shipping" className="btn btn-primary">
+							Return
+						</Link>
+					</div>
+				</div>
+				<div></div>
+			</form> */
 }
