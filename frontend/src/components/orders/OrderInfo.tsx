@@ -12,7 +12,7 @@ export default function OrderInfo() {
 
 	return (
 		<div className="flex flex-col gap-[2px] items-center justify-center mb-10">
-			<div className="flex items-center gap-2 w-full my-8 lg:max-w-4xl xl:max-w-5xl">
+			<div className="flex items-center gap-2 w-full mt-8 mb-6 lg:max-w-4xl xl:max-w-5xl">
 				<span className="font-semibold text-2xl">Order Details</span>
 			</div>
 
@@ -50,7 +50,7 @@ export default function OrderInfo() {
 					</div>
 					<div className="flex justify-between">
 						<p>Shipping:</p>
-						<p className="font-medium">$0.00</p>
+						<p className="font-medium">Free</p>
 					</div>
 					<div className="flex justify-between">
 						<p>Tax:</p>
@@ -93,7 +93,7 @@ export default function OrderInfo() {
 									<div className="flex items-center justify-between w-full mb-3">
 										<Link
 											to={`/products/${item._id}`}
-											className="hover:text-gray-600 border-b-[2px] border-b-transparent hover:border-b-gray-600 hover:border-b-[2px]"
+											className="hover:text-gray-600 "
 										>
 											{item.name}
 										</Link>

@@ -46,6 +46,8 @@ export const OrderProvider = ({ children }: OrderProviderProps) => {
 			phone: "",
 			subTotal: 0,
 		},
+		completedPaymentForm: false,
+		completedShippingForm: false,
 	});
 
 	function handlePayment(
@@ -107,6 +109,8 @@ export const OrderProvider = ({ children }: OrderProviderProps) => {
 				phone: "",
 				subTotal: 0,
 			},
+			completedPaymentForm: false,
+			completedShippingForm: false,
 		});
 	}
 

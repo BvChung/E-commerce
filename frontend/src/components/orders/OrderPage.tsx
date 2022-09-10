@@ -7,7 +7,7 @@ export default function OrdersPage() {
 
 	return (
 		<div className="flex flex-col items-center justify-center mb-10">
-			<div className="flex items-center gap-2 w-full my-8 lg:max-w-4xl xl:max-w-5xl">
+			<div className="flex items-center gap-2 w-full mt-8 mb-6 lg:max-w-4xl xl:max-w-5xl">
 				<span className="font-semibold text-2xl">Orders</span>
 			</div>
 

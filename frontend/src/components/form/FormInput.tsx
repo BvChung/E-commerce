@@ -18,12 +18,11 @@ export default function FormInput({
 }: FormInputProps) {
 	const [inputFocused, setInputFocused] = useState(false);
 
-	const size = `input-${htmlInputSize}`;
 	const displayErrorMsg = inputFocused && "peer-invalid:inline-flex";
 	const displayErrorInput =
 		inputFocused && "invalid:input-error invalid:focus:outline-none";
 	return (
-		<div className="form-control w-[20rem] max-w-xl">
+		<div className="form-control w-[18rem] max-w-xl">
 			<label className="label">
 				<span className="label-text">{label}</span>
 			</label>
@@ -34,7 +33,7 @@ export default function FormInput({
 				value={value}
 				onChange={onChange}
 				inputMode={inputMode}
-				className={`peer input ${displayErrorInput} ${size} input-bordered w-full max-w-sm `}
+				className={`peer input ${displayErrorInput} ${htmlInputSize} input-bordered w-full max-w-sm `}
 				pattern={pattern}
 				required={required}
 				maxLength={maxLength}

@@ -26,6 +26,8 @@ interface OrderPaymentInfo {
 export interface OrderForm {
 	shippingInfo: OrderShippingInfo;
 	paymentInfo: OrderPaymentInfo;
+	completedShippingForm: boolean;
+	completedPaymentForm: boolean;
 }
 
 export interface OrderPurchasedItems {
