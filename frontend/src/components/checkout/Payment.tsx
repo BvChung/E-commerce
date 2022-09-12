@@ -139,7 +139,7 @@ export default function Payment() {
 								viewBox="0 0 24 24"
 								strokeWidth={1.5}
 								stroke="currentColor"
-								className="w-4 h-4 mr-2 stroke-blue-400"
+								className="w-4 h-4 mr-2 stroke-blue-500"
 							>
 								<path
 									strokeLinecap="round"
@@ -147,7 +147,7 @@ export default function Payment() {
 									d="M2.25 8.25h19.5M2.25 9h19.5m-16.5 5.25h6m-6 2.25h3m-3.75 3h15a2.25 2.25 0 002.25-2.25V6.75A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25v10.5A2.25 2.25 0 004.5 19.5z"
 								/>
 							</svg>
-							<span className="text-blue-400 font-semibold">Payment</span>
+							<span className="text-blue-500 font-semibold">Payment</span>
 						</li>
 					</ul>
 				</div>
@@ -166,7 +166,7 @@ export default function Payment() {
 					navigate("/checkout/confirmation");
 				}}
 			>
-				<div className="flex flex-col border-[1px] items-center justify-center p-4 shadow-md rounded-lg">
+				<div className="flex flex-col border-[1px] items-center justify-center w-2/3 p-4 shadow-sm rounded-lg">
 					<div className="w-full">
 						{paymentInput3.map((input) => {
 							return (
@@ -188,7 +188,7 @@ export default function Payment() {
 							);
 						})}
 					</div>
-					<div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-4 mb-6">
+					<div className="flex flex-col  mb-6">
 						{paymentInput1.map((input) => {
 							return (
 								<FormInput
@@ -289,7 +289,7 @@ export default function Payment() {
 					</div>
 				</div>
 
-				<div className="rounded-lg shadow-sm h-fit w-80 border-[1px] py-6 px-4 flex flex-col items-center">
+				<div className="rounded-lg shadow-md h-fit w-1/3 border-[1px] py-6 px-4 flex flex-col items-center">
 					<div className="w-full flex items-center justify-between mb-6">
 						<div>
 							<span className="font-semibold mr-2 ">Subtotal</span>
