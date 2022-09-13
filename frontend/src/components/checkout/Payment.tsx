@@ -25,6 +25,7 @@ export default function Payment() {
 			inputMode: "numeric",
 			maxLength: 19,
 			htmlInputSize: "input-md",
+			width: "w-full",
 		},
 	];
 
@@ -93,10 +94,10 @@ export default function Payment() {
 	];
 
 	return (
-		<div className="flex flex-col items-center justify-center mb-10">
+		<div className="flex flex-col items-center justify-center mb-10 px-2">
 			<div className="flex flex-col gap-2 w-full mt-8 mb-4 lg:max-w-5xl xl:max-w-6xl">
-				<span className="font-semibold text-2xl">Payment</span>
-				<div className="text-sm breadcrumbs">
+				<span className="font-semibold text-xl sm:text-2xl">Payment</span>
+				<div className="text-sm breadcrumbs hidden sm:inline-flex">
 					<ul>
 						<li>
 							<svg
@@ -139,7 +140,7 @@ export default function Payment() {
 								viewBox="0 0 24 24"
 								strokeWidth={1.5}
 								stroke="currentColor"
-								className="w-4 h-4 mr-2 stroke-blue-500"
+								className="w-4 h-4 mr-2 stroke-2 stroke-blue-500"
 							>
 								<path
 									strokeLinecap="round"
@@ -147,7 +148,7 @@ export default function Payment() {
 									d="M2.25 8.25h19.5M2.25 9h19.5m-16.5 5.25h6m-6 2.25h3m-3.75 3h15a2.25 2.25 0 002.25-2.25V6.75A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25v10.5A2.25 2.25 0 004.5 19.5z"
 								/>
 							</svg>
-							<span className="text-blue-500 font-semibold">Payment</span>
+							<span className="text-blue-500 font-bold">Payment</span>
 						</li>
 					</ul>
 				</div>
@@ -166,7 +167,7 @@ export default function Payment() {
 					navigate("/checkout/confirmation");
 				}}
 			>
-				<div className="flex flex-col border-[1px] items-center justify-center w-2/3 p-4 shadow-sm rounded-lg">
+				<div className="flex flex-col border-[1px] items-center justify-center w-full md:w-2/3 p-4 shadow-sm rounded-lg mr-2">
 					<div className="w-full">
 						{paymentInput3.map((input) => {
 							return (
@@ -184,11 +185,12 @@ export default function Payment() {
 									inputMode={input.inputMode}
 									maxLength={input.maxLength}
 									htmlInputSize={input.htmlInputSize}
+									width={input.width}
 								/>
 							);
 						})}
 					</div>
-					<div className="flex flex-col  mb-6">
+					<div className="w-full grid grid-cols-1 md:grid-cols-2 gap-y-4 gap-x-12 mb-6">
 						{paymentInput1.map((input) => {
 							return (
 								<FormInput
@@ -289,7 +291,7 @@ export default function Payment() {
 					</div>
 				</div>
 
-				<div className="rounded-lg shadow-md h-fit w-1/3 border-[1px] py-6 px-4 flex flex-col items-center">
+				<div className="rounded-lg shadow-md h-fit w-full md:w-1/3 lg:max-w-[350px] border-[1px] py-6 px-4 flex flex-col items-center mb-6 md:mb-0">
 					<div className="w-full flex items-center justify-between mb-6">
 						<div>
 							<span className="font-semibold mr-2 ">Subtotal</span>
@@ -308,15 +310,15 @@ export default function Payment() {
 					</div>
 
 					<div className="w-full flex items-center justify-between border-b-[1px] pb-6 mb-6">
-						<div className=" font-semibold ">Estimated taxes</div>
+						<div className=" font-semibold ">Estimated tax</div>
 						<div className="text-gray-700">
 							${(cartItemsInfo.subTotal * 0.0625).toFixed(2)}
 						</div>
 					</div>
 
 					<div className="w-full flex items-center justify-between">
-						<div className="text-lg font-semibold ">Estimated total</div>
-						<div className="text-lg font-semibold">
+						<div className="md:text-lg font-semibold ">Estimated total</div>
+						<div className="md:text-lg font-semibold">
 							$
 							{(
 								cartItemsInfo.subTotal +
@@ -328,116 +330,4 @@ export default function Payment() {
 			</form>
 		</div>
 	);
-}
-
-{
-	/* <form
-				onSubmit={(e) => {
-					e.preventDefault();
-					navigate("/checkout/confirmation");
-				}}
-			>
-				<div className="flex flex-col items-center">
-					<div className="flex flex-col">
-						<label className="label">
-							<span className="label-text">Card Information</span>
-						</label>
-
-						{paymentInput1.map((input) => {
-							return (
-								<FormInput
-									key={input.key}
-									errorMessage={input.errorMessage}
-									id={input.id}
-									label={input.label}
-									name={input.name}
-									onChange={input.onChange}
-									required={input.required}
-									type={input.type}
-									value={input.value}
-									pattern={input.pattern}
-									inputMode={input.inputMode}
-									maxLength={input.maxLength}
-									htmlInputSize={input.htmlInputSize}
-								/>
-							);
-						})}
-
-						<div className="form-control w-full max-w-sm">
-							<label className="label">
-								<span className="label-text">Expiration date</span>
-							</label>
-							<div className="grid grid-cols-2 gap-4">
-								<select
-									name="expiryDateMonth"
-									value={myOrder.paymentInfo.expiryDateMonth}
-									onChange={handlePayment}
-									className="select select-md select-bordered"
-									required
-								>
-									<option disabled value="">
-										Month
-									</option>
-									<option value="01">01</option>
-									<option value="02">02</option>
-									<option value="03">03</option>
-									<option value="04">04</option>
-									<option value="05">05</option>
-									<option value="06">06</option>
-									<option value="07">07</option>
-									<option value="08">08</option>
-									<option value="09">09</option>
-									<option value="10">10</option>
-									<option value="11">11</option>
-									<option value="12">12</option>
-								</select>
-
-								<select
-									name="expiryDateYear"
-									value={myOrder.paymentInfo.expiryDateYear}
-									onChange={handlePayment}
-									className="select select-md select-bordered"
-									required
-								>
-									<option disabled value="">
-										Year
-									</option>
-									<option value="22">22</option>
-									<option value="23">23</option>
-									<option value="24">24</option>
-									<option value="25">25</option>
-									<option value="26">26</option>
-								</select>
-							</div>
-						</div>
-
-						{paymentInput2.map((input) => {
-							return (
-								<FormInput
-									key={input.key}
-									errorMessage={input.errorMessage}
-									id={input.id}
-									label={input.label}
-									name={input.name}
-									onChange={input.onChange}
-									required={input.required}
-									type={input.type}
-									value={input.value}
-									pattern={input.pattern}
-									inputMode={input.inputMode}
-									maxLength={input.maxLength}
-									htmlInputSize={input.htmlInputSize}
-								/>
-							);
-						})}
-					</div>
-					<div>
-						<button className="btn btn-primary">Continue</button>
-						<Link to="/checkout/shipping" className="btn btn-primary">
-							Return
-						</Link>
-					</div>
-				</div>
-				<div></div>
-			</form> */
 }

@@ -26,11 +26,11 @@ export default function ConfirmOrder() {
 
 	return (
 		<div className="flex flex-col items-center justify-center mb-10 px-2">
-			<div className="flex flex-col gap-2 w-full mt-6 sm:mt-8 mb-10 lg:max-w-5xl xl:max-w-6xl">
+			<div className="flex flex-col gap-2 w-full mt-8 mb-10 lg:max-w-5xl xl:max-w-6xl">
 				<span className="font-semibold text-xl sm:text-2xl mb-2 sm:mb-0">
 					Review Order
 				</span>
-				<div className="text-sm breadcrumbs mb-4 hidden sm:inline-flex">
+				<div className="text-sm breadcrumbs mb-3 hidden sm:inline-flex">
 					<ul>
 						<li>
 							<svg
@@ -90,7 +90,7 @@ export default function ConfirmOrder() {
 								viewBox="0 0 24 24"
 								strokeWidth={1.5}
 								stroke="currentColor"
-								className="w-4 h-4 mr-2 stroke-blue-500"
+								className="w-4 h-4 mr-2 stroke-2 stroke-blue-500"
 							>
 								<path
 									strokeLinecap="round"
@@ -99,15 +99,29 @@ export default function ConfirmOrder() {
 								/>
 							</svg>
 
-							<span className="text-blue-500 font-semibold">Review order</span>
+							<span className="text-blue-500 font-bold">Review order</span>
 						</li>
 					</ul>
 				</div>
 
 				<div className="flex flex-col md:flex-row justify-center h-max w-full gap-4 lg:max-w-5xl xl:max-w-7xl">
-					<div className="flex flex-col border-[1px] p-4 h-max rounded-lg shadow-sm transition-all fade w-full md:w-2/3">
-						<div className="flex items-center justify-between border-b-[1px] py-4 mb-0 md:mb-4">
-							<div className="flex gap-2 items-center">
+					<div className="flex flex-col border-[1px] p-4 h-max rounded-lg shadow-sm mb-2 transition-all fade w-full md:w-2/3 md:max-w-3xl">
+						<div className="relative flex flex-col md:flex-row items-center justify-between border-b-[1px] py-4 mb-0 md:mb-4">
+							<svg
+								xmlns="http://www.w3.org/2000/svg"
+								fill="none"
+								viewBox="0 0 24 24"
+								strokeWidth={1.5}
+								stroke="currentColor"
+								className="w-8 h-8 stroke-green-600 absolute left-0 md:hidden"
+							>
+								<path
+									strokeLinecap="round"
+									strokeLinejoin="round"
+									d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+								/>
+							</svg>
+							<div className="flex gap-2 items-center mb-4 md:mb-0">
 								<svg
 									xmlns="http://www.w3.org/2000/svg"
 									fill="none"
@@ -123,18 +137,41 @@ export default function ConfirmOrder() {
 									/>
 								</svg>
 
-								<span className="font-semibold md:font-medium text-lg md:text-xl ">
+								<span className="font-semibold md:font-medium text-lg md:text-xl">
 									Shipping
 								</span>
 							</div>
 
-							<div className="w-48 md:w-[232px] font-base md:font-medium text-sm md:text-base">
-								Arriving tomorrow
+							<div className="flex w-full md:w-auto justify-between">
+								<div className="flex flex-col w-36 justify-between items-end mr-6 md:mr-8 text-xs md:text-base">
+									<p className="text-gray-500">Arrival</p>
+								</div>
+								<div className="flex flex-col">
+									<div className="flex gap-4">
+										<div className="flex flex-col w-48 md:w-[232px] gap-1 font-base md:font-medium text-sm md:text-base">
+											<p>Arriving tomorrow</p>
+										</div>
+									</div>
+								</div>
 							</div>
 						</div>
 
 						<div className="flex flex-col md:flex-row justify-between items-center border-b-[1px] py-4 mb-4">
-							<div className="relative flex md:hidden w-full justify-center items-center font-semibold text-lg md:text-xl mb-3">
+							<div className="relative flex md:hidden w-full justify-center items-center font-semibold text-lg md:text-xl mb-4">
+								<svg
+									xmlns="http://www.w3.org/2000/svg"
+									fill="none"
+									viewBox="0 0 24 24"
+									strokeWidth={1.5}
+									stroke="currentColor"
+									className="w-8 h-8 stroke-green-600 absolute left-0 md:hidden"
+								>
+									<path
+										strokeLinecap="round"
+										strokeLinejoin="round"
+										d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+									/>
+								</svg>
 								<div className="w-full flex items-center justify-center">
 									Sending to
 								</div>
@@ -204,7 +241,21 @@ export default function ConfirmOrder() {
 						</div>
 
 						<div className="flex flex-col md:flex-row justify-between items-center py-4">
-							<div className="relative flex md:hidden w-full justify-center items-center font-semibold text-lg md:text-xl mb-3">
+							<div className="relative flex md:hidden w-full justify-center items-center font-semibold text-lg md:text-xl mb-4">
+								<svg
+									xmlns="http://www.w3.org/2000/svg"
+									fill="none"
+									viewBox="0 0 24 24"
+									strokeWidth={1.5}
+									stroke="currentColor"
+									className="w-8 h-8 stroke-green-600 absolute left-0 md:hidden"
+								>
+									<path
+										strokeLinecap="round"
+										strokeLinejoin="round"
+										d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+									/>
+								</svg>
 								<div className="w-full flex items-center justify-center">
 									Paying with
 								</div>

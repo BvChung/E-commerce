@@ -33,13 +33,16 @@ export default function OrderInfo() {
 
 				<div className="flex flex-col gap-[2px] basis-60">
 					<p className="font-semibold mb-2">Payment Method</p>
-					<p>
-						{"*".repeat(orderInfo?.paymentInfo.cardNumber.length! - 4)}
-						{orderInfo?.paymentInfo.cardNumber.substring(
-							orderInfo?.paymentInfo.cardNumber.length - 4,
-							orderInfo?.paymentInfo.cardNumber.length
-						)}
-					</p>
+					<div>
+						{/* {"*".repeat(orderInfo?.paymentInfo.cardNumber.length! - 4)} */}
+						<span className="font-medium mr-2">Ends in</span>
+						<span className="font-medium">
+							{orderInfo?.paymentInfo.cardNumber.substring(
+								orderInfo?.paymentInfo.cardNumber.length - 4,
+								orderInfo?.paymentInfo.cardNumber.length
+							)}
+						</span>
+					</div>
 				</div>
 
 				<div className="flex flex-col gap-[2px] justify-end basis-60">
