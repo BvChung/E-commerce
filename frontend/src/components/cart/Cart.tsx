@@ -17,19 +17,34 @@ export default function Cart() {
 	} = useGetCartItems(myCart);
 
 	return (
-		<div className="flex flex-col items-center justify-center mb-6">
+		<div className="flex flex-col items-center justify-center mb-6 px-2">
 			<div className="flex items-center gap-2 w-full mt-8 mb-6 lg:max-w-5xl xl:max-w-7xl">
-				<span className="font-semibold text-2xl">Cart</span>
-				<span className="font-base text-lg">
+				<span className="font-semibold text-xl sm:text-2xl">Cart</span>
+				<span className="font-base text-base md:text-lg">
 					({cartItemsInfo.numItems} items)
 				</span>
 			</div>
-			<div className="flex justify-center h-max w-full gap-4 lg:max-w-5xl xl:max-w-7xl">
-				<div className="border-[1px] p-4 h-max rounded-lg shadow-md transition-all fade w-2/3">
+
+			<div className="flex flex-col-reverse md:flex-row justify-center h-max w-full gap-4 lg:max-w-5xl xl:max-w-7xl">
+				<div className="border-[1px] p-4 h-max rounded-lg shadow-sm transition-all fade w-full md:w-2/3">
 					{displayCartItems?.length === 0 && (
 						<div className="flex flex-col items-center justify-center gap-6 h-[262px]">
-							<div className="text-2xl font-semibold">Your cart is empty</div>
-							<Link to={"/products"} className="btn btn-primary rounded-full">
+							<div className="flex items-center gap-2 text-2xl font-semibold">
+								<svg
+									xmlns="http://www.w3.org/2000/svg"
+									viewBox="0 0 24 24"
+									fill="currentColor"
+									className="w-7 h-7"
+								>
+									<path d="M2.25 2.25a.75.75 0 000 1.5h1.386c.17 0 .318.114.362.278l2.558 9.592a3.752 3.752 0 00-2.806 3.63c0 .414.336.75.75.75h15.75a.75.75 0 000-1.5H5.378A2.25 2.25 0 017.5 15h11.218a.75.75 0 00.674-.421 60.358 60.358 0 002.96-7.228.75.75 0 00-.525-.965A60.864 60.864 0 005.68 4.509l-.232-.867A1.875 1.875 0 003.636 2.25H2.25zM3.75 20.25a1.5 1.5 0 113 0 1.5 1.5 0 01-3 0zM16.5 20.25a1.5 1.5 0 113 0 1.5 1.5 0 01-3 0z" />
+								</svg>
+
+								<span>Your cart is empty</span>
+							</div>
+							<Link
+								to={"/products"}
+								className="btn btn-primary w-64 rounded-full"
+							>
 								Browse our products
 							</Link>
 						</div>
@@ -72,7 +87,7 @@ export default function Cart() {
 					)}
 				</div>
 
-				<div className="sticky top-6 rounded-lg shadow-sm h-fit w-1/3 border-[1px] py-6 px-4 flex flex-col items-center">
+				<div className="flex flex-col items-center md:sticky top-6 rounded-lg shadow-md h-fit w-full md:w-1/3 border-[1px] py-6 px-4 mb-4 md:mb-0">
 					<div className="w-full border-b-[1px] mb-6">
 						<Link
 							className={`btn ${
@@ -136,7 +151,7 @@ export default function Cart() {
 					</div>
 
 					<div className="w-full flex items-center justify-between border-b-[1px] pb-6 mb-6">
-						<div className="font-semibold ">Taxes</div>
+						<div className="font-semibold ">Tax</div>
 						<div className="text-gray-700">Calculated at checkout</div>
 					</div>
 
