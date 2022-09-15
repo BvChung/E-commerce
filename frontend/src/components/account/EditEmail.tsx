@@ -56,8 +56,8 @@ export default function EditEmail() {
 	];
 
 	return (
-		<div className="flex flex-col items-center justify-center">
-			<div className="flex items-center justify-center mt-10 mb-6 ">
+		<div className="flex flex-col items-center justify-center mx-2">
+			<div className="flex w-full items-center justify-center px-1 mt-8 mb-6">
 				<div
 					onClick={(e) => {
 						e.preventDefault();
@@ -67,7 +67,7 @@ export default function EditEmail() {
 						});
 						navigate("/account/info");
 					}}
-					className="flex items-center w-[30rem]"
+					className="flex items-center w-full md:w-[30rem]"
 				>
 					<div className="mr-4 cursor-pointer">
 						<svg
@@ -76,7 +76,7 @@ export default function EditEmail() {
 							viewBox="0 0 24 24"
 							strokeWidth={1.5}
 							stroke="currentColor"
-							className="w-6 h-6"
+							className="w-5 h-5 md:w-6 md:h-6"
 						>
 							<path
 								strokeLinecap="round"
@@ -86,16 +86,16 @@ export default function EditEmail() {
 						</svg>
 					</div>
 
-					<p className="font-medium text-xl">Update Email</p>
+					<p className="font-medium text-lg md:text-xl">Update Email</p>
 				</div>
 			</div>
 
 			<form
 				onSubmit={handleSubmit}
-				className="flex flex-col items-center w-[30rem] border-[1px] rounded-lg shadow-sm"
+				className="flex flex-col items-center w-full md:w-[30rem] border-[1px] rounded-lg shadow-sm"
 			>
-				<div className="my-7">
-					<div className="flex flex-col items-center mb-10">
+				<div className="p-7 w-full">
+					<div className="flex flex-col items-center w-full mb-10">
 						{emailInput.map((input) => {
 							return (
 								<FormInput

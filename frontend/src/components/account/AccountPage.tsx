@@ -6,9 +6,9 @@ export default function AccountPage() {
 	const { user } = useAuthContext();
 
 	return (
-		<div className="flex flex-col items-center mt-8">
+		<div className="flex flex-col items-center mt-8 mx-2">
 			<div className="max-w-4xl items-center w-full mb-6">
-				<h1 className="font-medium text-xl text-center">
+				<h1 className="font-medium text-lg md:text-xl text-center">
 					{user.firstName}'s Personal Information
 				</h1>
 			</div>

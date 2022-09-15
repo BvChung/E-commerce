@@ -97,8 +97,8 @@ export default function EditPassword() {
 	];
 
 	return (
-		<div className="flex flex-col items-center justify-center">
-			<div className="flex items-center justify-center mt-10 mb-6 ">
+		<div className="flex flex-col items-center justify-center mx-2">
+			<div className="flex w-full items-center justify-center px-1 mt-8 mb-6">
 				<div
 					onClick={(e) => {
 						e.preventDefault();
@@ -110,7 +110,7 @@ export default function EditPassword() {
 						});
 						navigate("/account/info");
 					}}
-					className="flex items-center w-[30rem]"
+					className="flex items-center w-full md:w-[30rem]"
 				>
 					<div className="mr-4 cursor-pointer">
 						<svg
@@ -119,7 +119,7 @@ export default function EditPassword() {
 							viewBox="0 0 24 24"
 							strokeWidth={1.5}
 							stroke="currentColor"
-							className="w-6 h-6"
+							className="w-5 h-5 md:w-6 md:h-6"
 						>
 							<path
 								strokeLinecap="round"
@@ -129,16 +129,16 @@ export default function EditPassword() {
 						</svg>
 					</div>
 
-					<p className="font-medium text-xl">Update Password</p>
+					<p className="font-medium text-lg md:text-xl">Update Password</p>
 				</div>
 			</div>
 
 			<form
 				onSubmit={handleSubmit}
-				className="flex flex-col items-center w-[30rem] border-[1px] rounded-lg shadow-sm"
+				className="flex flex-col items-center w-full md:w-[30rem] border-[1px] rounded-lg shadow-sm"
 			>
-				<div className="my-7">
-					<div className="flex flex-col items-center mb-1">
+				<div className="p-7 w-full">
+					<div className="flex flex-col items-center mb-1 w-full">
 						{passwordInput.map((input) => {
 							return (
 								<FormInput
