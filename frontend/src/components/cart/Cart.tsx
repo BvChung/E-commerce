@@ -87,23 +87,23 @@ export default function Cart() {
 					)}
 				</div>
 
-				<div className="flex flex-col items-center md:sticky top-6 rounded-lg shadow-md h-fit w-full md:w-1/3 border-[1px] py-6 px-4 mb-4 md:mb-0">
-					<div className="w-full border-b-[1px] mb-6">
+				<div className="flex flex-col items-center md:sticky top-6 rounded-lg shadow-md h-fit w-full md:w-1/3 border-[1px] py-4 md:py-6 px-4 mb-4 md:mb-0">
+					<div className="w-full border-b-[1px] mb-4 md:mb-6">
 						<Link
 							className={`btn ${
 								cartItemsInfo.numItems === 0 ? "btn-disabled" : "btn-primary"
-							}  rounded-full mb-6 w-full `}
+							}  rounded-full mb-4 md:mb-6 w-full `}
 							to={"/checkout/shipping"}
 						>
 							Continue to checkout
 						</Link>
 					</div>
 
-					<div className="w-full border-b-[1px] mb-6">
+					<div className="w-full border-b-[1px] mb-4 md:mb-6">
 						<button
 							className={`btn ${
 								cartItemsInfo.numItems === 0 ? "btn-disabled" : "btn-primary"
-							}  rounded-full btn-info mb-6 w-full `}
+							}  rounded-full btn-info mb-4 md:mb-6 w-full `}
 							onClick={() => {
 								setMyOrder({
 									shippingInfo: {
@@ -150,7 +150,7 @@ export default function Cart() {
 						<div className="text-gray-700">${cartItemsInfo.subTotal}</div>
 					</div>
 
-					<div className="w-full flex items-center justify-between border-b-[1px] pb-6 mb-6">
+					<div className="w-full flex items-center justify-between border-b-[1px] pb-4 mb-4 md:pb-6 md:mb-6">
 						<div className="font-semibold ">Tax</div>
 						<div className="text-gray-700">Calculated at checkout</div>
 					</div>

@@ -11,9 +11,9 @@ export default function OrderInfo() {
 	const { data: orderInfo, isSuccess } = useGetOrderInfo(params.id);
 
 	return (
-		<div className="flex flex-col gap-[2px] items-center justify-center mb-10">
+		<div className="flex flex-col gap-[2px] items-center justify-center mb-10 px-2">
 			<div className="flex items-center gap-2 w-full mt-8 mb-6 lg:max-w-4xl xl:max-w-5xl">
-				<span className="font-semibold text-2xl">Order Details</span>
+				<span className="font-semibold text-xl sm:text-2xl">Order Details</span>
 			</div>
 
 			<div className="flex flex-1 justify-between w-full gap-4 lg:max-w-4xl xl:max-w-5xl border-[1px] py-4 px-4 mb-8 rounded-lg shadow-md">

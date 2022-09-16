@@ -15,9 +15,9 @@ export default function OrderItem({
 
 	return (
 		<div className="flex flex-col items-center w-full h-fit border-b-[1px] last:border-b-0 ">
-			<div className="flex flex-1 justify-between w-full pt-4 px-4 pb-6 border-b-[1px] bg-gray-100 first:rounded-t-lg">
-				<div className="flex items-center w-full">
-					<div className="flex flex-col gap-[2px] basis-60">
+			<div className="flex flex-col md:flex-row flex-1 justify-between w-full pt-4 px-4 pb-4 md:pb-6 border-b-[1px] bg-gray-100 first:rounded-t-lg">
+				<div className="hidden items-center w-full mb-4 md:mb-0 md:flex">
+					<div className="flex flex-col items-center md:items-baseline justify-center gap-[2px] basis-60">
 						<p className="uppercase font-medium text-sm text-gray-600">
 							Order Placed
 						</p>
@@ -25,13 +25,13 @@ export default function OrderItem({
 							{datePurchased[1]} {datePurchased[2]}, {datePurchased[3]}
 						</p>
 					</div>
-					<div className="flex flex-col gap-[2px] basis-60 w-fit">
+					<div className="flex flex-col items-center md:items-baseline gap-[2px] basis-60 w-fit">
 						<p className="uppercase font-medium text-sm text-gray-600">Total</p>
 						<p className="text-sm text-gray-600">
 							${paymentInfo.subTotal.toFixed(2)}
 						</p>
 					</div>
-					<div className="flex flex-col gap-[2px] basis-60 w-fit">
+					<div className="flex flex-col items-center md:items-baseline gap-[2px] basis-60 w-fit">
 						<p className="uppercase font-medium text-sm text-gray-600">
 							Shipped to
 						</p>
@@ -40,8 +40,8 @@ export default function OrderItem({
 						</p>
 					</div>
 				</div>
-				<div className="flex flex-col gap-[2px] items-end justify-end w-full">
-					<p className="font-medium text-sm text-gray-600">Order# {_id}</p>
+				<div className="flex flex-col gap-[2px] items-start md:items-end justify-end w-full">
+					<p className="font-medium text-sm text-gray-600">Order#: {_id}</p>
 					<Link to={`${_id}`}>
 						<p className="font-medium text-sm text-gray-600 hover:text-gray-900 border-b-[2px] border-b-transparent hover:border-b-gray-900 hover:border-b-[2px]">
 							View order details
@@ -72,7 +72,7 @@ export default function OrderItem({
 										{item.name}
 									</Link>
 								</div>
-								<div className="flex items-center ">
+								<div className="flex items-center">
 									<button
 										onClick={() => {
 											addCartItem({
