@@ -47,9 +47,9 @@ export default function CartItem({
 						onClick={() => {
 							removeCartItem(_id);
 						}}
-						className="btn btn-accent rounded-lg btn-outline h-8 md:h-10"
+						className="btn btn-accent rounded-full px-5 btn-outline h-8 md:h-10"
 					>
-						<span className="text-xs md:text-sm">Remove Item</span>
+						<span className="text-xs md:text-sm">Remove</span>
 					</button>
 
 					<div className="relative form-control w-fit">

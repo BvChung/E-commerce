@@ -280,14 +280,16 @@ export default function Payment() {
 						})}
 					</div>
 
-					<div className="flex w-full gap-4 justify-end">
+					<div className="flex w-full my-2 gap-4 justify-end">
 						<Link
 							to="/checkout/shipping"
-							className="btn btn-outline btn-accent rounded-lg"
+							className="btn btn-outline btn-accent rounded-full px-7"
 						>
 							Return
 						</Link>
-						<button className="btn btn-primary rounded-lg">Continue</button>
+						<button className="btn px-10 rounded-full btn-primary">
+							Save & Continue
+						</button>
 					</div>
 				</div>
 
@@ -309,8 +311,8 @@ export default function Payment() {
 						<div className="text-gray-700">Free</div>
 					</div>
 
-					<div className="w-full flex items-center justify-between border-b-[1px] pb-6 mb-6">
-						<div className=" font-semibold ">Estimated tax</div>
+					<div className="w-full flex items-center justify-between border-b-2 border-gray-800 pb-6 mb-6">
+						<div className=" font-semibold ">Estimated taxes</div>
 						<div className="text-gray-700">
 							${(cartItemsInfo.subTotal * 0.0625).toFixed(2)}
 						</div>

@@ -148,7 +148,7 @@ export default function ConfirmOrder() {
 								</div>
 								<div className="flex flex-col">
 									<div className="flex gap-4">
-										<div className="flex flex-col w-48 md:w-[232px] gap-1 font-base md:font-medium text-sm md:text-base">
+										<div className="flex flex-col w-48 md:w-[232px] font-base md:font-medium text-sm md:text-base">
 											<p>Arriving tomorrow</p>
 										</div>
 									</div>
@@ -216,7 +216,7 @@ export default function ConfirmOrder() {
 								</div>
 								<div className="flex flex-col">
 									<div className="flex gap-4">
-										<div className="flex flex-col w-48 gap-1 font-base md:font-medium text-sm md:text-base">
+										<div className="flex flex-col w-48 gap-2 font-base md:font-medium text-sm md:text-base">
 											<p>
 												{myOrder.shippingInfo.firstName}{" "}
 												{myOrder.shippingInfo.lastName}
@@ -301,7 +301,7 @@ export default function ConfirmOrder() {
 								</div>
 								<div className="flex flex-col">
 									<div className="flex gap-4">
-										<div className="flex flex-col w-48 gap-1 font-base md:font-medium text-sm md:text-base">
+										<div className="flex flex-col w-48 gap-2 font-base md:font-medium text-sm md:text-base">
 											<p>
 												Ending in{" "}
 												{myOrder.paymentInfo.cardNumber.slice(
@@ -349,8 +349,8 @@ export default function ConfirmOrder() {
 							<div className="text-gray-700">Free</div>
 						</div>
 
-						<div className="w-full flex items-center justify-between border-b-[1px] pb-6 mb-6">
-							<div className="font-semibold ">Tax</div>
+						<div className="w-full flex items-center justify-between border-b-2 border-gray-800 pb-6 mb-6">
+							<div className="font-semibold ">Taxes</div>
 							<div className="text-gray-700">${taxAmount}</div>
 						</div>
 

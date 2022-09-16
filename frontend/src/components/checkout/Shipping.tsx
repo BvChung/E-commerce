@@ -147,7 +147,9 @@ export default function Shipping() {
 	return (
 		<div className="flex flex-col items-center justify-center mb-10 px-2">
 			<div className="flex flex-col gap-2 w-full mt-8 mb-4 lg:max-w-5xl xl:max-w-6xl">
-				<span className="font-semibold text-xl sm:text-2xl">Shipping</span>
+				<span className="font-semibold text-xl sm:text-2xl">
+					Shipping Address
+				</span>
 				<div className="text-sm breadcrumbs hidden sm:inline-flex">
 					<ul>
 						<li>
@@ -312,8 +314,10 @@ export default function Shipping() {
 						})}
 					</div>
 
-					<div className="flex justify-end w-full">
-						<button className="btn rounded-lg btn-primary">Continue</button>
+					<div className="flex my-2 justify-end w-full">
+						<button className="btn px-10 rounded-full btn-primary">
+							Save & Continue
+						</button>
 					</div>
 				</div>
 
@@ -335,8 +339,8 @@ export default function Shipping() {
 						<div className="text-gray-700">Free</div>
 					</div>
 
-					<div className="w-full flex items-center justify-between border-b-[1px] pb-6 mb-6">
-						<div className=" font-semibold ">Estimated tax</div>
+					<div className="w-full flex items-center justify-between border-b-2 border-gray-800 pb-6 mb-6">
+						<div className=" font-semibold ">Estimated taxes</div>
 						<div className="text-gray-700">
 							${(cartItemsInfo.subTotal * 0.0625).toFixed(2)}
 						</div>

@@ -150,8 +150,8 @@ export default function Cart() {
 						<div className="text-gray-700">${cartItemsInfo.subTotal}</div>
 					</div>
 
-					<div className="w-full flex items-center justify-between border-b-[1px] pb-4 mb-4 md:pb-6 md:mb-6">
-						<div className="font-semibold ">Tax</div>
+					<div className="w-full flex items-center justify-between border-b-2 border-gray-800 pb-4 mb-4 md:pb-6 md:mb-6">
+						<div className="font-semibold ">Taxes</div>
 						<div className="text-gray-700">Calculated at checkout</div>
 					</div>
 
