@@ -1,86 +1,254 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useGetProducts } from "../../hooks/products/useGetProducts";
 import { ProductInfo } from "../../interfaces/productInterface";
 import ProductDisplayItem from "./ProductDisplayItem";
 
 interface Filter {
-	sofa: string;
-	table: string;
-	chair: string;
-	desk: string;
-	drawer: string;
-	shelf: string;
-	[key: string]: any;
-}
-interface test {
 	category: string;
+}
 
-	[key: string]: any;
+interface FilterArr {
+	type: string;
+	name: string;
 }
 
 export default function ProductPage() {
 	const { isLoading, isError, isSuccess, data: products } = useGetProducts();
-	const [filterProducts, setFilterProducts] = useState<Filter>({
-		sofa: "Sofa",
-		table: "Table",
-		chair: "",
-		desk: "",
-		drawer: "",
-		shelf: "",
-	});
 
-	const test = {
-		sofa: "Sofa",
-		table: "Table",
-	};
-	const t = ["Sofa", "Table"];
-	for (const key in test) {
-		console.log(key);
+	const [filterProducts, setFilterProducts] = useState<FilterArr[]>([]);
+
+	function handleChange(
+		e: React.ChangeEvent<HTMLInputElement>,
+		category: string
+	) {
+		if (e.target.checked) {
+			setFilterProducts((prev) => {
+				return [...prev, { type: "category", name: category }];
+			});
+		} else {
+			setFilterProducts((prev) => {
+				return prev.filter((el) => el.name !== category);
+			});
+		}
 	}
-	//console.log(test["sofa"]);
-	//Object.entries(test).map(([key, value]) => console.log(key, value));
 
+	// const ex = products?.filter((product) =>
+	// 	filterProducts.some((filterEl) => product[filterEl.type] === filterEl.name)
+	// );
+	// console.log(ex);
 	return (
-		<div className="flex">
-			<div className="flex flex-col shadow-md rounded-lg h-fit w-80 border-[1px] p-4">
-				<div className="flex gap-2">
-					<div className="w-24">Sofa</div>
-					<input type="checkbox" className="checkbox checkbox-md" />
+		<div className="flex flex-col justify-center items-center lg:items-start lg:flex-row lg:justify-center my-8 md:my-10 ">
+			<div className="lg:hidden collapse collapse-arrow border border-base-300 bg-base-100 h-fit w-48 rounded-lg max-h-96">
+				<input type="checkbox" className="peer" />
+				<div className="collapse-title bg- bg-primary text-primary-content peer-checked:font-medium peer-checked:bg-secondary peer-checked:text-secondary-content">
+					Category
 				</div>
-				<div className="flex gap-2">
-					<p>Table</p>
-					<input type="checkbox" className="checkbox checkbox-md" />
+				<div className="h-fit collapse-content bg-opacity-50 bg-primary text-primary-content peer-checked:bg-secondary">
+					<div className="flex flex-col gap-2 h-fit">
+						<div className="flex gap-3">
+							<input
+								onChange={(e) => {
+									handleChange(e, "Sofa");
+								}}
+								type="checkbox"
+								className="checkbox checkbox-md"
+							/>
+							<div className="">Sofa</div>
+						</div>
+						<div className="flex gap-3">
+							<input
+								onChange={(e) => {
+									handleChange(e, "Table");
+								}}
+								type="checkbox"
+								className="checkbox checkbox-md"
+							/>
+							<p>Table</p>
+						</div>
+						<div className="flex gap-3">
+							<input
+								onChange={(e) => {
+									handleChange(e, "Chair");
+								}}
+								type="checkbox"
+								className="checkbox checkbox-md"
+							/>
+							<p>Chair</p>
+						</div>
+						<div className="flex gap-3">
+							<input
+								onChange={(e) => {
+									handleChange(e, "Desk");
+								}}
+								type="checkbox"
+								className="checkbox checkbox-md"
+							/>
+							<p>Desk</p>
+						</div>
+						<div className="flex gap-3">
+							<input
+								onChange={(e) => {
+									handleChange(e, "Drawer");
+								}}
+								type="checkbox"
+								className="checkbox checkbox-md"
+							/>
+							<p>Drawer</p>
+						</div>
+						<div className="flex gap-3">
+							<input
+								onChange={(e) => {
+									handleChange(e, "Shelf");
+								}}
+								type="checkbox"
+								className="checkbox checkbox-md"
+							/>
+							<p>Shelf</p>
+						</div>
+					</div>
 				</div>
-				<div className="flex gap-2">
-					<p>Chair</p>
-					<input type="checkbox" className="checkbox checkbox-md" />
+			</div>
+			<div className="mr-8 hidden lg:block">
+				<p className="text-sm mb-1">Filters</p>
+				<div className="collapse collapse-arrow shadow-sm border border-base-300 bg-base-100 h-fit w-52 rounded-lg max-h-96 mb-6">
+					<input type="checkbox" className="peer" />
+					<div className="collapse-title peer-checked:font-medium peer-checked:text-secondary-content">
+						Category
+					</div>
+					<div className="h-fit collapse-content">
+						<div className="flex flex-col gap-2 h-fit text-sm">
+							<div className="flex items-center gap-3">
+								<input
+									onChange={(e) => {
+										handleChange(e, "Sofa");
+									}}
+									type="checkbox"
+									className="checkbox checkbox-md checkbox-secondary"
+								/>
+								<div className="">Sofa</div>
+							</div>
+							<div className="flex items-center gap-3">
+								<input
+									onChange={(e) => {
+										handleChange(e, "Table");
+									}}
+									type="checkbox"
+									className="checkbox checkbox-md checkbox-secondary"
+								/>
+								<p>Table</p>
+							</div>
+							<div className="flex items-center gap-3">
+								<input
+									onChange={(e) => {
+										handleChange(e, "Chair");
+									}}
+									type="checkbox"
+									className="checkbox checkbox-md checkbox-secondary"
+								/>
+								<p>Chair</p>
+							</div>
+							<div className="flex items-center gap-3">
+								<input
+									onChange={(e) => {
+										handleChange(e, "Desk");
+									}}
+									type="checkbox"
+									className="checkbox checkbox-md checkbox-secondary"
+								/>
+								<p>Desk</p>
+							</div>
+							<div className="flex items-center gap-3">
+								<input
+									onChange={(e) => {
+										handleChange(e, "Drawer");
+									}}
+									type="checkbox"
+									className="checkbox checkbox-md checkbox-secondary"
+								/>
+								<p>Drawer</p>
+							</div>
+							<div className="flex items-center gap-3">
+								<input
+									onChange={(e) => {
+										handleChange(e, "Shelf");
+									}}
+									type="checkbox"
+									className="checkbox checkbox-md checkbox-secondary"
+								/>
+								<p>Shelf</p>
+							</div>
+						</div>
+					</div>
 				</div>
-				<div className="flex gap-2">
-					<p>Desk</p>
-					<input type="checkbox" className="checkbox checkbox-md" />
-				</div>
-				<div className="flex gap-2">
-					<p>Drawer</p>
-					<input type="checkbox" className="checkbox checkbox-md" />
-				</div>
-				<div className="flex gap-2">
-					<p>Shelf</p>
-					<input type="checkbox" className="checkbox checkbox-md" />
+
+				<div className="collapse collapse-arrow border border-base-300 bg-base-100 h-fit w-52 rounded-lg max-h-96">
+					<input type="checkbox" className="peer" />
+					<div className="collapse-title peer-checked:font-medium peer-checked:text-secondary-content">
+						Price Range
+					</div>
+					<div className="h-fit collapse-content">
+						<div className="flex flex-col gap-2 h-fit text-sm">
+							<div className="flex items-center gap-3">
+								<input
+									type="radio"
+									name="radio-3"
+									className="radio radio-secondary"
+								/>
+								<p>Under $100</p>
+							</div>
+							<div className="flex items-center gap-3">
+								<input
+									type="radio"
+									name="radio-3"
+									className="radio radio-secondary"
+								/>
+								<input
+									onChange={(e) => {
+										handleChange(e, "Table");
+									}}
+									type="checkbox"
+									className="checkbox checkbox-md checkbox-secondary"
+								/>
+								<p>$100 to $500</p>
+							</div>
+							<div className="flex items-center gap-3">
+								<input
+									onChange={(e) => {
+										handleChange(e, "Chair");
+									}}
+									type="checkbox"
+									className="checkbox checkbox-md checkbox-secondary"
+								/>
+								<p>$500 to $1000</p>
+							</div>
+							<div className="flex items-center gap-3">
+								<input
+									onChange={(e) => {
+										handleChange(e, "Desk");
+									}}
+									type="checkbox"
+									className="checkbox checkbox-md checkbox-secondary"
+								/>
+								<p>$1000 and above</p>
+							</div>
+						</div>
+					</div>
 				</div>
 			</div>
 
-			{isLoading && <div className="text-9xl">Loading</div>}
-			<div className="grid items-center justify-center gap-8 grid-cols-1 lg:grid-cols-2 xl:grid-cols-3">
+			<div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-10 items-center justify-center">
 				{isSuccess &&
 					products
 						.filter((product) => {
-							// for (const [key, value] of Object.entries(test)) {
-							// 	if (value === product.category) {
-							// 		return product.category === value;
-							// 	}
-							// }
-							return product;
+							if (filterProducts.length > 0) {
+								return filterProducts.some(
+									(filterEl) => product[filterEl.type] === filterEl.name
+								);
+							} else {
+								return product;
+							}
 						})
+						.filter((product) => product)
 						.map((product: ProductInfo) => {
 							return (
 								<ProductDisplayItem

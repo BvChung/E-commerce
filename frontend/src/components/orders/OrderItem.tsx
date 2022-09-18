@@ -85,12 +85,12 @@ export default function OrderItem({
 												`${item.name} has been added to your cart.`
 											);
 										}}
-										className={`btn ${
+										className={`btn rounded-full ${
 											!findCartItem(item._id)?.quantity ||
 											findCartItem(item._id)?.quantity! < 9
 												? "btn-outline"
 												: "btn-disabled"
-										} rounded-lg btn-secondary flex items-center h-8 gap-2`}
+										} btn-secondary flex items-center h-8 gap-2`}
 									>
 										{(!findCartItem(item._id)?.quantity ||
 											findCartItem(item._id)?.quantity! < 9) && (

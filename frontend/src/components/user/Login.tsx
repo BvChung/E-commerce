@@ -78,10 +78,15 @@ export default function Login() {
 	];
 
 	return (
-		<div className="flex flex-col items-center justify-center">
-			<p>Login</p>
-			<form onSubmit={handleSubmit}>
-				<div>
+		<div className="flex flex-col items-center justify-center mx-2">
+			<div className="flex w-full items-center justify-center px-1 mt-8 mb-6">
+				<p className="font-medium text-lg md:text-xl">Login</p>
+			</div>
+			<form
+				className="flex flex-col items-center w-full p-7 md:w-[30rem] border-[1px] rounded-lg shadow-sm"
+				onSubmit={handleSubmit}
+			>
+				<div className="flex flex-col items-center w-full mb-10">
 					{loginInput.map((input) => {
 						return (
 							<FormInput
