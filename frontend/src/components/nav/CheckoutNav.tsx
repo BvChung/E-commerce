@@ -10,35 +10,42 @@ export default function CheckoutNav() {
 
 	return (
 		<nav className="navbar flex justify-between h-14 px-4 border-b-[1px]">
-			<label
-				htmlFor="return-modal"
-				className="btn btn-ghost btn-circle modal-button"
-			>
-				<svg
-					xmlns="http://www.w3.org/2000/svg"
-					className="h-6 w-6"
-					fill="none"
-					viewBox="0 0 24 24"
-					stroke="currentColor"
-					strokeWidth={2}
+			<div className="tooltip tooltip-bottom z-50" data-tip="Return">
+				<label
+					htmlFor="return-modal"
+					className="btn btn-ghost btn-circle modal-button"
 				>
-					<path
-						strokeLinecap="round"
-						strokeLinejoin="round"
-						d="M15 19l-7-7 7-7"
-					/>
-				</svg>
-			</label>
+					<svg
+						xmlns="http://www.w3.org/2000/svg"
+						className="h-6 w-6"
+						fill="none"
+						viewBox="0 0 24 24"
+						stroke="currentColor"
+						strokeWidth={2}
+					>
+						<path
+							strokeLinecap="round"
+							strokeLinejoin="round"
+							d="M15 19l-7-7 7-7"
+						/>
+					</svg>
+				</label>
+			</div>
 
 			<input type="checkbox" id="return-modal" className="modal-toggle" />
-			<div className="modal">
-				<div className="modal-box relative">
+
+			<label
+				htmlFor="return-modal"
+				className="modal modal-bottom sm:modal-middle cursor-pointer"
+			>
+				<label className="modal-box relative" htmlFor="">
 					<label
-						htmlFor="return-modal"
 						className="btn btn-sm btn-circle absolute right-2 top-2"
+						htmlFor="return-modal"
 					>
 						✕
 					</label>
+
 					<h3 className="text-lg font-bold">Confirm cancellation</h3>
 					<p className="py-4">
 						You will have to start over again if you leave the checkout page.
@@ -46,13 +53,7 @@ export default function CheckoutNav() {
 					<div className="modal-action justify-end gap-4">
 						<label
 							htmlFor="return-modal"
-							className="btn btn-primary rounded-lg normal-case"
-						>
-							Continue checking out
-						</label>
-						<label
-							htmlFor="return-modal"
-							className="btn btn-accent rounded-lg btn-outline normal-case"
+							className="btn btn-accent px-6 rounded-full btn-outline normal-case"
 							onClick={() => {
 								navigate("/cart");
 								clearMyOrder();
@@ -60,9 +61,21 @@ export default function CheckoutNav() {
 						>
 							Cancel order
 						</label>
+						<label
+							htmlFor="return-modal"
+							className="btn btn-primary hidden md:inline-flex sm:px-0 md:px-8 rounded-full normal-case"
+						>
+							Continue checking out
+						</label>
+						<label
+							htmlFor="return-modal"
+							className="btn btn-primary md:hidden px-8 rounded-full normal-case"
+						>
+							Continue
+						</label>
 					</div>
-				</div>
-			</div>
+				</label>
+			</label>
 
 			<button className=" btn btn-ghost btn-circle flex items-center justify-center">
 				<label htmlFor="cart" className="swap swap-rotate">

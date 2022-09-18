@@ -1,6 +1,5 @@
 import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { SearchIcon } from "@heroicons/react/solid";
+import { Link } from "react-router-dom";
 import { useAuthContext } from "../../hooks/context/useAuthContext";
 import { useThemeContext } from "../../hooks/context/useThemeContext";
 import { useCartContext } from "../../hooks/context/useCartContext";
@@ -15,7 +14,6 @@ const Nav = () => {
 	const { setTheme } = useThemeContext();
 	const { mutate } = useLogoutUser();
 	const [searchText, setSearchText] = useState<string>("");
-	const [openSearch, setOpenSearch] = useState<boolean>(false);
 	const {
 		refetch,
 		data: searchedProducts,
@@ -55,8 +53,6 @@ const Nav = () => {
 					</Link>
 				</div>
 			</div>
-
-			{/* <div className="navbar-center"></div> */}
 
 			<div className="navbar-end gap-1">
 				<button className=" btn btn-ghost btn-circle flex items-center justify-center">
@@ -102,7 +98,7 @@ const Nav = () => {
 					</label>
 				</button>
 
-				<div
+				{/* <div
 					onClick={() => {
 						refetch();
 						setOpenSearch(true);
@@ -126,19 +122,87 @@ const Nav = () => {
 							/>
 						</svg>
 					</label>
-				</div>
+				</div> */}
 
-				<div className={`modal ${openSearch && "modal-open"} `}>
-					<div className="modal-box relative">
-						<button
+				{/* <label htmlFor="my-modal-4" className="btn modal-button">
+					open modal
+				</label>
+				<input type="checkbox" id="my-modal-4" className="modal-toggle" />
+				<label
+					htmlFor="my-modal-4"
+					className="modal modal-middle cursor-pointer"
+				>
+					<label className="modal-box relative" htmlFor="">
+						<label
 							onClick={() => {
-								setSearchText("");
-								setOpenSearch(false);
+								console.log("Clicked");
 							}}
 							className="btn btn-sm btn-circle absolute right-2 top-2"
+							htmlFor="my-modal-4"
 						>
 							✕
-						</button>
+						</label>
+
+						<h3 className="text-lg font-bold">
+							Congratulations random Internet user!
+						</h3>
+						<p className="py-4">
+							You've been selected for a chance to get one year of subscription
+							to use Wikipedia for free!
+						</p>
+					</label>
+				</label> */}
+
+				<div
+					onClick={() => {
+						refetch();
+					}}
+					className="tooltip tooltip-bottom z-50"
+					data-tip="Search Products"
+				>
+					<label
+						htmlFor="product-search"
+						className="btn modal-button btn-ghost btn-circle"
+					>
+						<svg
+							xmlns="http://www.w3.org/2000/svg"
+							className="h-6 w-6"
+							fill="none"
+							viewBox="0 0 24 24"
+							stroke="currentColor"
+						>
+							<path
+								strokeLinecap="round"
+								strokeLinejoin="round"
+								strokeWidth="2"
+								d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+							/>
+						</svg>
+					</label>
+				</div>
+
+				<input
+					type="checkbox"
+					id="product-search"
+					className="modal-toggle"
+					onChange={(e) => {
+						if (!e.target.checked) {
+							setSearchText("");
+						}
+					}}
+				/>
+
+				<label
+					htmlFor="product-search"
+					className="modal modal-bottom md:modal-middle cursor-pointer"
+				>
+					<label className="modal-box relative" htmlFor="">
+						<label
+							className="btn btn-sm btn-circle absolute right-2 top-2"
+							htmlFor="product-search"
+						>
+							✕
+						</label>
 
 						<h3 className="text-lg font-bold mb-4">Search for products</h3>
 						<div className="flex flex-col justify-center w-full">
@@ -212,14 +276,13 @@ const Nav = () => {
 													name={product.name}
 													price={product.price}
 													setSearchText={setSearchText}
-													setOpenSearch={setOpenSearch}
 												/>
 											);
 										})}
 							</div>
 						</div>
-					</div>
-				</div>
+					</label>
+				</label>
 
 				<div className="tooltip tooltip-bottom z-50" data-tip="Shop">
 					<Link to="/products">
