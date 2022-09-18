@@ -6,9 +6,8 @@ import { useCartContext } from "../../hooks/context/useCartContext";
 export default function CartItem({
 	_id,
 	name,
-	category,
+
 	image,
-	price,
 }: CartItemInfo) {
 	const { updateCartQuantity, removeCartItem, findCartItem } = useCartContext();
 	const foundItem = findCartItem(_id);
@@ -60,7 +59,7 @@ export default function CartItem({
 							name="itemQuantity"
 							value={itemQuantity}
 							onChange={(e) => setItemQuantity(+e.target.value)}
-							className="select select-bordered text-xs md:text-sm min-h-0 h-8 md:h-10"
+							className="select rounded-lg select-bordered text-xs md:text-sm min-h-0 h-8 md:h-10"
 							required
 						>
 							{/* <option disabled value="">

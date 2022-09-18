@@ -4,6 +4,7 @@ import { useOrderContext } from "../../hooks/context/useOrderContext";
 import { useCartContext } from "../../hooks/context/useCartContext";
 import { FormInputProps } from "../../interfaces/formInterface";
 import FormInput from "../form/FormInput";
+import DetailsModal from "./DetailsModal";
 
 export default function Payment() {
 	const { myOrder, handlePayment, setMyOrder } = useOrderContext();
@@ -293,7 +294,7 @@ export default function Payment() {
 					</div>
 				</div>
 
-				<div className="rounded-lg shadow-md h-fit w-full md:w-1/3 lg:max-w-[350px] border-[1px] py-6 px-4 flex flex-col items-center mb-6 md:mb-0">
+				<div className="hidden md:flex flex-col items-center rounded-lg shadow-md h-fit w-full md:w-1/3 lg:max-w-[350px] border-[1px] py-6 px-4 mb-6 md:mb-0">
 					<div className="w-full flex items-center justify-between mb-6">
 						<div>
 							<span className="font-semibold mr-2 ">Subtotal</span>
@@ -329,6 +330,11 @@ export default function Payment() {
 						</div>
 					</div>
 				</div>
+
+				<DetailsModal
+					numItems={cartItemsInfo.numItems}
+					subTotal={cartItemsInfo.subTotal}
+				/>
 			</form>
 		</div>
 	);

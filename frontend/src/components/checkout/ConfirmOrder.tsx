@@ -137,7 +137,7 @@ export default function ConfirmOrder() {
 									/>
 								</svg>
 
-								<span className="font-semibold md:font-medium text-lg md:text-xl">
+								<span className="font-semibold text-lg md:text-2xl">
 									Shipping
 								</span>
 							</div>
@@ -198,7 +198,7 @@ export default function ConfirmOrder() {
 									/>
 								</svg>
 
-								<div className="font-semibold md:font-medium text-lg md:text-xl hidden md:inline-flex">
+								<div className="font-semibold text-lg md:text-2xl hidden md:inline-flex">
 									Sending to
 									<Link
 										to={"/checkout/shipping"}
@@ -282,7 +282,7 @@ export default function ConfirmOrder() {
 									/>
 								</svg>
 
-								<div className="font-semibold md:font-medium text-base md:text-xl">
+								<div className="font-semibold text-lg md:text-2xl">
 									Paying with
 									<Link
 										to={"/checkout/payment"}
