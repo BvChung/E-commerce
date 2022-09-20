@@ -7,33 +7,46 @@ interface Filter {
 	category: string;
 }
 
-interface FilterArr {
+interface FilterCategory {
 	type: string;
 	name: string;
+}
+interface FilterPrice {
+	under100: boolean;
+	btwn100_500: boolean;
+	btwn500_1000: boolean;
+	above1000: boolean;
 }
 
 export default function ProductPage() {
 	const { isLoading, isError, isSuccess, data: products } = useGetProducts();
 
-	const [filterProducts, setFilterProducts] = useState<FilterArr[]>([]);
+	const [filterCategory, setFilterCategory] = useState<FilterCategory[]>([]);
 
 	function handleChange(
 		e: React.ChangeEvent<HTMLInputElement>,
 		category: string
 	) {
 		if (e.target.checked) {
-			setFilterProducts((prev) => {
+			setFilterCategory((prev) => {
 				return [...prev, { type: "category", name: category }];
 			});
 		} else {
-			setFilterProducts((prev) => {
+			setFilterCategory((prev) => {
 				return prev.filter((el) => el.name !== category);
 			});
 		}
 	}
 
+	const [filterPrice, setFilterPrice] = useState<FilterPrice>({
+		under100: false,
+		btwn100_500: false,
+		btwn500_1000: false,
+		above1000: false,
+	});
+
 	// const ex = products?.filter((product) =>
-	// 	filterProducts.some((filterEl) => product[filterEl.type] === filterEl.name)
+	// 	filterCategory.some((filterEl) => product[filterEl.type] === filterEl.name)
 	// );
 	// console.log(ex);
 	return (
@@ -191,7 +204,17 @@ export default function ProductPage() {
 							<div className="flex items-center gap-3">
 								<input
 									type="radio"
-									name="radio-3"
+									name="filterPrice"
+									onChange={(e) => {
+										if (e.target.checked) {
+											setFilterPrice({
+												under100: true,
+												btwn100_500: false,
+												btwn500_1000: false,
+												above1000: false,
+											});
+										}
+									}}
 									className="radio radio-secondary"
 								/>
 								<p>Under $100</p>
@@ -199,35 +222,55 @@ export default function ProductPage() {
 							<div className="flex items-center gap-3">
 								<input
 									type="radio"
-									name="radio-3"
+									name="filterPrice"
+									onChange={(e) => {
+										if (e.target.checked) {
+											setFilterPrice({
+												under100: false,
+												btwn100_500: true,
+												btwn500_1000: false,
+												above1000: false,
+											});
+										}
+									}}
 									className="radio radio-secondary"
 								/>
-								<input
-									onChange={(e) => {
-										handleChange(e, "Table");
-									}}
-									type="checkbox"
-									className="checkbox checkbox-md checkbox-secondary"
-								/>
+
 								<p>$100 to $500</p>
 							</div>
 							<div className="flex items-center gap-3">
 								<input
+									type="radio"
+									name="filterPrice"
 									onChange={(e) => {
-										handleChange(e, "Chair");
+										if (e.target.checked) {
+											setFilterPrice({
+												under100: false,
+												btwn100_500: false,
+												btwn500_1000: true,
+												above1000: false,
+											});
+										}
 									}}
-									type="checkbox"
-									className="checkbox checkbox-md checkbox-secondary"
+									className="radio radio-secondary"
 								/>
 								<p>$500 to $1000</p>
 							</div>
 							<div className="flex items-center gap-3">
 								<input
+									type="radio"
+									name="filterPrice"
 									onChange={(e) => {
-										handleChange(e, "Desk");
+										if (e.target.checked) {
+											setFilterPrice({
+												under100: false,
+												btwn100_500: false,
+												btwn500_1000: false,
+												above1000: true,
+											});
+										}
 									}}
-									type="checkbox"
-									className="checkbox checkbox-md checkbox-secondary"
+									className="radio radio-secondary"
 								/>
 								<p>$1000 and above</p>
 							</div>
@@ -240,16 +283,28 @@ export default function ProductPage() {
 				{isSuccess &&
 					products
 						.filter((product) => {
-							if (filterProducts.length > 0) {
-								return filterProducts.some(
+							if (filterCategory.length > 0) {
+								return filterCategory.some(
 									(filterEl) => product[filterEl.type] === filterEl.name
 								);
 							} else {
 								return product;
 							}
 						})
-						.filter((product) => product)
-						.map((product: ProductInfo) => {
+						.filter((product) => {
+							if (filterPrice.under100) {
+								return product.price < 100;
+							} else if (filterPrice.btwn100_500) {
+								return product.price >= 100 && product.price < 500;
+							} else if (filterPrice.btwn500_1000) {
+								return product.price >= 500 && product.price < 1000;
+							} else if (filterPrice.above1000) {
+								return product.price >= 1000;
+							} else {
+								return product;
+							}
+						})
+						.map((product: ProductInfo, i, arr) => {
 							return (
 								<ProductDisplayItem
 									key={product._id}

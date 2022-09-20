@@ -1,28 +1,17 @@
-import React, { useState } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 import { useAuthContext } from "../../hooks/context/useAuthContext";
 import { useThemeContext } from "../../hooks/context/useThemeContext";
 import { useCartContext } from "../../hooks/context/useCartContext";
-import { useSearchProducts } from "../../hooks/products/useSearchProducts";
-import SearchedProducts from "./SearchedProducts";
+import SearchModal from "./SearchModal";
+import LoginModal from "./LoginModal";
 import { useLogoutUser } from "../../hooks/user/useLogout";
 
-const Nav = () => {
-	// const navigate = useNavigate();
+export default function Nav() {
 	const { user } = useAuthContext();
-	const { myCart, cartItemsInfo } = useCartContext();
+	const { cartItemsInfo } = useCartContext();
 	const { setTheme } = useThemeContext();
 	const { mutate } = useLogoutUser();
-	const [searchText, setSearchText] = useState<string>("");
-	const {
-		refetch,
-		data: searchedProducts,
-		isSuccess,
-		remove,
-	} = useSearchProducts();
-	//const [inputActive, setInputActive] = useState<boolean>(false);
-
-	//const inputActiveStyle: string = inputActive ? "bg-white" : "bg-gray-100";
 
 	return (
 		<nav className="navbar h-14 px-4 border-b-[1px]">
@@ -153,136 +142,7 @@ const Nav = () => {
 					</label>
 				</label> */}
 
-				<div
-					onClick={() => {
-						refetch();
-					}}
-					className="tooltip tooltip-bottom z-50"
-					data-tip="Search Products"
-				>
-					<label
-						htmlFor="product-search"
-						className="btn modal-button btn-ghost btn-circle"
-					>
-						<svg
-							xmlns="http://www.w3.org/2000/svg"
-							className="h-6 w-6"
-							fill="none"
-							viewBox="0 0 24 24"
-							stroke="currentColor"
-						>
-							<path
-								strokeLinecap="round"
-								strokeLinejoin="round"
-								strokeWidth="2"
-								d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-							/>
-						</svg>
-					</label>
-				</div>
-
-				<input
-					type="checkbox"
-					id="product-search"
-					className="modal-toggle"
-					onChange={(e) => {
-						if (!e.target.checked) {
-							setSearchText("");
-						}
-					}}
-				/>
-
-				<label
-					htmlFor="product-search"
-					className="modal modal-bottom md:modal-middle cursor-pointer"
-				>
-					<label className="modal-box relative" htmlFor="">
-						<label
-							className="btn btn-sm btn-circle absolute right-2 top-2"
-							htmlFor="product-search"
-						>
-							✕
-						</label>
-
-						<h3 className="text-lg font-bold mb-4">Search for products</h3>
-						<div className="flex flex-col justify-center w-full">
-							<div
-								className={`form-control w-full ${
-									searchText.length > 0 && "mb-6"
-								}`}
-							>
-								<label className="input-group">
-									<input
-										type="text"
-										placeholder="Search for product name"
-										value={searchText}
-										onChange={(e) => setSearchText(e.target.value)}
-										className="input input-bordered w-full"
-									/>
-									<span>
-										<svg
-											xmlns="http://www.w3.org/2000/svg"
-											fill="none"
-											viewBox="0 0 24 24"
-											strokeWidth={1.5}
-											stroke="currentColor"
-											className="w-5 h-5"
-										>
-											<path
-												strokeLinecap="round"
-												strokeLinejoin="round"
-												d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"
-											/>
-										</svg>
-									</span>
-								</label>
-							</div>
-							<div
-								className={`${
-									searchText.length < 0 && "border-[1px] rounded-lg"
-								}`}
-							>
-								{searchedProducts?.length === 0 && (
-									<div className="flex flex-col items-center justify-center gap-6 h-[262px]">
-										<div className="text-2xl font-semibold">
-											Your cart is empty
-										</div>
-										<Link
-											to={"/products"}
-											className="btn btn-primary rounded-full"
-										>
-											Browse our products
-										</Link>
-									</div>
-								)}
-								{isSuccess &&
-									searchedProducts
-										.filter((product) => {
-											return searchText.length > 0
-												? product.name
-														.toLowerCase()
-														.includes(searchText.toLowerCase())
-												: !product;
-										})
-										.map((product) => {
-											return (
-												<SearchedProducts
-													key={product._id}
-													_id={product._id}
-													category={product.category}
-													description={product.description}
-													image={product.image}
-													imageCloudId={product.imageCloudId}
-													name={product.name}
-													price={product.price}
-													setSearchText={setSearchText}
-												/>
-											);
-										})}
-							</div>
-						</div>
-					</label>
-				</label>
+				<SearchModal />
 
 				<div className="tooltip tooltip-bottom z-50" data-tip="Shop">
 					<Link to="/products">
@@ -306,6 +166,8 @@ const Nav = () => {
 						</button>
 					</Link>
 				</div>
+
+				<LoginModal />
 
 				<div className="tooltip tooltip-bottom z-50" data-tip="My Cart">
 					<Link to="/cart">
@@ -335,20 +197,41 @@ const Nav = () => {
 
 				<div className="dropdown dropdown-end">
 					<label tabIndex={0} className="btn btn-ghost btn-circle avatar">
-						<div className="w-10 rounded-full">
-							<img src="https://placeimg.com/80/80/people" alt="people" />
-						</div>
+						<svg
+							xmlns="http://www.w3.org/2000/svg"
+							fill="none"
+							viewBox="0 0 24 24"
+							strokeWidth={1.8}
+							stroke="currentColor"
+							className="w-6 h-6"
+						>
+							<path
+								strokeLinecap="round"
+								strokeLinejoin="round"
+								d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z"
+							/>
+						</svg>
 					</label>
 					<ul
 						tabIndex={0}
 						className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52"
 					>
 						{!user.accessToken && (
-							<li>
-								<Link to="/login">
-									<span>Login/Register</span>
-								</Link>
-							</li>
+							<>
+								<li>
+									{/* <Link to="/login">
+										<span>Sign in</span>
+									</Link> */}
+									<label htmlFor="signin-modal">
+										<span>Sign in</span>
+									</label>
+								</li>
+								<li>
+									<Link to="/register">
+										<span>Register</span>
+									</Link>
+								</li>
+							</>
 						)}
 						<li>
 							<Link to="/account/info">
@@ -400,67 +283,5 @@ const Nav = () => {
 				</div>
 			</div>
 		</nav>
-		// <nav className="navbar sticky justify-evenly h-14 px-4 border-b-[1px] ">
-
-		// 	<div className="flex-1">
-		// 		<div className="w-auto p-4">
-		// 			<Link to="/">
-		// 				<button className="btn btn-ghost normal-case font-bold text-lg ">
-		// 					ModernfyDesign
-		// 				</button>
-		// 			</Link>
-		// 		</div>
-		// 	</div>
-
-		// 	<div
-		// 		className={`flex flex-grow items-center justify-center border-[1px] border-transparent
-		// 						bg-gray-200 focus-within:border-gray-600 w-64 p-[4px] rounded-full shadow-sm max-w-3xl transition-all ${inputActiveStyle}`}
-		// 		onClick={() => {
-		// 			setInputActive(true);
-		// 		}}
-		// 		onBlur={() => {
-		// 			setInputActive(false);
-		// 		}}
-		// 	>
-		// 		<SearchIcon className="w-7 h-7 text-gray-500 bg-transparent rounded-full p-1" />
-		// 		<input
-		// 			name="searchText"
-		// 			value={searchText}
-		// 			type="text"
-		// 			placeholder="Search products"
-		// 			onChange={(e) => setSearchText(e.target.value)}
-		// 			className="text-gray1 dark:text-white outline-none bg-transparent w-full px-2 placeholder:text-gray-500 dark:placeholder:text-gray-400"
-		// 		></input>
-		// 	</div>
-		// 	<div className="p-4">
-		// 		<Link to="/products">
-		// 			<span className="font-semibold  dark:text-white text-lg">Shop</span>
-		// 		</Link>
-		// 	</div>
-
-		// <div className="p-4">
-		// 	{user ? (
-		// 		<button
-		// 			onClick={() => {
-		// 				setUser(null);
-		// 				storage.clearToken();
-		// 				navigate("/login");
-		// 			}}
-		// 			className="btn"
-		// 		>
-		// 			Logout
-		// 		</button>
-		// 	) : (
-		// 		<Link to="/login">
-		// 			<span className="font-semibold text-gray-700 text-lg">
-		// 				Login/Register
-		// 			</span>
-		// 		</Link>
-		// 	)}
-		// </div>
-
-		//</nav>
 	);
-};
-
-export default Nav;
+}

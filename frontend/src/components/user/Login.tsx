@@ -40,11 +40,11 @@ export default function Login() {
 		});
 	}
 
-	useEffect(() => {
-		if (isSuccess) {
-			navigate(from, { replace: true });
-		}
-	}, [isSuccess, navigate, from]);
+	// useEffect(() => {
+	// 	if (isSuccess) {
+	// 		navigate(from, { replace: true });
+	// 	}
+	// }, [isSuccess, navigate, from]);
 
 	const loginInput: FormInputProps[] = [
 		{
@@ -83,10 +83,10 @@ export default function Login() {
 				<p className="font-medium text-lg md:text-xl">Login</p>
 			</div>
 			<form
-				className="flex flex-col items-center w-full p-7 md:w-[30rem] border-[1px] rounded-lg shadow-sm"
+				className="flex flex-col items-center w-full p-6 md:w-[30rem] border-[1px] rounded-lg shadow-sm"
 				onSubmit={handleSubmit}
 			>
-				<div className="flex flex-col items-center w-full mb-10">
+				<div className="flex flex-col items-center w-full mb-4">
 					{loginInput.map((input) => {
 						return (
 							<FormInput
@@ -107,37 +107,42 @@ export default function Login() {
 						);
 					})}
 
-					<label className="label cursor-pointer">
-						<span className="label-text">Show password</span>
-						<input
-							type="checkbox"
-							className="checkbox "
-							onChange={() => {
-								setShowPassword((prev) => !prev);
-							}}
-						/>
-					</label>
+					<div className="flex w-full justify-start item-start mt-1">
+						<label className="label cursor-pointer">
+							<span className="label-text mr-2">Show password</span>
+							<input
+								type="checkbox"
+								className="checkbox"
+								onChange={() => {
+									setShowPassword((prev) => !prev);
+								}}
+							/>
+						</label>
+					</div>
 				</div>
 
-				<button className="btn">Login</button>
-				<button
-					onClick={() => {
-						setLoginCredentials({
-							email: process.env.REACT_APP_GUEST_EMAIL!,
-							password: process.env.REACT_APP_GUEST_PASSWORD!,
-						});
-					}}
-					className="btn"
-				>
-					Login as guest
-				</button>
+				<div className="flex flex-col w-full justify-center items-start mb-6">
+					<button className="btn w-full mb-4">Sign in</button>
+					<button
+						onClick={() => {
+							setLoginCredentials({
+								email: process.env.REACT_APP_GUEST_EMAIL!,
+								password: process.env.REACT_APP_GUEST_PASSWORD!,
+							});
+						}}
+						className="btn px-8 btn-primary w-full"
+					>
+						Sign in as guest
+					</button>
+				</div>
+
+				<div className="flex justify-center items-center gap-2 ">
+					<span className="">New to ModernfyDesign?</span>
+					<span className="font-semibold ">
+						<Link to="/register">Register</Link>
+					</span>
+				</div>
 			</form>
-			<div className="flex justify-center items-center gap-2 ">
-				<span className="">New to GroupCord?</span>
-				<span className="font-semibold ">
-					<Link to="/register">Register</Link>
-				</span>
-			</div>
 		</div>
 	);
 }
