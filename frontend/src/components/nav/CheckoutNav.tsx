@@ -53,7 +53,7 @@ export default function CheckoutNav() {
 					<div className="modal-action justify-end gap-4">
 						<label
 							htmlFor="return-modal"
-							className="btn btn-accent px-6 rounded-full btn-outline normal-case"
+							className="btn px-6 rounded-full btn-outline normal-case"
 							onClick={() => {
 								navigate("/cart");
 								clearMyOrder();

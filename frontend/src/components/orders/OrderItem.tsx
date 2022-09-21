@@ -67,7 +67,7 @@ export default function OrderItem({
 								<div className="flex items-center w-full mb-3">
 									<Link
 										to={`/products/${item._id}`}
-										className="hover:text-gray-600 border-b-[2px] border-b-transparent hover:border-b-gray-600 hover:border-b-[2px]"
+										className="hover:text-gray-600 hover:link"
 									>
 										{item.name}
 									</Link>
@@ -90,7 +90,7 @@ export default function OrderItem({
 											findCartItem(item._id)?.quantity! < 9
 												? "btn-outline"
 												: "btn-disabled"
-										} btn-secondary flex items-center h-8 gap-2`}
+										} flex items-center h-8 gap-2`}
 									>
 										{(!findCartItem(item._id)?.quantity ||
 											findCartItem(item._id)?.quantity! < 9) && (

@@ -46,7 +46,7 @@ export default function CartItem({
 						onClick={() => {
 							removeCartItem(_id);
 						}}
-						className="btn btn-accent rounded-full px-5 btn-outline h-8 md:h-10"
+						className="btn btn-outline rounded-full px-5 h-8 md:h-10"
 					>
 						<span className="text-xs md:text-sm">Remove</span>
 					</button>
@@ -62,9 +62,6 @@ export default function CartItem({
 							className="select rounded-lg select-bordered text-xs md:text-sm min-h-0 h-8 md:h-10"
 							required
 						>
-							{/* <option disabled value="">
-						{itemQuantity}
-					</option> */}
 							<option value="1">1</option>
 							<option value="2">2</option>
 							<option value="3">3</option>
