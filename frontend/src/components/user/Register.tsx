@@ -59,7 +59,7 @@ export default function Register() {
 		}
 	}, [isSuccess, navigate, from]);
 
-	const registerInput: FormInputProps[] = [
+	const registerName: FormInputProps[] = [
 		{
 			key: useId(),
 			errorMessage: "Please enter a valid first name.",
@@ -73,6 +73,7 @@ export default function Register() {
 			value: registerCredentials.firstName,
 			maxLength: 25,
 			htmlInputSize: "md",
+			width: "w-2",
 		},
 		{
 			key: useId(),
@@ -88,6 +89,9 @@ export default function Register() {
 			maxLength: 25,
 			htmlInputSize: "md",
 		},
+	];
+
+	const registerInput: FormInputProps[] = [
 		{
 			key: useId(),
 			errorMessage: "Please enter a valid email.",
@@ -139,50 +143,82 @@ export default function Register() {
 	];
 
 	return (
-		<form
-			onSubmit={handleSubmit}
-			className="flex flex-col items-center justify-center"
-		>
-			<p>Register</p>
-			<div>
-				{registerInput.map((input) => {
-					return (
-						<FormInput
-							key={input.key}
-							errorMessage={input.errorMessage}
-							id={input.id}
-							label={input.label}
-							name={input.name}
-							onChange={input.onChange}
-							required={input.required}
-							type={input.type}
-							value={input.value}
-							pattern={input.pattern}
-							inputMode={input.inputMode}
-							maxLength={input.maxLength}
-							htmlInputSize={input.htmlInputSize}
-						/>
-					);
-				})}
-				<label className="label cursor-pointer">
-					<span className="label-text">Show password</span>
-					<input
-						type="checkbox"
-						className="checkbox "
-						onChange={() => {
-							setShowPassword((prev) => !prev);
-						}}
-					/>
-				</label>
+		<div className="flex items-center justify-center my-4 md:my-32">
+			<form
+				onSubmit={handleSubmit}
+				className="flex flex-col justify-center items-center w-full px-4 md:p-6 md:w-[32rem] md:border-[1px] md:rounded-lg md:shadow-sm"
+			>
+				<p className="font-semibold text-lg md:text-xl mt-2 mb-4">
+					Create an Account
+				</p>
+				<div className="grid grid-cols-1 md:grid-cols-2 w-full  md:gap-4">
+					{registerName.map((input) => {
+						return (
+							<FormInput
+								key={input.key}
+								errorMessage={input.errorMessage}
+								id={input.id}
+								label={input.label}
+								name={input.name}
+								onChange={input.onChange}
+								required={input.required}
+								type={input.type}
+								value={input.value}
+								pattern={input.pattern}
+								inputMode={input.inputMode}
+								maxLength={input.maxLength}
+								htmlInputSize={input.htmlInputSize}
+							/>
+						);
+					})}
+				</div>
 
-				<button className="btn">Register</button>
-			</div>
-			<div className="flex justify-center items-center gap-2 px-8">
-				<span className="dark:text-slate-300">Already have an account?</span>
-				<span className="font-semibold text-sky-600 hover:text-sky-500">
-					<Link to="/login">Sign-In</Link>
-				</span>
-			</div>
-		</form>
+				<div className="flex flex-col w-full mb-4">
+					{registerInput.map((input) => {
+						return (
+							<FormInput
+								key={input.key}
+								errorMessage={input.errorMessage}
+								id={input.id}
+								label={input.label}
+								name={input.name}
+								onChange={input.onChange}
+								required={input.required}
+								type={input.type}
+								value={input.value}
+								pattern={input.pattern}
+								inputMode={input.inputMode}
+								maxLength={input.maxLength}
+								htmlInputSize={input.htmlInputSize}
+							/>
+						);
+					})}
+
+					<div className="flex w-full justify-start item-start mt-1">
+						<label className="label cursor-pointer">
+							<span className="label-text mr-2">Show password</span>
+							<input
+								type="checkbox"
+								className="checkbox"
+								onChange={() => {
+									setShowPassword((prev) => !prev);
+								}}
+							/>
+						</label>
+					</div>
+				</div>
+
+				<div className="flex flex-col w-full justify-center items-start mb-6">
+					<button className="btn w-full">Register</button>
+				</div>
+
+				<div className="flex justify-center items-center gap-2 px-8">
+					<span>Already have an account?</span>
+					<span className="font-semibold link">
+						<Link to="/signin">Sign-In</Link>
+					</span>
+				</div>
+			</form>
+		</div>
 	);
 }

@@ -20,7 +20,7 @@ const ProtectedRoutes = ({ authRoles }: ProtectedRoutesProps) => {
 	) : (
 		// User not logged in navigate to login page storing original location => with login => redirects to intended page
 
-		<Navigate to="/login" state={{ from: location }} replace />
+		<Navigate to="/signin" state={{ from: location }} replace />
 	);
 };
 

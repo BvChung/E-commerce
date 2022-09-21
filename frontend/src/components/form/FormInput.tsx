@@ -33,7 +33,7 @@ export default function FormInput({
 				value={value}
 				onChange={onChange}
 				inputMode={inputMode}
-				className={`peer input ${displayErrorInput} ${htmlInputSize} ${width} input-bordered `}
+				className={`peer input ${displayErrorInput} input-md ${width} input-bordered `}
 				pattern={pattern}
 				required={required}
 				maxLength={maxLength}

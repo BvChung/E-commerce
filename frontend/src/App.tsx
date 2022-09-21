@@ -1,5 +1,5 @@
 import "./App.css";
-import Login from "./components/user/Login";
+import SignIn from "./components/user/SignIn";
 import Register from "./components/user/Register";
 import AccountPage from "./components/account/AccountPage";
 import Admin from "./components/admin/Admin";
@@ -33,7 +33,7 @@ function App() {
 				{/* Public routes */}
 				<Route index element={<Landing />} />
 
-				<Route path="login" element={<Login />} />
+				<Route path="signin" element={<SignIn />} />
 
 				<Route path="register" element={<Register />} />
 

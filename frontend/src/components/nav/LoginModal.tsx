@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useId } from "react";
 import { useNavigate, Link, useLocation } from "react-router-dom";
 import { LoginCredentials } from "../../interfaces/authInterface";
-import { useLoginUser } from "../../hooks/user/useLoginUser";
+import { useSignInUser } from "../../hooks/user/useSignInUser";
 import { CustomLocationState } from "../../interfaces/customInterface";
 import { FormInputProps } from "../../interfaces/formInterface";
 import FormInput from "../form/FormInput";
@@ -10,7 +10,7 @@ export default function LoginModal() {
 	const navigate = useNavigate();
 	const location = useLocation() as CustomLocationState;
 	const from = location.state?.from?.pathname || "/";
-	const { isSuccess, mutate, reset } = useLoginUser();
+	const { isSuccess, mutate, reset } = useSignInUser();
 
 	const [loginCredentials, setLoginCredentials] = useState<LoginCredentials>({
 		email: "",

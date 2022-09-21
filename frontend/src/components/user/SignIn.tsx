@@ -1,16 +1,16 @@
-import React, { useEffect, useState, useId } from "react";
+import React, { useState, useId, useEffect } from "react";
 import { useNavigate, Link, useLocation } from "react-router-dom";
 import { LoginCredentials } from "../../interfaces/authInterface";
-import { useLoginUser } from "../../hooks/user/useLoginUser";
+import { useSignInUser } from "../../hooks/user/useSignInUser";
 import { CustomLocationState } from "../../interfaces/customInterface";
 import { FormInputProps } from "../../interfaces/formInterface";
 import FormInput from "../form/FormInput";
 
-export default function Login() {
+export default function SignIn() {
 	const navigate = useNavigate();
 	const location = useLocation() as CustomLocationState;
 	const from = location.state?.from?.pathname || "/";
-	const { isSuccess, mutate } = useLoginUser();
+	const { isSuccess, mutate } = useSignInUser();
 
 	const [loginCredentials, setLoginCredentials] = useState<LoginCredentials>({
 		email: "",
@@ -40,11 +40,11 @@ export default function Login() {
 		});
 	}
 
-	// useEffect(() => {
-	// 	if (isSuccess) {
-	// 		navigate(from, { replace: true });
-	// 	}
-	// }, [isSuccess, navigate, from]);
+	useEffect(() => {
+		if (isSuccess) {
+			navigate(from, { replace: true });
+		}
+	}, [isSuccess, navigate, from]);
 
 	const loginInput: FormInputProps[] = [
 		{
@@ -78,14 +78,15 @@ export default function Login() {
 	];
 
 	return (
-		<div className="flex flex-col items-center justify-center mx-2">
-			<div className="flex w-full items-center justify-center px-1 mt-8 mb-6">
-				<p className="font-medium text-lg md:text-xl">Login</p>
-			</div>
+		<div className="flex items-center justify-center my-4 md:my-32">
 			<form
-				className="flex flex-col items-center w-full p-6 md:w-[30rem] border-[1px] rounded-lg shadow-sm"
+				className="flex flex-col justify-center items-center w-full px-4 md:p-6 md:w-[30rem] md:border-[1px] md:rounded-lg md:shadow-sm"
 				onSubmit={handleSubmit}
 			>
+				<p className=" font-semibold text-lg md:text-xl mt-2 mb-4">
+					Sign in to ModernfyDesign
+				</p>
+
 				<div className="flex flex-col items-center w-full mb-4">
 					{loginInput.map((input) => {
 						return (
@@ -137,8 +138,8 @@ export default function Login() {
 				</div>
 
 				<div className="flex justify-center items-center gap-2 ">
-					<span className="">New to ModernfyDesign?</span>
-					<span className="font-semibold ">
+					<span>New to ModernfyDesign?</span>
+					<span className="font-semibold link">
 						<Link to="/register">Register</Link>
 					</span>
 				</div>
