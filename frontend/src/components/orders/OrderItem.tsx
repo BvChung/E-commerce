@@ -43,7 +43,7 @@ export default function OrderItem({
 				<div className="flex flex-col gap-[2px] items-start md:items-end justify-end w-full">
 					<p className="font-medium text-sm text-gray-600">Order#: {_id}</p>
 					<Link to={`${_id}`}>
-						<p className="font-medium text-sm text-gray-600 hover:text-gray-900 border-b-[2px] border-b-transparent hover:border-b-gray-900 hover:border-b-[2px]">
+						<p className="font-medium text-sm text-gray-600 hover:text-gray-900 hover:link">
 							View order details
 						</p>
 					</Link>

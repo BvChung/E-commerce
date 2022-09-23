@@ -17,7 +17,7 @@ export default function Cart() {
 	} = useGetCartItems(myCart);
 
 	return (
-		<div className="flex flex-col items-center justify-center mb-6 px-2">
+		<div className="flex flex-col items-center justify-center mb-6 px-2 md:px-0">
 			<div className="flex items-center gap-2 w-full mt-8 mb-6 lg:max-w-5xl xl:max-w-7xl">
 				<span className="font-semibold text-xl sm:text-2xl">Cart</span>
 				<span className="font-base text-base md:text-lg">
@@ -102,8 +102,8 @@ export default function Cart() {
 					<div className="w-full border-b-[1px] mb-4 md:mb-6">
 						<button
 							className={`btn ${
-								cartItemsInfo.numItems === 0 ? "btn-disabled" : "btn-primary"
-							}  rounded-full btn-info mb-4 md:mb-6 w-full `}
+								cartItemsInfo.numItems === 0 ? "btn-disabled" : "btn"
+							}  rounded-full mb-4 md:mb-6 w-full `}
 							onClick={() => {
 								setMyOrder({
 									shippingInfo: {

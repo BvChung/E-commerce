@@ -31,7 +31,7 @@ export default function ProductDisplayItem({
 							addCartItem({ _id, price, quantity: 1 });
 							toast.success(`${name} has been added to your cart.`);
 						}}
-						className="flex items-center justify-center btn btn-md rounded-full w-fit h-10 btn-primary absolute top-[13.1rem] right-0 z-10"
+						className="flex items-center justify-center btn rounded-full w-fit h-10 absolute top-[13.1rem] right-0 z-10"
 					>
 						<svg
 							xmlns="http://www.w3.org/2000/svg"

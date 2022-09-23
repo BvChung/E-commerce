@@ -54,7 +54,7 @@ export default function ProductInfo() {
 												`${productInfo.name} has been added to your cart.`
 											);
 										}}
-										className="btn h-11 md:h-12 w-full rounded-full"
+										className="btn btn-primary h-11 md:h-12 w-full rounded-full"
 									>
 										Add to cart
 									</button>
