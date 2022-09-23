@@ -58,7 +58,6 @@ export default function EditPassword() {
 			// prettier-ignore
 			// pattern: "(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])[A-Za-z0-9\d=!\-@._*]{8,25}$",
 			maxLength: 25,
-			htmlInputSize: "md",
 		},
 		{
 			key: useId(),
@@ -75,7 +74,6 @@ export default function EditPassword() {
 			// prettier-ignore
 			// pattern: "(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])[A-Za-z0-9\d=!\-@._*]{8,25}$",
 			maxLength: 25,
-			htmlInputSize: "md",
 		},
 		{
 			key: useId(),
@@ -92,27 +90,26 @@ export default function EditPassword() {
 			// prettier-ignore
 			// pattern: "(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])[A-Za-z0-9\d=!\-@._*]{8,25}$",
 			maxLength: 25,
-			htmlInputSize: "md",
 		},
 	];
 
 	return (
 		<div className="flex flex-col items-center justify-center mx-2">
 			<div className="flex w-full items-center justify-center px-1 mt-8 mb-6">
-				<div
-					onClick={(e) => {
-						e.preventDefault();
+				<div className="flex items-center w-full md:w-[30rem]">
+					<div
+						onClick={(e) => {
+							e.preventDefault();
 
-						setPasswordCredentials({
-							currentPassword: "",
-							newPassword: "",
-							verifyNewPassword: "",
-						});
-						navigate("/account/info");
-					}}
-					className="flex items-center w-full md:w-[30rem]"
-				>
-					<div className="mr-4 cursor-pointer">
+							setPasswordCredentials({
+								currentPassword: "",
+								newPassword: "",
+								verifyNewPassword: "",
+							});
+							navigate("/account/info");
+						}}
+						className="mr-4 cursor-pointer"
+					>
 						<svg
 							xmlns="http://www.w3.org/2000/svg"
 							fill="none"
@@ -181,11 +178,13 @@ export default function EditPassword() {
 								});
 								navigate("/account/info");
 							}}
-							className="btn btn-accent btn-outline rounded-lg h-11"
+							className="btn btn-outline rounded-full h-11"
 						>
 							Cancel
 						</button>
-						<button className="btn btn-primary rounded-lg h-11">Save</button>
+						<button className="btn btn-primary rounded-full h-11 px-6">
+							Save
+						</button>
 					</div>
 				</div>
 			</form>

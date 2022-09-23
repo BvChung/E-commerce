@@ -1,4 +1,3 @@
-import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { useAuthContext } from "../../hooks/context/useAuthContext";
 
@@ -15,7 +14,7 @@ export default function AccountPage() {
 			<div className="flex flex-col max-w-4xl items-center w-full rounded-lg border-[1px] shadow-sm">
 				<Link
 					to="/account/name"
-					className="w-full px-6 rounded-t-lg hover:bg-gray-100 dark:hover:bg-gray-900 cursor-pointer"
+					className="w-full px-6 rounded-t-lg hover:bg-gray-100 cursor-pointer"
 				>
 					<div className="flex items-center justify-center py-6 border-b-[1px]">
 						<div className="flex flex-1">
@@ -61,7 +60,7 @@ export default function AccountPage() {
 
 				<Link
 					to="/account/email"
-					className="w-full px-6 hover:bg-gray-100 dark:hover:bg-gray-900 cursor-pointer"
+					className="w-full px-6 hover:bg-gray-100 cursor-pointer"
 				>
 					<div className="flex items-center justify-center border-b-[1px] py-6 ">
 						<div className="flex flex-1">
@@ -108,7 +107,7 @@ export default function AccountPage() {
 
 				<Link
 					to="/account/password"
-					className="w-full px-6 rounded-b-lg hover:bg-gray-100 dark:hover:bg-gray-900 cursor-pointer"
+					className="w-full px-6 rounded-b-lg hover:bg-gray-100 cursor-pointer"
 				>
 					<div className="flex items-center justify-center py-6 ">
 						<div className="flex flex-1">

@@ -44,6 +44,34 @@ input[type="number"]::-webkit-outer-spin-button {
 	-ms-animation: fadeIn 1s;
 }
 
+::-webkit-scrollbar {
+	display: block;
+	width: 9px;
+	height: 8px;
+}
+
+::-webkit-scrollbar-track {
+	background: transparent;
+}
+
+::-webkit-scrollbar-track-piece:end {
+	background: transparent;
+	margin-bottom: 10px;
+}
+::-webkit-scrollbar-track-piece:start {
+	background: transparent;
+	margin-top: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+	background: rgb(3 105 161);
+	border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+	background: rgb(7 89 133);
+}
+
 @keyframes fadeIn {
 	0% {
 		opacity: 0;
