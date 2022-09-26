@@ -134,8 +134,11 @@ export default function ProductTable() {
 	}
 
 	return (
-		<div className="w-full mx-4">
-			<h1>ProductUpdatePage</h1>
+		<div className="flex flex-col items-center justify-center mb-10 mx-4 ">
+			<div className="flex items-center gap-2 w-full mt-8 mb-6 lg:max-w-4xl xl:max-w-5xl">
+				<span className="font-semibold text-xl sm:text-2xl">Orders</span>
+			</div>
+
 			<div className="flex justify-end">
 				<div className="form-control w-fit ">
 					<label className="input-group">
@@ -165,7 +168,8 @@ export default function ProductTable() {
 					</label>
 				</div>
 			</div>
-			<div className="w-full border-[1px] rounded-lg">
+
+			<div className="w-full lg:max-w-4xl xl:max-w-5xl border-[1px] rounded-lg">
 				<table className="table table-compact  w-full">
 					<thead className="px-4">
 						<tr>

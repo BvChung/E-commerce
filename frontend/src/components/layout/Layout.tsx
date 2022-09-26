@@ -11,7 +11,7 @@ export default function Layout() {
 
 	return (
 		<div
-			className={`drawer ${theme && "dark"} min-h-full`}
+			className={`drawer ${theme && "dark"} min-h-full overflow-auto`}
 			data-theme={theme ? "pastel" : "lofi"}
 		>
 			<input id="app-drawer" type="checkbox" className="drawer-toggle" />
@@ -20,7 +20,7 @@ export default function Layout() {
 				{!location.pathname.startsWith("/checkout") ? <Nav /> : <CheckoutNav />}
 
 				{/* <!-- Page content here --> */}
-				<div className="h-full w-full overflow-auto fade">
+				<div className="h-full w-full fade">
 					<Outlet />
 				</div>
 				<ToastContainer

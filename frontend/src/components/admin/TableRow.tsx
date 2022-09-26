@@ -17,11 +17,14 @@ export default function TableRow({
 			<tr>
 				<td className="pl-4">
 					<div className="flex items-center space-x-6">
-						<div className="avatar">
-							<div className="mask mask-square w-28 h-w-28">
-								<img src={image} alt="Admin product update" />
-							</div>
-						</div>
+						<figure>
+							<img
+								src={image}
+								alt="Admin product update"
+								className="h-32 w-32"
+							/>
+						</figure>
+
 						<div>
 							<div className="text-base font-medium">{name}</div>
 						</div>
