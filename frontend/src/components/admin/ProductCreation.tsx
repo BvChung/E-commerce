@@ -86,96 +86,107 @@ export default function ProductCreation() {
 	}
 
 	return (
-		<form onSubmit={handleSubmit} className="flex flex-col gap-4">
-			<h1>ProductCreation</h1>
-			<div className="form-control w-full max-w-sm">
-				<label className="label">
-					<span className="label-text">Name</span>
-				</label>
-				<input
-					type="text"
-					placeholder="Enter product name"
-					className="input input-bordered w-full max-w-sm "
-					name="name"
-					value={productFormData.name}
-					onChange={handleChange}
-					required
-				/>
+		<div className="flex flex-col items-center justify-center mb-6 px-2 md:px-0">
+			<div className="flex items-center gap-2 w-full mt-8 mb-6 lg:max-w-5xl xl:max-w-7xl">
+				<span className="font-semibold text-xl sm:text-2xl">
+					Create Product
+				</span>
 			</div>
 
-			<div className="form-control">
-				<label className="label">
-					<span className="label-text">Description</span>
-				</label>
-				<textarea
-					className="textarea textarea-bordered w-full max-w-sm "
-					placeholder="Enter product description"
-					name="description"
-					value={productFormData.description}
-					onChange={handleChange}
-					required
-				></textarea>
+			<div className="flex flex-col-reverse md:flex-row justify-between h-max w-full gap-4 lg:max-w-5xl xl:max-w-7xl">
+				<form onSubmit={handleSubmit} className="flex flex-col gap-4">
+					<div className="form-control w-full max-w-sm">
+						<label className="label">
+							<span className="label-text">Name</span>
+						</label>
+						<input
+							type="text"
+							placeholder="Enter product name"
+							className="input input-bordered w-full max-w-sm "
+							name="name"
+							value={productFormData.name}
+							onChange={handleChange}
+							required
+						/>
+					</div>
+
+					<div className="form-control">
+						<label className="label">
+							<span className="label-text">Description</span>
+						</label>
+						<textarea
+							className="textarea textarea-bordered w-full max-w-sm "
+							placeholder="Enter product description"
+							name="description"
+							value={productFormData.description}
+							onChange={handleChange}
+							required
+						></textarea>
+					</div>
+
+					<div className="form-control w-full max-w-sm">
+						<label className="label">
+							<span className="label-text">Price</span>
+						</label>
+						<input
+							type="number"
+							placeholder="Enter product price"
+							className="input input-bordered w-full max-w-sm "
+							name="price"
+							value={productFormData.price}
+							onChange={handleChange}
+							required
+						/>
+					</div>
+
+					<div className="form-control w-full max-w-xs">
+						<label className="label">
+							<span className="label-text">Product Category</span>
+						</label>
+						<select
+							name="category"
+							value={productFormData.category}
+							onChange={handleChange}
+							className="select select-bordered"
+							required
+						>
+							<option disabled value="">
+								Assign category
+							</option>
+							<option value="Sofa">Sofa</option>
+							<option value="Table">Table</option>
+							<option value="Chair">Chair</option>
+							<option value="Desk">Desk</option>
+							<option value="Drawer">Drawer</option>
+							<option value="Shelf">Shelf</option>
+						</select>
+					</div>
+
+					<div className="form-control w-full max-w-sm">
+						<label className="label">
+							<span className="label-text">Upload Image</span>
+						</label>
+						<input
+							className="file-input"
+							ref={imageRef}
+							type="file"
+							id="image"
+							name="image"
+							accept=".png,.jpeg,.jpg"
+							onChange={handleFile}
+							required
+						/>
+					</div>
+
+					<button className="btn btn-primary">Create Product</button>
+				</form>
+
+				<div className="flex items-center w-full">
+					{image && (
+						<img src={image} className="w-3/4 h-96" alt="Upload Product" />
+					)}
+				</div>
 			</div>
-
-			<div className="form-control w-full max-w-sm">
-				<label className="label">
-					<span className="label-text">Price</span>
-				</label>
-				<input
-					type="number"
-					placeholder="Enter product price"
-					className="input input-bordered w-full max-w-sm "
-					name="price"
-					value={productFormData.price}
-					onChange={handleChange}
-					required
-				/>
-			</div>
-
-			<div className="form-control w-full max-w-xs">
-				<label className="label">
-					<span className="label-text">Product Category</span>
-				</label>
-				<select
-					name="category"
-					value={productFormData.category}
-					onChange={handleChange}
-					className="select select-bordered"
-					required
-				>
-					<option disabled value="">
-						Assign category
-					</option>
-					<option value="Sofa">Sofa</option>
-					<option value="Table">Table</option>
-					<option value="Chair">Chair</option>
-					<option value="Desk">Desk</option>
-					<option value="Drawer">Drawer</option>
-					<option value="Shelf">Shelf</option>
-				</select>
-			</div>
-
-			<div className="form-control w-full max-w-sm">
-				<label className="label">
-					<span className="label-text">Upload Image</span>
-				</label>
-				<input
-					className="file-input"
-					ref={imageRef}
-					type="file"
-					id="image"
-					name="image"
-					accept=".png,.jpeg,.jpg"
-					onChange={handleFile}
-					required
-				/>
-			</div>
-
-			{image && (
-				<img src={image} className="object-fill w-52 h-52" alt="Avatar" />
-			)}
-
-			<button className="btn btn-primary">Create Product</button>
-		</form>
+		</div>
 	);
 }

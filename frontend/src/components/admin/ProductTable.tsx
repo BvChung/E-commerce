@@ -135,11 +135,11 @@ export default function ProductTable() {
 
 	return (
 		<div className="flex flex-col items-center justify-center mb-10 mx-4 ">
-			<div className="flex items-center gap-2 w-full mt-8 mb-6 lg:max-w-4xl xl:max-w-5xl">
-				<span className="font-semibold text-xl sm:text-2xl">Orders</span>
+			<div className="flex items-center gap-2 w-full mt-8 mb-6 lg:max-w-5xl xl:max-w-6xl">
+				<span className="font-semibold text-xl sm:text-2xl">Products</span>
 			</div>
 
-			<div className="flex justify-end">
+			<div className="flex justify-end w-full mb-4 lg:max-w-5xl xl:max-w-6xl">
 				<div className="form-control w-fit ">
 					<label className="input-group">
 						<span>
@@ -169,8 +169,8 @@ export default function ProductTable() {
 				</div>
 			</div>
 
-			<div className="w-full lg:max-w-4xl xl:max-w-5xl border-[1px] rounded-lg">
-				<table className="table table-compact  w-full">
+			<div className="w-full lg:max-w-5xl xl:max-w-6xl border-[1px] rounded-lg mb-10 ">
+				<table className="table table-compact w-full">
 					<thead className="px-4">
 						<tr>
 							<th className="p-4">
@@ -217,7 +217,7 @@ export default function ProductTable() {
 								</div>
 							</th>
 							<th>
-								<div className="flex items-center gap-2">
+								<div className="hidden md:flex items-center gap-2">
 									<p>Category</p>
 									<div
 										className="tooltip tooltip-bottom normal-case font-normal z-10"
@@ -260,7 +260,7 @@ export default function ProductTable() {
 								</div>
 							</th>
 							<th>
-								<div className="flex items-center gap-2">
+								<div className="hidden md:flex items-center gap-2">
 									<p>Price</p>
 									<div
 										className="tooltip tooltip-bottom normal-case font-normal z-10"

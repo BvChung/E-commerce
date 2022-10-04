@@ -12,7 +12,7 @@ export default function OrdersPage() {
 			</div>
 
 			<div className="flex justify-center h-max w-full gap-4 lg:max-w-4xl xl:max-w-5xl">
-				<div className="border-[1px] h-max rounded-lg shadow-sm transition-all fade w-full">
+				<div className="border-[1px] h-max rounded-lg shadow-sm transition-all fade w-full mb-10">
 					{isSuccess &&
 						orders.map((order: OrderInfo) => {
 							return (
