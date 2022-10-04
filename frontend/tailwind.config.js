@@ -33,6 +33,7 @@ module.exports = {
 	},
 	daisyui: {
 		themes: ["lofi", "black", "winter", "night"],
+		// themes: ["lofi", "black", "winter", "night"],
 	},
 	daisyui: {
 		styled: true,

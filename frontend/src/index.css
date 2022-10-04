@@ -36,6 +36,11 @@ input[type="number"]::-webkit-outer-spin-button {
 	@apply normal-case;
 }
 
+.tooltip {
+	/* --tooltip-color: #424242; */
+	--tooltip-text-color: rgb(243 244 246);
+}
+
 .fade {
 	animation: fadeIn 1s;
 	-webkit-animation: fadeIn 1s;
