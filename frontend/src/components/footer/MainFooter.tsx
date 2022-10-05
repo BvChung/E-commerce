@@ -1,9 +1,9 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-export default function Footer() {
+export default function MainFooter() {
 	return (
-		<footer className="footer footer-center p-10 bg-base-200 text-base-content rounded">
+		<footer className="footer footer-center p-10 bg-gray-100 text-base-content rounded">
 			<div className="grid grid-flow-col gap-4">
 				<span className="link link-hover">About us</span>
 				<span className="link link-hover">Contact</span>

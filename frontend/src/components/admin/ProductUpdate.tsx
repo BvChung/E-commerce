@@ -154,7 +154,7 @@ export default function ProductUpdate() {
 						/>
 					</div>
 
-					<div className="form-control w-full max-w-xs">
+					<div className="form-control w-full">
 						<label className="label">
 							<span className="label-text">Product Category</span>
 						</label>
@@ -162,7 +162,7 @@ export default function ProductUpdate() {
 							name="category"
 							value={productFormData.category}
 							onChange={handleChange}
-							className="select select-bordered"
+							className="select select-bordered "
 							required
 						>
 							<option disabled value="">
@@ -196,7 +196,7 @@ export default function ProductUpdate() {
 						<img src={image} className="object-fill w-52 h-52" alt="Avatar" />
 					)}
 
-					<button className="btn btn-primary">Update Product</button>
+					<button className="btn btn-primary">Save Changes</button>
 				</form>
 
 				<div className="flex items-center">

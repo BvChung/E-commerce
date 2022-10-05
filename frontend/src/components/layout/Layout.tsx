@@ -1,17 +1,19 @@
 import { Outlet, useLocation } from "react-router-dom";
 import Nav from "../nav/Nav";
 import CheckoutNav from "../nav/CheckoutNav";
-import Footer from "../footer/Footer";
+import MainFooter from "../footer/MainFooter";
+import SubFooter from "../footer/SubFooter";
 import { useThemeContext } from "../../hooks/context/useThemeContext";
 import { ToastContainer, Flip } from "react-toastify";
 
 export default function Layout() {
 	const { theme } = useThemeContext();
 	const location = useLocation();
+	console.log(location);
 
 	return (
 		<div
-			className={`drawer ${theme && "dark"} min-h-full`}
+			className={`drawer ${theme && "dark"}  min-h-full relative `}
 			data-theme={theme ? "pastel" : "lofi"}
 		>
 			<input id="app-drawer" type="checkbox" className="drawer-toggle" />
@@ -20,9 +22,9 @@ export default function Layout() {
 				{!location.pathname.startsWith("/checkout") ? <Nav /> : <CheckoutNav />}
 
 				{/* <!-- Page content here --> */}
-				<div className="h-full w-full fade mb-10">
+				<div className="flex flex-col justify-between h-full w-full fade">
 					<Outlet />
-					<Footer />
+					{location.pathname === "/" ? <MainFooter /> : <SubFooter />}
 				</div>
 				<ToastContainer
 					limit={5}
