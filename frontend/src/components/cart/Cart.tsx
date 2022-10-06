@@ -26,7 +26,7 @@ export default function Cart() {
 			</div>
 
 			<div className="flex flex-col-reverse md:flex-row justify-center h-max w-full gap-4 lg:max-w-5xl xl:max-w-7xl">
-				<div className="border-[1px] p-4 h-max rounded-lg shadow-sm transition-all fade w-full md:w-2/3">
+				<div className="border-[1px] py-2 px-6 h-max rounded-lg shadow-sm transition-all fade w-full md:w-2/3">
 					{displayCartItems?.length === 0 && (
 						<div className="flex flex-col items-center justify-center gap-6 h-[262px]">
 							<div className="flex items-center gap-2 text-2xl font-semibold">

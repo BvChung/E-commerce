@@ -108,8 +108,17 @@ export default function ProductUpdate() {
 				</span>
 			</div>
 
-			<div className="flex flex-col-reverse md:flex-row justify-between h-max w-full gap-4 lg:max-w-5xl xl:max-w-7xl">
-				<form onSubmit={handleSubmit} className="flex flex-col gap-4">
+			<div className="flex items-center gap-2 w-full mb-2 lg:max-w-5xl xl:max-w-7xl">
+				<span className="font-semibold text-md mb-1">
+					Item #{productInfo?._id}
+				</span>
+			</div>
+
+			<div className="flex flex-col-reverse md:flex-row justify-between items-center h-max w-full border-[1px] p-6 rounded-lg shadow-sm transition-all gap-4 lg:max-w-5xl xl:max-w-7xl ">
+				<form
+					onSubmit={handleSubmit}
+					className="flex flex-col justify-center gap-4 w-fit"
+				>
 					<div className="form-control w-full max-w-sm">
 						<label className="label">
 							<span className="label-text">Name</span>
@@ -117,38 +126,9 @@ export default function ProductUpdate() {
 						<input
 							type="text"
 							placeholder="Enter product name"
-							className="input input-bordered w-full max-w-sm "
+							className="input input-sm input-bordered w-full max-w-sm "
 							name="name"
 							value={productFormData.name}
-							onChange={handleChange}
-							required
-						/>
-					</div>
-
-					<div className="form-control">
-						<label className="label">
-							<span className="label-text">Description</span>
-						</label>
-						<textarea
-							className="textarea textarea-bordered w-full max-w-md h-44"
-							placeholder="Enter product description"
-							name="description"
-							value={productFormData.description}
-							onChange={handleChange}
-							required
-						></textarea>
-					</div>
-
-					<div className="form-control w-full max-w-sm">
-						<label className="label">
-							<span className="label-text">Price</span>
-						</label>
-						<input
-							type="text"
-							placeholder="Enter product price"
-							className="input input-bordered w-full max-w-sm "
-							name="price"
-							value={productFormData.price}
 							onChange={handleChange}
 							required
 						/>
@@ -162,7 +142,7 @@ export default function ProductUpdate() {
 							name="category"
 							value={productFormData.category}
 							onChange={handleChange}
-							className="select select-bordered "
+							className="select select-sm select-bordered max-w-sm"
 							required
 						>
 							<option disabled value="">
@@ -175,6 +155,35 @@ export default function ProductUpdate() {
 							<option value="Drawer">Drawer</option>
 							<option value="Shelf">Shelf</option>
 						</select>
+					</div>
+
+					<div className="form-control w-full max-w-sm">
+						<label className="label">
+							<span className="label-text">Price</span>
+						</label>
+						<input
+							type="text"
+							placeholder="Enter product price"
+							className="input input-sm input-bordered w-full max-w-sm "
+							name="price"
+							value={productFormData.price}
+							onChange={handleChange}
+							required
+						/>
+					</div>
+
+					<div className="form-control">
+						<label className="label">
+							<span className="label-text">Description</span>
+						</label>
+						<textarea
+							className="textarea textarea-bordered w-full max-w-sm h-44"
+							placeholder="Enter product description"
+							name="description"
+							value={productFormData.description}
+							onChange={handleChange}
+							required
+						></textarea>
 					</div>
 
 					<div className="form-control w-full max-w-sm">
@@ -196,11 +205,14 @@ export default function ProductUpdate() {
 						<img src={image} className="object-fill w-52 h-52" alt="Avatar" />
 					)}
 
-					<button className="btn btn-primary">Save Changes</button>
+					<button className="btn btn-primary max-w-sm">Save Changes</button>
 				</form>
 
 				<div className="flex items-center">
-					<img src={productInfo?.image} alt="Product"></img>
+					<div>
+						<img src={productInfo?.image} alt="Product"></img>
+					</div>
+					<div></div>
 				</div>
 			</div>
 		</div>

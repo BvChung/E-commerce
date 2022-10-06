@@ -46,7 +46,7 @@ export default function CartItem({
 						onClick={() => {
 							removeCartItem(_id);
 						}}
-						className="btn btn-outline rounded-full px-5 h-8 md:h-10"
+						className="hover:link"
 					>
 						<span className="text-xs md:text-sm">Remove</span>
 					</button>
