@@ -36,7 +36,7 @@ export default function OrderInfo() {
 			</div>
 
 			<div className="lg:max-w-4xl xl:max-w-5xl w-full mb-4">
-				<p className="font-semibold text-sm mb-2">Order #{orderInfo?._id}</p>
+				<p className="font-semibold text-md mb-1">Order #{orderInfo?._id}</p>
 				<div className="flex w-full justify-start gap-14">
 					<div className="flex flex-col justify-center">
 						<div className="text-gray-500 font-medium gap-2 flex items-center mb-1">

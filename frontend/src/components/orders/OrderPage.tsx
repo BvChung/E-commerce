@@ -1,4 +1,4 @@
-import OrderItem from "./OrderItem";
+import OrderedItems from "./OrderedItems";
 import { useGetOrders } from "../../hooks/orders/useGetOrders";
 import { OrderInfo } from "../../interfaces/orderInterface";
 
@@ -16,7 +16,7 @@ export default function OrdersPage() {
 					{isSuccess &&
 						orders.map((order: OrderInfo) => {
 							return (
-								<OrderItem
+								<OrderedItems
 									key={order._id}
 									_id={order._id}
 									createdAt={order.createdAt}
