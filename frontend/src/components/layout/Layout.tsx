@@ -9,7 +9,6 @@ import { ToastContainer, Flip } from "react-toastify";
 export default function Layout() {
 	const { theme } = useThemeContext();
 	const location = useLocation();
-	console.log(location);
 
 	return (
 		<div

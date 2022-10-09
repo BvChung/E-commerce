@@ -1,4 +1,10 @@
 import "./App.css";
+import {
+	createBrowserRouter,
+	Route,
+	Outlet,
+	createRoutesFromElements,
+} from "react-router-dom";
 import SignIn from "./components/user/SignIn";
 import Register from "./components/user/Register";
 import AccountPage from "./components/account/AccountPage";
@@ -21,14 +27,13 @@ import EditEmail from "./components/account/EditEmail";
 import EditPassword from "./components/account/EditPassword";
 import ProtectedRoutes from "./components/protected/ProtectedRoutes";
 import Unauthorized from "./components/protected/Unauthorized";
-import { Routes, Route, Outlet } from "react-router-dom";
 import { accessRoles } from "./helper/accessRoles";
-import "react-toastify/dist/ReactToastify.css";
 import PersistLogin from "./components/protected/PersistLogin";
+import "react-toastify/dist/ReactToastify.css";
 
-function App() {
-	return (
-		<Routes>
+export const appRouter = createBrowserRouter(
+	createRoutesFromElements(
+		<>
 			<Route path="/" element={<Layout />}>
 				{/* Public routes */}
 				<Route index element={<Landing />} />
@@ -89,8 +94,6 @@ function App() {
 			</Route>
 
 			<Route path="*" element={<p>Not Found</p>} />
-		</Routes>
-	);
-}
-
-export default App;
+		</>
+	)
+);
