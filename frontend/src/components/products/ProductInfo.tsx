@@ -26,7 +26,7 @@ export default function ProductInfo() {
 					<div className="flex flex-col-reverse md:flex-row w-full gap-8 md:gap-20 md:justify-between mb-8 md:mb-10">
 						<div className="flex justify-center">
 							<img
-								className="h-[300px] w-full sm:w-[500px] md:w-[700px] md:h-[500px] xl:w-[800px]"
+								className="h-[300px] w-full sm:w-[500px] md:w-[700px] md:h-[500px] xl:w-[800px] object-fill "
 								src={productInfo.image}
 								alt="Product"
 							></img>

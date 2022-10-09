@@ -4,7 +4,7 @@ import { useNavigate, Link } from "react-router-dom";
 export default function Admin() {
 	const navigate = useNavigate();
 	return (
-		<div className="flex flex-col items-center justify-center mb-6 px-2 md:px-0">
+		<div className="flex flex-col items-center justify-center mb-6 mx-4 lg:mx-0">
 			<div className="flex items-center gap-2 w-full mt-8 mb-6 lg:max-w-5xl xl:max-w-7xl">
 				<span className="font-semibold text-xl sm:text-2xl">Admin</span>
 			</div>

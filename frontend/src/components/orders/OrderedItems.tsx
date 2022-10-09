@@ -58,7 +58,7 @@ export default function OrderedItems({
 									<img
 										src={item.image}
 										alt="product"
-										className="h-32 w-32"
+										className="rounded-md h-32 w-32 object-cover"
 									></img>
 								</figure>
 							</Link>

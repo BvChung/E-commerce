@@ -21,7 +21,7 @@ export default function ProductDisplayItem({
 						<img
 							src={image}
 							alt="Product"
-							className="h-[250px] w-full relative"
+							className="h-[250px] w-full relative object-cover"
 						/>
 					</figure>
 				</Link>

@@ -25,7 +25,7 @@ export default function CartItem({
 					<img
 						src={image}
 						alt="Product"
-						className="h-28 w-28 md:h-32 md:w-32"
+						className="rounded-md h-32 w-32 object-cover"
 					></img>
 				</figure>
 			</Link>

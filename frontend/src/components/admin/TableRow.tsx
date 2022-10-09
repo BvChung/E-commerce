@@ -15,10 +15,14 @@ export default function TableRow({
 	return (
 		<>
 			<tr>
-				<td className="pl-4 py-6">
+				<td className="pl-6 py-6">
 					<div className="flex items-center space-x-6">
 						<figure>
-							<img src={image} alt="Product" className="h-32 w-32" />
+							<img
+								src={image}
+								alt="Product"
+								className="rounded-md h-32 w-32 object-cover"
+							/>
 						</figure>
 
 						<div>
