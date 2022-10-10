@@ -1,4 +1,4 @@
-import { Outlet, useLocation } from "react-router-dom";
+import { Outlet, useLocation, ScrollRestoration } from "react-router-dom";
 import Nav from "../nav/Nav";
 import CheckoutNav from "../nav/CheckoutNav";
 import MainFooter from "../footer/MainFooter";
@@ -31,6 +31,7 @@ export default function Layout() {
 					transition={Flip}
 					theme={theme ? "dark" : "light"}
 				/>
+				{/* <ScrollRestoration /> */}
 				{/* {location.pathname === "/" && <Footer />} */}
 			</div>
 			<div className="drawer-side">

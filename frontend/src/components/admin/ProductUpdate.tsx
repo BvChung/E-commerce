@@ -111,7 +111,7 @@ export default function ProductUpdate() {
 						viewBox="0 0 24 24"
 						strokeWidth={2}
 						stroke="currentColor"
-						className="w-5 h-5 md:w-5 md:h-5"
+						className="w-5 h-5"
 					>
 						<path
 							strokeLinecap="round"
@@ -210,7 +210,7 @@ export default function ProductUpdate() {
 								<img
 									src={image ? image : productInfo?.image}
 									alt="Product"
-									className="rounded-md w-full h-72 object-cover"
+									className="rounded-t-md w-full h-72 object-cover"
 								/>
 								<svg
 									xmlns="http://www.w3.org/2000/svg"
@@ -218,7 +218,7 @@ export default function ProductUpdate() {
 									viewBox="0 0 24 24"
 									strokeWidth={1.5}
 									stroke="currentColor"
-									className="w-12 h-12 bg-offwhite rounded-full border-[1px] border-gray-900 p-2 absolute right-1 bottom-1 stroke-gray-900"
+									className="w-12 h-12 bg-offwhite rounded-full border-[1px] border-gray-900 p-2 absolute right-2 bottom-2 stroke-gray-900"
 								>
 									<path
 										strokeLinecap="round"
@@ -243,6 +243,27 @@ export default function ProductUpdate() {
 							accept=".png,.jpeg,.jpg"
 							onChange={handleFile}
 						/>
+
+						<div className="alert p-3 rounded-t-none rounded-b-md shadow-sm">
+							<div>
+								<svg
+									xmlns="http://www.w3.org/2000/svg"
+									fill="none"
+									viewBox="0 0 24 24"
+									className="stroke-info flex-shrink-0 w-6 h-6"
+								>
+									<path
+										strokeLinecap="round"
+										strokeLinejoin="round"
+										strokeWidth="2"
+										d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+									></path>
+								</svg>
+								<span className="text-sm">
+									Recommended size: 2418 x 1734 and less than 5MB.
+								</span>
+							</div>
+						</div>
 					</div>
 
 					<button className="btn btn-primary w-fit px-8 self-end">
