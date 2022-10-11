@@ -1,3 +1,5 @@
+import { useCallback, useEffect } from "react";
+import type { Location, useMatches } from "react-router-dom";
 import { Outlet, useLocation, ScrollRestoration } from "react-router-dom";
 import Nav from "../nav/Nav";
 import CheckoutNav from "../nav/CheckoutNav";
@@ -10,9 +12,23 @@ export default function Layout() {
 	const { theme } = useThemeContext();
 	const location = useLocation();
 
+	let getKey = useCallback(
+		(location: Location, matches: ReturnType<typeof useMatches>) => {
+			console.log(location);
+			console.log(matches);
+			let match = matches.find((m) => (m.handle as any)?.scrollMode);
+			if ((match?.handle as any)?.scrollMode === "pathname") {
+				return location.pathname;
+			}
+
+			return location.key;
+		},
+		[]
+	);
+
 	return (
 		<div
-			className={`drawer ${theme && "dark"}  min-h-full relative `}
+			className={`drawer ${theme && "dark"} min-h-full min-w-full relative`}
 			data-theme={theme ? "pastel" : "lofi"}
 		>
 			<input id="app-drawer" type="checkbox" className="drawer-toggle" />
@@ -31,7 +47,6 @@ export default function Layout() {
 					transition={Flip}
 					theme={theme ? "dark" : "light"}
 				/>
-				{/* <ScrollRestoration /> */}
 				{/* {location.pathname === "/" && <Footer />} */}
 			</div>
 			<div className="drawer-side">
@@ -62,6 +77,8 @@ export default function Layout() {
 					</ul>
 				</div>
 			</div>
+
+			<ScrollRestoration />
 		</div>
 	);
 }
