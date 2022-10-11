@@ -94,7 +94,7 @@ export default function EditPassword() {
 	];
 
 	return (
-		<div className="flex flex-col items-center justify-center mx-2">
+		<div className="flex flex-col items-center justify-center mx-4 lg:mx-0">
 			<div className="flex w-full items-center justify-center px-1 mt-8 mb-6">
 				<div className="flex items-center w-full md:w-[30rem]">
 					<div
@@ -114,9 +114,9 @@ export default function EditPassword() {
 							xmlns="http://www.w3.org/2000/svg"
 							fill="none"
 							viewBox="0 0 24 24"
-							strokeWidth={1.5}
+							strokeWidth={2}
 							stroke="currentColor"
-							className="w-5 h-5 md:w-6 md:h-6"
+							className="w-5 h-5"
 						>
 							<path
 								strokeLinecap="round"
@@ -126,7 +126,9 @@ export default function EditPassword() {
 						</svg>
 					</div>
 
-					<p className="font-medium text-lg md:text-xl">Update Password</p>
+					<span className="font-medium text-lg sm:text-xl">
+						Update Password
+					</span>
 				</div>
 			</div>
 

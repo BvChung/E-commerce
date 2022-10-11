@@ -5,13 +5,12 @@ export default function AccountPage() {
 	const { user } = useAuthContext();
 
 	return (
-		<div className="flex flex-col items-center mt-8 mx-2">
-			<div className="max-w-4xl items-center w-full mb-6">
-				<h1 className="font-medium text-lg md:text-xl text-center">
-					{user.firstName}'s Personal Information
-				</h1>
+		<div className="flex flex-col items-center mx-4 lg:mx-0">
+			<div className="flex items-center justify-center gap-2 w-full mt-8 mb-6 lg:max-w-3xl xl:max-w-4xl">
+				<span className="font-medium text-xl sm:text-2xl">Personal Info</span>
 			</div>
-			<div className="flex flex-col max-w-4xl items-center w-full rounded-lg border-[1px] shadow-sm">
+
+			<div className="flex flex-col lg:max-w-3xl xl:max-w-4xl items-center w-full rounded-lg border-[1px] shadow-sm">
 				<Link
 					to="/account/name"
 					className="w-full px-6 rounded-t-lg hover:bg-gray-100 cursor-pointer"
@@ -25,7 +24,7 @@ export default function AccountPage() {
 									viewBox="0 0 24 24"
 									strokeWidth={1.5}
 									stroke="currentColor"
-									className="w-5 h-5"
+									className="w-5 h-5 "
 								>
 									<path
 										strokeLinecap="round"
