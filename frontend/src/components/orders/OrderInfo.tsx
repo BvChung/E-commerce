@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import { useGetOrderInfo } from "../../hooks/orders/useGetOrderInfo";
@@ -21,9 +21,9 @@ export default function OrderInfo() {
 						xmlns="http://www.w3.org/2000/svg"
 						fill="none"
 						viewBox="0 0 24 24"
-						strokeWidth={1.5}
+						strokeWidth={2}
 						stroke="currentColor"
-						className="w-5 h-5 md:w-6 md:h-6"
+						className="w-5 h-5"
 					>
 						<path
 							strokeLinecap="round"
@@ -283,6 +283,23 @@ export default function OrderInfo() {
 					);
 				})}
 			</div>
+			<button
+				onClick={() => {
+					window.scroll({ top: 0, left: 0, behavior: "smooth" });
+				}}
+				style={{
+					position: "fixed",
+					padding: "1rem 2rem",
+					fontSize: "20px",
+					bottom: "40px",
+					right: "40px",
+					backgroundColor: "#0C9",
+					color: "#fff",
+					textAlign: "center",
+				}}
+			>
+				Scroll to top
+			</button>
 		</div>
 	);
 }

@@ -25,7 +25,7 @@ export default function ConfirmOrder() {
 	const grandTotal = (cartItemsInfo.subTotal + +taxAmount).toFixed(2);
 
 	return (
-		<div className="flex flex-col items-center justify-center mb-10 px-2">
+		<div className="flex flex-col items-center justify-center mb-10 mx-4 lg:mx-0">
 			<div className="flex flex-col gap-2 w-full mt-8 mb-10 lg:max-w-5xl xl:max-w-6xl">
 				<span className="font-semibold text-xl sm:text-2xl mb-2 sm:mb-0">
 					Review Order
@@ -90,7 +90,7 @@ export default function ConfirmOrder() {
 								viewBox="0 0 24 24"
 								strokeWidth={1.5}
 								stroke="currentColor"
-								className="w-4 h-4 mr-2 stroke-2 stroke-blue-500"
+								className="w-4 h-4 mr-2 stroke-2 stroke-gray-600"
 							>
 								<path
 									strokeLinecap="round"
@@ -99,7 +99,7 @@ export default function ConfirmOrder() {
 								/>
 							</svg>
 
-							<span className="text-blue-500 font-bold">Review order</span>
+							<span className="text-gray-600 font-bold">Review order</span>
 						</li>
 					</ul>
 				</div>

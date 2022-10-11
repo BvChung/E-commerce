@@ -1,4 +1,5 @@
-import { useState, useMemo } from "react";
+import { useState } from "react";
+import { Link } from "react-router-dom";
 import { useGetProducts } from "../../hooks/products/useGetProducts";
 import TableRow from "./TableRow";
 import { useDeleteProduct } from "../../hooks/admin/useDeleteProduct";
@@ -135,8 +136,24 @@ export default function ProductTable() {
 
 	return (
 		<div className="flex flex-col items-center justify-center mb-10 mx-4 ">
-			<div className="flex items-center gap-2 w-full mt-8 mb-6 lg:max-w-5xl xl:max-w-6xl">
-				<span className="font-semibold text-xl sm:text-2xl">Products</span>
+			<div className="flex items-center gap-2 w-full mt-8 mb-8 pb-2 border-b-[1px] border-gray-200 lg:max-w-5xl xl:max-w-6xl">
+				<Link to={"/admin"} className="mr-2 cursor-pointer">
+					<svg
+						xmlns="http://www.w3.org/2000/svg"
+						fill="none"
+						viewBox="0 0 24 24"
+						strokeWidth={2}
+						stroke="currentColor"
+						className="w-5 h-5"
+					>
+						<path
+							strokeLinecap="round"
+							strokeLinejoin="round"
+							d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18"
+						/>
+					</svg>
+				</Link>
+				<span className="font-medium text-xl sm:text-2xl">Inventory</span>
 			</div>
 
 			<div className="flex justify-end w-full mb-4 lg:max-w-5xl xl:max-w-6xl">
@@ -160,7 +177,7 @@ export default function ProductTable() {
 						</span>
 						<input
 							type="text"
-							placeholder="Search for product name"
+							placeholder="Search for product"
 							value={searchText}
 							onChange={(e) => setSearchText(e.target.value)}
 							className="input input-bordered"

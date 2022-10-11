@@ -17,7 +17,7 @@ export default function Cart() {
 	} = useGetCartItems(myCart);
 
 	return (
-		<div className="flex flex-col items-center justify-center mb-6 px-2 md:px-0">
+		<div className="flex flex-col items-center justify-center mb-6 mx-4 lg:mx-0">
 			<div className="flex items-center gap-2 w-full mt-8 mb-6 lg:max-w-5xl xl:max-w-7xl">
 				<span className="font-semibold text-xl sm:text-2xl">Cart</span>
 				<span className="font-base text-base md:text-lg">

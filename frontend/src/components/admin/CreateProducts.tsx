@@ -4,7 +4,7 @@ import { toast } from "react-toastify";
 import { useCreateProduct } from "../../hooks/admin/useCreateProduct";
 import { ProductForm } from "../../interfaces/productInterface";
 
-export default function ProductCreation() {
+export default function CreateProducts() {
 	const { mutate } = useCreateProduct();
 	const imageRef = useRef<HTMLInputElement>(null);
 

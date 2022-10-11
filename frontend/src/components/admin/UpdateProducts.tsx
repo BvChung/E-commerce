@@ -6,7 +6,7 @@ import { useGetProductInfo } from "../../hooks/products/useGetProductInfo";
 import { useUpdateProduct } from "../../hooks/admin/useUpdateProduct";
 import { ProductForm } from "../../interfaces/productInterface";
 
-export default function ProductUpdate() {
+export default function ManageProducts() {
 	const params = useParams();
 	const { isSuccess, data: productInfo } = useGetProductInfo(params.id);
 	const { mutate } = useUpdateProduct(params.id);

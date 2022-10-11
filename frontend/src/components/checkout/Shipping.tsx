@@ -146,7 +146,7 @@ export default function Shipping() {
 	];
 
 	return (
-		<div className="flex flex-col items-center justify-center mb-10 px-2">
+		<div className="flex flex-col items-center justify-center mb-10 mx-4 lg:mx-0">
 			<div className="flex flex-col gap-2 w-full mt-8 mb-4 lg:max-w-5xl xl:max-w-6xl">
 				<span className="font-semibold text-xl sm:text-2xl">
 					Shipping Address
@@ -177,7 +177,7 @@ export default function Shipping() {
 								viewBox="0 0 24 24"
 								strokeWidth={1.5}
 								stroke="currentColor"
-								className="w-4 h-4 mr-2 stroke-2 stroke-blue-500"
+								className="w-4 h-4 mr-2 stroke-2 stroke-gray-600"
 							>
 								<path
 									strokeLinecap="round"
@@ -185,7 +185,7 @@ export default function Shipping() {
 									d="M8.25 18.75a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h6m-9 0H3.375a1.125 1.125 0 01-1.125-1.125V14.25m17.25 4.5a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h1.125c.621 0 1.129-.504 1.09-1.124a17.902 17.902 0 00-3.213-9.193 2.056 2.056 0 00-1.58-.86H14.25M16.5 18.75h-2.25m0-11.177v-.958c0-.568-.422-1.048-.987-1.106a48.554 48.554 0 00-10.026 0 1.106 1.106 0 00-.987 1.106v7.635m12-6.677v6.677m0 4.5v-4.5m0 0h-12"
 								/>
 							</svg>
-							<span className="text-blue-500 font-bold">Shipping</span>
+							<span className="text-gray-600 font-bold">Shipping</span>
 						</li>
 					</ul>
 				</div>
