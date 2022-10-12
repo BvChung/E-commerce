@@ -1,7 +1,7 @@
-import express, { IRouter } from "express";
+import { IRouter, Router } from "express";
 import handleRefreshToken from "../controllers/refreshTokenController";
 
-const router: IRouter = express.Router();
+const router: IRouter = Router();
 
 router.get("/", handleRefreshToken);
 

@@ -4,7 +4,6 @@ import { useAuthContext } from "../../hooks/context/useAuthContext";
 import { useThemeContext } from "../../hooks/context/useThemeContext";
 import { useCartContext } from "../../hooks/context/useCartContext";
 import SearchModal from "./SearchModal";
-import LoginModal from "./LoginModal";
 import { useLogoutUser } from "../../hooks/user/useLogout";
 
 export default function Nav() {

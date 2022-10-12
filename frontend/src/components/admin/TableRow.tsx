@@ -4,9 +4,7 @@ import { ProductInfo } from "../../interfaces/productInterface";
 export default function TableRow({
 	_id,
 	category,
-	description,
 	image,
-	imageCloudId,
 	name,
 	price,
 	setDeleteConfirmation,

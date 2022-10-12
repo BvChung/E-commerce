@@ -23,12 +23,12 @@ export default function SearchedProducts({
 				viewBox="0 0 24 24"
 				strokeWidth={1.5}
 				stroke="currentColor"
-				className="w-5 h-5"
+				className="w-7 h-7 -rotate-45"
 			>
 				<path
 					strokeLinecap="round"
 					strokeLinejoin="round"
-					d="M19.5 19.5l-15-15m0 0v11.25m0-11.25h11.25"
+					d="M15 11.25l-3-3m0 0l-3 3m3-3v7.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
 				/>
 			</svg>
 		</label>

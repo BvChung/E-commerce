@@ -105,9 +105,7 @@ export default function CreateProducts() {
 						/>
 					</svg>
 				</Link>
-				<span className="font-semibold text-xl sm:text-2xl">
-					Create Product
-				</span>
+				<span className="font-medium text-xl sm:text-2xl">Create Product</span>
 			</div>
 
 			<div className="flex flex-col-reverse md:flex-row justify-between h-max w-full gap-4 lg:max-w-5xl xl:max-w-6xl">
