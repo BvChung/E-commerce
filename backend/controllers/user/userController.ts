@@ -15,7 +15,7 @@ import { registerBody, loginBody } from "../../schemas/userSchema";
 // @desc Login user
 // @route POST /api/users/login
 // @access Public
-const loginUser = async (
+export const loginUser = async (
 	req: Request<{}, {}, loginBody["body"]>,
 	res: Response,
 	next: NextFunction
@@ -75,7 +75,7 @@ const loginUser = async (
 // @desc Register new user
 // @route POST /api/users/register
 // @access Public
-const registerUser = async (
+export const registerUser = async (
 	req: Request<{}, {}, registerBody["body"]>,
 	res: Response,
 	next: NextFunction
@@ -154,7 +154,11 @@ const registerUser = async (
 // @desc Get user
 // @route GET /api/users/me
 // @access Private
-const getUser = async (req: Request, res: Response, next: NextFunction) => {
+export const getUser = async (
+	req: Request,
+	res: Response,
+	next: NextFunction
+) => {
 	try {
 		res.status(200).json({
 			_id: req.user.id,
@@ -172,7 +176,11 @@ const getUser = async (req: Request, res: Response, next: NextFunction) => {
 // @desc Logout user
 // @route PUT /api/users/logout
 // @access Public
-const logoutUser = async (req: Request, res: Response, next: NextFunction) => {
+export const logoutUser = async (
+	req: Request,
+	res: Response,
+	next: NextFunction
+) => {
 	try {
 		const cookies = req.cookies;
 
@@ -223,5 +231,3 @@ const logoutUser = async (req: Request, res: Response, next: NextFunction) => {
 		next(error);
 	}
 };
-
-export { loginUser, registerUser, getUser, logoutUser };

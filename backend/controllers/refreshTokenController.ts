@@ -10,10 +10,12 @@ const handleRefreshToken = async (
 	next: NextFunction
 ) => {
 	try {
+		// JWT sent as cookie
 		const cookies = req.cookies;
 
 		const refreshToken = cookies.jwt;
 
+		// Value of JWT token is compared to value stored in mongoDB
 		const foundUser = await UserModel.findOne({ refreshToken: refreshToken });
 
 		if (!foundUser) return res.sendStatus(403);

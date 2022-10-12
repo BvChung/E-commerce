@@ -1,4 +1,4 @@
-import express, { IRouter } from "express";
+import { IRouter, Router } from "express";
 import verifyJWT from "../middleware/authJWT";
 import validateRequest from "../middleware/validateReq";
 import {
@@ -9,7 +9,7 @@ import {
 } from "../controllers/orderController";
 import { orderBodySchema, orderParamsSchema } from "../schemas/orderSchema";
 
-const router: IRouter = express.Router();
+const router: IRouter = Router();
 
 router
 	.route("/")

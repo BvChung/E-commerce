@@ -1,4 +1,4 @@
-import express, { IRouter } from "express";
+import { IRouter, Router } from "express";
 import verifyJWT from "../middleware/authJWT";
 import validateRequest from "../middleware/validateReq";
 import {
@@ -6,14 +6,14 @@ import {
 	createOrder,
 	deleteOrder,
 } from "../controllers/orderController";
-import { orderSchema } from "../schemas/orderSchema";
+import { orderBodySchema } from "../schemas/orderSchema";
 
-const router: IRouter = express.Router();
+const router: IRouter = Router();
 
 router
 	.route("/")
 	.get(verifyJWT, getOrder)
-	.post([verifyJWT, validateRequest(orderSchema)], createOrder);
+	.post([verifyJWT, validateRequest(orderBodySchema)], createOrder);
 router.route("/:id").delete(verifyJWT, deleteOrder);
 
 export default router;

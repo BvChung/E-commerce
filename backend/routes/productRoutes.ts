@@ -1,4 +1,4 @@
-import express, { IRouter } from "express";
+import { IRouter, Router } from "express";
 import verifyJWT from "../middleware/authJWT";
 import validateRequest from "../middleware/validateReq";
 
@@ -16,20 +16,13 @@ import {
 	productParamsSchema,
 } from "../schemas/productSchema";
 
-const router: IRouter = express.Router();
+const router: IRouter = Router();
 
 router
 	.route("/")
 	.get(getProduct)
 	.post(validateRequest(productCreationBodySchema), createProduct);
 
-// router
-// 	.route("/")
-// 	.get(getProduct)
-// 	.post(
-// 		[verifyJWT, convertFile, validateRequest(productBodySchema)],
-// 		createProduct
-// 	);
 router.route("/cart").get(getSpecifiedProducts);
 
 router

@@ -1,10 +1,11 @@
-import express, { IRouter } from "express";
+import { IRouter, Router } from "express";
 import {
 	loginUser,
 	registerUser,
 	getUser,
 	logoutUser,
 } from "../controllers/user/userController";
+import { getAccounts } from "../controllers/admin/manageController";
 import {
 	updateName,
 	updateEmail,
@@ -20,7 +21,7 @@ import {
 import validateRequest from "../middleware/validateReq";
 import verifyJWT from "../middleware/authJWT";
 
-const router: IRouter = express.Router();
+const router: IRouter = Router();
 
 router.post("/login", validateRequest(loginSchema), loginUser);
 router.post("/register", validateRequest(registerSchema), registerUser);
@@ -42,5 +43,7 @@ router.patch(
 	[verifyJWT, validateRequest(editPasswordSchema)],
 	updatePassword
 );
+
+router.get("/manage", verifyJWT, getAccounts);
 
 export default router;
