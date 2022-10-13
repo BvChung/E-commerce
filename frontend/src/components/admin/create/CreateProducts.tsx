@@ -1,8 +1,8 @@
 import React, { useState, useRef } from "react";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
-import { useCreateProduct } from "../../hooks/admin/useCreateProduct";
-import { ProductForm } from "../../interfaces/productInterface";
+import { useCreateProduct } from "../../../hooks/admin/useCreateProduct";
+import { ProductForm } from "../../../interfaces/productInterface";
 
 export default function CreateProducts() {
 	const { mutate } = useCreateProduct();

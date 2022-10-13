@@ -1,9 +1,12 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { useGetProducts } from "../../hooks/products/useGetProducts";
-import TableRow from "./TableRow";
-import { useDeleteProduct } from "../../hooks/admin/useDeleteProduct";
-import { ProductInfo, SortProducts } from "../../interfaces/productInterface";
+import { useGetProducts } from "../../../hooks/products/useGetProducts";
+import InventoryRow from "./InventoryRow";
+import { useDeleteProduct } from "../../../hooks/admin/useDeleteProduct";
+import {
+	ProductInfo,
+	SortProducts,
+} from "../../../interfaces/productInterface";
 
 export default function ProductTable() {
 	const { isLoading, isError, isSuccess, data: products } = useGetProducts();
@@ -21,52 +24,6 @@ export default function ProductTable() {
 	});
 
 	const [searchText, setSearchText] = useState<string>("");
-
-	// const sortedProducts = useMemo(() => {
-	// 	if (!isSuccess) return;
-
-	// 	return products.sort((a: ProductInfo, b: ProductInfo) => {
-	// 		if (sortTable.field === "") return 0;
-
-	// 		if (sortTable[sortTable.field].sortDescending) {
-	// 			const itemA =
-	// 				sortTable.field !== "price"
-	// 					? a[sortTable.field].toLowerCase()
-	// 					: a[sortTable.field];
-	// 			const itemB =
-	// 				sortTable.field !== "price"
-	// 					? b[sortTable.field].toLowerCase()
-	// 					: b[sortTable.field];
-
-	// 			if (itemA < itemB) {
-	// 				return 1;
-	// 			}
-	// 			if (itemA > itemB) {
-	// 				return -1;
-	// 			}
-	// 			// names must be equal
-	// 			return 0;
-	// 		} else {
-	// 			const itemA =
-	// 				sortTable.field !== "price"
-	// 					? a[sortTable.field].toLowerCase()
-	// 					: a[sortTable.field];
-	// 			const itemB =
-	// 				sortTable.field !== "price"
-	// 					? b[sortTable.field].toLowerCase()
-	// 					: b[sortTable.field];
-
-	// 			if (itemA < itemB) {
-	// 				return -1;
-	// 			}
-	// 			if (itemA > itemB) {
-	// 				return 1;
-	// 			}
-	// 			// names must be equal
-	// 			return 0;
-	// 		}
-	// 	});
-	// }, [sortTable, products]);
 
 	function displayRows() {
 		if (!isSuccess) return;
@@ -118,7 +75,7 @@ export default function ProductTable() {
 			})
 			.map((product) => {
 				return (
-					<TableRow
+					<InventoryRow
 						key={product._id}
 						_id={product._id}
 						category={product.category}
@@ -346,7 +303,7 @@ export default function ProductTable() {
 								setDeleteConfirmation(false);
 								setItemId("");
 							}}
-							className="btn btn-accent normal-case"
+							className="btn px-6 rounded-full btn-outline normal-case"
 						>
 							Cancel
 						</button>
@@ -357,7 +314,7 @@ export default function ProductTable() {
 								mutate(itemId);
 								setItemId("");
 							}}
-							className="btn btn-primary normal-case"
+							className="btn px-6 rounded-full btn-primary normal-case"
 						>
 							Delete
 						</button>

@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
-import { ProductInfo } from "../../interfaces/productInterface";
+import { ProductInfo } from "../../../interfaces/productInterface";
 
-export default function TableRow({
+export default function InventoryRow({
 	_id,
 	category,
 	image,
