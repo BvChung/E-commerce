@@ -26,11 +26,11 @@ export default function ConfirmOrder() {
 
 	return (
 		<div className="flex flex-col items-center justify-center mb-10 mx-4 lg:mx-0">
-			<div className="flex flex-col gap-2 w-full mt-8 mb-10 lg:max-w-5xl xl:max-w-6xl">
-				<span className="font-semibold text-xl sm:text-2xl mb-2 sm:mb-0">
+			<div className="flex flex-col w-full mt-8 mb-10 lg:max-w-5xl xl:max-w-6xl">
+				<span className="font-medium text-xl sm:text-2xl mb-2 sm:mb-0">
 					Review Order
 				</span>
-				<div className="text-sm breadcrumbs mb-3 hidden sm:inline-flex">
+				<div className="text-sm breadcrumbs mb-4 hidden sm:inline-flex">
 					<ul>
 						<li>
 							<svg
@@ -137,7 +137,7 @@ export default function ConfirmOrder() {
 									/>
 								</svg>
 
-								<span className="font-semibold text-lg md:text-2xl">
+								<span className="font-medium text-lg md:text-2xl">
 									Shipping
 								</span>
 							</div>
@@ -157,7 +157,7 @@ export default function ConfirmOrder() {
 						</div>
 
 						<div className="flex flex-col md:flex-row justify-between items-center border-b-[1px] py-4 mb-4">
-							<div className="relative flex md:hidden w-full justify-center items-center font-semibold text-lg md:text-xl mb-4">
+							<div className="relative flex md:hidden w-full justify-center items-center font-medium text-lg md:text-xl mb-4">
 								<svg
 									xmlns="http://www.w3.org/2000/svg"
 									fill="none"
@@ -198,7 +198,7 @@ export default function ConfirmOrder() {
 									/>
 								</svg>
 
-								<div className="font-semibold text-lg md:text-2xl hidden md:inline-flex">
+								<div className="font-medium text-lg md:text-2xl hidden md:inline-flex">
 									Sending to
 									<Link
 										to={"/checkout/shipping"}
@@ -273,7 +273,7 @@ export default function ConfirmOrder() {
 									viewBox="0 0 24 24"
 									strokeWidth={1.5}
 									stroke="currentColor"
-									className="w-12 h-12 stroke-green-600"
+									className="w-11 h-11 stroke-green-600"
 								>
 									<path
 										strokeLinecap="round"
@@ -282,7 +282,7 @@ export default function ConfirmOrder() {
 									/>
 								</svg>
 
-								<div className="font-semibold text-lg md:text-2xl">
+								<div className="font-medium text-lg md:text-2xl">
 									Paying with
 									<Link
 										to={"/checkout/payment"}

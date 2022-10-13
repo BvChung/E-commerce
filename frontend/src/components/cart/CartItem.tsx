@@ -41,7 +41,8 @@ export default function CartItem({
 						${(foundItem?.price! * foundItem?.quantity!).toFixed(2)}
 					</p>
 				</div>
-				<div className="flex justify-end items-center h-1/4 gap-2 md:gap-4">
+
+				<div className="flex justify-end items-center h-1/4 gap-2 md:gap-5">
 					<button
 						onClick={() => {
 							removeCartItem(_id);
@@ -52,14 +53,14 @@ export default function CartItem({
 					</button>
 
 					<div className="relative form-control w-fit">
-						<label className="hidden absolute md:inline-block label bottom-9">
-							<span className="label-text font-medium">Quantity</span>
+						<label className="hidden absolute md:inline-block label bottom-7">
+							<span className="label-text text-xs font-medium">Quantity</span>
 						</label>
 						<select
 							name="itemQuantity"
 							value={itemQuantity}
 							onChange={(e) => setItemQuantity(+e.target.value)}
-							className="select rounded-lg select-bordered text-xs md:text-sm min-h-0 h-8 md:h-10"
+							className="select rounded-lg select-bordered text-xs md:text-sm min-h-0 h-8 md:h-9"
 							required
 						>
 							<option value="1">1</option>

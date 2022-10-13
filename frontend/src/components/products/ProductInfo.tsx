@@ -1,14 +1,11 @@
-import React, { useState } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useGetProductInfo } from "../../hooks/products/useGetProductInfo";
 import { useCartContext } from "../../hooks/context/useCartContext";
 import { toast } from "react-toastify";
 
 export default function ProductInfo() {
 	const params = useParams();
-	const navigate = useNavigate();
 	const {
-		myCart,
 		addCartItem,
 		findCartItem,
 		incrementCartQuantity,
@@ -61,57 +58,33 @@ export default function ProductInfo() {
 								) : (
 									<div className="btn-group">
 										<button
+											className={`btn btn-md  ${
+												foundItem?.quantity === 0 && "btn-disabled"
+											} `}
 											onClick={() => {
 												decrementCartQuantity(productInfo._id);
 											}}
-											className={`btn rounded-full btn-sm h-11 md:h-12  ${
-												foundItem?.quantity === 0 && "btn-disabled"
-											} `}
 										>
-											<svg
-												xmlns="http://www.w3.org/2000/svg"
-												className="h-5 w-5"
-												fill="none"
-												viewBox="0 0 24 24"
-												stroke="currentColor"
-												strokeWidth={2}
-											>
-												<path
-													strokeLinecap="round"
-													strokeLinejoin="round"
-													d="M18 12H6"
-												/>
-											</svg>
+											«
 										</button>
-										<div className="flex bg-gray-100 text-base font-semibold text-gray-800 items-center justify-center w-28 md:w-[98px] px-4">
+										<button className="btn btn-md">
 											{foundItem.quantity !== 9
 												? `${foundItem?.quantity} Added`
 												: `Max ${foundItem?.quantity}`}
-										</div>
+										</button>
 										<button
 											onClick={() => {
 												incrementCartQuantity(productInfo._id);
 											}}
-											className={`btn rounded-full btn-sm h-11 md:h-12  ${
+											className={`btn btn-md ${
 												foundItem?.quantity === 9 && "btn-disabled"
 											} `}
 										>
-											<svg
-												xmlns="http://www.w3.org/2000/svg"
-												className="h-5 w-5"
-												fill="none"
-												viewBox="0 0 24 24"
-												stroke="currentColor"
-												strokeWidth={2}
-											>
-												<path
-													strokeLinecap="round"
-													strokeLinejoin="round"
-													d="M12 6v6m0 0v6m0-6h6m-6 0H6"
-												/>
-											</svg>
+											»
 										</button>
 									</div>
+
+									// flex bg-gray-100 text-base font-semibold text-gray-800 items-center justify-center w-28 md:w-[98px] px-4
 								)}
 							</div>
 

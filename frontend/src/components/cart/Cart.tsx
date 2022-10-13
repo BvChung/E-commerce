@@ -4,6 +4,7 @@ import { CartItemInfo } from "../../interfaces/cartInterface";
 import { useGetCartItems } from "../../hooks/cart/useGetCartItems";
 import CartItem from "./CartItem";
 import { useOrderContext } from "../../hooks/context/useOrderContext";
+import Spinner from "../loading/Spinner";
 
 export default function Cart() {
 	const { myCart, cartItemsInfo } = useCartContext();
@@ -19,10 +20,7 @@ export default function Cart() {
 	return (
 		<div className="flex flex-col items-center justify-center mb-6 mx-4 lg:mx-0">
 			<div className="flex items-center gap-2 w-full mt-8 mb-6 lg:max-w-5xl xl:max-w-7xl">
-				<span className="font-semibold text-xl sm:text-2xl">Cart</span>
-				<span className="font-base text-base md:text-lg">
-					({cartItemsInfo.numItems} items)
-				</span>
+				<span className="font-medium text-xl sm:text-2xl">My Cart</span>
 			</div>
 
 			<div className="flex flex-col-reverse md:flex-row justify-center h-max w-full gap-4 lg:max-w-5xl xl:max-w-7xl">
@@ -65,25 +63,7 @@ export default function Cart() {
 							);
 						})
 					) : (
-						<div className="border border-blue-300 shadow rounded-md p-4 max-w-md w-full mx-auto">
-							<div className="animate-pulse flex space-x-4 h-full w-full">
-								<div className="rounded-md bg-slate-700 h-full w-24"></div>
-								<div className="flex-1 space-y-6 py-1">
-									<div className="h-2 bg-slate-700 rounded"></div>
-									<div className="space-y-3">
-										<div className="grid grid-cols-3 gap-4">
-											<div className="h-2 bg-slate-700 rounded col-span-2"></div>
-											<div className="h-2 bg-slate-700 rounded col-span-1"></div>
-										</div>
-										<div className="grid grid-cols-3 gap-4">
-											<div className="h-2 bg-slate-700 rounded col-span-2"></div>
-											<div className="h-2 bg-slate-700 rounded col-span-1"></div>
-										</div>
-										<div className="h-2 bg-slate-700 rounded"></div>
-									</div>
-								</div>
-							</div>
-						</div>
+						<Spinner mt={6} />
 					)}
 				</div>
 

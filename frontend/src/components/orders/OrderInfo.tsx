@@ -32,7 +32,7 @@ export default function OrderInfo() {
 						/>
 					</svg>
 				</Link>
-				<span className="font-semibold text-xl sm:text-2xl">Order Details</span>
+				<span className="font-medium text-xl sm:text-2xl">Order Details</span>
 			</div>
 
 			<div className="lg:max-w-4xl xl:max-w-5xl w-full mb-4">
@@ -283,23 +283,6 @@ export default function OrderInfo() {
 					);
 				})}
 			</div>
-			<button
-				onClick={() => {
-					window.scroll({ top: 0, left: 0, behavior: "smooth" });
-				}}
-				style={{
-					position: "fixed",
-					padding: "1rem 2rem",
-					fontSize: "20px",
-					bottom: "40px",
-					right: "40px",
-					backgroundColor: "#0C9",
-					color: "#fff",
-					textAlign: "center",
-				}}
-			>
-				Scroll to top
-			</button>
 		</div>
 	);
 }

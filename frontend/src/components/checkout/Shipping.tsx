@@ -147,8 +147,8 @@ export default function Shipping() {
 
 	return (
 		<div className="flex flex-col items-center justify-center mb-10 mx-4 lg:mx-0">
-			<div className="flex flex-col gap-2 w-full mt-8 mb-4 lg:max-w-5xl xl:max-w-6xl">
-				<span className="font-semibold text-xl sm:text-2xl">
+			<div className="flex flex-col w-full mt-8 mb-4 lg:max-w-5xl xl:max-w-6xl">
+				<span className="font-medium text-xl sm:text-2xl">
 					Shipping Address
 				</span>
 				<div className="text-sm breadcrumbs hidden sm:inline-flex">
