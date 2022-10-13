@@ -7,6 +7,7 @@ import "colors";
 import { connectDatabase } from "./config/mongoConfig";
 import errorHandler from "./middleware/errorHandler";
 import userRoutes from "./routes/userRoutes";
+import adminRoutes from "./routes/admin/adminRoutes";
 import orderRoutes from "./routes/orderRoutes";
 import productRoutes from "./routes/productRoutes";
 import refreshTokenRoutes from "./routes/refreshTokenRoutes";
@@ -53,6 +54,7 @@ app.use(cookieParser());
 // });
 
 app.use("/api/users", userRoutes);
+app.use("/api/admin", adminRoutes);
 app.use("/api/products", productRoutes);
 app.use("/api/orders", orderRoutes);
 app.use("/api/refresh", refreshTokenRoutes);

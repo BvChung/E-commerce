@@ -7,7 +7,7 @@ import { AuthProvider } from "./context/AuthProvider";
 import { ThemeProvider } from "./context/ThemeProvider";
 import { CartProvider } from "./context/CartProvider";
 import { OrderProvider } from "./context/OrderProvider";
-import { appRouter } from "./App";
+import App from "./App";
 
 const queryClient = new QueryClient();
 
@@ -21,7 +21,7 @@ root.render(
 			<AuthProvider>
 				<CartProvider>
 					<OrderProvider>
-						<RouterProvider router={appRouter} />
+						<App />
 						<ReactQueryDevtools initialIsOpen />
 					</OrderProvider>
 				</CartProvider>

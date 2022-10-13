@@ -1,6 +1,7 @@
 import "./App.css";
 import {
 	createBrowserRouter,
+	RouterProvider,
 	Route,
 	Outlet,
 	createRoutesFromElements,
@@ -12,10 +13,11 @@ import Admin from "./components/admin/Admin";
 import Layout from "./components/layout/Layout";
 import Landing from "./components/landingPage/LandingPage";
 import ProductPage from "./components/products/ProductPage";
-import InventoryTable from "./components/admin/InventoryTable";
+import InventoryTable from "./components/admin/inventory/InventoryTable";
 import ProductInfo from "./components/products/ProductInfo";
-import CreateProducts from "./components/admin/CreateProducts";
-import UpdateProducts from "./components/admin/UpdateProducts";
+import CreateProducts from "./components/admin/create/CreateProducts";
+import UpdateProducts from "./components/admin/inventory/UpdateProducts";
+import AccountsTable from "./components/admin/manage/AccountsTable";
 import Payment from "./components/checkout/Payment";
 import Shipping from "./components/checkout/Shipping";
 import ConfirmOrder from "./components/checkout/ConfirmOrder";
@@ -31,7 +33,7 @@ import { accessRoles } from "./helper/accessRoles";
 import PersistLogin from "./components/protected/PersistLogin";
 import "react-toastify/dist/ReactToastify.css";
 
-export const appRouter = createBrowserRouter(
+const appRouter = createBrowserRouter(
 	createRoutesFromElements(
 		<Route path="/" element={<Layout />}>
 			{/* Public routes */}
@@ -76,11 +78,15 @@ export const appRouter = createBrowserRouter(
 				<Route element={<ProtectedRoutes authRoles={[accessRoles.Admin]} />}>
 					<Route path="admin" element={<Outlet />}>
 						<Route index element={<Admin />} />
-						<Route path="createproduct" element={<CreateProducts />} />
-						<Route path="updateproduct" element={<Outlet />}>
+						<Route path="create" element={<CreateProducts />} />
+						{/* <Route path="updateproduct" element={<InventoryTable />} />
+						<Route path="updateproduct/:id" element={<UpdateProducts />} /> */}
+						<Route path="inventory" element={<Outlet />}>
 							<Route index element={<InventoryTable />} />
 							<Route path=":id" element={<UpdateProducts />} />
 						</Route>
+
+						<Route path="manage" element={<AccountsTable />} />
 					</Route>
 				</Route>
 			</Route>
@@ -88,3 +94,30 @@ export const appRouter = createBrowserRouter(
 		</Route>
 	)
 );
+
+const router = createBrowserRouter([
+	{
+		path: "/",
+		element: <Layout />,
+		children: [
+			{
+				path: "signin",
+				element: <SignIn />,
+			},
+			{
+				path: "register",
+				element: <Register />,
+			},
+			{
+				path: "products",
+				element: <OrderPage />,
+			},
+		],
+	},
+]);
+
+export default function App() {
+	return (
+		<RouterProvider router={appRouter} fallbackElement={<p>Loading...</p>} />
+	);
+}
