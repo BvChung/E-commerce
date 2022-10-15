@@ -192,7 +192,7 @@ export default function CreateProducts() {
 											className="rounded-t-md w-full h-72 object-cover"
 										/>
 									) : (
-										<div className="flex items-center justify-center w-full h-72 rounded-t-md border-2 border-dashed border-gray-400">
+										<div className="flex items-center justify-center w-full h-72 rounded-t-md border-2 border-dashed border-gray-400 hover:border-primary-focus hover:border-solid hover:text-primary-focus group transition-colors">
 											<div className="flex flex-col items-center">
 												<svg
 													xmlns="http://www.w3.org/2000/svg"
@@ -208,7 +208,9 @@ export default function CreateProducts() {
 														d="M12 4.5v15m7.5-7.5h-15"
 													/>
 												</svg>
-												<p className="font-semibold text-lg">Upload an Image</p>
+												<p className="font-semibold text-lg group-hover:text-primary-focus">
+													Upload image
+												</p>
 											</div>
 										</div>
 									)}

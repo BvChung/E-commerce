@@ -1,12 +1,11 @@
 import { usePrivateApi } from "../auth/usePrivateApi";
-import { toast } from "react-toastify";
 import { useQuery } from "react-query";
-import { UserInfo } from "../../interfaces/authInterface";
+import { AccountInfo } from "../../interfaces/adminInterface";
 
 export const useGetAccounts = () => {
 	const eCommerceApiPrivate = usePrivateApi();
 
-	const getAccounts = async (): Promise<UserInfo[]> => {
+	const getAccounts = async (): Promise<AccountInfo[]> => {
 		const response = await eCommerceApiPrivate.get("/api/admin/manage");
 
 		return response.data;
