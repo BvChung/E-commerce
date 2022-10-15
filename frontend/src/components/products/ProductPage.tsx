@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useGetProducts } from "../../hooks/products/useGetProducts";
 import { ProductInfo } from "../../interfaces/productInterface";
-import ProductDisplayItem from "./ProductDisplayItem";
+import ProductDisplay from "./ProductDisplay";
 
 interface Filter {
 	category: string;
@@ -306,7 +306,7 @@ export default function ProductPage() {
 						})
 						.map((product: ProductInfo, i, arr) => {
 							return (
-								<ProductDisplayItem
+								<ProductDisplay
 									key={product._id}
 									_id={product._id}
 									name={product.name}

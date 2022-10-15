@@ -28,7 +28,7 @@ export default function ProductInfo() {
 								alt="Product"
 							></img>
 						</div>
-						<div className="flex flex-col w-full md:w-80 h-fit p-4 border-[1px] rounded-lg shadow-sm md:shadow-md">
+						<div className="flex flex-col w-full md:w-80 h-fit p-4 border-[1px] rounded-lg shadow-sm">
 							<p className="font-semibold text-xl text-gray-800 mb-4">
 								{productInfo.name}
 							</p>
