@@ -2,69 +2,78 @@ import { useState, useEffect, useRef, useCallback, useId } from "react";
 import { carouselData, CarouselData } from "../../helper/displayImages";
 import Indicator from "./Indicator";
 
-export default function Carousel({ data }: CarouselData) {
+export default function Carou({ slides }: CarouselData) {
 	const [currentIndex, setCurrentIndex] = useState<number>(0);
 	const slideInterval = useRef<ReturnType<typeof setInterval>>();
 
-	const startTimer = useCallback(() => {
+	// const startTimer = useCallback(() => {
+	// 	slideInterval.current = setInterval(() => {
+	// 		setCurrentIndex((prev) => (prev === slides.length - 1 ? 0 : prev + 1));
+	// 	}, 5000);
+	// }, [slides.length]);
+
+	function startTimer() {
 		slideInterval.current = setInterval(() => {
-			setCurrentIndex((prev) => (prev === data.length - 1 ? 0 : prev + 1));
+			setCurrentIndex((prev) => (prev === slides.length - 1 ? 0 : prev + 1));
 		}, 10000);
-	}, [data.length]);
+	}
 
 	useEffect(() => {
 		startTimer();
 
 		return () => stopTimer();
-	}, [startTimer]);
+	}, []);
 
 	function toNextSlide() {
 		setCurrentIndex((prev) =>
-			currentIndex === data.length - 1 ? 0 : prev + 1
+			currentIndex === slides.length - 1 ? 0 : prev + 1
 		);
 	}
 
 	function toPrevSlide() {
 		setCurrentIndex((prev) =>
-			currentIndex === 0 ? data.length - 1 : prev - 1
+			currentIndex === 0 ? slides.length - 1 : prev - 1
 		);
-	}
-
-	function toSpecificSlide(index: number) {
-		setCurrentIndex(index);
 	}
 
 	function stopTimer() {
 		if (slideInterval.current) {
+			console.log("stop");
 			clearInterval(slideInterval.current);
 		}
 	}
 
 	return (
-		<div className="flex relative w-full overflow-hidden lg:max-w-5xl xl:max-w-7xl">
-			<div className="flex ">
-				{data.map((img, index) => {
-					return (
-						<div
-							key={index}
-							className={`w-full`}
-							onMouseOver={stopTimer}
-							onMouseLeave={startTimer}
-						>
-							<img
-								key={index}
-								src={img}
-								alt="Carouse"
-								className="w-full lg:min-w-[64rem] xl:min-w-[80rem] h-[30rem] object-cover carousel-item ease-out duration-1000"
-								style={{ transform: `translateX(${-currentIndex * 100}%)` }}
-							></img>
-						</div>
-					);
-				})}
+		<div className="flex relative w-full max-w-full">
+			<div className="overflow-hidden w-full">
+				<div className="flex w-full">
+					{slides.map((img, index) => {
+						return (
+							<div className="relative min-w-full">
+								<div
+									key={index}
+									onMouseOver={stopTimer}
+									onMouseLeave={startTimer}
+									className="relative w-full
+                             h-[30rem]"
+								>
+									<img
+										src={img}
+										alt="Carousel"
+										className="absolute block w-full  object-cover h-[30rem] ease-out duration-1000"
+										style={{ transform: `translateX(${-currentIndex * 100}%)` }}
+									></img>
+								</div>
+							</div>
+						);
+					})}
+				</div>
 			</div>
 
 			<div className="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2">
 				<button
+					onMouseOver={stopTimer}
+					onMouseLeave={startTimer}
 					onClick={toPrevSlide}
 					className="btn h-14 w-14 flex items-center justify-center bg-opacity-60 btn-circle border-none bg-gray-800 hover:bg-opacity-90 hover:bg-gray-800"
 				>
@@ -84,6 +93,8 @@ export default function Carousel({ data }: CarouselData) {
 					</svg>
 				</button>
 				<button
+					onMouseOver={stopTimer}
+					onMouseLeave={startTimer}
 					onClick={toNextSlide}
 					className="btn h-14 w-14 flex items-center justify-center bg-opacity-60 btn-circle border-none bg-gray-800 hover:bg-opacity-90 hover:bg-gray-800"
 				>
@@ -104,8 +115,11 @@ export default function Carousel({ data }: CarouselData) {
 				</button>
 			</div>
 
-			<div className="absolute w-fit bg-gray-400 bg-opacity-30 p-2 rounded-full flex gap-4 -translate-y-1/2 left-[45%] right-[60%] bottom-0 ">
-				{/* absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2 */}
+			<div
+				onMouseOver={stopTimer}
+				onMouseLeave={startTimer}
+				className="absolute w-[240px] bg-gray-500 bg-opacity-20 p-2 rounded-full shadow-sm flex items-center justify-center gap-4 -translate-y-1/2 left-1/2 ml-[-120px] bottom-0"
+			>
 				<Indicator
 					key={useId()}
 					currentIndex={currentIndex}

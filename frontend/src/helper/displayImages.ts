@@ -12,11 +12,11 @@ import Shelf from "../assets/shelf.jpg";
 import Table from "../assets/table.jpg";
 
 export interface CarouselData {
-	data: string[];
+	slides: string[];
 }
 
 export const carouselData: CarouselData = {
-	data: [Sofa, Desk, Table, Chair, Drawer],
+	slides: [Sofa, Desk, Table, Chair, Drawer],
 };
 
 export const categoryData = [Sofa, Table, Desk, Chair, Drawer, Shelf];

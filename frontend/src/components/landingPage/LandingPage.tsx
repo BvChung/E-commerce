@@ -25,10 +25,10 @@ function LandingPage() {
 	const refreshToken = useRefreshToken();
 
 	return (
-		<div className="flex flex-col gap-2 items-center justify-center">
-			<Carousel data={carouselData.data} />
+		<div className="flex flex-col w-full gap-2 items-center justify-center mx-4 lg:mx-0">
+			<Carousel slides={carouselData.slides} />
 
-			<div className="grid grid-cols-2 md:grid-cols-3 gap-4 mt-8">
+			<div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 mt-8">
 				<Category image={Sofa} title={"Sofas"} />
 				<Category image={Table} title={"Tables"} />
 				<Category image={Desk} title={"Desks"} />

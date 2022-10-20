@@ -11,14 +11,14 @@ export default function Indicator({
 	toIndex,
 	setCurrentIndex,
 }: CarouselIndicator) {
-	const active = currentIndex === toIndex ? "bg-gray-900" : "bg-white";
+	const active = currentIndex === toIndex ? "bg-gray-900" : "bg-gray-100";
 	return (
 		<button
-			onClick={(e) => {
+			onClick={() => {
 				setCurrentIndex(toIndex);
 			}}
-			name="carouselRadio"
-			className={`radio h-[.8rem] w-[.8rem] ${active}`}
+			name="carouselButtons"
+			className={`rounded-full h-1 w-12 ${active}`}
 		/>
 	);
 }
