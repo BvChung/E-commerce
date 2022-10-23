@@ -44,14 +44,13 @@ export default function Carou({ slides }: CarouselData) {
 	}
 
 	return (
-		<div className="flex relative w-full max-w-full">
+		<div className="flex relative w-full ">
 			<div className="overflow-hidden w-full">
 				<div className="flex w-full">
 					{slides.map((img, index) => {
 						return (
-							<div className="relative min-w-full">
+							<div key={index} className="relative min-w-full">
 								<div
-									key={index}
 									onMouseOver={stopTimer}
 									onMouseLeave={startTimer}
 									className="relative w-full
@@ -75,7 +74,7 @@ export default function Carou({ slides }: CarouselData) {
 					onMouseOver={stopTimer}
 					onMouseLeave={startTimer}
 					onClick={toPrevSlide}
-					className="btn h-14 w-14 flex items-center justify-center bg-opacity-60 btn-circle border-none bg-gray-800 hover:bg-opacity-90 hover:bg-gray-800"
+					className="btn h-14 w-14 flex items-center justify-center bg-opacity-0 btn-circle border-none bg-gray-700 hover:bg-opacity-70 hover:bg-gray-800"
 				>
 					<svg
 						xmlns="http://www.w3.org/2000/svg"
@@ -96,7 +95,7 @@ export default function Carou({ slides }: CarouselData) {
 					onMouseOver={stopTimer}
 					onMouseLeave={startTimer}
 					onClick={toNextSlide}
-					className="btn h-14 w-14 flex items-center justify-center bg-opacity-60 btn-circle border-none bg-gray-800 hover:bg-opacity-90 hover:bg-gray-800"
+					className="btn h-14 w-14 flex items-center justify-center bg-opacity-0 btn-circle border-none bg-gray-700 hover:bg-opacity-70 hover:bg-gray-800"
 				>
 					<svg
 						xmlns="http://www.w3.org/2000/svg"
@@ -118,7 +117,7 @@ export default function Carou({ slides }: CarouselData) {
 			<div
 				onMouseOver={stopTimer}
 				onMouseLeave={startTimer}
-				className="absolute w-[240px] bg-gray-500 bg-opacity-20 p-2 rounded-full shadow-sm flex items-center justify-center gap-4 -translate-y-1/2 left-1/2 ml-[-120px] bottom-0"
+				className="absolute w-[240px] bg-gray-500 bg-opacity-30 p-2 rounded-full shadow-sm flex items-center justify-center gap-4 -translate-y-1/2 left-1/2 ml-[-120px] bottom-0"
 			>
 				<Indicator
 					key={useId()}

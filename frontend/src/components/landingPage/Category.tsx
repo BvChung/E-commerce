@@ -10,7 +10,7 @@ export default function Category({ image, title }: CategoryProps) {
 	return (
 		<Link
 			to="products"
-			className="flex items-center rounded-md shadow-sm border-[1px] w-[24rem] h-52 mb-10"
+			className="flex justify-center items-center rounded-md shadow-sm w-full"
 		>
 			<figure className="group overflow-hidden w-full relative">
 				<img

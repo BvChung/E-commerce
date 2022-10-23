@@ -8,7 +8,7 @@ export default function OrdersPage() {
 	return (
 		<div className="flex flex-col items-center justify-center mb-10 mx-2">
 			<div className="flex items-center gap-2 w-full mt-8 mb-6 lg:max-w-4xl xl:max-w-5xl">
-				<span className="font-medium text-xl sm:text-2xl">Orders</span>
+				<span className="font-medium text-xl sm:text-2xl">My Orders</span>
 			</div>
 
 			<div className="flex justify-center h-max w-full gap-4 lg:max-w-4xl xl:max-w-5xl">

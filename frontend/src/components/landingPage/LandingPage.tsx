@@ -1,7 +1,6 @@
-import React from "react";
+import { useId } from "react";
 import { useNavigate } from "react-router-dom";
 import { useRefreshToken } from "../../hooks/auth/useRefreshToken";
-import { Link } from "react-router-dom";
 import { carouselData } from "../../helper/displayImages";
 import Carousel from "./Carousel";
 import Category from "./Category";
@@ -25,19 +24,43 @@ function LandingPage() {
 	const refreshToken = useRefreshToken();
 
 	return (
-		<div className="flex flex-col w-full gap-2 items-center justify-center mx-4 lg:mx-0">
-			<Carousel slides={carouselData.slides} />
+		<div className="flex flex-col w-full gap-2 items-center justify-center">
+			<div className="w-full md:max-w-7xl">
+				<div className="mt-10 mb-20">
+					<Carousel slides={carouselData.slides} />
+				</div>
 
-			<div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 mt-8">
-				<Category image={Sofa} title={"Sofas"} />
-				<Category image={Table} title={"Tables"} />
-				<Category image={Desk} title={"Desks"} />
-				<Category image={Chair} title={"Chairs"} />
-				<Category image={Drawer} title={"Drawers"} />
-				<Category image={Shelf} title={"Shelves"} />
+				<div className="flex flex-col items-center justify-center mb-20">
+					<h1 className="font-medium text-3xl mb-7">
+						Beautiful and Simply Modern
+					</h1>
+					<p className="font-">
+						Modular furniture designed with your everyday life in mind. Made
+						from solid hardwood and built to last.
+					</p>
+				</div>
+
+				<div className="flex flex-col items-center justify-center mb-16">
+					<h1 className="font-medium text-3xl mb-7">
+						Designed With Your Life in Mind
+					</h1>
+					<p className="font-">
+						Explore our collections and see how these thoughtful ecosystems
+						interact with one another to help simplify your life.
+					</p>
+				</div>
+
+				<div className="w-full h-fit md:max-w-7xl grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 gap-4">
+					<Category key={useId()} image={Sofa} title={"Sofas"} />
+					<Category key={useId()} image={Table} title={"Tables"} />
+					<Category key={useId()} image={Desk} title={"Desks"} />
+					<Category key={useId()} image={Chair} title={"Chairs"} />
+					<Category key={useId()} image={Drawer} title={"Drawers"} />
+					<Category key={useId()} image={Shelf} title={"Shelves"} />
+				</div>
 			</div>
 
-			<div className="grid gap-4 grid-cols-2">
+			<div className="grid gap-4 grid-cols-2 mt-10">
 				<button
 					onClick={() => {
 						navigate("/orders");
