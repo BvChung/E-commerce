@@ -1,4 +1,5 @@
-import { useState, useEffect, useRef, useCallback, useId } from "react";
+import { useState, useEffect, useRef, useId } from "react";
+import { Link } from "react-router-dom";
 import { carouselData, CarouselData } from "../../helper/displayImages";
 import Indicator from "./Indicator";
 
@@ -44,7 +45,7 @@ export default function Carou({ slides }: CarouselData) {
 	}
 
 	return (
-		<div className="flex relative w-full ">
+		<div className="flex relative w-full">
 			<div className="overflow-hidden w-full">
 				<div className="flex w-full">
 					{slides.map((img, index) => {
@@ -54,12 +55,12 @@ export default function Carou({ slides }: CarouselData) {
 									onMouseOver={stopTimer}
 									onMouseLeave={startTimer}
 									className="relative w-full
-                             h-[30rem]"
+                             h-[34rem]"
 								>
 									<img
 										src={img}
 										alt="Carousel"
-										className="absolute block w-full  object-cover h-[30rem] ease-out duration-1000"
+										className="absolute block w-full object-cover h-[34rem] ease-out duration-1000"
 										style={{ transform: `translateX(${-currentIndex * 100}%)` }}
 									></img>
 								</div>
@@ -69,12 +70,25 @@ export default function Carou({ slides }: CarouselData) {
 				</div>
 			</div>
 
+			<div className="absolute top-14 left-16 w-fit">
+				<h2 className="text-2xl font-semibold text-white mb-2">
+					The Modern Collection
+				</h2>
+				<p className="font-normal text-white mb-6">Simple and Elegant</p>
+				<Link
+					to={"/products"}
+					className="btn border-white hover:border-gray-200 hover:bg-gray-200 bg-white text-black"
+				>
+					Shop now
+				</Link>
+			</div>
+
 			<div className="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2">
 				<button
 					onMouseOver={stopTimer}
 					onMouseLeave={startTimer}
 					onClick={toPrevSlide}
-					className="btn h-14 w-14 flex items-center justify-center bg-opacity-0 btn-circle border-none bg-gray-700 hover:bg-opacity-70 hover:bg-gray-800"
+					className="btn h-14 w-14 flex items-center justify-center bg-opacity-0 btn-circle border-none hover:bg-opacity-70 hover:bg-gray-900"
 				>
 					<svg
 						xmlns="http://www.w3.org/2000/svg"
@@ -95,7 +109,7 @@ export default function Carou({ slides }: CarouselData) {
 					onMouseOver={stopTimer}
 					onMouseLeave={startTimer}
 					onClick={toNextSlide}
-					className="btn h-14 w-14 flex items-center justify-center bg-opacity-0 btn-circle border-none bg-gray-700 hover:bg-opacity-70 hover:bg-gray-800"
+					className="btn h-14 w-14 flex items-center justify-center bg-opacity-0 btn-circle border-none hover:bg-opacity-70 hover:bg-gray-900"
 				>
 					<svg
 						xmlns="http://www.w3.org/2000/svg"

@@ -35,15 +35,21 @@ export default function Layout() {
 				type="checkbox"
 				className="drawer-toggle"
 			/>
-			<div className="drawer-content flex flex-col">
+			<div className="drawer-content flex flex-col justify-between h-full w-full fade">
 				{/* <!-- Navbar --> */}
 				{!location.pathname.startsWith("/checkout") ? <Nav /> : <CheckoutNav />}
 
 				{/* <!-- Page content here --> */}
-				<div className="flex flex-col justify-between h-full w-full fade">
+
+				<div className="flex flex-col justify-between h-full mt-14">
 					<Outlet />
 					{location.pathname === "/" ? <MainFooter /> : <SubFooter />}
 				</div>
+
+				{/* <div className="flex flex-col justify-between h-full w-full fade">
+					<Outlet />
+					{location.pathname === "/" ? <MainFooter /> : <SubFooter />}
+				</div> */}
 				<ToastContainer
 					limit={5}
 					autoClose={1500}
