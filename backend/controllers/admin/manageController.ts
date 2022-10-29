@@ -1,5 +1,7 @@
 import { Request, Response, NextFunction } from "express";
+import global from "../../types/types";
 import UserModel from "../../models/userModel";
+import { accountParams, accountBody } from "../../schemas/adminSchema";
 
 export const getAccounts = async (
 	req: Request,
@@ -17,14 +19,24 @@ export const getAccounts = async (
 };
 
 export const editRole = async (
-	req: Request,
+	req: Request<accountParams["params"], {}, accountBody["body"]>,
 	res: Response,
 	next: NextFunction
 ) => {
 	try {
-		const editedAccount = await UserModel.findByIdAndUpdate(req.params);
+		const { role } = req.body;
 
-		res.sendStatus(200).json(editedAccount);
+		const updatedRole = await UserModel.findByIdAndUpdate(
+			req.params.id,
+			{
+				role,
+			},
+			{
+				new: true,
+			}
+		);
+
+		res.sendStatus(200).json(updatedRole);
 	} catch (error) {
 		res.status(404);
 		next(error);
@@ -32,12 +44,12 @@ export const editRole = async (
 };
 
 export const deleteAccount = async (
-	req: Request,
+	req: Request<accountParams["params"], {}, {}>,
 	res: Response,
 	next: NextFunction
 ) => {
 	try {
-		const deletedAccount = await UserModel.findByIdAndDelete(req.params);
+		const deletedAccount = await UserModel.findByIdAndDelete(req.params.id);
 
 		res.sendStatus(200).json(deletedAccount);
 	} catch (error) {

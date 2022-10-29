@@ -5,6 +5,11 @@ import {
 	deleteAccount,
 } from "../../controllers/admin/manageController";
 import verifyJWT from "../../middleware/authJWT";
+import {
+	accountUpdateBodySchema,
+	accountParamsSchema,
+} from "../../schemas/adminSchema";
+import validateRequest from "../../middleware/validateReq";
 
 const router: IRouter = Router();
 
