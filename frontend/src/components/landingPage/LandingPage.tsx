@@ -30,8 +30,8 @@ function LandingPage() {
 			</div>
 
 			<div className="w-full flex flex-col items-center justify-center mb-12">
-				<h1 className="font-medium text-3xl mb-7">Minimal and Aesthetic</h1>
-				<p className="font-">Explore our unique line of collections.</p>
+				<h1 className="font-medium text-3xl mb-6">Minimal and Aesthetic</h1>
+				<p className="">Explore our unique line of collections.</p>
 			</div>
 
 			<div className="w-full h-fit md:max-w-7xl grid justify-center items-center grid-cols-1 sm:grid-cols-2 md:grid-cols-2 gap-4">
@@ -59,23 +59,6 @@ function LandingPage() {
 					className="btn btn-secondary uppercase"
 				>
 					Admin
-				</button>
-
-				<button
-					onClick={() => {
-						navigate("/cart");
-					}}
-					className="btn btn-info w-20 uppercase"
-				>
-					Cart
-				</button>
-				<button
-					onClick={() => {
-						refreshToken();
-					}}
-					className="btn w-20 uppercase"
-				>
-					Refresh Token
 				</button>
 			</div>
 		</div>

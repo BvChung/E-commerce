@@ -16,7 +16,7 @@ export default function Carou({ slides }: CarouselData) {
 	function startTimer() {
 		slideInterval.current = setInterval(() => {
 			setCurrentIndex((prev) => (prev === slides.length - 1 ? 0 : prev + 1));
-		}, 10000);
+		}, 8000);
 	}
 
 	useEffect(() => {

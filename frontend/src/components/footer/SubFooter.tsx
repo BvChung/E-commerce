@@ -2,7 +2,7 @@ import React from "react";
 
 export default function SubFooter() {
 	return (
-		<footer className="footer items-center p-4 bg-gray-100 text-neutral-content">
+		<footer className="footer items-center p-4">
 			<div className="items-center grid-flow-col">
 				<svg
 					width="36"

@@ -220,11 +220,11 @@ export default function OrderInfo() {
 									</div>
 								</div>
 								<div className="flex flex-col px-6 gap-[2px] md:basis-72 justify-center">
-									<div className="flex justify-between">
+									<div className="flex justify-between mb-1">
 										<p>Price</p>
 										<p className="font-medium">${item.price.toFixed(2)}</p>
 									</div>
-									<div className="flex justify-between mb-2 pb-1 border-b-[1px]">
+									<div className="flex justify-between mb-2 pb-2 border-b-[1px]">
 										<p>Quantity</p>
 										<p className="font-medium">{item.quantity}</p>
 									</div>
@@ -235,7 +235,7 @@ export default function OrderInfo() {
 										</p>
 									</div>
 
-									<div className="flex items-center w-full justify-center mt-4">
+									<div className="flex md:hidden items-center w-full justify-center mt-4">
 										<button
 											onClick={() => {
 												addCartItem({
@@ -252,7 +252,7 @@ export default function OrderInfo() {
 												findCartItem(item._id)?.quantity! < 9
 													? "btn-outline"
 													: "btn-disabled"
-											} flex md:hidden items-center gap-2 w-full btn btn-outline rounded-full px-5 h-8 md:h-10`}
+											}  items-center gap-2 w-full btn btn-outline rounded-full px-5 h-8 md:h-10`}
 										>
 											{findCartItem(item._id)?.quantity! < 9 && (
 												<svg

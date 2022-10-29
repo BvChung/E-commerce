@@ -26,7 +26,7 @@ export default function ConfirmOrder() {
 
 	return (
 		<div className="flex flex-col items-center justify-center mb-10 mx-4 lg:mx-0">
-			<div className="flex flex-col w-full mt-8 mb-10 lg:max-w-5xl xl:max-w-6xl">
+			<div className="flex flex-col w-full mb-10 lg:max-w-5xl xl:max-w-6xl">
 				<span className="font-medium text-xl sm:text-2xl mb-2 sm:mb-0">
 					Review Order
 				</span>
