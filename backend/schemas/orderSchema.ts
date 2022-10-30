@@ -8,6 +8,9 @@ export const orderParamsSchema = object({
 
 export const orderBodySchema = object({
 	body: object({
+		accountId: string({
+			required_error: "Account id is required.",
+		}),
 		shippingInfo: object({
 			firstName: string({
 				required_error: "First name is required.",

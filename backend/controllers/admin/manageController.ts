@@ -1,6 +1,7 @@
 import { Request, Response, NextFunction } from "express";
 import global from "../../types/types";
 import UserModel from "../../models/userModel";
+import OrderModel from "../../models/orderModel";
 import { accountParams, accountBody } from "../../schemas/adminSchema";
 
 export const getAccounts = async (

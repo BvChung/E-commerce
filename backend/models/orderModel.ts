@@ -1,6 +1,7 @@
 import { Schema, model } from "mongoose";
 
 interface Order {
+	accountId: Schema.Types.ObjectId;
 	purchasedItems: {
 		_id: Schema.Types.ObjectId;
 		name: string;
@@ -35,6 +36,12 @@ interface Order {
 
 const orderSchema = new Schema<Order>(
 	{
+		accountId: {
+			type: Schema.Types.ObjectId,
+			required: true,
+			ref: "User",
+		},
+		// accountId: { type: String, required: true },
 		shippingInfo: {
 			firstName: { type: String, required: true },
 			lastName: { type: String, required: true },

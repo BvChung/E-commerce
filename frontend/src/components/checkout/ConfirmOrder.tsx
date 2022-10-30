@@ -3,15 +3,50 @@ import { Link, useNavigate } from "react-router-dom";
 import { useOrderContext } from "../../hooks/context/useOrderContext";
 import { useCartContext } from "../../hooks/context/useCartContext";
 import { useGetCartItems } from "../../hooks/cart/useGetCartItems";
+import { useAuthContext } from "../../hooks/context/useAuthContext";
 import { useCreateOrder } from "../../hooks/orders/useCreateOrder";
 import { toast } from "react-toastify";
 
 export default function ConfirmOrder() {
+	const { user } = useAuthContext();
 	const { myOrder, clearMyOrder } = useOrderContext();
 	const { myCart, cartItemsInfo } = useCartContext();
-	const { mutate } = useCreateOrder(myCart);
+	const { mutate } = useCreateOrder();
 	const navigate = useNavigate();
 	const { data: displayCartItems } = useGetCartItems(myCart);
+
+	const taxAmount = (cartItemsInfo.subTotal * 0.0625).toFixed(2);
+	const grandTotal = (cartItemsInfo.subTotal + +taxAmount).toFixed(2);
+
+	const orderDetails = {
+		accountId: user._id,
+		...myOrder,
+		purchasedItems: displayCartItems!
+			.sort((a, b) => {
+				if (a._id < b._id) {
+					return -1;
+				}
+				if (a._id > b._id) {
+					return 1;
+				}
+				// names must be equal
+				return 0;
+			})
+			.map((product, i: number) => {
+				if (product._id === myCart[i]._id) {
+					return {
+						...product,
+						quantity: myCart[i].quantity,
+					};
+				} else {
+					return { ...product };
+				}
+			}),
+		paymentInfo: {
+			...myOrder.paymentInfo,
+			subTotal: +grandTotal,
+		},
+	};
 
 	useEffect(() => {
 		if (!myOrder.completedPaymentForm || !myOrder.completedShippingForm) {
@@ -20,9 +55,6 @@ export default function ConfirmOrder() {
 			toast.error("Invalid credentials");
 		}
 	}, []);
-
-	const taxAmount = (cartItemsInfo.subTotal * 0.0625).toFixed(2);
-	const grandTotal = (cartItemsInfo.subTotal + +taxAmount).toFixed(2);
 
 	return (
 		<div className="flex flex-col items-center justify-center mb-10 mx-4 lg:mx-0">
@@ -361,34 +393,7 @@ export default function ConfirmOrder() {
 
 						<button
 							onClick={() => {
-								mutate({
-									...myOrder,
-									purchasedItems: displayCartItems!
-										.sort((a, b) => {
-											if (a._id < b._id) {
-												return -1;
-											}
-											if (a._id > b._id) {
-												return 1;
-											}
-											// names must be equal
-											return 0;
-										})
-										.map((product, i: number) => {
-											if (product._id === myCart[i]._id) {
-												return {
-													...product,
-													quantity: myCart[i].quantity,
-												};
-											} else {
-												return { ...product };
-											}
-										}),
-									paymentInfo: {
-										...myOrder.paymentInfo,
-										subTotal: +grandTotal,
-									},
-								});
+								mutate(orderDetails);
 							}}
 							className="btn btn-primary w-full rounded-full"
 						>

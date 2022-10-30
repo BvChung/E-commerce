@@ -1,22 +1,22 @@
 import { usePrivateApi } from "../auth/usePrivateApi";
 import { useMutation, useQueryClient } from "react-query";
-import { OrderInfo } from "../../interfaces/orderInterface";
+import { OrderCreation } from "../../interfaces/orderInterface";
 import { CustomError } from "../../interfaces/customInterface";
 import { toast } from "react-toastify";
 import { useOrderContext } from "../context/useOrderContext";
 import { useCartContext } from "../context/useCartContext";
 import { useNavigate } from "react-router-dom";
-import { CartStorageData } from "../../interfaces/cartInterface";
-import { ProductInfo } from "../../interfaces/productInterface";
 
-export const useCreateOrder = (myCartItems: CartStorageData[]) => {
+export const useCreateOrder = () => {
 	const eCommerceApiPrivate = usePrivateApi();
 	const queryClient = useQueryClient();
 	const { clearMyOrder } = useOrderContext();
 	const { clearMyCart } = useCartContext();
 	const navigate = useNavigate();
 
-	const createOrder = async (myOrder: OrderInfo): Promise<OrderInfo[]> => {
+	const createOrder = async (
+		myOrder: OrderCreation
+	): Promise<OrderCreation[]> => {
 		console.log(myOrder);
 
 		const response = await eCommerceApiPrivate.post("/api/orders/", myOrder);

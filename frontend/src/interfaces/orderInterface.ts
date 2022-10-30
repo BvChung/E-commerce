@@ -50,3 +50,7 @@ export interface OrderInfo {
 	paymentInfo: OrderPaymentInfo;
 	createdAt?: string | number | Date;
 }
+
+export interface OrderCreation extends OrderInfo {
+	accountId: string;
+}

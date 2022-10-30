@@ -9,7 +9,7 @@ export const getOrder = async (
 	next: NextFunction
 ) => {
 	try {
-		const myOrder = await OrderModel.find({ user: req.user.id });
+		const myOrder = await OrderModel.find({ accountId: req.user.id });
 
 		res.status(200).json(myOrder);
 	} catch (error) {
@@ -39,9 +39,10 @@ export const createOrder = async (
 	next: NextFunction
 ) => {
 	try {
-		const { shippingInfo, purchasedItems, paymentInfo } = req.body;
+		const { accountId, shippingInfo, purchasedItems, paymentInfo } = req.body;
 
 		const createdOrder = await OrderModel.create({
+			accountId,
 			shippingInfo,
 			purchasedItems,
 			paymentInfo,
