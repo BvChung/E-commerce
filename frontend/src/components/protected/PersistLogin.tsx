@@ -8,9 +8,9 @@ export default function PersistLogin() {
 	const { user } = useAuthContext();
 	const getUser = useGetUser();
 
-	// Get user with cookie => if cookie expired redirect to login else return outlet
+	// Authenticate cookie on user device to load account information
 	useEffect(() => {
-		const verifyUserData = async () => {
+		const verifyUser = async (): Promise<void> => {
 			try {
 				console.log("Verifying user");
 				await getUser();
@@ -21,8 +21,8 @@ export default function PersistLogin() {
 			}
 		};
 
-		!user?.accessToken ? verifyUserData() : setIsLoading(false);
+		!user?.accessToken ? verifyUser() : setIsLoading(false);
 	}, []);
 
-	return <>{isLoading ? <p>Loading</p> : <Outlet />}</>;
+	return <>{!isLoading && <Outlet />}</>;
 }
