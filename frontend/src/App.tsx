@@ -11,13 +11,13 @@ import Register from "./components/user/Register";
 import AccountPage from "./components/account/AccountPage";
 import Admin from "./components/admin/Admin";
 import Layout from "./components/layout/Layout";
-import Landing from "./components/landingPage/LandingPage";
+import LandingPage from "./components/landingPage/LandingPage";
 import ProductPage from "./components/products/ProductPage";
-import InventoryTable from "./components/admin/inventory/InventoryTable";
+import InventoryPage from "./components/admin/inventory/InventoryPage";
 import ProductInfo from "./components/products/ProductInfo";
 import CreateProducts from "./components/admin/create/CreateProducts";
 import UpdateProducts from "./components/admin/inventory/UpdateProducts";
-import AccountsTable from "./components/admin/manage/AccountsTable";
+import ManagementPage from "./components/admin/management/ManagementPage";
 import Payment from "./components/checkout/Payment";
 import Shipping from "./components/checkout/Shipping";
 import ConfirmOrder from "./components/checkout/ConfirmOrder";
@@ -27,7 +27,7 @@ import Cart from "./components/cart/Cart";
 import EditName from "./components/account/EditName";
 import EditEmail from "./components/account/EditEmail";
 import EditPassword from "./components/account/EditPassword";
-import ProtectedRoutes from "./components/protected/ProtectedRoutes";
+import RequireAuth from "./components/protected/RequireAuth";
 import Unauthorized from "./components/protected/Unauthorized";
 import { accessRoles } from "./helper/accessRoles";
 import PersistLogin from "./components/protected/PersistLogin";
@@ -35,22 +35,23 @@ import "react-toastify/dist/ReactToastify.css";
 
 const appRouter = createBrowserRouter(
 	createRoutesFromElements(
-		<Route path="/" element={<Layout />}>
+		<Route element={<Layout />}>
 			{/* Public routes */}
-			<Route index element={<Landing />} />
-			<Route path="signin" element={<SignIn />} />
-			<Route path="register" element={<Register />} />
-			<Route path="products" element={<Outlet />}>
-				<Route index element={<ProductPage />} />
-				<Route path=":id" element={<ProductInfo />} />
-			</Route>
-			<Route path="cart" element={<Cart />} />
-			<Route path="unauthorized" element={<Unauthorized />} />
-			{/* Private Routes */}
 			<Route element={<PersistLogin />}>
+				<Route path="/" element={<LandingPage />} />
+				<Route path="signin" element={<SignIn />} />
+				<Route path="register" element={<Register />} />
+				<Route path="products" element={<Outlet />}>
+					<Route index element={<ProductPage />} />
+					<Route path=":id" element={<ProductInfo />} />
+				</Route>
+				<Route path="cart" element={<Cart />} />
+				<Route path="unauthorized" element={<Unauthorized />} />
+				{/* Private Routes */}
+
 				<Route
 					element={
-						<ProtectedRoutes
+						<RequireAuth
 							authRoles={[accessRoles.Admin, accessRoles.Consumer]}
 						/>
 					}
@@ -75,22 +76,22 @@ const appRouter = createBrowserRouter(
 					</Route>
 				</Route>
 
-				<Route element={<ProtectedRoutes authRoles={[accessRoles.Admin]} />}>
+				<Route element={<RequireAuth authRoles={[accessRoles.Admin]} />}>
 					<Route path="admin" element={<Outlet />}>
 						<Route index element={<Admin />} />
 						<Route path="create" element={<CreateProducts />} />
-						{/* <Route path="updateproduct" element={<InventoryTable />} />
+						{/* <Route path="updateproduct" element={<InventoryPage />} />
 						<Route path="updateproduct/:id" element={<UpdateProducts />} /> */}
 						<Route path="inventory" element={<Outlet />}>
-							<Route index element={<InventoryTable />} />
+							<Route index element={<InventoryPage />} />
 							<Route path=":id" element={<UpdateProducts />} />
 						</Route>
 
-						<Route path="manage" element={<AccountsTable />} />
+						<Route path="manage" element={<ManagementPage />} />
 					</Route>
 				</Route>
+				<Route path="*" element={<p>Not Found</p>} />
 			</Route>
-			<Route path="*" element={<p>Not Found</p>} />
 		</Route>
 	)
 );

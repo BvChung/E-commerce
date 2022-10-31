@@ -3,7 +3,7 @@ import { AccountInfo } from "../../../interfaces/adminInterface";
 import DefaultAvatar from "../../../assets/avatar.jpg";
 import { accessRoles } from "../../../helper/accessRoles";
 
-export default function AccountRow({
+export default function ManagementRow({
 	_id,
 	firstName,
 	lastName,

@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { useGetAccounts } from "../../../hooks/admin/useGetAccounts";
-import AccountRow from "./AccountRow";
+import AccountRow from "./ManagementRow";
 import { accessRoles } from "../../../helper/accessRoles";
 import { CurrentInfo } from "../../../interfaces/adminInterface";
-import PreviousMap from "postcss/lib/previous-map";
+import { useUpdateRole } from "../../../hooks/admin/useUpdateRole";
 
-export default function ManageAccounts() {
+export default function ManagementPage() {
 	const [deleteConfirmation, setDeleteConfirmation] = useState<boolean>(false);
 	const [editingAccount, setEditingAccount] = useState<boolean>(false);
 	const [accessRole, setAccessRole] = useState<string>("");
@@ -16,6 +16,7 @@ export default function ManageAccounts() {
 	});
 	const { data: accounts, isSuccess } = useGetAccounts();
 	console.log(currentAccount);
+	const {} = useUpdateRole();
 	// console.log(accounts);
 
 	return (

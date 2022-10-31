@@ -41,7 +41,6 @@ const orderSchema = new Schema<Order>(
 			required: true,
 			ref: "User",
 		},
-		// accountId: { type: String, required: true },
 		shippingInfo: {
 			firstName: { type: String, required: true },
 			lastName: { type: String, required: true },

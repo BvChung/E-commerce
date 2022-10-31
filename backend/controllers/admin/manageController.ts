@@ -50,7 +50,9 @@ export const deleteAccount = async (
 	next: NextFunction
 ) => {
 	try {
+		// Delete account info and orders associated
 		const deletedAccount = await UserModel.findByIdAndDelete(req.params.id);
+		await OrderModel.deleteMany({ accountId: req.params.id });
 
 		res.sendStatus(200).json(deletedAccount);
 	} catch (error) {
