@@ -8,28 +8,39 @@ export const useGetUser = () => {
 	const eCommerceApiPrivate = usePrivateApi();
 
 	const getUser = async (): Promise<void> => {
-		try {
-			const response = await eCommerceApiPrivate.get("/api/users/me");
+		const response = await eCommerceApiPrivate.get("/api/users/me");
 
-			if (response.status === 200) {
-				setUser(() => {
-					return {
-						...response.data,
-						accessToken: storage.getToken(),
-					};
-				});
-			}
-			// if (response.status === 200) {
-			// 	setUser((prev) => {
-			// 		return {
-			// 			...prev!,
-			// 			...response.data,
-			// 		};
-			// 	});
-			// }
-		} catch (error) {
-			toast.error("Your session has expired.");
+		if (response.status === 200) {
+			setUser(() => {
+				return {
+					...response.data,
+					accessToken: storage.getToken(),
+				};
+			});
 		}
+
+		// try {
+		// 	const response = await eCommerceApiPrivate.get("/api/users/me");
+
+		// 	if (response.status === 200) {
+		// 		setUser(() => {
+		// 			return {
+		// 				...response.data,
+		// 				accessToken: storage.getToken(),
+		// 			};
+		// 		});
+		// 	}
+		// 	// if (response.status === 200) {
+		// 	// 	setUser((prev) => {
+		// 	// 		return {
+		// 	// 			...prev!,
+		// 	// 			...response.data,
+		// 	// 		};
+		// 	// 	});
+		// 	// }
+		// } catch (error) {
+		// 	toast.error("Your session has expired.");
+		// }
 	};
 
 	return getUser;

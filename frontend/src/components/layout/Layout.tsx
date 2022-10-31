@@ -1,5 +1,4 @@
-import { useState, useCallback, useEffect } from "react";
-import type { Location, useMatches } from "react-router-dom";
+import { useState } from "react";
 import { Outlet, useLocation, ScrollRestoration } from "react-router-dom";
 import Nav from "../nav/Nav";
 import CheckoutNav from "../nav/CheckoutNav";
@@ -29,7 +28,6 @@ export default function Layout() {
 					if (!e.target.checked) {
 						setActiveSidebar(false);
 					}
-					console.log(e.target.checked);
 				}}
 				id="app-drawer"
 				type="checkbox"

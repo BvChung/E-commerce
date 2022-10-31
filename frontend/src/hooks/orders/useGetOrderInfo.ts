@@ -12,8 +12,6 @@ export const useGetOrderInfo = (orderId: string | undefined) => {
 			return Promise.reject(new Error("Invalid order id"));
 		}
 
-		console.log(orderId);
-
 		const response = await eCommerceApiPrivate.get(`/api/orders/${orderId}`);
 
 		return response.data;

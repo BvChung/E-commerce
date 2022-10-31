@@ -5,7 +5,6 @@ import { OrderInfo } from "../../interfaces/orderInterface";
 
 export default function OrdersPage() {
 	const { user } = useAuthContext();
-	console.log(user._id);
 	const { data: orders, isSuccess, isError, isLoading } = useGetOrders();
 
 	return (

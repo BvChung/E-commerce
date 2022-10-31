@@ -7,12 +7,6 @@ export default function Carou({ slides }: CarouselData) {
 	const [currentIndex, setCurrentIndex] = useState<number>(0);
 	const slideInterval = useRef<ReturnType<typeof setInterval>>();
 
-	// const startTimer = useCallback(() => {
-	// 	slideInterval.current = setInterval(() => {
-	// 		setCurrentIndex((prev) => (prev === slides.length - 1 ? 0 : prev + 1));
-	// 	}, 5000);
-	// }, [slides.length]);
-
 	function startTimer() {
 		slideInterval.current = setInterval(() => {
 			setCurrentIndex((prev) => (prev === slides.length - 1 ? 0 : prev + 1));
@@ -39,7 +33,6 @@ export default function Carou({ slides }: CarouselData) {
 
 	function stopTimer() {
 		if (slideInterval.current) {
-			console.log("stop");
 			clearInterval(slideInterval.current);
 		}
 	}

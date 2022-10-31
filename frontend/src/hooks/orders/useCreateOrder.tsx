@@ -17,8 +17,6 @@ export const useCreateOrder = () => {
 	const createOrder = async (
 		myOrder: OrderCreation
 	): Promise<OrderCreation[]> => {
-		console.log(myOrder);
-
 		const response = await eCommerceApiPrivate.post("/api/orders/", myOrder);
 
 		return response.data;
