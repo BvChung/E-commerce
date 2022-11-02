@@ -16,7 +16,7 @@ export default function ManagementPage() {
 	});
 	const { data: accounts, isSuccess } = useGetAccounts();
 	console.log(currentAccount);
-	const {} = useUpdateRole();
+	const { mutate } = useUpdateRole();
 	// console.log(accounts);
 
 	return (
@@ -130,7 +130,7 @@ export default function ManagementPage() {
 						<button
 							onClick={() => {
 								setEditingAccount(false);
-								// mutate(itemId);
+								mutate(currentAccount);
 								setCurrentAccount({
 									_id: "",
 									role: 0,

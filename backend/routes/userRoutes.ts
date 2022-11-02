@@ -5,7 +5,7 @@ import {
 	getUser,
 	logoutUser,
 } from "../controllers/user/userController";
-import { getAccounts } from "../controllers/admin/manageController";
+import { getAccounts } from "../controllers/admin/managementController";
 import {
 	updateName,
 	updateEmail,

@@ -3,7 +3,7 @@ import {
 	getAccounts,
 	editRole,
 	deleteAccount,
-} from "../../controllers/admin/manageController";
+} from "../../controllers/admin/managementController";
 import verifyJWT from "../../middleware/authJWT";
 import {
 	accountUpdateBodySchema,
@@ -14,7 +14,7 @@ import validateRequest from "../../middleware/validateReq";
 const router: IRouter = Router();
 
 router.get("/manage", verifyJWT, getAccounts);
-router.patch("/edit", verifyJWT, editRole);
-router.delete("/delete", verifyJWT, deleteAccount);
+router.patch("/edit/:id", verifyJWT, editRole);
+router.delete("/delete/:id", verifyJWT, deleteAccount);
 
 export default router;
