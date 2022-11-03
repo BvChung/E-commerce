@@ -10,6 +10,9 @@ export const accountParamsSchema = object({
 
 export const accountUpdateBodySchema = object({
 	body: object({
+		_id: string({
+			required_error: "Id is required.",
+		}),
 		role: number({
 			required_error: "Account role required.",
 		}),

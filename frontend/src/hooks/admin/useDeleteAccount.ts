@@ -4,30 +4,22 @@ import { UserInfo } from "../../interfaces/authInterface";
 import { CustomError } from "../../interfaces/customInterface";
 import { toast } from "react-toastify";
 
-interface UpdateManagement {
-	_id: string;
-	role: number;
-}
-
-export const useUpdateRole = () => {
+export const useDeleteAccount = () => {
 	const eCommerceApiPrivate = usePrivateApi();
 	const queryClient = useQueryClient();
 
-	const updateRole = async (
-		updatedInfo: UpdateManagement
-	): Promise<UserInfo> => {
-		const response = await eCommerceApiPrivate.patch(
-			`/api/admin/edit`,
-			updatedInfo
+	const deleteAccount = async (accountId: string): Promise<UserInfo> => {
+		const response = await eCommerceApiPrivate.delete(
+			`/api/admin/delete/${accountId}`
 		);
 
 		return response.data;
 	};
 
-	return useMutation(updateRole, {
+	return useMutation(deleteAccount, {
 		onSuccess: (data: UserInfo) => {
 			queryClient.invalidateQueries("manage");
-			toast.success(`${data.firstName} has been updated.`);
+			toast.success(`${data.firstName} has been deleted.`);
 		},
 		onError: (error: CustomError) => {
 			toast.error(error.response?.data?.message);
