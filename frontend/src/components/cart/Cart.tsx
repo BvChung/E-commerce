@@ -4,9 +4,11 @@ import { CartItemInfo } from "../../interfaces/cartInterface";
 import { useGetCartItems } from "../../hooks/cart/useGetCartItems";
 import CartItem from "./CartItem";
 import { useOrderContext } from "../../hooks/context/useOrderContext";
+import { useAuthContext } from "../../hooks/context/useAuthContext";
 import Spinner from "../loading/Spinner";
 
 export default function Cart() {
+	const { user } = useAuthContext();
 	const { myCart, cartItemsInfo } = useCartContext();
 	const { setMyOrder } = useOrderContext();
 	const navigate = useNavigate();
@@ -16,6 +18,37 @@ export default function Cart() {
 		isLoading,
 		isFetching,
 	} = useGetCartItems(myCart);
+
+	const guestAccountActive =
+		user.firstName === process.env.REACT_APP_GUEST_CARDFIRSTNAME &&
+		user.lastName === process.env.REACT_APP_GUEST_CARDLASTNAME &&
+		user.email === process.env.REACT_APP_GUEST_EMAIL;
+
+	const demoInfo = {
+		shippingInfo: {
+			firstName: process.env.REACT_APP_GUEST_CARDFIRSTNAME!,
+			lastName: process.env.REACT_APP_GUEST_CARDLASTNAME!,
+			address: process.env.REACT_APP_GUEST_ADDRESS!,
+			aptSuiteEtc: "",
+			state: process.env.REACT_APP_GUEST_STATE!,
+			city: process.env.REACT_APP_GUEST_CITY!,
+			zipCode: process.env.REACT_APP_GUEST_ZIPCODE!,
+			phone: process.env.REACT_APP_GUEST_PHONE!,
+			email: process.env.REACT_APP_GUEST_EMAIL!,
+		},
+		paymentInfo: {
+			cardNumber: process.env.REACT_APP_GUEST_CARDNUMBER!,
+			cardHolderFirstName: process.env.REACT_APP_GUEST_CARDFIRSTNAME!,
+			cardHolderLastName: process.env.REACT_APP_GUEST_CARDLASTNAME!,
+			expiryDateMonth: process.env.REACT_APP_GUEST_CARDEXPMONTH!,
+			expiryDateYear: process.env.REACT_APP_GUEST_CARDEXPYEAR!,
+			securityCode: process.env.REACT_APP_GUEST_CARDCVV!,
+			phone: process.env.REACT_APP_GUEST_PHONE!,
+			subTotal: 0,
+		},
+		completedPaymentForm: true,
+		completedShippingForm: true,
+	};
 
 	return (
 		<div className="flex flex-col items-center justify-center mb-6 mx-4 lg:mx-0">
@@ -68,57 +101,33 @@ export default function Cart() {
 				</div>
 
 				<div className="flex flex-col items-center md:sticky top-6 rounded-lg shadow-md h-fit w-full md:w-1/3 border-[1px] py-4 md:py-6 px-4 mb-4 md:mb-0">
-					<div className="w-full border-b-[1px] mb-4 md:mb-6">
+					<div className="w-full mb-4 md:mb-6">
 						<Link
 							className={`btn ${
 								cartItemsInfo.numItems === 0 ? "btn-disabled" : "btn-primary"
-							}  rounded-full mb-4 md:mb-6 w-full `}
+							}  rounded-full w-full `}
 							to={"/checkout/shipping"}
 						>
 							Continue to checkout
 						</Link>
 					</div>
 
-					<div className="w-full border-b-[1px] mb-4 md:mb-6">
-						<button
-							className={`btn ${
-								cartItemsInfo.numItems === 0 ? "btn-disabled" : "btn"
-							}  rounded-full mb-4 md:mb-6 w-full `}
-							onClick={() => {
-								setMyOrder({
-									shippingInfo: {
-										firstName: process.env.REACT_APP_GUEST_CARDFIRSTNAME!,
-										lastName: process.env.REACT_APP_GUEST_CARDLASTNAME!,
-										address: process.env.REACT_APP_GUEST_ADDRESS!,
-										aptSuiteEtc: "",
-										state: process.env.REACT_APP_GUEST_STATE!,
-										city: process.env.REACT_APP_GUEST_CITY!,
-										zipCode: process.env.REACT_APP_GUEST_ZIPCODE!,
-										phone: process.env.REACT_APP_GUEST_PHONE!,
-										email: process.env.REACT_APP_GUEST_EMAIL!,
-									},
-									paymentInfo: {
-										cardNumber: process.env.REACT_APP_GUEST_CARDNUMBER!,
-										cardHolderFirstName:
-											process.env.REACT_APP_GUEST_CARDFIRSTNAME!,
-										cardHolderLastName:
-											process.env.REACT_APP_GUEST_CARDLASTNAME!,
-										expiryDateMonth: process.env.REACT_APP_GUEST_CARDEXPMONTH!,
-										expiryDateYear: process.env.REACT_APP_GUEST_CARDEXPYEAR!,
-										securityCode: process.env.REACT_APP_GUEST_CARDCVV!,
-										phone: process.env.REACT_APP_GUEST_PHONE!,
-										subTotal: 0,
-									},
-									completedPaymentForm: true,
-									completedShippingForm: true,
-								});
+					{guestAccountActive && (
+						<div className="w-full border-y-[1px] mb-4 md:mb-6">
+							<button
+								className={`btn ${
+									cartItemsInfo.numItems === 0 ? "btn-disabled" : "btn"
+								}  rounded-full my-4 md:my-6 w-full `}
+								onClick={() => {
+									setMyOrder(demoInfo);
 
-								navigate("/checkout/confirmation");
-							}}
-						>
-							Checkout with demo info
-						</button>
-					</div>
+									navigate("/checkout/confirmation");
+								}}
+							>
+								Checkout with demo info
+							</button>
+						</div>
+					)}
 
 					<div className="w-full flex items-center justify-between mb-6">
 						<div>

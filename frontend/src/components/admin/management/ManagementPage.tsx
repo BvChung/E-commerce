@@ -5,6 +5,7 @@ import AccountRow from "./ManagementRow";
 import { accessRoles } from "../../../helper/accessRoles";
 import { CurrentInfo } from "../../../interfaces/adminInterface";
 import { useUpdateRole } from "../../../hooks/admin/useUpdateRole";
+import { useDeleteAccount } from "../../../hooks/admin/useDeleteAccount";
 
 export default function ManagementPage() {
 	const [deleteConfirmation, setDeleteConfirmation] = useState<boolean>(false);
@@ -16,7 +17,8 @@ export default function ManagementPage() {
 	});
 	const { data: accounts, isSuccess } = useGetAccounts();
 	console.log(currentAccount);
-	const { mutate } = useUpdateRole();
+	const { mutate: updateAccount } = useUpdateRole();
+	const { mutate: deleteAccount } = useDeleteAccount();
 	// console.log(accounts);
 
 	return (
@@ -130,7 +132,7 @@ export default function ManagementPage() {
 						<button
 							onClick={() => {
 								setEditingAccount(false);
-								mutate(currentAccount);
+								updateAccount(currentAccount);
 								setCurrentAccount({
 									_id: "",
 									role: 0,
@@ -178,7 +180,7 @@ export default function ManagementPage() {
 						<button
 							onClick={() => {
 								setDeleteConfirmation(false);
-								// mutate(itemId);
+								deleteAccount(currentAccount._id);
 								setCurrentAccount({
 									_id: "",
 									role: 0,

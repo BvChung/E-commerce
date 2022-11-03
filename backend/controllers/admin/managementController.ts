@@ -20,15 +20,15 @@ export const getAccounts = async (
 };
 
 export const editRole = async (
-	req: Request<accountParams["params"], {}, accountBody["body"]>,
+	req: Request<{}, {}, accountBody["body"]>,
 	res: Response,
 	next: NextFunction
 ) => {
 	try {
-		const { role } = req.body;
+		const { _id, role } = req.body;
 
 		const updatedRole = await UserModel.findByIdAndUpdate(
-			req.params.id,
+			_id,
 			{
 				role,
 			},
@@ -37,7 +37,7 @@ export const editRole = async (
 			}
 		);
 
-		res.sendStatus(200).json(updatedRole);
+		res.status(200).json(updatedRole);
 	} catch (error) {
 		res.status(404);
 		next(error);
@@ -51,10 +51,11 @@ export const deleteAccount = async (
 ) => {
 	try {
 		// Delete account info and orders associated
-		const deletedAccount = await UserModel.findByIdAndDelete(req.params.id);
-		await OrderModel.deleteMany({ accountId: req.params.id });
+		console.log(req.params);
+		// const deletedAccount = await UserModel.findByIdAndDelete(req.params.id);
+		// await OrderModel.deleteMany({ accountId: req.params.id });
 
-		res.sendStatus(200).json(deletedAccount);
+		// res.status(200).json(deletedAccount);
 	} catch (error) {
 		res.status(404);
 		next(error);
