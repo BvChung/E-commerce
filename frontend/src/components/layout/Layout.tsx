@@ -60,9 +60,9 @@ export default function Layout() {
 				<label htmlFor="app-drawer" className="drawer-overlay"></label>
 				<div className="menu p-4 overflow-y-auto w-80 bg-base-100">
 					{/* <!-- Sidebar content here --> */}
-					<div className="z-20 bg-base-200 bg-opacity-90 backdrop-blur sticky top-0 items-center gap-2 px-4 py-2 hidden lg:flex">
+					{/* <div className="z-20 bg-base-200 bg-opacity-90 backdrop-blur sticky top-0 items-center gap-2 px-4 py-2 hidden lg:flex">
 						<div className="flex w-full"></div>
-					</div>
+					</div> */}
 					<ul className="menu menu-compact flex flex-col">
 						<li>
 							<Link to="/products" className="flex items-center gap-4">
@@ -82,7 +82,9 @@ export default function Layout() {
 										/>
 									</svg>
 								</span>
-								<span className="flex-1 text-gray-700">Products</span>
+								<span className="flex-1 text-lg font-semibold text-gray-800">
+									Products
+								</span>
 							</Link>
 						</li>
 
@@ -104,7 +106,9 @@ export default function Layout() {
 										/>
 									</svg>
 								</span>
-								<span className="flex-1 text-gray-700">Cart</span>
+								<span className="flex-1 text-lg font-semibold text-gray-800">
+									Cart
+								</span>
 							</Link>
 						</li>
 
@@ -126,19 +130,10 @@ export default function Layout() {
 										/>
 									</svg>
 								</span>
-								<span className="flex-1 text-gray-700">Orders</span>
+								<span className="flex-1 text-lg font-semibold text-gray-800">
+									Orders
+								</span>
 							</Link>
-						</li>
-					</ul>
-					<ul className="menu menu-compact flex flex-col">
-						<li>
-							<a>Item 1</a>
-						</li>
-						<li>
-							<a>Item 2</a>
-						</li>
-						<li>
-							<a>Item 3</a>
 						</li>
 					</ul>
 				</div>
