@@ -12,12 +12,12 @@ export default function Category({ image, title }: CategoryProps) {
 			to="products"
 			className="flex justify-center items-center rounded-md shadow-sm w-full"
 		>
-			<figure className="group overflow-hidden w-full relative">
+			<div className="group overflow-hidden w-full relative">
 				<img
 					src={image}
 					alt="Product"
 					className="h-[250px] w-full object-cover hover:scale-105 transition-transform duration-500"
-					loading="lazy"
+					loading="eager"
 				/>
 				<div className="absolute bottom-6 left-6">
 					<span
@@ -29,7 +29,7 @@ before:transition before:ease-in-out before:duration-300 text-2xl font-semibold 
 						{title}
 					</span>
 				</div>
-			</figure>
+			</div>
 		</Link>
 	);
 }

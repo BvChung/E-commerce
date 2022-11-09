@@ -10,6 +10,7 @@ import SignIn from "./components/user/SignIn";
 import Register from "./components/user/Register";
 import AccountPage from "./components/account/AccountPage";
 import Admin from "./components/admin/Admin";
+import AdminSignIn from "./components/admin/AdminSignIn";
 import Layout from "./components/layout/Layout";
 import LandingPage from "./components/landingPage/LandingPage";
 import ProductPage from "./components/products/ProductPage";
@@ -40,6 +41,7 @@ const appRouter = createBrowserRouter(
 			<Route element={<PersistLogin />}>
 				<Route path="/" element={<LandingPage />} />
 				<Route path="signin" element={<SignIn />} />
+				<Route path="adminsignin" element={<AdminSignIn />} />
 				<Route path="register" element={<Register />} />
 				<Route path="products" element={<Outlet />}>
 					<Route index element={<ProductPage />} />

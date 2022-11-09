@@ -55,6 +55,7 @@ export default function Carou({ slides }: CarouselData) {
 										alt="Carousel"
 										className="absolute block w-full object-cover h-[34rem] ease-out duration-1000"
 										style={{ transform: `translateX(${-currentIndex * 100}%)` }}
+										loading="eager"
 									></img>
 								</div>
 							</div>

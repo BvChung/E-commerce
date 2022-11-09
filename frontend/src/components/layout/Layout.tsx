@@ -83,7 +83,7 @@ export default function Layout() {
 									</svg>
 								</span>
 								<span className="flex-1 text-lg font-semibold text-gray-800">
-									Products
+									Shop
 								</span>
 							</Link>
 						</li>
