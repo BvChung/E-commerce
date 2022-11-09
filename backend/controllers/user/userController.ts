@@ -15,7 +15,7 @@ import { registerBody, loginBody } from "../../schemas/userSchema";
 // @desc Login user
 // @route POST /api/users/login
 // @access Public
-export const loginUser = async (
+export const signInUser = async (
 	req: Request<{}, {}, loginBody["body"]>,
 	res: Response,
 	next: NextFunction
@@ -26,48 +26,50 @@ export const loginUser = async (
 		// Check for user based on email
 		const foundUser = await UserModel.findOne({ email });
 
-		if (foundUser && (await bcrypt.compare(password, foundUser.password))) {
-			// bcrypt.compare() compares password from request and hashed password from database schema
-			// Create JWT refresh token
-			const refreshToken = generateRefreshToken(foundUser._id);
-
-			await UserModel.findByIdAndUpdate(
-				foundUser._id,
-				{
-					refreshToken,
-				},
-				{
-					new: true,
-				}
-			);
-
-			res
-				.status(200)
-				.cookie("jwt", refreshToken, {
-					sameSite: "strict",
-					httpOnly: true,
-					secure: true,
-					maxAge: 24 * 60 * 60 * 1000,
-				})
-				.cookie("name", `${foundUser.firstName}_${foundUser.lastName}`, {
-					sameSite: "strict",
-					httpOnly: true,
-					secure: true,
-					maxAge: 24 * 60 * 60 * 1000,
-				})
-				.json({
-					_id: foundUser.id,
-					firstName: foundUser.firstName,
-					lastName: foundUser.lastName,
-					email: foundUser.email,
-					role: foundUser.role,
-					accessToken: generateAccessToken(foundUser._id),
-				});
-		} else {
-			res.status(401);
+		if (!foundUser) {
 			throw new Error("Email and/or password do not match.");
 		}
+
+		if (!(await bcrypt.compare(password, foundUser.password))) {
+			throw new Error("Email and/or password do not match.");
+		}
+
+		const refreshToken = generateRefreshToken(foundUser._id);
+
+		await UserModel.findByIdAndUpdate(
+			foundUser._id,
+			{
+				refreshToken,
+			},
+			{
+				new: true,
+			}
+		);
+
+		res
+			.status(200)
+			.cookie("jwt", refreshToken, {
+				sameSite: "strict",
+				httpOnly: true,
+				secure: true,
+				maxAge: 24 * 60 * 60 * 1000,
+			})
+			.cookie("name", `${foundUser.firstName}_${foundUser.lastName}`, {
+				sameSite: "strict",
+				httpOnly: true,
+				secure: true,
+				maxAge: 24 * 60 * 60 * 1000,
+			})
+			.json({
+				_id: foundUser.id,
+				firstName: foundUser.firstName,
+				lastName: foundUser.lastName,
+				email: foundUser.email,
+				role: foundUser.role,
+				accessToken: generateAccessToken(foundUser._id),
+			});
 	} catch (error: any) {
+		res.status(401);
 		next(error);
 	}
 };
@@ -84,9 +86,9 @@ export const registerUser = async (
 		const { firstName, lastName, email, password, role } = req.body;
 
 		// Check if user exists in the database based on email
-		const emailExists = await UserModel.findOne({ email });
+		const dupeEmail = await UserModel.findOne({ email });
 
-		if (emailExists) {
+		if (dupeEmail) {
 			res.status(409);
 			throw new Error("This email address is already in use.");
 		}

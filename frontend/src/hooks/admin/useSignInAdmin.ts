@@ -1,4 +1,4 @@
-import { useMutation, useQueryClient, useQuery } from "react-query";
+import { useMutation } from "react-query";
 import { toast } from "react-toastify";
 import { LoginCredentials, UserInfo } from "../../interfaces/authInterface";
 import { useAuthContext } from "../context/useAuthContext";
@@ -11,12 +11,11 @@ import { storage } from "../../helper/tokenStorage";
 // Then make req api with token => returns account information using useQuery() to store
 
 export const useSignInAdmin = () => {
-	const queryClient = useQueryClient();
 	const { setUser } = useAuthContext();
 
 	const signIn = async (credentials: LoginCredentials): Promise<UserInfo> => {
 		const response = await eCommerceApiPublic.post(
-			"/api/users/login",
+			"/api/admin/signin",
 			credentials
 		);
 

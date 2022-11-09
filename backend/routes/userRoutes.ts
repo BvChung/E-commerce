@@ -1,11 +1,11 @@
 import { IRouter, Router } from "express";
 import {
-	loginUser,
+	signInUser,
 	registerUser,
 	getUser,
 	logoutUser,
 } from "../controllers/user/userController";
-import { getAccounts } from "../controllers/admin/managementController";
+import { getAccounts } from "../controllers/admin/adminController";
 import {
 	updateName,
 	updateEmail,
@@ -23,7 +23,7 @@ import verifyJWT from "../middleware/authJWT";
 
 const router: IRouter = Router();
 
-router.post("/login", validateRequest(loginSchema), loginUser);
+router.post("/login", validateRequest(loginSchema), signInUser);
 router.post("/register", validateRequest(registerSchema), registerUser);
 router.get("/me", verifyJWT, getUser);
 router.post("/logout", logoutUser);

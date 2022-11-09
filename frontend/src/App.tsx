@@ -29,6 +29,7 @@ import EditName from "./components/account/EditName";
 import EditEmail from "./components/account/EditEmail";
 import EditPassword from "./components/account/EditPassword";
 import RequireAuth from "./components/protected/RequireAuth";
+import AdminAuth from "./components/protected/AdminAuth";
 import Unauthorized from "./components/protected/Unauthorized";
 import { accessRoles } from "./helper/accessRoles";
 import PersistLogin from "./components/protected/PersistLogin";
@@ -49,15 +50,9 @@ const appRouter = createBrowserRouter(
 				</Route>
 				<Route path="cart" element={<Cart />} />
 				<Route path="unauthorized" element={<Unauthorized />} />
-				{/* Private Routes */}
 
-				<Route
-					element={
-						<RequireAuth
-							authRoles={[accessRoles.Admin, accessRoles.Consumer]}
-						/>
-					}
-				>
+				{/* Private Routes */}
+				<Route element={<RequireAuth />}>
 					<Route path="checkout" element={<Outlet />}>
 						<Route path="payment" element={<Payment />} />
 						<Route path="shipping" element={<Shipping />} />
@@ -78,12 +73,14 @@ const appRouter = createBrowserRouter(
 					</Route>
 				</Route>
 
-				<Route element={<RequireAuth authRoles={[accessRoles.Admin]} />}>
+				<Route
+					element={
+						<AdminAuth authRoles={[accessRoles.Admin, accessRoles.Manager]} />
+					}
+				>
 					<Route path="admin" element={<Outlet />}>
 						<Route index element={<Admin />} />
 						<Route path="create" element={<CreateProducts />} />
-						{/* <Route path="updateproduct" element={<InventoryPage />} />
-						<Route path="updateproduct/:id" element={<UpdateProducts />} /> */}
 						<Route path="inventory" element={<Outlet />}>
 							<Route index element={<InventoryPage />} />
 							<Route path=":id" element={<UpdateProducts />} />
@@ -92,32 +89,12 @@ const appRouter = createBrowserRouter(
 						<Route path="manage" element={<ManagementPage />} />
 					</Route>
 				</Route>
-				<Route path="*" element={<p>Not Found</p>} />
 			</Route>
+
+			<Route path="*" element={<p>Not Found</p>} />
 		</Route>
 	)
 );
-
-const router = createBrowserRouter([
-	{
-		path: "/",
-		element: <Layout />,
-		children: [
-			{
-				path: "signin",
-				element: <SignIn />,
-			},
-			{
-				path: "register",
-				element: <Register />,
-			},
-			{
-				path: "products",
-				element: <OrderPage />,
-			},
-		],
-	},
-]);
 
 export default function App() {
 	return (

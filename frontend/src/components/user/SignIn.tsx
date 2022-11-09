@@ -83,9 +83,7 @@ export default function SignIn() {
 				className="flex flex-col justify-center items-center w-full px-4 md:p-6 md:w-[30rem] md:border-[1px] md:rounded-lg md:shadow-sm"
 				onSubmit={handleSubmit}
 			>
-				<p className=" font-semibold text-lg md:text-xl mt-2 mb-4">
-					Sign in to ModernfyDesign
-				</p>
+				<p className=" font-semibold text-lg md:text-xl mt-2 mb-4">Sign In</p>
 
 				<div className="flex flex-col items-center w-full mb-4">
 					{loginInput.map((input) => {
@@ -137,10 +135,17 @@ export default function SignIn() {
 					</button>
 				</div>
 
-				<div className="flex justify-center items-center gap-2 ">
+				<div className="flex justify-center items-center gap-2 mb-2">
 					<span>New to ModernfyDesign?</span>
 					<span className="font-semibold link">
 						<Link to="/register">Register</Link>
+					</span>
+				</div>
+
+				<div className="flex justify-center items-center gap-2 ">
+					<span></span>
+					<span className="font-semibold link">
+						<Link to="/adminsignin">Admin Portal</Link>
 					</span>
 				</div>
 			</form>

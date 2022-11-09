@@ -149,7 +149,7 @@ export default function Register() {
 				className="flex flex-col justify-center items-center w-full px-4 md:p-6 md:w-[32rem] md:border-[1px] md:rounded-lg md:shadow-sm"
 			>
 				<p className="font-semibold text-lg md:text-xl mt-2 mb-4">
-					Create an Account
+					Create Your Account
 				</p>
 				<div className="grid grid-cols-1 md:grid-cols-2 w-full  md:gap-4">
 					{registerName.map((input) => {

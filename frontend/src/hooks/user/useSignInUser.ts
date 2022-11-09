@@ -14,7 +14,7 @@ export const useSignInUser = () => {
 	const queryClient = useQueryClient();
 	const { setUser } = useAuthContext();
 
-	const login = async (credentials: LoginCredentials): Promise<UserInfo> => {
+	const signIn = async (credentials: LoginCredentials): Promise<UserInfo> => {
 		const response = await eCommerceApiPublic.post(
 			"/api/users/login",
 			credentials
@@ -23,10 +23,10 @@ export const useSignInUser = () => {
 		return response.data;
 	};
 
-	return useMutation(login, {
+	return useMutation(signIn, {
 		onSuccess: (data: UserInfo) => {
 			toast.success(`${data.firstName} ${data.lastName} logged in.`);
-			queryClient.setQueryData("login", { ...data, isLoggedIn: true });
+			queryClient.setQueryData("signIn", { ...data, isLoggedIn: true });
 
 			setUser(data);
 			storage.setToken(data.accessToken);
