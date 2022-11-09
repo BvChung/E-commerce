@@ -1,7 +1,6 @@
 import React, { useState, useId, useEffect } from "react";
 import { useNavigate, Link, useLocation } from "react-router-dom";
 import { LoginCredentials } from "../../interfaces/authInterface";
-import { useSignInUser } from "../../hooks/user/useSignInUser";
 import { useSignInAdmin } from "../../hooks/admin/useSignInAdmin";
 import { CustomLocationState } from "../../interfaces/customInterface";
 import { FormInputProps } from "../../interfaces/formInterface";
@@ -10,8 +9,8 @@ import FormInput from "../form/FormInput";
 export default function AdminSignIn() {
 	const navigate = useNavigate();
 	const location = useLocation() as CustomLocationState;
-	const from = location.state?.from?.pathname || "/";
-	const { isSuccess, mutate } = useSignInUser();
+	const from = location.state?.from?.pathname || "/admin";
+	const { isSuccess, mutate } = useSignInAdmin();
 
 	const [loginCredentials, setLoginCredentials] = useState<LoginCredentials>({
 		email: "",

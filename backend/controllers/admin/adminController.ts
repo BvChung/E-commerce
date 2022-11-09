@@ -15,7 +15,6 @@ import { accessRoles } from "../../helper/accessRoles";
 // @route POST /api/users/login
 // @access Public
 export const signInAdmin = async (
-	// req: Request<{}, {}, {}>,
 	req: Request<{}, {}, signInBody["body"]>,
 	res: Response,
 	next: NextFunction
@@ -31,10 +30,10 @@ export const signInAdmin = async (
 		}
 
 		if (
-			foundUser.role !== accessRoles.Admin ||
+			foundUser.role !== accessRoles.Admin &&
 			foundUser.role !== accessRoles.Manager
 		) {
-			throw new Error("Unauthorized account.");
+			throw new Error("Unauthorized access.");
 		}
 
 		if (!(await bcrypt.compare(password, foundUser.password))) {

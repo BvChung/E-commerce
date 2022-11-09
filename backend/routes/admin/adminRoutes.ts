@@ -9,6 +9,7 @@ import verifyJWT from "../../middleware/authJWT";
 import {
 	accountUpdateBodySchema,
 	accountParamsSchema,
+	signInSchema,
 } from "../../schemas/adminSchema";
 import validateRequest from "../../middleware/validateReq";
 
