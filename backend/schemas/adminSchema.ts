@@ -1,5 +1,16 @@
 import { object, string, TypeOf, number } from "zod";
 
+export const signInSchema = object({
+	body: object({
+		email: string({
+			required_error: "Email is required.",
+		}).email("Not a valid email."),
+		password: string({
+			required_error: "Password is required.",
+		}),
+	}),
+});
+
 export const accountParamsSchema = object({
 	params: object({
 		id: string({
@@ -19,5 +30,6 @@ export const accountUpdateBodySchema = object({
 	}),
 });
 
+export type signInBody = TypeOf<typeof signInSchema>;
 export type accountParams = TypeOf<typeof accountParamsSchema>;
 export type accountBody = TypeOf<typeof accountUpdateBodySchema>;

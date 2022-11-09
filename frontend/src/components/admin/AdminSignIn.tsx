@@ -2,6 +2,7 @@ import React, { useState, useId, useEffect } from "react";
 import { useNavigate, Link, useLocation } from "react-router-dom";
 import { LoginCredentials } from "../../interfaces/authInterface";
 import { useSignInUser } from "../../hooks/user/useSignInUser";
+import { useSignInAdmin } from "../../hooks/admin/useSignInAdmin";
 import { CustomLocationState } from "../../interfaces/customInterface";
 import { FormInputProps } from "../../interfaces/formInterface";
 import FormInput from "../form/FormInput";
@@ -84,7 +85,7 @@ export default function AdminSignIn() {
 				onSubmit={handleSubmit}
 			>
 				<p className=" font-semibold text-lg md:text-xl mt-2 mb-4">
-					Sign in as Admin
+					Sign In as Admin
 				</p>
 
 				<div className="flex flex-col items-center w-full mb-4">
@@ -135,13 +136,6 @@ export default function AdminSignIn() {
 					>
 						Sign in as guest
 					</button>
-				</div>
-
-				<div className="flex justify-center items-center gap-2 ">
-					<span>New to ModernfyDesign?</span>
-					<span className="font-semibold link">
-						<Link to="/register">Register</Link>
-					</span>
 				</div>
 			</form>
 		</div>

@@ -1,9 +1,10 @@
 import { Router, IRouter } from "express";
 import {
+	signInAdmin,
 	getAccounts,
 	editRole,
 	deleteAccount,
-} from "../../controllers/admin/managementController";
+} from "../../controllers/admin/adminController";
 import verifyJWT from "../../middleware/authJWT";
 import {
 	accountUpdateBodySchema,
@@ -14,6 +15,7 @@ import validateRequest from "../../middleware/validateReq";
 const router: IRouter = Router();
 
 router.get("/manage", verifyJWT, getAccounts);
+router.post("/signin", signInAdmin);
 router.patch(
 	"/edit/",
 	[verifyJWT, validateRequest(accountUpdateBodySchema)],
