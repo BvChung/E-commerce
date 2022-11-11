@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { useSearchProducts } from "../../hooks/products/useSearchProducts";
+import { useSearchProducts } from "../../../hooks/products/useSearchProducts";
 import SearchedProducts from "./SearchedProducts";
 
 export default function SearchModal() {

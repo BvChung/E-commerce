@@ -2,8 +2,8 @@ import { useId } from "react";
 import { useNavigate } from "react-router-dom";
 import { useRefreshToken } from "../../hooks/auth/useRefreshToken";
 import { carouselData } from "../../helper/displayImages";
-import Carousel from "./Carousel";
-import Category from "./Category";
+import Carousel from "./display/Carousel";
+import Category from "./display/Category";
 //@ts-ignore
 import Desk from "../../assets/desk.jpg";
 //@ts-ignore

@@ -1,4 +1,4 @@
-import { ProductInfo } from "../../interfaces/productInterface";
+import { ProductInfo } from "../../../interfaces/productInterface";
 import { useNavigate } from "react-router-dom";
 
 export default function SearchedProducts({

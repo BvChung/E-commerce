@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef, useId } from "react";
 import { Link } from "react-router-dom";
-import { carouselData, CarouselData } from "../../helper/displayImages";
+import { carouselData, CarouselData } from "../../../helper/displayImages";
 import Indicator from "./Indicator";
 
 export default function Carou({ slides }: CarouselData) {
