@@ -21,7 +21,7 @@ import UpdateProducts from "./components/admin/inventory/UpdateProducts";
 import ManagementPage from "./components/admin/management/ManagementPage";
 import Payment from "./components/checkout/Payment";
 import Shipping from "./components/checkout/Shipping";
-import ConfirmOrder from "./components/checkout/ConfirmOrder";
+import ReviewOrder from "./components/checkout/ReviewOrder";
 import OrderPage from "./components/orders/OrderPage";
 import OrderInfo from "./components/orders/OrderInfo";
 import Cart from "./components/cart/Cart";
@@ -56,7 +56,7 @@ const appRouter = createBrowserRouter(
 					<Route path="checkout" element={<Outlet />}>
 						<Route path="payment" element={<Payment />} />
 						<Route path="shipping" element={<Shipping />} />
-						<Route path="confirmation" element={<ConfirmOrder />} />
+						<Route path="confirmation" element={<ReviewOrder />} />
 					</Route>
 
 					<Route path="orders" element={<Outlet />}>

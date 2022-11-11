@@ -16,7 +16,6 @@ export default function Cart() {
 		data: displayCartItems,
 		isSuccess,
 		isLoading,
-		isFetching,
 	} = useGetCartItems(myCart);
 
 	const guestAccountActive =
@@ -51,7 +50,7 @@ export default function Cart() {
 	};
 
 	return (
-		<div className="flex flex-col items-center justify-center mb-6 mx-4 lg:mx-0">
+		<div className="flex flex-col items-center justify-center mb-6 mx-2 sm:mx-6 lg:mx-0">
 			<div className="flex items-center gap-2 w-full mt-8 mb-6 lg:max-w-5xl xl:max-w-7xl">
 				<span className="font-medium text-xl sm:text-2xl">My Cart</span>
 			</div>

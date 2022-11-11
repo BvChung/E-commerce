@@ -5,7 +5,7 @@ import { useCartContext } from "../../hooks/context/useCartContext";
 import { useAuthContext } from "../../hooks/context/useAuthContext";
 import FormInput from "../form/FormInput";
 import { FormInputProps } from "../../interfaces/formInterface";
-import DetailsModal from "./DetailsModal";
+import DetailsModal from "./modal/DetailsModal";
 
 export default function Shipping() {
 	const { myOrder, handleShipping, setMyOrder } = useOrderContext();
@@ -146,7 +146,7 @@ export default function Shipping() {
 	];
 
 	return (
-		<div className="flex flex-col items-center justify-center mb-10 mx-4 lg:mx-0">
+		<div className="flex flex-col items-center justify-center mb-10 mx-2 sm:mx-6 lg:mx-0">
 			<div className="flex flex-col w-full mb-4 lg:max-w-5xl xl:max-w-6xl">
 				<span className="font-medium text-xl sm:text-2xl">
 					Shipping Address

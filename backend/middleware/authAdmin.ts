@@ -7,7 +7,10 @@ import global from "../types/types";
 
 const verifyAdmin = async (req: Request, res: Response, next: NextFunction) => {
 	try {
-		if (req.user.role != accessRoles.Admin) {
+		if (
+			req.user.role !== accessRoles.Admin &&
+			req.user.role !== accessRoles.Manager
+		) {
 			throw new Error("Unauthorized access.");
 		}
 	} catch (error) {
