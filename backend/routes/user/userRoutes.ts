@@ -4,22 +4,22 @@ import {
 	registerUser,
 	getUser,
 	logoutUser,
-} from "../controllers/user/userController";
-import { getAccounts } from "../controllers/admin/adminController";
+} from "../../controllers/user/userController";
+import { getAccounts } from "../../controllers/admin/adminController";
 import {
 	updateName,
 	updateEmail,
 	updatePassword,
-} from "../controllers/user/settingsController";
+} from "../../controllers/user/settingsController";
 import {
 	registerSchema,
 	loginSchema,
 	editNameSchema,
 	editEmailSchema,
 	editPasswordSchema,
-} from "../schemas/userSchema";
-import validateRequest from "../middleware/validateReq";
-import verifyJWT from "../middleware/authJWT";
+} from "../../schemas/userSchema";
+import validateRequest from "../../middleware/validateReq";
+import verifyJWT from "../../middleware/authJWT";
 
 const router: IRouter = Router();
 

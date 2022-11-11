@@ -1,5 +1,5 @@
 import { IRouter, Router } from "express";
-import handleRefreshToken from "../controllers/refreshTokenController";
+import handleRefreshToken from "../../controllers/token/refreshTokenController";
 
 const router: IRouter = Router();
 

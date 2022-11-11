@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from "express";
-import OrderModel from "../models/orderModel";
-import global from "../types/types";
-import { orderBody, orderParams } from "../schemas/orderSchema";
+import OrderModel from "../../models/orderModel";
+import global from "../../types/types";
+import { orderBody, orderParams } from "../../schemas/orderSchema";
 
 export const getOrder = async (
 	req: Request,

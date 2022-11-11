@@ -1,12 +1,12 @@
 import { Request, Response, NextFunction } from "express";
-import ProductModel from "../models/productModel";
-import global from "../types/types";
-import cloudinaryConnection from "../config/cloudinaryConfig";
+import ProductModel from "../../models/productModel";
+import global from "../../types/types";
+import cloudinaryConnection from "../../config/cloudinaryConfig";
 import {
 	productCreationBody,
 	productParams,
 	productUpdateBody,
-} from "../schemas/productSchema";
+} from "../../schemas/productSchema";
 import dotenv from "dotenv";
 dotenv.config();
 

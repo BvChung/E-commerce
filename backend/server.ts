@@ -6,11 +6,11 @@ import express, { Express, Request, Response, NextFunction } from "express";
 import "colors";
 import { connectDatabase } from "./config/mongoConfig";
 import errorHandler from "./middleware/errorHandler";
-import userRoutes from "./routes/userRoutes";
+import userRoutes from "./routes/user/userRoutes";
 import adminRoutes from "./routes/admin/adminRoutes";
-import orderRoutes from "./routes/orderRoutes";
-import productRoutes from "./routes/productRoutes";
-import refreshTokenRoutes from "./routes/refreshTokenRoutes";
+import orderRoutes from "./routes/order/orderRoutes";
+import productRoutes from "./routes/product/productRoutes";
+import refreshTokenRoutes from "./routes/token/refreshTokenRoutes";
 
 dotenv.config();
 const port = process.env.PORT || 3001;

@@ -1,6 +1,6 @@
 import { IRouter, Router } from "express";
-import verifyJWT from "../middleware/authJWT";
-import validateRequest from "../middleware/validateReq";
+import verifyJWT from "../../middleware/authJWT";
+import validateRequest from "../../middleware/validateReq";
 
 import {
 	getProduct,
@@ -9,12 +9,12 @@ import {
 	createProduct,
 	updateProduct,
 	deleteProduct,
-} from "../controllers/productController";
+} from "../../controllers/product/productController";
 import {
 	productCreationBodySchema,
 	productUpdateBodySchema,
 	productParamsSchema,
-} from "../schemas/productSchema";
+} from "../../schemas/productSchema";
 
 const router: IRouter = Router();
 
