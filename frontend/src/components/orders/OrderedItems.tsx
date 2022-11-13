@@ -63,14 +63,25 @@ export default function OrderedItems({
 								</figure>
 							</Link>
 
-							<div className="flex flex-col flex-1 justify-center px-6">
-								<div className="flex items-center w-full mb-3">
-									<Link
-										to={`/products/${item._id}`}
-										className="hover:text-gray-600 hover:link"
-									>
-										{item.name}
-									</Link>
+							<div className="flex flex-col flex-1 px-6">
+								<div className="flex">
+									<div className="flex flex-col justify-center w-full mb-3">
+										<Link
+											to={`/products/${item._id}`}
+											className="hover:text-gray-600 hover:link font-semibold mb-1"
+										>
+											{item.name}
+										</Link>
+										<span className="text-xs text-gray-500 mb-1">
+											ITEM {item._id.slice(0, 7)}
+										</span>
+										<span className="text-sm font-medium">
+											Quantity {item.quantity}
+										</span>
+									</div>
+									<div className="text-sm font-bold">
+										${(item.quantity! * item.price).toFixed(2)}
+									</div>
 								</div>
 								<div className="flex items-center">
 									<button

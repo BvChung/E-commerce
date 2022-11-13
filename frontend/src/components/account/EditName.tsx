@@ -80,7 +80,7 @@ export default function EditName() {
 								firstName: user.firstName,
 								lastName: user.lastName,
 							});
-							navigate("/account/info");
+							navigate("/account");
 						}}
 						className="mr-4 cursor-pointer"
 					>
@@ -139,7 +139,7 @@ export default function EditName() {
 									firstName: user.firstName,
 									lastName: user.lastName,
 								});
-								navigate("/account/info");
+								navigate("/account");
 							}}
 							className="btn btn-outline rounded-full h-11"
 						>

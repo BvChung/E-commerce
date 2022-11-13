@@ -51,11 +51,11 @@ export default function Cart() {
 
 	return (
 		<div className="flex flex-col items-center justify-center mb-6 mx-2 sm:mx-6 lg:mx-0">
-			<div className="flex items-center gap-2 w-full mt-8 mb-6 lg:max-w-5xl xl:max-w-7xl">
+			<div className="flex items-center gap-2 w-full mt-8 mb-6 lg:max-w-5xl xl:max-w-6xl">
 				<span className="font-medium text-xl sm:text-2xl">My Cart</span>
 			</div>
 
-			<div className="flex flex-col-reverse md:flex-row justify-center h-max w-full gap-4 lg:max-w-5xl xl:max-w-7xl">
+			<div className="flex flex-col-reverse md:flex-row justify-center h-max w-full gap-4 lg:max-w-5xl xl:max-w-6xl">
 				<div className="border-[1px] py-2 px-6 h-max rounded-lg shadow-sm transition-all fade w-full md:w-2/3">
 					{displayCartItems?.length === 0 && (
 						<div className="flex flex-col items-center justify-center gap-6 h-[262px]">
@@ -100,6 +100,32 @@ export default function Cart() {
 				</div>
 
 				<div className="flex flex-col items-center md:sticky top-6 rounded-lg shadow-md h-fit w-full md:w-1/3 border-[1px] py-4 md:py-6 px-4 mb-4 md:mb-0">
+					<div className="w-full flex items-center justify-between mb-4">
+						<div>
+							<span className="font-medium mr-2 text-sm">Subtotal</span>
+							<span className="text-gray-700 text-sm">
+								({cartItemsInfo.numItems} items)
+							</span>
+						</div>
+						<div className="font-bold">${cartItemsInfo.subTotal}</div>
+					</div>
+
+					<div className="w-full flex items-center justify-between mb-4">
+						<span className="font-medium text-sm">Shipping & Handling</span>
+						<span className="font-bold">Free</span>
+					</div>
+
+					<div className="w-full flex items-center justify-between border-b-[1px] pb-4 mb-4 md:pb-6 md:mb-6">
+						<span className="font-medium text-sm">Taxes</span>
+						<span className="font-bold">Calculated at checkout</span>
+					</div>
+
+					<div className="w-full flex items-center justify-between">
+						<div className="font-semibold ">Estimated Total</div>
+						<div className="text-lg font-semibold">
+							${cartItemsInfo.subTotal}
+						</div>
+					</div>
 					<div className="w-full mb-4 md:mb-6">
 						<Link
 							className={`btn ${
@@ -127,28 +153,6 @@ export default function Cart() {
 							</button>
 						</div>
 					)}
-
-					<div className="w-full flex items-center justify-between mb-6">
-						<div>
-							<span className="font-semibold mr-2 ">Subtotal</span>
-							<span className="text-gray-700">
-								({cartItemsInfo.numItems} items)
-							</span>
-						</div>
-						<div className="text-gray-700">${cartItemsInfo.subTotal}</div>
-					</div>
-
-					<div className="w-full flex items-center justify-between border-b-2 border-gray-800 pb-4 mb-4 md:pb-6 md:mb-6">
-						<div className="font-semibold ">Taxes</div>
-						<div className="text-gray-700">Calculated at checkout</div>
-					</div>
-
-					<div className="w-full flex items-center justify-between">
-						<div className="font-semibold ">Estimated Total</div>
-						<div className="text-lg font-semibold">
-							${cartItemsInfo.subTotal}
-						</div>
-					</div>
 				</div>
 			</div>
 		</div>

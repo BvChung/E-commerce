@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useGetProducts } from "../../hooks/products/useGetProducts";
 import { ProductInfo } from "../../interfaces/productInterface";
 import ProductDisplay from "./ProductDisplay";
+import { useSearchParams } from "react-router-dom";
 
 interface Filter {
 	category: string;
@@ -22,6 +23,16 @@ export default function ProductPage() {
 	const { isLoading, isError, isSuccess, data: products } = useGetProducts();
 
 	const [filterCategory, setFilterCategory] = useState<FilterCategory[]>([]);
+	let [searchParams, setSearchParams] = useSearchParams();
+
+	// function handleSubmit(event) {
+	// 	event.preventDefault();
+	// 	// The serialize function here would be responsible for
+	// 	// creating an object of { key: value } pairs from the
+	// 	// fields in the form that make up the query.
+	// 	let params = serializeFormQuery(event.target);
+	// 	setSearchParams(params);
+	//   }
 
 	function handleChange(
 		e: React.ChangeEvent<HTMLInputElement>,

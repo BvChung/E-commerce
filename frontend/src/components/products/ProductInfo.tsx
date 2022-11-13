@@ -35,6 +35,7 @@ export default function ProductInfo() {
 							<p className="font-bold text-xl text-gray-900 mb-4">
 								${productInfo.price.toFixed(2)}
 							</p>
+
 							<div className="md:border-b-[1px] pb-0 md:pb-4 mb-0 md:mb-4">
 								{!foundItem ? (
 									<button
@@ -51,14 +52,14 @@ export default function ProductInfo() {
 												`${productInfo.name} has been added to your cart.`
 											);
 										}}
-										className="btn btn-primary h-11 md:h-12 w-full rounded-full"
+										className="btn h-11 px-6 rounded-full"
 									>
 										Add to cart
 									</button>
 								) : (
-									<div className="btn-group">
+									<div className="btn-group rounded-full">
 										<button
-											className={`btn btn-md  ${
+											className={`btn h-11 rounded-full  ${
 												foundItem?.quantity === 0 && "btn-disabled"
 											} `}
 											onClick={() => {
@@ -67,7 +68,7 @@ export default function ProductInfo() {
 										>
 											«
 										</button>
-										<button className="btn btn-md">
+										<button className="btn h-11 rounded-full">
 											{foundItem.quantity !== 9
 												? `${foundItem?.quantity} Added`
 												: `Max ${foundItem?.quantity}`}
@@ -76,7 +77,7 @@ export default function ProductInfo() {
 											onClick={() => {
 												incrementCartQuantity(productInfo._id);
 											}}
-											className={`btn btn-md ${
+											className={`btn h-11 rounded-full ${
 												foundItem?.quantity === 9 && "btn-disabled"
 											} `}
 										>

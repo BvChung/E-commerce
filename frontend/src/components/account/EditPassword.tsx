@@ -106,7 +106,7 @@ export default function EditPassword() {
 								newPassword: "",
 								verifyNewPassword: "",
 							});
-							navigate("/account/info");
+							navigate("/account");
 						}}
 						className="mr-4 cursor-pointer"
 					>
@@ -178,7 +178,7 @@ export default function EditPassword() {
 									newPassword: "",
 									verifyNewPassword: "",
 								});
-								navigate("/account/info");
+								navigate("/account");
 							}}
 							className="btn btn-outline rounded-full h-11"
 						>
