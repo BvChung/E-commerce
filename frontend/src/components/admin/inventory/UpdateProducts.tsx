@@ -102,7 +102,7 @@ export default function ManageProducts() {
 	}
 
 	return (
-		<div className="flex flex-col items-center justify-center mb-6 mx-4 lg:mx-0">
+		<div className="flex flex-col items-center justify-center mb-6 mx-4 sm:mx-6 lg:mx-0">
 			<div className="flex items-center gap-2 w-full mt-8 mb-6 pb-2 border-b-[1px] border-gray-200 lg:max-w-5xl xl:max-w-6xl">
 				<Link to={"/admin/inventory"} className="mr-2 cursor-pointer">
 					<svg
@@ -264,7 +264,7 @@ export default function ManageProducts() {
 						</div>
 					</div>
 
-					<button className="btn btn-primary w-fit px-8 self-end">
+					<button className="btn btn-primary h-11 w-fit rounded-md px-8 self-end">
 						Save Changes
 					</button>
 				</form>

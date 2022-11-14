@@ -33,11 +33,11 @@ export default function CartItem({
 			<div className="flex flex-col flex-1 justify-center h-full px-2 md:px-6 py-4">
 				<div className="flex flex-col md:flex-row items-end md:items-center justify-center md:justify-between h-3/4">
 					<Link to={`/products/${_id}`}>
-						<span className="hover:text-gray-600 hover:link font-medium text-base">
+						<span className="hover:link font-medium text-sm md:text-base">
 							{name}
 						</span>
 					</Link>
-					<p className="font-semibold text-base md:text-lg">
+					<p className="font-bold text-base text-sm md:text-base">
 						${(foundItem?.price! * foundItem?.quantity!).toFixed(2)}
 					</p>
 				</div>
@@ -49,7 +49,7 @@ export default function CartItem({
 						}}
 						className="hover:link"
 					>
-						<span className="text-xs md:text-sm">Remove</span>
+						<span className="text-xs">Remove</span>
 					</button>
 
 					<div className="relative form-control w-fit">

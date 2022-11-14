@@ -4,139 +4,194 @@ import { ProductInfo } from "../../interfaces/productInterface";
 import ProductDisplay from "./ProductDisplay";
 import { useSearchParams } from "react-router-dom";
 
-interface Filter {
-	category: string;
-}
-
-interface FilterCategory {
+interface FilterC {
 	type: string;
 	name: string;
 }
-interface FilterPrice {
+interface FilterP {
 	under100: boolean;
 	btwn100_500: boolean;
 	btwn500_1000: boolean;
 	above1000: boolean;
 }
 
+interface FilterPrice {
+	priceLow: number | string;
+	priceHigh: number | string;
+}
+
+interface FilterProducts {
+	category: string[];
+	priceLow: number | string;
+	priceHigh: number | string;
+}
+
 export default function ProductPage() {
 	const { isLoading, isError, isSuccess, data: products } = useGetProducts();
 
-	const [filterCategory, setFilterCategory] = useState<FilterCategory[]>([]);
+	const [filterC, setFilterC] = useState<FilterC[]>([]);
 	let [searchParams, setSearchParams] = useSearchParams();
+	const [filterCategory, setFilterCategory] = useState<string[]>([]);
+	const [filter, setFilter] = useState<FilterProducts>({
+		category: [],
+		priceLow: -1,
+		priceHigh: -1,
+	});
 
-	// function handleSubmit(event) {
-	// 	event.preventDefault();
-	// 	// The serialize function here would be responsible for
-	// 	// creating an object of { key: value } pairs from the
-	// 	// fields in the form that make up the query.
-	// 	let params = serializeFormQuery(event.target);
-	// 	setSearchParams(params);
-	//   }
+	const [filterPrice, setFilterPrice] = useState<FilterPrice>({
+		priceLow: 0,
+		priceHigh: 0,
+	});
+	console.log(filter);
 
 	function handleChange(
 		e: React.ChangeEvent<HTMLInputElement>,
 		category: string
 	) {
 		if (e.target.checked) {
-			setFilterCategory((prev) => {
+			setFilterC((prev) => {
 				return [...prev, { type: "category", name: category }];
 			});
-		} else {
+
 			setFilterCategory((prev) => {
+				return [...prev, category];
+			});
+
+			setFilter((prev) => {
+				return {
+					...prev,
+					category: [...prev.category, category],
+				};
+			});
+		} else {
+			setFilterC((prev) => {
 				return prev.filter((el) => el.name !== category);
+			});
+
+			setFilterCategory((prev) => {
+				return prev.filter((el) => el !== category);
+			});
+
+			setFilter((prev) => {
+				return {
+					...prev,
+					category: prev.category.filter((el) => el !== category),
+				};
 			});
 		}
 	}
 
-	const [filterPrice, setFilterPrice] = useState<FilterPrice>({
+	const [filterP, setFilterP] = useState<FilterP>({
 		under100: false,
 		btwn100_500: false,
 		btwn500_1000: false,
 		above1000: false,
 	});
 
+	function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
+		event.preventDefault();
+		let formData = new FormData(event.currentTarget);
+		let newUser = formData.get("user") as string;
+		console.log(newUser);
+		if (!newUser) return;
+		setSearchParams({ user: [newUser, newUser, newUser], time: newUser });
+	}
+
+	useEffect(() => {
+		if (filter.priceLow !== -1 && filter.priceHigh !== -1) {
+			setSearchParams((prev) => {
+				return {
+					...prev,
+					filters: filter.category,
+					pl: filter.priceLow,
+					ph: filter.priceHigh,
+				};
+			});
+		} else if (filter.priceLow === -1 && filter.priceHigh === -1) {
+			setSearchParams((prev) => {
+				return {
+					...prev,
+					filters: filter.category,
+				};
+			});
+		}
+	}, [filter]);
+	console.log(searchParams.getAll("filters"));
+
+	// useEffect(() => {
+	// 	setSearchParams((prev) => {
+	// 		return {
+	// 			...prev,
+	// 			pl: filterPrice.priceLow,
+	// 			ph: filterPrice.priceHigh,
+	// 		};
+	// 	});
+	// }, [filterPrice]);
+
 	// const ex = products?.filter((product) =>
-	// 	filterCategory.some((filterEl) => product[filterEl.type] === filterEl.name)
+	// 	filterC.some((filterEl) => product[filterEl.type] === filterEl.name)
 	// );
 	// console.log(ex);
 	return (
 		<div className="flex flex-col justify-center items-center lg:items-start lg:flex-row lg:justify-center my-8 md:my-10 ">
-			<div className="lg:hidden collapse collapse-arrow border border-base-300 bg-base-100 h-fit w-48 rounded-lg max-h-96">
-				<input type="checkbox" className="peer" />
-				<div className="collapse-title bg- bg-primary text-primary-content peer-checked:font-medium peer-checked:bg-secondary peer-checked:text-secondary-content">
-					Category
-				</div>
-				<div className="h-fit collapse-content bg-opacity-50 bg-primary text-primary-content peer-checked:bg-secondary">
-					<div className="flex flex-col gap-2 h-fit">
-						<div className="flex gap-3">
-							<input
-								onChange={(e) => {
-									handleChange(e, "Sofa");
-								}}
-								type="checkbox"
-								className="checkbox checkbox-md"
-							/>
-							<div className="">Sofa</div>
+			{/* <form onSubmit={handleSubmit}>
+				<label>
+					<input type="text" name="user" />
+				</label>
+				<button type="submit">Search</button>
+			</form> */}
+
+			{/* <div className="dropdown dropdown-end">
+				<label tabIndex={0} className="btn btn-ghost btn-circle avatar">
+					<svg
+						xmlns="http://www.w3.org/2000/svg"
+						fill="none"
+						viewBox="0 0 24 24"
+						strokeWidth={1.8}
+						stroke="currentColor"
+						className="w-6 h-6"
+					>
+						<path
+							strokeLinecap="round"
+							strokeLinejoin="round"
+							d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z"
+						/>
+					</svg>
+				</label>
+				<ul
+					tabIndex={0}
+					className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52"
+				>
+					<li>
+						<div>
+							<div className="flex items-center gap-2">
+								<svg
+									xmlns="http://www.w3.org/2000/svg"
+									fill="none"
+									viewBox="0 0 24 24"
+									strokeWidth={1.5}
+									stroke="currentColor"
+									className="w-6 h-6"
+								>
+									<path
+										strokeLinecap="round"
+										strokeLinejoin="round"
+										d="M17.982 18.725A7.488 7.488 0 0012 15.75a7.488 7.488 0 00-5.982 2.975m11.963 0a9 9 0 10-11.963 0m11.963 0A8.966 8.966 0 0112 21a8.966 8.966 0 01-5.982-2.275M15 9.75a3 3 0 11-6 0 3 3 0 016 0z"
+									/>
+								</svg>
+
+								<span>Sign Up or Sign in</span>
+							</div>
 						</div>
-						<div className="flex gap-3">
-							<input
-								onChange={(e) => {
-									handleChange(e, "Table");
-								}}
-								type="checkbox"
-								className="checkbox checkbox-md"
-							/>
-							<p>Table</p>
-						</div>
-						<div className="flex gap-3">
-							<input
-								onChange={(e) => {
-									handleChange(e, "Chair");
-								}}
-								type="checkbox"
-								className="checkbox checkbox-md"
-							/>
-							<p>Chair</p>
-						</div>
-						<div className="flex gap-3">
-							<input
-								onChange={(e) => {
-									handleChange(e, "Desk");
-								}}
-								type="checkbox"
-								className="checkbox checkbox-md"
-							/>
-							<p>Desk</p>
-						</div>
-						<div className="flex gap-3">
-							<input
-								onChange={(e) => {
-									handleChange(e, "Drawer");
-								}}
-								type="checkbox"
-								className="checkbox checkbox-md"
-							/>
-							<p>Drawer</p>
-						</div>
-						<div className="flex gap-3">
-							<input
-								onChange={(e) => {
-									handleChange(e, "Shelf");
-								}}
-								type="checkbox"
-								className="checkbox checkbox-md"
-							/>
-							<p>Shelf</p>
-						</div>
-					</div>
-				</div>
-			</div>
+					</li>
+				</ul>
+			</div> */}
+
 			<div className="mr-8 hidden lg:block">
 				<p className="text-sm mb-1">Filters</p>
-				<div className="collapse collapse-arrow shadow-sm border border-base-300 bg-base-100 h-fit w-52 rounded-lg max-h-96 mb-6">
+				<div className="collapse collapse-arrow border border-base-300 border-b-0 bg-base-100 h-fit w-52 max-h-96">
 					<input type="checkbox" className="peer" />
-					<div className="collapse-title peer-checked:font-medium peer-checked:text-secondary-content">
+					<div className="collapse-title font-medium peer-checked:font-semibold">
 						Category
 					</div>
 					<div className="h-fit collapse-content">
@@ -146,6 +201,8 @@ export default function ProductPage() {
 									onChange={(e) => {
 										handleChange(e, "Sofa");
 									}}
+									id="sofa"
+									autoComplete="off"
 									type="checkbox"
 									className="checkbox checkbox-md checkbox-secondary"
 								/>
@@ -156,6 +213,7 @@ export default function ProductPage() {
 									onChange={(e) => {
 										handleChange(e, "Table");
 									}}
+									autoComplete="off"
 									type="checkbox"
 									className="checkbox checkbox-md checkbox-secondary"
 								/>
@@ -166,6 +224,7 @@ export default function ProductPage() {
 									onChange={(e) => {
 										handleChange(e, "Chair");
 									}}
+									autoComplete="off"
 									type="checkbox"
 									className="checkbox checkbox-md checkbox-secondary"
 								/>
@@ -176,6 +235,7 @@ export default function ProductPage() {
 									onChange={(e) => {
 										handleChange(e, "Desk");
 									}}
+									autoComplete="off"
 									type="checkbox"
 									className="checkbox checkbox-md checkbox-secondary"
 								/>
@@ -184,8 +244,10 @@ export default function ProductPage() {
 							<div className="flex items-center gap-3">
 								<input
 									onChange={(e) => {
+										console.log(e.target.checked);
 										handleChange(e, "Drawer");
 									}}
+									autoComplete="off"
 									type="checkbox"
 									className="checkbox checkbox-md checkbox-secondary"
 								/>
@@ -196,6 +258,7 @@ export default function ProductPage() {
 									onChange={(e) => {
 										handleChange(e, "Shelf");
 									}}
+									autoComplete="off"
 									type="checkbox"
 									className="checkbox checkbox-md checkbox-secondary"
 								/>
@@ -205,9 +268,9 @@ export default function ProductPage() {
 					</div>
 				</div>
 
-				<div className="collapse collapse-arrow border border-base-300 bg-base-100 h-fit w-52 rounded-lg max-h-96">
+				<div className="collapse collapse-arrow border border-base-300 bg-base-100 h-fit w-52 max-h-96">
 					<input type="checkbox" className="peer" />
-					<div className="collapse-title peer-checked:font-medium peer-checked:text-secondary-content">
+					<div className="collapse-title font-medium peer-checked:font-semibold">
 						Price Range
 					</div>
 					<div className="h-fit collapse-content">
@@ -215,14 +278,20 @@ export default function ProductPage() {
 							<div className="flex items-center gap-3">
 								<input
 									type="radio"
-									name="filterPrice"
+									name="filterP"
 									onChange={(e) => {
 										if (e.target.checked) {
 											setFilterPrice({
-												under100: true,
-												btwn100_500: false,
-												btwn500_1000: false,
-												above1000: false,
+												priceLow: "min",
+												priceHigh: 100,
+											});
+
+											setFilter((prev) => {
+												return {
+													...prev,
+													priceLow: "min",
+													priceHigh: 100,
+												};
 											});
 										}
 									}}
@@ -233,14 +302,19 @@ export default function ProductPage() {
 							<div className="flex items-center gap-3">
 								<input
 									type="radio"
-									name="filterPrice"
+									name="filterP"
 									onChange={(e) => {
 										if (e.target.checked) {
 											setFilterPrice({
-												under100: false,
-												btwn100_500: true,
-												btwn500_1000: false,
-												above1000: false,
+												priceLow: 100,
+												priceHigh: 500,
+											});
+											setFilter((prev) => {
+												return {
+													...prev,
+													priceLow: 100,
+													priceHigh: 500,
+												};
 											});
 										}
 									}}
@@ -252,14 +326,20 @@ export default function ProductPage() {
 							<div className="flex items-center gap-3">
 								<input
 									type="radio"
-									name="filterPrice"
+									name="filterP"
 									onChange={(e) => {
 										if (e.target.checked) {
+											setFilter((prev) => {
+												return {
+													...prev,
+													priceLow: 500,
+													priceHigh: 1000,
+												};
+											});
+
 											setFilterPrice({
-												under100: false,
-												btwn100_500: false,
-												btwn500_1000: true,
-												above1000: false,
+												priceLow: 500,
+												priceHigh: 1000,
 											});
 										}
 									}}
@@ -270,14 +350,20 @@ export default function ProductPage() {
 							<div className="flex items-center gap-3">
 								<input
 									type="radio"
-									name="filterPrice"
+									name="filterP"
 									onChange={(e) => {
 										if (e.target.checked) {
+											setFilter((prev) => {
+												return {
+													...prev,
+													priceLow: 1000,
+													priceHigh: "max",
+												};
+											});
+
 											setFilterPrice({
-												under100: false,
-												btwn100_500: false,
-												btwn500_1000: false,
-												above1000: true,
+												priceLow: 1000,
+												priceHigh: "max",
 											});
 										}
 									}}
@@ -294,8 +380,8 @@ export default function ProductPage() {
 				{isSuccess &&
 					products
 						.filter((product) => {
-							if (filterCategory.length > 0) {
-								return filterCategory.some(
+							if (filterC.length > 0) {
+								return filterC.some(
 									(filterEl) => product[filterEl.type] === filterEl.name
 								);
 							} else {
@@ -303,13 +389,13 @@ export default function ProductPage() {
 							}
 						})
 						.filter((product) => {
-							if (filterPrice.under100) {
+							if (filterP.under100) {
 								return product.price < 100;
-							} else if (filterPrice.btwn100_500) {
+							} else if (filterP.btwn100_500) {
 								return product.price >= 100 && product.price < 500;
-							} else if (filterPrice.btwn500_1000) {
+							} else if (filterP.btwn500_1000) {
 								return product.price >= 500 && product.price < 1000;
-							} else if (filterPrice.above1000) {
+							} else if (filterP.above1000) {
 								return product.price >= 1000;
 							} else {
 								return product;

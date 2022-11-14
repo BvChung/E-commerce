@@ -92,7 +92,7 @@ export default function ProductTable() {
 	}
 
 	return (
-		<div className="flex flex-col items-center justify-center mb-10 mx-4 ">
+		<div className="flex flex-col items-center justify-center mb-10 mx-4 sm:mx-6 lg:mx-0">
 			<div className="flex items-center gap-2 w-full mt-8 mb-8 pb-2 border-b-[1px] border-gray-200 lg:max-w-5xl xl:max-w-6xl">
 				<Link to={"/admin"} className="mr-2 cursor-pointer">
 					<svg

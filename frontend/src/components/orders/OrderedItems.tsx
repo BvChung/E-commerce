@@ -49,7 +49,7 @@ export default function OrderedItems({
 					</Link>
 				</div>
 			</div>
-			<div className="h-fit w-full px-6">
+			<div className="h-fit w-full px-4 md:px-6">
 				{purchasedItems.map((item) => {
 					return (
 						<div key={item._id} className="flex py-6 last:mb-0">
@@ -63,24 +63,31 @@ export default function OrderedItems({
 								</figure>
 							</Link>
 
-							<div className="flex flex-col flex-1 px-6">
+							<div className="flex flex-col flex-1 pl-4 md:px-6">
 								<div className="flex">
 									<div className="flex flex-col justify-center w-full mb-3">
 										<Link
 											to={`/products/${item._id}`}
-											className="hover:text-gray-600 hover:link font-semibold mb-1"
+											className="hover:link font-semibold mb-1 w-fit"
 										>
 											{item.name}
 										</Link>
-										<span className="text-xs text-gray-500 mb-1">
+										<span className="hidden md:flex text-xs text-gray-500 mb-1">
 											ITEM {item._id.slice(0, 7)}
 										</span>
 										<span className="text-sm font-medium">
-											Quantity {item.quantity}
+											Quantity: {item.quantity}
+										</span>
+										<span className="md:hidden mt-1">
+											<span className="text-sm font-bold">
+												${(item.quantity! * item.price).toFixed(2)}
+											</span>
 										</span>
 									</div>
-									<div className="text-sm font-bold">
-										${(item.quantity! * item.price).toFixed(2)}
+									<div className="hidden md:flex">
+										<span className="text-sm font-bold">
+											${(item.quantity! * item.price).toFixed(2)}
+										</span>
 									</div>
 								</div>
 								<div className="flex items-center">

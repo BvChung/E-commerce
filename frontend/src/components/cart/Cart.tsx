@@ -50,7 +50,7 @@ export default function Cart() {
 	};
 
 	return (
-		<div className="flex flex-col items-center justify-center mb-6 mx-2 sm:mx-6 lg:mx-0">
+		<div className="flex flex-col items-center justify-center mb-6 mx-4 sm:mx-6 lg:mx-0">
 			<div className="flex items-center gap-2 w-full mt-8 mb-6 lg:max-w-5xl xl:max-w-6xl">
 				<span className="font-medium text-xl sm:text-2xl">My Cart</span>
 			</div>
@@ -99,7 +99,7 @@ export default function Cart() {
 					)}
 				</div>
 
-				<div className="flex flex-col items-center md:sticky top-6 rounded-lg shadow-md h-fit w-full md:w-1/3 border-[1px] py-4 md:py-6 px-4 mb-4 md:mb-0">
+				<div className="flex flex-col items-center md:sticky top-6 rounded-lg shadow-sm h-fit w-full md:w-1/3 border-[1px] py-4 md:py-6 px-4 mb-4 md:mb-0">
 					<div className="w-full flex items-center justify-between mb-4">
 						<div>
 							<span className="font-medium mr-2 text-sm">Subtotal</span>
@@ -107,28 +107,33 @@ export default function Cart() {
 								({cartItemsInfo.numItems} items)
 							</span>
 						</div>
-						<div className="font-bold">${cartItemsInfo.subTotal}</div>
+						<div className="font-semibold">${cartItemsInfo.subTotal}</div>
 					</div>
 
 					<div className="w-full flex items-center justify-between mb-4">
 						<span className="font-medium text-sm">Shipping & Handling</span>
-						<span className="font-bold">Free</span>
+						<span className="font-semibold">Free</span>
 					</div>
 
-					<div className="w-full flex items-center justify-between border-b-[1px] pb-4 mb-4 md:pb-6 md:mb-6">
+					<div className="w-full flex items-center justify-between border-b-[1px] pb-2 mb-4">
 						<span className="font-medium text-sm">Taxes</span>
-						<span className="font-bold">Calculated at checkout</span>
+						<span className="font-semibold">TBD</span>
 					</div>
 
-					<div className="w-full flex items-center justify-between">
-						<div className="font-semibold ">Estimated Total</div>
-						<div className="text-lg font-semibold">
-							${cartItemsInfo.subTotal}
-						</div>
+					<div className="w-full flex items-center justify-between mb-2">
+						<div className="font-semibold">Estimated Total</div>
+						<div className="font-bold">${cartItemsInfo.subTotal}</div>
 					</div>
-					<div className="w-full mb-4 md:mb-6">
+
+					<div className="w-full flex items-center justify-between mb-6">
+						<span className="font-medium text-xs text-gray-500">
+							Taxes calculated during checkout
+						</span>
+					</div>
+
+					<div className="w-full mb-4">
 						<Link
-							className={`btn ${
+							className={`btn h-11 ${
 								cartItemsInfo.numItems === 0 ? "btn-disabled" : "btn-primary"
 							}  rounded-full w-full `}
 							to={"/checkout/shipping"}
@@ -138,11 +143,11 @@ export default function Cart() {
 					</div>
 
 					{guestAccountActive && (
-						<div className="w-full border-y-[1px] mb-4 md:mb-6">
+						<div className="w-full border-t-[1px]">
 							<button
-								className={`btn ${
-									cartItemsInfo.numItems === 0 ? "btn-disabled" : "btn"
-								}  rounded-full my-4 md:my-6 w-full `}
+								className={`btn h-11 ${
+									cartItemsInfo.numItems === 0 ? "btn-disabled" : "btn-primary"
+								}  rounded-full mt-4 w-full `}
 								onClick={() => {
 									setMyOrder(demoInfo);
 
