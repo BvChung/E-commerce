@@ -39,7 +39,7 @@ export default function Layout() {
 
 				{/* <!-- Page content here --> */}
 
-				<div className="flex flex-col justify-between h-full mt-14">
+				<div className="flex flex-col justify-between h-full mt-16">
 					<Outlet />
 					{location.pathname === "/" ? <MainFooter /> : <SubFooter />}
 				</div>

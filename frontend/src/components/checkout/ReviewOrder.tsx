@@ -18,7 +18,7 @@ export default function ReviewOrder() {
 	const taxAmount = (cartItemsInfo.subTotal * 0.0625).toFixed(2);
 	const grandTotal = (cartItemsInfo.subTotal + +taxAmount).toFixed(2);
 
-	const orderDetails = {
+	const orderDetails = displayCartItems && {
 		accountId: user._id,
 		...myOrder,
 		purchasedItems: displayCartItems!
@@ -57,7 +57,7 @@ export default function ReviewOrder() {
 	}, []);
 
 	return (
-		<div className="flex flex-col items-center justify-center mb-10 mx-2 sm:mx-6 lg:mx-0">
+		<div className="flex flex-col items-center justify-center mb-10 mt-8 mx-4 sm:mx-6 lg:mx-0">
 			<div className="flex flex-col w-full mb-10 lg:max-w-5xl xl:max-w-6xl">
 				<span className="font-medium text-xl sm:text-2xl mb-2 sm:mb-0">
 					Review Order
@@ -79,7 +79,7 @@ export default function ReviewOrder() {
 									d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15m3 0l3-3m0 0l-3-3m3 3H9"
 								/>
 							</svg>
-							Sign in
+							<span>Sign in</span>
 						</li>
 						<li>
 							<svg
@@ -96,7 +96,9 @@ export default function ReviewOrder() {
 									d="M8.25 18.75a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h6m-9 0H3.375a1.125 1.125 0 01-1.125-1.125V14.25m17.25 4.5a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h1.125c.621 0 1.129-.504 1.09-1.124a17.902 17.902 0 00-3.213-9.193 2.056 2.056 0 00-1.58-.86H14.25M16.5 18.75h-2.25m0-11.177v-.958c0-.568-.422-1.048-.987-1.106a48.554 48.554 0 00-10.026 0 1.106 1.106 0 00-.987 1.106v7.635m12-6.677v6.677m0 4.5v-4.5m0 0h-12"
 								/>
 							</svg>
-							Shipping
+							<Link to="/checkout/shipping" className="hover:link">
+								Shipping
+							</Link>
 						</li>
 						<li>
 							<svg
@@ -113,7 +115,9 @@ export default function ReviewOrder() {
 									d="M2.25 8.25h19.5M2.25 9h19.5m-16.5 5.25h6m-6 2.25h3m-3.75 3h15a2.25 2.25 0 002.25-2.25V6.75A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25v10.5A2.25 2.25 0 004.5 19.5z"
 								/>
 							</svg>
-							Payment
+							<Link to="/checkout/payment" className="hover:link">
+								Payment
+							</Link>
 						</li>
 						<li>
 							<svg
@@ -122,7 +126,7 @@ export default function ReviewOrder() {
 								viewBox="0 0 24 24"
 								strokeWidth={1.5}
 								stroke="currentColor"
-								className="w-4 h-4 mr-2 stroke-2 stroke-gray-600"
+								className="w-4 h-4 mr-2 stroke-2"
 							>
 								<path
 									strokeLinecap="round"
@@ -131,7 +135,7 @@ export default function ReviewOrder() {
 								/>
 							</svg>
 
-							<span className="text-gray-600 font-bold">Review order</span>
+							<span className="font-bold">Review order</span>
 						</li>
 					</ul>
 				</div>
@@ -174,14 +178,14 @@ export default function ReviewOrder() {
 								</span>
 							</div>
 
-							<div className="flex w-full md:w-auto justify-between">
+							<div className="flex items-center justify-between w-full md:w-auto">
 								<div className="flex flex-col w-36 justify-between items-end mr-6 md:mr-8 text-xs md:text-base">
-									<p className="text-gray-500">Arrival</p>
+									<span className="text-sm text-gray-500">Arrival</span>
 								</div>
 								<div className="flex flex-col">
 									<div className="flex gap-4">
 										<div className="flex flex-col w-48 md:w-[232px] font-base md:font-medium text-sm md:text-base">
-											<p>Arriving tomorrow</p>
+											<span className="">Arriving tomorrow</span>
 										</div>
 									</div>
 								</div>
@@ -209,7 +213,7 @@ export default function ReviewOrder() {
 								</div>
 								<Link
 									to={"/checkout/shipping"}
-									className="absolute right-0 link text-sm"
+									className="absolute right-0 hover:link text-sm"
 								>
 									Edit
 								</Link>
@@ -234,7 +238,7 @@ export default function ReviewOrder() {
 									Sending to
 									<Link
 										to={"/checkout/shipping"}
-										className="link text-sm inline-flex mt-2 md:hidden"
+										className="hover:link text-sm inline-flex mt-2 md:hidden"
 									>
 										Edit
 									</Link>
@@ -243,29 +247,31 @@ export default function ReviewOrder() {
 
 							<div className="flex w-full md:w-auto justify-between">
 								<div className="flex flex-col w-36 justify-between items-end mr-6 md:mr-8 text-xs md:text-base">
-									<p className="text-gray-500">Delivery address</p>
-									<p className="text-gray-500">Email</p>
+									<span className="text-gray-500 text-sm">
+										Delivery address
+									</span>
+									<span className="text-gray-500 text-sm">Email</span>
 								</div>
 								<div className="flex flex-col">
 									<div className="flex gap-4">
 										<div className="flex flex-col w-48 gap-2 font-base md:font-medium text-sm md:text-base">
-											<p>
+											<span>
 												{myOrder.shippingInfo.firstName}{" "}
 												{myOrder.shippingInfo.lastName}
-											</p>
-											<p>{myOrder.shippingInfo.address}</p>
-											<p>
+											</span>
+											<span>{myOrder.shippingInfo.address}</span>
+											<span>
 												{myOrder.shippingInfo.city},{" "}
 												{myOrder.shippingInfo.state}{" "}
 												{myOrder.shippingInfo.zipCode}
-											</p>
-											<p>{myOrder.shippingInfo.email}</p>
+											</span>
+											<span>{myOrder.shippingInfo.email}</span>
 										</div>
 									</div>
 								</div>
 								<Link
 									to={"/checkout/shipping"}
-									className="link ml-4 text-sm hidden md:inline-flex"
+									className="hover:link ml-4 text-sm hidden md:inline-flex"
 								>
 									Edit
 								</Link>
@@ -293,7 +299,7 @@ export default function ReviewOrder() {
 								</div>
 								<Link
 									to={"/checkout/payment"}
-									className="absolute right-0 link text-sm"
+									className="absolute right-0 hover:link text-sm"
 								>
 									Edit
 								</Link>
@@ -318,7 +324,7 @@ export default function ReviewOrder() {
 									Paying with
 									<Link
 										to={"/checkout/payment"}
-										className="link text-sm inline-flex mt-2 md:hidden"
+										className="hover:link text-sm inline-flex mt-2 md:hidden"
 									>
 										Edit
 									</Link>
@@ -327,35 +333,35 @@ export default function ReviewOrder() {
 
 							<div className="flex w-full md:w-auto justify-between">
 								<div className="flex flex-col w-36 justify-between items-end mr-6 md:mr-8 text-xs md:text-base">
-									<p className="text-gray-500">Card number</p>
-									<p className="text-gray-500">Name on card</p>
-									<p className="text-gray-500">Expiration</p>
+									<span className="text-gray-500 text-sm">Card number</span>
+									<span className="text-gray-500 text-sm">Name on card</span>
+									<span className="text-gray-500 text-sm">Expiration</span>
 								</div>
 								<div className="flex flex-col">
 									<div className="flex gap-4">
 										<div className="flex flex-col w-48 gap-2 font-base md:font-medium text-sm md:text-base">
-											<p>
+											<span>
 												Ending in{" "}
 												{myOrder.paymentInfo.cardNumber.slice(
 													myOrder.paymentInfo.cardNumber.length - 4,
 													myOrder.paymentInfo.cardNumber.length
 												)}
-											</p>
-											<p>
+											</span>
+											<span>
 												{myOrder.paymentInfo.cardHolderFirstName}{" "}
 												{myOrder.paymentInfo.cardHolderLastName}
-											</p>
+											</span>
 
-											<p>
+											<span>
 												{myOrder.paymentInfo.expiryDateMonth}/20
 												{myOrder.paymentInfo.expiryDateYear}
-											</p>
+											</span>
 										</div>
 									</div>
 								</div>
 								<Link
 									to={"/checkout/payment"}
-									className="link ml-4 text-sm hidden md:inline-flex"
+									className="hover:link ml-4 text-sm hidden md:inline-flex"
 								>
 									Edit
 								</Link>
@@ -363,39 +369,37 @@ export default function ReviewOrder() {
 						</div>
 					</div>
 
-					<div className="rounded-lg shadow-md h-fit w-full md:w-1/3 border-[1px] py-6 px-4 flex flex-col items-center">
-						<div className="w-full flex items-center justify-between mb-6">
+					<div className="rounded-lg shadow-sm h-fit w-full md:w-1/3 border-[1px] py-6 px-4 flex flex-col items-center">
+						<div className="w-full flex items-center justify-between mb-4">
 							<div>
-								<span className="font-semibold mr-2 ">Subtotal</span>
-								<span className="text-gray-700">
+								<span className="font-medium mr-2 text-sm">Subtotal</span>
+								<span className="text-gray-700 text-sm">
 									({cartItemsInfo.numItems} items)
 								</span>
 							</div>
-							<div className="text-gray-700">${cartItemsInfo.subTotal}</div>
+							<div className="font-semibold">${cartItemsInfo.subTotal}</div>
+						</div>
+
+						<div className="w-full flex items-center justify-between mb-4">
+							<span className="font-medium text-sm">Shipping & Handling</span>
+							<span className="font-semibold">Free</span>
+						</div>
+
+						<div className="w-full flex items-center justify-between border-b-[1px] pb-2 mb-4">
+							<span className="font-medium text-sm">Taxes</span>
+							<span className="font-semibold">${taxAmount}</span>
 						</div>
 
 						<div className="w-full flex items-center justify-between mb-6">
-							<div>
-								<span className="font-semibold mr-2 ">Shipping</span>
-							</div>
-							<div className="text-gray-700">Free</div>
-						</div>
-
-						<div className="w-full flex items-center justify-between border-b-2 border-gray-800 pb-6 mb-6">
-							<div className="font-semibold ">Taxes</div>
-							<div className="text-gray-700">${taxAmount}</div>
-						</div>
-
-						<div className="w-full flex items-center justify-between border-b-[1px] pb-6 mb-6">
-							<div className="font-semibold ">Grand Total</div>
-							<div className="text-lg font-semibold">${grandTotal}</div>
+							<div className="font-semibold">Grand Total</div>
+							<div className="font-bold">${grandTotal}</div>
 						</div>
 
 						<button
 							onClick={() => {
-								mutate(orderDetails);
+								mutate(orderDetails!);
 							}}
-							className="btn btn-primary w-full rounded-full"
+							className="btn btn-primary h-11 w-full rounded-full"
 						>
 							Place order
 						</button>

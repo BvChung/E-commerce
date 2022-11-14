@@ -9,7 +9,7 @@ export default function CheckoutNav() {
 	const navigate = useNavigate();
 
 	return (
-		<nav className="navbar flex justify-between h-14 px-4 border-b-[1px]">
+		<nav className="navbar fixed flex justify-between z-10 h-14 px-4 border-b-[1px]">
 			<div className="tooltip tooltip-bottom z-50" data-tip="Return">
 				<label
 					htmlFor="return-modal"
@@ -53,7 +53,7 @@ export default function CheckoutNav() {
 					<div className="modal-action justify-end gap-4">
 						<label
 							htmlFor="return-modal"
-							className="btn px-6 rounded-full btn-outline normal-case"
+							className="btn px-6 rounded-full btn-outline h-11 normal-case"
 							onClick={() => {
 								navigate("/cart");
 								clearMyOrder();
@@ -63,7 +63,7 @@ export default function CheckoutNav() {
 						</label>
 						<label
 							htmlFor="return-modal"
-							className="btn btn-primary hidden md:inline-flex sm:px-0 md:px-8 rounded-full normal-case"
+							className="btn btn-primary hidden md:inline-flex h-11 sm:px-0 md:px-8 rounded-full normal-case"
 						>
 							Continue checking out
 						</label>

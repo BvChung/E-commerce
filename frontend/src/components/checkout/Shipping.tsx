@@ -146,7 +146,7 @@ export default function Shipping() {
 	];
 
 	return (
-		<div className="flex flex-col items-center justify-center mb-10 mx-2 sm:mx-6 lg:mx-0">
+		<div className="flex flex-col items-center justify-center mt-8 mb-10 mx-4 sm:mx-6 lg:mx-0">
 			<div className="flex flex-col w-full mb-4 lg:max-w-5xl xl:max-w-6xl">
 				<span className="font-medium text-xl sm:text-2xl">
 					Shipping Address
@@ -177,7 +177,7 @@ export default function Shipping() {
 								viewBox="0 0 24 24"
 								strokeWidth={1.5}
 								stroke="currentColor"
-								className="w-4 h-4 mr-2 stroke-2 stroke-gray-600"
+								className="w-4 h-4 mr-2 stroke-2"
 							>
 								<path
 									strokeLinecap="round"
@@ -185,7 +185,7 @@ export default function Shipping() {
 									d="M8.25 18.75a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h6m-9 0H3.375a1.125 1.125 0 01-1.125-1.125V14.25m17.25 4.5a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h1.125c.621 0 1.129-.504 1.09-1.124a17.902 17.902 0 00-3.213-9.193 2.056 2.056 0 00-1.58-.86H14.25M16.5 18.75h-2.25m0-11.177v-.958c0-.568-.422-1.048-.987-1.106a48.554 48.554 0 00-10.026 0 1.106 1.106 0 00-.987 1.106v7.635m12-6.677v6.677m0 4.5v-4.5m0 0h-12"
 								/>
 							</svg>
-							<span className="text-gray-600 font-bold">Shipping</span>
+							<span className="font-bold">Shipping</span>
 						</li>
 					</ul>
 				</div>
@@ -204,7 +204,7 @@ export default function Shipping() {
 					navigate("/checkout/payment");
 				}}
 			>
-				<div className="flex flex-col border-[1px] items-center justify-center w-full md:w-2/3 p-4 shadow-sm rounded-lg mr-2">
+				<div className="flex flex-col items-center justify-center w-full md:w-2/3 border-[1px] py-5 px-7 shadow-sm rounded-lg mr-2">
 					<div className="w-full grid grid-cols-1 md:grid-cols-2 gap-y-4 gap-x-12 mb-6">
 						{shippingInput1.map((input) => {
 							return (
@@ -315,41 +315,39 @@ export default function Shipping() {
 						})}
 					</div>
 
-					<div className="flex my-2 justify-end w-full">
-						<button className="btn px-10 rounded-full btn-primary">
+					<div className="flex justify-end w-full">
+						<button className="btn px-10 h-11 rounded-full btn-primary">
 							Save & Continue
 						</button>
 					</div>
 				</div>
 
-				<div className="hidden md:flex flex-col items-center mb-6 md:mb-0 rounded-lg shadow-md h-fit w-full md:w-1/3 lg:max-w-[350px] border-[1px] py-6 px-4">
-					<div className="w-full flex items-center justify-between mb-6">
+				<div className="hidden md:flex flex-col items-center rounded-lg shadow-sm h-fit w-full md:w-1/3 lg:max-w-[350px] border-[1px] py-6 px-4 mb-6 md:mb-0">
+					<div className="w-full flex items-center justify-between mb-4">
 						<div>
-							<span className="font-semibold mr-2 ">Subtotal</span>
-							<span className="text-gray-700">
+							<span className="font-medium mr-2 text-sm">Subtotal</span>
+							<span className="text-gray-700 text-sm">
 								({cartItemsInfo.numItems} items)
 							</span>
 						</div>
-						<div className="text-gray-700">${cartItemsInfo.subTotal}</div>
+						<div className="font-semibold">${cartItemsInfo.subTotal}</div>
 					</div>
 
-					<div className="w-full flex items-center justify-between mb-6">
-						<div>
-							<span className="font-semibold mr-2 ">Shipping</span>
-						</div>
-						<div className="text-gray-700">Free</div>
+					<div className="w-full flex items-center justify-between mb-4">
+						<span className="font-medium text-sm">Shipping & Handling</span>
+						<span className="font-semibold">Free</span>
 					</div>
 
-					<div className="w-full flex items-center justify-between border-b-2 border-gray-800 pb-6 mb-6">
-						<div className=" font-semibold ">Estimated taxes</div>
-						<div className="text-gray-700">
+					<div className="w-full flex items-center justify-between border-b-[1px] pb-2 mb-4">
+						<span className="font-medium text-sm">Taxes</span>
+						<span className="font-semibold">
 							${(cartItemsInfo.subTotal * 0.0625).toFixed(2)}
-						</div>
+						</span>
 					</div>
 
 					<div className="w-full flex items-center justify-between">
-						<div className="md:text-lg font-semibold ">Estimated total</div>
-						<div className="md:text-lg font-semibold">
+						<div className="font-semibold ">Estimated total</div>
+						<div className="font-semibold">
 							$
 							{(
 								cartItemsInfo.subTotal +

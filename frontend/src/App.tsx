@@ -66,7 +66,6 @@ const appRouter = createBrowserRouter(
 
 					<Route path="account" element={<Outlet />}>
 						<Route index element={<AccountPage />} />
-						{/* <Route path="info" element={<AccountPage />} /> */}
 						<Route path="name" element={<EditName />} />
 						<Route path="email" element={<EditEmail />} />
 						<Route path="password" element={<EditPassword />} />

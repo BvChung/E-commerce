@@ -48,31 +48,31 @@ export default function DetailsModal({ numItems, subTotal }: CartCheckoutInfo) {
 					</h3>
 
 					<div className="h-fit w-full flex flex-col items-center">
-						<div className="w-full flex items-center justify-between mb-6">
+						<div className="w-full flex items-center justify-between mb-4">
 							<div>
-								<span className="font-semibold mr-2 ">Subtotal</span>
-								<span className="text-gray-700">({numItems} items)</span>
+								<span className="font-medium mr-2 text-sm">Subtotal</span>
+								<span className="text-gray-700 text-sm">
+									({numItems} items)
+								</span>
 							</div>
-							<div className="text-gray-700">${subTotal}</div>
+							<div className="font-semibold">${subTotal}</div>
 						</div>
 
-						<div className="w-full flex items-center justify-between mb-6">
-							<div>
-								<span className="font-semibold mr-2 ">Shipping</span>
-							</div>
-							<div className="text-gray-700">Free</div>
+						<div className="w-full flex items-center justify-between mb-4">
+							<span className="font-medium text-sm">Shipping & Handling</span>
+							<span className="font-semibold">Free</span>
 						</div>
 
-						<div className="w-full flex items-center justify-between border-b-[1px] pb-6 mb-6">
-							<div className=" font-semibold ">Estimated taxes</div>
-							<div className="text-gray-700">
+						<div className="w-full flex items-center justify-between border-b-[1px] pb-2 mb-4">
+							<span className="font-medium text-sm">Taxes</span>
+							<span className="font-semibold">
 								${(subTotal * 0.0625).toFixed(2)}
-							</div>
+							</span>
 						</div>
 
 						<div className="w-full flex items-center justify-between">
-							<div className="md:text-lg font-semibold ">Estimated total</div>
-							<div className="md:text-lg font-semibold">
+							<div className="font-semibold ">Estimated total</div>
+							<div className="font-semibold">
 								${(subTotal + subTotal * 0.0625).toFixed(2)}
 							</div>
 						</div>

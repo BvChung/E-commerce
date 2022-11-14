@@ -95,7 +95,7 @@ export default function Payment() {
 	];
 
 	return (
-		<div className="flex flex-col items-center justify-center mb-10 mx-2 sm:mx-6 lg:mx-0">
+		<div className="flex flex-col items-center justify-center mt-8 mb-10 mx-4 sm:mx-6 lg:mx-0">
 			<div className="flex flex-col w-full mb-4 lg:max-w-5xl xl:max-w-6xl">
 				<span className="font-medium text-xl sm:text-2xl">Payment</span>
 				<div className="text-sm breadcrumbs hidden sm:inline-flex">
@@ -132,7 +132,9 @@ export default function Payment() {
 									d="M8.25 18.75a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h6m-9 0H3.375a1.125 1.125 0 01-1.125-1.125V14.25m17.25 4.5a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h1.125c.621 0 1.129-.504 1.09-1.124a17.902 17.902 0 00-3.213-9.193 2.056 2.056 0 00-1.58-.86H14.25M16.5 18.75h-2.25m0-11.177v-.958c0-.568-.422-1.048-.987-1.106a48.554 48.554 0 00-10.026 0 1.106 1.106 0 00-.987 1.106v7.635m12-6.677v6.677m0 4.5v-4.5m0 0h-12"
 								/>
 							</svg>
-							Shipping
+							<Link to="/checkout/shipping" className="hover:link">
+								Shipping
+							</Link>
 						</li>
 						<li>
 							<svg
@@ -141,7 +143,7 @@ export default function Payment() {
 								viewBox="0 0 24 24"
 								strokeWidth={1.5}
 								stroke="currentColor"
-								className="w-4 h-4 mr-2 stroke-2 stroke-gray-600"
+								className="w-4 h-4 mr-2 stroke-2"
 							>
 								<path
 									strokeLinecap="round"
@@ -149,7 +151,7 @@ export default function Payment() {
 									d="M2.25 8.25h19.5M2.25 9h19.5m-16.5 5.25h6m-6 2.25h3m-3.75 3h15a2.25 2.25 0 002.25-2.25V6.75A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25v10.5A2.25 2.25 0 004.5 19.5z"
 								/>
 							</svg>
-							<span className="text-gray-600 font-bold">Payment</span>
+							<span className="font-bold">Payment</span>
 						</li>
 					</ul>
 				</div>
@@ -168,8 +170,8 @@ export default function Payment() {
 					navigate("/checkout/confirmation");
 				}}
 			>
-				<div className="flex flex-col border-[1px] items-center justify-center w-full md:w-2/3 p-4 shadow-sm rounded-lg mr-2">
-					<div className="w-full">
+				<div className="flex flex-col border-[1px] items-center justify-center w-full md:w-2/3 py-5 px-7 shadow-sm rounded-lg mr-2">
+					<div className="w-full mb-4">
 						{paymentInput3.map((input) => {
 							return (
 								<FormInput
@@ -281,47 +283,45 @@ export default function Payment() {
 						})}
 					</div>
 
-					<div className="flex w-full my-2 gap-4 justify-end">
+					<div className="flex w-full gap-4 justify-end">
 						<Link
 							to="/checkout/shipping"
-							className="btn btn-outline rounded-full px-7"
+							className="btn btn-outline h-11 rounded-full px-7"
 						>
 							Return
 						</Link>
-						<button className="btn px-10 rounded-full btn-primary">
+						<button className="btn px-10 h-11 rounded-full btn-primary">
 							Save & Continue
 						</button>
 					</div>
 				</div>
 
-				<div className="hidden md:flex flex-col items-center rounded-lg shadow-md h-fit w-full md:w-1/3 lg:max-w-[350px] border-[1px] py-6 px-4 mb-6 md:mb-0">
-					<div className="w-full flex items-center justify-between mb-6">
+				<div className="hidden md:flex flex-col items-center rounded-lg shadow-sm h-fit w-full md:w-1/3 lg:max-w-[350px] border-[1px] py-6 px-4 mb-6 md:mb-0">
+					<div className="w-full flex items-center justify-between mb-4">
 						<div>
-							<span className="font-semibold mr-2 ">Subtotal</span>
-							<span className="text-gray-700">
+							<span className="font-medium mr-2 text-sm">Subtotal</span>
+							<span className="text-gray-700 text-sm">
 								({cartItemsInfo.numItems} items)
 							</span>
 						</div>
-						<div className="text-gray-700">${cartItemsInfo.subTotal}</div>
+						<div className="font-semibold">${cartItemsInfo.subTotal}</div>
 					</div>
 
-					<div className="w-full flex items-center justify-between mb-6">
-						<div>
-							<span className="font-semibold mr-2 ">Shipping</span>
-						</div>
-						<div className="text-gray-700">Free</div>
+					<div className="w-full flex items-center justify-between mb-4">
+						<span className="font-medium text-sm">Shipping & Handling</span>
+						<span className="font-semibold">Free</span>
 					</div>
 
-					<div className="w-full flex items-center justify-between border-b-2 border-gray-800 pb-6 mb-6">
-						<div className=" font-semibold ">Estimated taxes</div>
-						<div className="text-gray-700">
+					<div className="w-full flex items-center justify-between border-b-[1px] pb-2 mb-4">
+						<span className="font-medium text-sm">Taxes</span>
+						<span className="font-semibold">
 							${(cartItemsInfo.subTotal * 0.0625).toFixed(2)}
-						</div>
+						</span>
 					</div>
 
 					<div className="w-full flex items-center justify-between">
-						<div className="md:text-lg font-semibold ">Estimated total</div>
-						<div className="md:text-lg font-semibold">
+						<div className="font-semibold ">Estimated total</div>
+						<div className="font-semibold">
 							$
 							{(
 								cartItemsInfo.subTotal +

@@ -5,7 +5,7 @@ export default function AccountPage() {
 	const { user } = useAuthContext();
 
 	return (
-		<div className="flex flex-col items-center mx-4 lg:mx-0">
+		<div className="flex flex-col items-center mx-4 sm:mx-6 lg:mx-0">
 			<div className="flex items-center justify-center gap-2 w-full mt-8 mb-6 lg:max-w-3xl xl:max-w-4xl">
 				<span className="font-medium text-xl sm:text-2xl">Personal Info</span>
 			</div>
