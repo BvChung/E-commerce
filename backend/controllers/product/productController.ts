@@ -25,6 +25,57 @@ export const getProduct = async (
 	}
 };
 
+export const getProducts = async (
+	req: Request,
+	res: Response,
+	next: NextFunction
+) => {
+	try {
+		// console.log(req.query);
+		if (!req.query.priceLow || !req.query.priceHigh) {
+			return;
+		}
+
+		let filteredProducts;
+		let minPrice;
+		let maxPrice;
+
+		if (req.query.priceLow === "min") {
+			minPrice = 0.01;
+		} else {
+			minPrice = +req.query.priceLow;
+		}
+
+		if (req.query.priceHigh === "max") {
+			maxPrice = Number.MAX_SAFE_INTEGER;
+		} else {
+			maxPrice = +req.query.priceHigh;
+		}
+
+		if (req.query.category && minPrice && maxPrice) {
+			filteredProducts = await ProductModel.find({
+				category: { $in: req.query.category },
+				price: { $gte: minPrice, $lt: maxPrice },
+			});
+		} else if (minPrice && maxPrice) {
+			filteredProducts = await ProductModel.find({
+				price: { $gte: minPrice, $lt: maxPrice },
+			});
+		} else if (req.query.category) {
+			filteredProducts = await ProductModel.find({
+				category: { $in: req.query.category },
+			});
+		} else {
+			filteredProducts = await ProductModel.find({});
+		}
+
+		res.status(200).json(filteredProducts);
+	} catch (error) {
+		res.status(400);
+		next(error);
+	}
+};
+
 export const getSpecifiedProducts = async (
 	req: Request,
 	res: Response,

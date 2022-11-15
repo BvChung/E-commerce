@@ -1,4 +1,4 @@
-import { CartItemInfo } from "./cartInterface";
+import { CartItemInfo, CartStorageData } from "./cartInterface";
 
 interface OrderShippingInfo {
 	firstName: string;
@@ -39,6 +39,11 @@ export interface OrderPurchasedItems {
 	description: string;
 	category: string;
 	quantity?: number;
+}
+
+export interface PurchasedItems extends OrderPurchasedItems {
+	addCartItem: React.Dispatch<React.SetStateAction<CartStorageData>>;
+	findCartItem: React.Dispatch<React.SetStateAction<string | undefined>>;
 }
 
 // const now = new Date("2022-07-08T23:43:14.121+00:00"); => from mongoDB created at

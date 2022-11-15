@@ -19,15 +19,13 @@ export default function ProductDisplay({
 				to={_id}
 				className="card w-[20rem] rounded-md h-fit bg-base-100 border-[1px] shadow-sm"
 			>
-				<div>
-					<figure className="overflow-hidden">
-						<img
-							src={image}
-							alt="Product"
-							className="h-[250px] w-full relative object-cover hover:scale-105 transition-transform duration-500"
-							loading="lazy"
-						/>
-					</figure>
+				<div className="overflow-hidden">
+					<img
+						src={image}
+						alt="Product"
+						className="h-[250px] w-full relative object-cover hover:scale-105 transition-transform duration-500"
+						loading="lazy"
+					/>
 				</div>
 
 				<div className="card-body p-6">

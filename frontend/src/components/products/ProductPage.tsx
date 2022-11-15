@@ -1,24 +1,9 @@
 import { useState, useEffect } from "react";
-import { useGetProducts } from "../../hooks/products/useGetProducts";
+import { Link, useNavigate } from "react-router-dom";
+import { useGetProduct } from "../../hooks/products/useGetProduct";
 import { ProductInfo } from "../../interfaces/productInterface";
 import ProductDisplay from "./ProductDisplay";
 import { useSearchParams } from "react-router-dom";
-
-interface FilterC {
-	type: string;
-	name: string;
-}
-interface FilterP {
-	under100: boolean;
-	btwn100_500: boolean;
-	btwn500_1000: boolean;
-	above1000: boolean;
-}
-
-interface FilterPrice {
-	priceLow: number | string;
-	priceHigh: number | string;
-}
 
 interface FilterProducts {
 	category: string[];
@@ -27,36 +12,24 @@ interface FilterProducts {
 }
 
 export default function ProductPage() {
-	const { isLoading, isError, isSuccess, data: products } = useGetProducts();
-
-	const [filterC, setFilterC] = useState<FilterC[]>([]);
+	const navigate = useNavigate();
 	let [searchParams, setSearchParams] = useSearchParams();
-	const [filterCategory, setFilterCategory] = useState<string[]>([]);
 	const [filter, setFilter] = useState<FilterProducts>({
 		category: [],
-		priceLow: -1,
-		priceHigh: -1,
-	});
-
-	const [filterPrice, setFilterPrice] = useState<FilterPrice>({
 		priceLow: 0,
 		priceHigh: 0,
 	});
-	console.log(filter);
+
+	// console.log(filter);
 
 	function handleChange(
 		e: React.ChangeEvent<HTMLInputElement>,
 		category: string
 	) {
+		// Add category to query array when checked
+		// Remove category from query array when unchecked
+
 		if (e.target.checked) {
-			setFilterC((prev) => {
-				return [...prev, { type: "category", name: category }];
-			});
-
-			setFilterCategory((prev) => {
-				return [...prev, category];
-			});
-
 			setFilter((prev) => {
 				return {
 					...prev,
@@ -64,14 +37,6 @@ export default function ProductPage() {
 				};
 			});
 		} else {
-			setFilterC((prev) => {
-				return prev.filter((el) => el.name !== category);
-			});
-
-			setFilterCategory((prev) => {
-				return prev.filter((el) => el !== category);
-			});
-
 			setFilter((prev) => {
 				return {
 					...prev,
@@ -81,24 +46,9 @@ export default function ProductPage() {
 		}
 	}
 
-	const [filterP, setFilterP] = useState<FilterP>({
-		under100: false,
-		btwn100_500: false,
-		btwn500_1000: false,
-		above1000: false,
-	});
-
-	function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
-		event.preventDefault();
-		let formData = new FormData(event.currentTarget);
-		let newUser = formData.get("user") as string;
-		console.log(newUser);
-		if (!newUser) return;
-		setSearchParams({ user: [newUser, newUser, newUser], time: newUser });
-	}
-
 	useEffect(() => {
-		if (filter.priceLow !== -1 && filter.priceHigh !== -1) {
+		//
+		if (filter.priceLow && filter.priceHigh) {
 			setSearchParams((prev) => {
 				return {
 					...prev,
@@ -107,7 +57,7 @@ export default function ProductPage() {
 					ph: filter.priceHigh,
 				};
 			});
-		} else if (filter.priceLow === -1 && filter.priceHigh === -1) {
+		} else if (!filter.priceLow && !filter.priceHigh) {
 			setSearchParams((prev) => {
 				return {
 					...prev,
@@ -116,31 +66,55 @@ export default function ProductPage() {
 			});
 		}
 	}, [filter]);
-	console.log(searchParams.getAll("filters"));
 
-	// useEffect(() => {
-	// 	setSearchParams((prev) => {
-	// 		return {
-	// 			...prev,
-	// 			pl: filterPrice.priceLow,
-	// 			ph: filterPrice.priceHigh,
-	// 		};
-	// 	});
-	// }, [filterPrice]);
+	const {
+		isLoading,
+		isError,
+		isSuccess,
+		data: products,
+	} = useGetProduct(filter);
 
-	// const ex = products?.filter((product) =>
-	// 	filterC.some((filterEl) => product[filterEl.type] === filterEl.name)
-	// );
-	// console.log(ex);
+	const displayProducts =
+		isSuccess && products.length !== 0 ? (
+			<div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-10 justify-center">
+				{products.map((product: ProductInfo, i, arr) => {
+					return (
+						<ProductDisplay
+							key={product._id}
+							_id={product._id}
+							name={product.name}
+							description={product.description}
+							price={product.price}
+							category={product.category}
+							image={product.image}
+							imageCloudId={product.imageCloudId}
+						/>
+					);
+				})}
+			</div>
+		) : (
+			isSuccess && (
+				<div className="flex flex-col items-center w-[1040px] mt-20">
+					<h1 className="font-bold text-gray-800 text-3xl mb-6">
+						We couldn't find a match
+					</h1>
+					<p className="text-base mb-8">
+						Let's reset your filters and try again
+					</p>
+					<button
+						onClick={() => {
+							navigate(0);
+						}}
+						className="btn h-11 rounded-full"
+					>
+						Clear filters
+					</button>
+				</div>
+			)
+		);
+
 	return (
-		<div className="flex flex-col justify-center items-center lg:items-start lg:flex-row lg:justify-center my-8 md:my-10 ">
-			{/* <form onSubmit={handleSubmit}>
-				<label>
-					<input type="text" name="user" />
-				</label>
-				<button type="submit">Search</button>
-			</form> */}
-
+		<div className="flex justify-center w-full my-8 md:my-10 h-full">
 			{/* <div className="dropdown dropdown-end">
 				<label tabIndex={0} className="btn btn-ghost btn-circle avatar">
 					<svg
@@ -187,234 +161,178 @@ export default function ProductPage() {
 				</ul>
 			</div> */}
 
-			<div className="mr-8 hidden lg:block">
-				<p className="text-sm mb-1">Filters</p>
-				<div className="collapse collapse-arrow border border-base-300 border-b-0 bg-base-100 h-fit w-52 max-h-96">
-					<input type="checkbox" className="peer" />
-					<div className="collapse-title font-medium peer-checked:font-semibold">
-						Category
+			<div className="flex">
+				<div className="mr-8 hidden lg:block">
+					<p className="text-sm mb-1">Filters</p>
+					<div className="collapse collapse-arrow border border-base-300 border-b-0 bg-base-100 h-fit w-52 max-h-96">
+						<input type="checkbox" className="peer" />
+						<div className="collapse-title font-medium peer-checked:font-semibold">
+							Category
+						</div>
+						<div className="h-fit collapse-content">
+							<div className="flex flex-col gap-2 h-fit text-sm">
+								<div className="flex items-center gap-3">
+									<input
+										onChange={(e) => {
+											handleChange(e, "Sofa");
+										}}
+										id="sofa"
+										autoComplete="off"
+										type="checkbox"
+										className="checkbox checkbox-md checkbox-secondary"
+									/>
+									<div className="">Sofa</div>
+								</div>
+								<div className="flex items-center gap-3">
+									<input
+										onChange={(e) => {
+											handleChange(e, "Table");
+										}}
+										autoComplete="off"
+										type="checkbox"
+										className="checkbox checkbox-md checkbox-secondary"
+									/>
+									<p>Table</p>
+								</div>
+								<div className="flex items-center gap-3">
+									<input
+										onChange={(e) => {
+											handleChange(e, "Chair");
+										}}
+										autoComplete="off"
+										type="checkbox"
+										className="checkbox checkbox-md checkbox-secondary"
+									/>
+									<p>Chair</p>
+								</div>
+								<div className="flex items-center gap-3">
+									<input
+										onChange={(e) => {
+											handleChange(e, "Desk");
+										}}
+										autoComplete="off"
+										type="checkbox"
+										className="checkbox checkbox-md checkbox-secondary"
+									/>
+									<p>Desk</p>
+								</div>
+								<div className="flex items-center gap-3">
+									<input
+										onChange={(e) => {
+											// console.log(e.target.checked);
+											handleChange(e, "Drawer");
+										}}
+										autoComplete="off"
+										type="checkbox"
+										className="checkbox checkbox-md checkbox-secondary"
+									/>
+									<p>Drawer</p>
+								</div>
+								<div className="flex items-center gap-3">
+									<input
+										onChange={(e) => {
+											handleChange(e, "Shelf");
+										}}
+										autoComplete="off"
+										type="checkbox"
+										className="checkbox checkbox-md checkbox-secondary"
+									/>
+									<p>Shelf</p>
+								</div>
+							</div>
+						</div>
 					</div>
-					<div className="h-fit collapse-content">
-						<div className="flex flex-col gap-2 h-fit text-sm">
-							<div className="flex items-center gap-3">
-								<input
-									onChange={(e) => {
-										handleChange(e, "Sofa");
-									}}
-									id="sofa"
-									autoComplete="off"
-									type="checkbox"
-									className="checkbox checkbox-md checkbox-secondary"
-								/>
-								<div className="">Sofa</div>
-							</div>
-							<div className="flex items-center gap-3">
-								<input
-									onChange={(e) => {
-										handleChange(e, "Table");
-									}}
-									autoComplete="off"
-									type="checkbox"
-									className="checkbox checkbox-md checkbox-secondary"
-								/>
-								<p>Table</p>
-							</div>
-							<div className="flex items-center gap-3">
-								<input
-									onChange={(e) => {
-										handleChange(e, "Chair");
-									}}
-									autoComplete="off"
-									type="checkbox"
-									className="checkbox checkbox-md checkbox-secondary"
-								/>
-								<p>Chair</p>
-							</div>
-							<div className="flex items-center gap-3">
-								<input
-									onChange={(e) => {
-										handleChange(e, "Desk");
-									}}
-									autoComplete="off"
-									type="checkbox"
-									className="checkbox checkbox-md checkbox-secondary"
-								/>
-								<p>Desk</p>
-							</div>
-							<div className="flex items-center gap-3">
-								<input
-									onChange={(e) => {
-										console.log(e.target.checked);
-										handleChange(e, "Drawer");
-									}}
-									autoComplete="off"
-									type="checkbox"
-									className="checkbox checkbox-md checkbox-secondary"
-								/>
-								<p>Drawer</p>
-							</div>
-							<div className="flex items-center gap-3">
-								<input
-									onChange={(e) => {
-										handleChange(e, "Shelf");
-									}}
-									autoComplete="off"
-									type="checkbox"
-									className="checkbox checkbox-md checkbox-secondary"
-								/>
-								<p>Shelf</p>
+
+					<div className="collapse collapse-arrow border border-base-300 bg-base-100 h-fit w-52 max-h-96">
+						<input type="checkbox" className="peer" />
+						<div className="collapse-title font-medium peer-checked:font-semibold">
+							Price Range
+						</div>
+						<div className="h-fit collapse-content">
+							<div className="flex flex-col gap-2 h-fit text-sm">
+								<div className="flex items-center gap-3">
+									<input
+										type="radio"
+										name="filterP"
+										onChange={(e) => {
+											if (e.target.checked) {
+												setFilter((prev) => {
+													return {
+														...prev,
+														priceLow: "min",
+														priceHigh: 100,
+													};
+												});
+											}
+										}}
+										className="radio radio-secondary"
+									/>
+									<p>Under $100</p>
+								</div>
+								<div className="flex items-center gap-3">
+									<input
+										type="radio"
+										name="filterP"
+										onChange={(e) => {
+											if (e.target.checked) {
+												setFilter((prev) => {
+													return {
+														...prev,
+														priceLow: 100,
+														priceHigh: 500,
+													};
+												});
+											}
+										}}
+										className="radio radio-secondary"
+									/>
+
+									<p>$100 to $500</p>
+								</div>
+								<div className="flex items-center gap-3">
+									<input
+										type="radio"
+										name="filterP"
+										onChange={(e) => {
+											if (e.target.checked) {
+												setFilter((prev) => {
+													return {
+														...prev,
+														priceLow: 500,
+														priceHigh: 1000,
+													};
+												});
+											}
+										}}
+										className="radio radio-secondary"
+									/>
+									<p>$500 to $1000</p>
+								</div>
+								<div className="flex items-center gap-3">
+									<input
+										type="radio"
+										name="filterP"
+										onChange={(e) => {
+											if (e.target.checked) {
+												setFilter((prev) => {
+													return {
+														...prev,
+														priceLow: 1000,
+														priceHigh: "max",
+													};
+												});
+											}
+										}}
+										className="radio radio-secondary"
+									/>
+									<p>$1000 and above</p>
+								</div>
 							</div>
 						</div>
 					</div>
 				</div>
 
-				<div className="collapse collapse-arrow border border-base-300 bg-base-100 h-fit w-52 max-h-96">
-					<input type="checkbox" className="peer" />
-					<div className="collapse-title font-medium peer-checked:font-semibold">
-						Price Range
-					</div>
-					<div className="h-fit collapse-content">
-						<div className="flex flex-col gap-2 h-fit text-sm">
-							<div className="flex items-center gap-3">
-								<input
-									type="radio"
-									name="filterP"
-									onChange={(e) => {
-										if (e.target.checked) {
-											setFilterPrice({
-												priceLow: "min",
-												priceHigh: 100,
-											});
-
-											setFilter((prev) => {
-												return {
-													...prev,
-													priceLow: "min",
-													priceHigh: 100,
-												};
-											});
-										}
-									}}
-									className="radio radio-secondary"
-								/>
-								<p>Under $100</p>
-							</div>
-							<div className="flex items-center gap-3">
-								<input
-									type="radio"
-									name="filterP"
-									onChange={(e) => {
-										if (e.target.checked) {
-											setFilterPrice({
-												priceLow: 100,
-												priceHigh: 500,
-											});
-											setFilter((prev) => {
-												return {
-													...prev,
-													priceLow: 100,
-													priceHigh: 500,
-												};
-											});
-										}
-									}}
-									className="radio radio-secondary"
-								/>
-
-								<p>$100 to $500</p>
-							</div>
-							<div className="flex items-center gap-3">
-								<input
-									type="radio"
-									name="filterP"
-									onChange={(e) => {
-										if (e.target.checked) {
-											setFilter((prev) => {
-												return {
-													...prev,
-													priceLow: 500,
-													priceHigh: 1000,
-												};
-											});
-
-											setFilterPrice({
-												priceLow: 500,
-												priceHigh: 1000,
-											});
-										}
-									}}
-									className="radio radio-secondary"
-								/>
-								<p>$500 to $1000</p>
-							</div>
-							<div className="flex items-center gap-3">
-								<input
-									type="radio"
-									name="filterP"
-									onChange={(e) => {
-										if (e.target.checked) {
-											setFilter((prev) => {
-												return {
-													...prev,
-													priceLow: 1000,
-													priceHigh: "max",
-												};
-											});
-
-											setFilterPrice({
-												priceLow: 1000,
-												priceHigh: "max",
-											});
-										}
-									}}
-									className="radio radio-secondary"
-								/>
-								<p>$1000 and above</p>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-
-			<div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-10 items-center justify-center">
-				{isSuccess &&
-					products
-						.filter((product) => {
-							if (filterC.length > 0) {
-								return filterC.some(
-									(filterEl) => product[filterEl.type] === filterEl.name
-								);
-							} else {
-								return product;
-							}
-						})
-						.filter((product) => {
-							if (filterP.under100) {
-								return product.price < 100;
-							} else if (filterP.btwn100_500) {
-								return product.price >= 100 && product.price < 500;
-							} else if (filterP.btwn500_1000) {
-								return product.price >= 500 && product.price < 1000;
-							} else if (filterP.above1000) {
-								return product.price >= 1000;
-							} else {
-								return product;
-							}
-						})
-						.map((product: ProductInfo, i, arr) => {
-							return (
-								<ProductDisplay
-									key={product._id}
-									_id={product._id}
-									name={product.name}
-									description={product.description}
-									price={product.price}
-									category={product.category}
-									image={product.image}
-									imageCloudId={product.imageCloudId}
-								/>
-							);
-						})}
+				{displayProducts}
 			</div>
 		</div>
 	);

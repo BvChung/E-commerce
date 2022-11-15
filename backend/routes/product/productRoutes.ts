@@ -4,6 +4,7 @@ import validateRequest from "../../middleware/validateReq";
 
 import {
 	getProduct,
+	getProducts,
 	getProductInfo,
 	getSpecifiedProducts,
 	createProduct,
@@ -22,6 +23,8 @@ router
 	.route("/")
 	.get(getProduct)
 	.post(validateRequest(productCreationBodySchema), createProduct);
+
+router.route("/get").get(getProducts);
 
 router.route("/cart").get(getSpecifiedProducts);
 

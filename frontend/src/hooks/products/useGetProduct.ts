@@ -10,17 +10,21 @@ interface FilterProducts {
 }
 
 export const useGetProduct = (filter: FilterProducts) => {
-	const getProducts = async (): Promise<ProductInfo[]> => {
-		const response = await eCommerceApiPublic.get("/api/products", {
+	const getProducts = async () => {
+		// console.log(filter);
+		if (filter.priceHigh !== -1 && filter.priceLow !== -1) {
+		}
+
+		const response = await eCommerceApiPublic.get("/api/products/get", {
 			params: {
-				// productIds,
-				// productIds: myCartItems.map((item) => item._id),
 				category: filter.category,
 				priceLow: filter.priceLow,
 				priceHigh: filter.priceHigh,
 			},
 			paramsSerializer: (params) => qs.stringify(params),
 		});
+
+		console.log(response.data);
 
 		return response.data.sort((a: ProductInfo, b: ProductInfo) => {
 			if (a.name < b.name) {
@@ -29,10 +33,9 @@ export const useGetProduct = (filter: FilterProducts) => {
 			if (a.name > b.name) {
 				return 1;
 			}
-			// names must be equal
 			return 0;
 		});
 	};
 
-	return useQuery<ProductInfo[]>("products", getProducts);
+	return useQuery<ProductInfo[]>(["products", filter], getProducts);
 };
