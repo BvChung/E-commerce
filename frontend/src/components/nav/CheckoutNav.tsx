@@ -9,8 +9,8 @@ export default function CheckoutNav() {
 	const navigate = useNavigate();
 
 	return (
-		<nav className="navbar fixed flex justify-between z-20 h-14 px-4 border-b-[1px]">
-			<div className="tooltip tooltip-bottom z-50" data-tip="Return">
+		<nav className="navbar fixed flex bg-white justify-between z-30 h-14 px-4 border-b-[1px]">
+			<div className="tooltip tooltip-bottom z-20" data-tip="Return">
 				<label
 					htmlFor="return-modal"
 					className="btn btn-ghost btn-circle modal-button"

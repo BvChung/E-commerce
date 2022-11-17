@@ -137,7 +137,7 @@ export default function ProductTable() {
 							placeholder="Search for product"
 							value={searchText}
 							onChange={(e) => setSearchText(e.target.value)}
-							className="input input-bordered"
+							className="input input-bordered input-sm md:input-md"
 						/>
 					</label>
 				</div>

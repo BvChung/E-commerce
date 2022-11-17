@@ -11,7 +11,7 @@ export default function OrderInfo() {
 		.split(" ");
 
 	return (
-		<div className="flex flex-col gap-[2px] items-center justify-center my-8 mx-4 lg:mx-0">
+		<div className="flex flex-col  items-center justify-center my-8 mx-4 lg:mx-0">
 			<div className="flex items-center gap-2 w-full mb-6 pb-2 border-b-[1px] border-gray-200 lg:max-w-5xl xl:max-w-6xl">
 				<Link to={"/orders"} className="mr-2 cursor-pointer">
 					<svg
@@ -88,8 +88,8 @@ export default function OrderInfo() {
 			</div>
 
 			<div className="flex flex-1 flex-col md:flex-row justify-between w-full gap-4 lg:max-w-5xl xl:max-w-6xl border-[1px] px-4 py-6 mb-8 rounded-lg shadow-sm">
-				<div className="flex flex-col gap-[2px] justify-end border-b-[1px] border-gray-600 pb-6 mb-2 md:pb-0 md:border-0 md:mb-0 md:basis-60">
-					<h3 className="font-semibold text-lg mb-2 pb-1 border-b-[1px]">
+				<div className="flex flex-col  justify-end border-b-[1px] border-gray-600 pb-6 mb-2 md:pb-0 md:border-0 md:mb-0 md:basis-60">
+					<h3 className="font-semibold mb-2 pb-1 border-b-[1px]">
 						Billing Information
 					</h3>
 					<div className="flex items-center justify-between mb-2">
@@ -97,17 +97,17 @@ export default function OrderInfo() {
 							Subtotal ({orderInfo?.purchasedItems.length} item
 							{orderInfo?.purchasedItems.length! > 1 && "s"})
 						</span>
-						<span className="font-semibold">
+						<span className="font-medium">
 							${orderInfo?.paymentInfo.subTotal}
 						</span>
 					</div>
 					<div className="flex items-center justify-between mb-2">
 						<span className="text-sm font-medium">Shipping</span>
-						<span className="font-semibold">Free</span>
+						<span className="font-medium">Free</span>
 					</div>
 					<div className="flex items-center justify-between mb-3 pb-1 border-b-[1px]">
 						<span className="text-sm font-medium">Tax</span>
-						<span className="font-semibold">
+						<span className="font-medium">
 							${(orderInfo?.paymentInfo.subTotal! * 0.0625).toFixed(2)}
 						</span>
 					</div>
@@ -123,14 +123,14 @@ export default function OrderInfo() {
 					</div>
 				</div>
 
-				<div className="flex flex-col gap-[2px] border-b-[1px] border-gray-600 pb-6 mb-2 md:pb-0 md:border-0 md:mb-0 md:basis-60">
-					<h3 className="font-semibold text-lg mb-2 pb-1 border-b-[1px]">
+				<div className="flex flex-col  border-b-[1px] border-gray-600 pb-6 mb-2 md:pb-0 md:border-0 md:mb-0 md:basis-60">
+					<h3 className="font-semibold mb-2 pb-1 border-b-[1px]">
 						Payment Method
 					</h3>
 
 					<div>
 						<span className="font-medium">Card ending in </span>
-						<span className="font-bold">
+						<span className="font-semibold">
 							{orderInfo?.paymentInfo.cardNumber.substring(
 								orderInfo?.paymentInfo.cardNumber.length - 4,
 								orderInfo?.paymentInfo.cardNumber.length
@@ -139,10 +139,8 @@ export default function OrderInfo() {
 					</div>
 				</div>
 
-				<div className="flex flex-col gap-[2px] md:basis-60">
-					<h3 className="font-semibold text-lg mb-2 pb-1 border-b-[1px]">
-						Shipped to
-					</h3>
+				<div className="flex flex-col  md:basis-60">
+					<h3 className="font-semibold mb-2 pb-1 border-b-[1px]">Shipped to</h3>
 					<span className="font-medium mb-2">
 						{orderInfo?.shippingInfo.firstName}{" "}
 						{orderInfo?.shippingInfo.lastName}

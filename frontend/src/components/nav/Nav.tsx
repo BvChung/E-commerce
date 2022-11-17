@@ -16,7 +16,7 @@ export default function Nav() {
 		user.role === accessRoles.Admin || user.role === accessRoles.Manager;
 
 	return (
-		<nav className="navbar fixed bg-white z-20 h-14 px-4 border-b-[1px]">
+		<nav className="navbar fixed bg-white z-30 h-14 px-4 border-b-[1px]">
 			<div className="navbar-start">
 				<div className="flex-none lg:hidden">
 					<label htmlFor="app-drawer" className="btn btn-square btn-ghost">
