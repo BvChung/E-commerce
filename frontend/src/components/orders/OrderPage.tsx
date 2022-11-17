@@ -1,24 +1,22 @@
-import OrderedItems from "./OrderedItems";
+import OrderHistory from "./OrderHistory";
 import { useGetOrders } from "../../hooks/orders/useGetOrders";
-import { useAuthContext } from "../../hooks/context/useAuthContext";
 import { OrderInfo } from "../../interfaces/orderInterface";
 
-export default function OrdersPage() {
-	const { user } = useAuthContext();
+export default function OrderPage() {
 	const { data: orders, isSuccess, isError, isLoading } = useGetOrders();
 
 	return (
-		<div className="flex flex-col items-center justify-center mb-10 mx-4 sm:mx-6 lg:mx-0">
-			<div className="flex items-center gap-2 w-full mt-8 mb-6 lg:max-w-4xl xl:max-w-5xl">
+		<div className="flex flex-col items-center justify-center my-8 mx-4 sm:mx-6 lg:mx-0">
+			<div className="flex items-center gap-2 w-full mb-6 lg:max-w-5xl xl:max-w-6xl">
 				<span className="font-medium text-xl sm:text-2xl">My Orders</span>
 			</div>
 
-			<div className="flex justify-center h-max w-full gap-4 lg:max-w-4xl xl:max-w-5xl">
-				<div className="border-[1px] h-max rounded-lg shadow-sm transition-all fade w-full mb-10">
+			<div className="flex justify-center h-max w-full gap-4 lg:max-w-5xl xl:max-w-6xl">
+				<div className="border-[1px] h-max rounded-lg shadow-sm transition-all fade w-full">
 					{isSuccess &&
 						orders.map((order: OrderInfo) => {
 							return (
-								<OrderedItems
+								<OrderHistory
 									key={order._id}
 									_id={order._id}
 									createdAt={order.createdAt}

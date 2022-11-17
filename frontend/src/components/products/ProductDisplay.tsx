@@ -17,13 +17,13 @@ export default function ProductDisplay({
 		<div className="w-full fade transition-all">
 			<Link
 				to={_id}
-				className="card w-[20rem] rounded-md h-fit bg-base-100 border-[1px] shadow-sm"
+				className="card w-full min-w-[18rem] md:max-w-[20rem] rounded-md h-fit bg-base-100 border-[1px] shadow-sm"
 			>
 				<div className="overflow-hidden">
 					<img
 						src={image}
 						alt="Product"
-						className="h-[250px] w-full relative object-cover hover:scale-105 transition-transform duration-500"
+						className="h-[200px] w-full relative object-cover hover:scale-105 transition-transform duration-500"
 						loading="lazy"
 					/>
 				</div>
