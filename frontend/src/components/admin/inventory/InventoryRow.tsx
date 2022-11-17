@@ -33,7 +33,7 @@ export default function InventoryRow({
 				<td className="py-6 text-center align-middle">
 					<div className="flex flex-col items-center md:flex-row">
 						<div
-							className="tooltip tooltip-bottom mr-0 mb-2 md:mr-2 md:mb-0 z-40"
+							className="tooltip tooltip-bottom mr-0 mb-2 md:mr-2 md:mb-0 z-10"
 							data-tip="Edit"
 						>
 							<Link to={_id} className="btn btn-ghost btn-circle">
@@ -49,7 +49,7 @@ export default function InventoryRow({
 							</Link>
 						</div>
 						<div
-							className="tooltip tooltip-bottom mr-0 mb-2 md:mr-2 md:mb-0 z-50"
+							className="tooltip tooltip-bottom mr-0 mb-2 md:mr-2 md:mb-0 z-10"
 							data-tip="Delete"
 						>
 							<button

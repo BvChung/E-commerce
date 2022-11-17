@@ -50,8 +50,8 @@ export default function Cart() {
 	};
 
 	return (
-		<div className="flex flex-col items-center justify-center mb-6 mx-4 sm:mx-6 lg:mx-0">
-			<div className="flex items-center gap-2 w-full mt-8 mb-6 lg:max-w-5xl xl:max-w-6xl">
+		<div className="flex flex-col items-center justify-center my-8 mx-4 sm:mx-6 lg:mx-0">
+			<div className="flex items-center gap-2 w-full mb-6 lg:max-w-5xl xl:max-w-6xl">
 				<span className="font-medium text-xl sm:text-2xl">My Cart</span>
 			</div>
 
@@ -73,7 +73,7 @@ export default function Cart() {
 							</div>
 							<Link
 								to={"/products"}
-								className="btn btn-primary w-64 rounded-full"
+								className="btn btn-secondary w-64 rounded-full"
 							>
 								Browse our products
 							</Link>
@@ -115,7 +115,7 @@ export default function Cart() {
 						<span className="font-semibold">Free</span>
 					</div>
 
-					<div className="w-full flex items-center justify-between border-b-[1px] pb-2 mb-4">
+					<div className="w-full flex items-center justify-between border-b-[1px] border-gray-400 pb-2 mb-4">
 						<span className="font-medium text-sm">Taxes</span>
 						<span className="font-semibold">TBD</span>
 					</div>
@@ -134,7 +134,7 @@ export default function Cart() {
 					<div className="w-full mb-4">
 						<Link
 							className={`btn h-11 ${
-								cartItemsInfo.numItems === 0 ? "btn-disabled" : "btn-primary"
+								cartItemsInfo.numItems === 0 ? "btn-disabled" : "btn-info"
 							}  rounded-full w-full `}
 							to={"/checkout/shipping"}
 						>
@@ -146,7 +146,9 @@ export default function Cart() {
 						<div className="w-full border-t-[1px]">
 							<button
 								className={`btn h-11 ${
-									cartItemsInfo.numItems === 0 ? "btn-disabled" : "btn-primary"
+									cartItemsInfo.numItems === 0
+										? "btn-disabled"
+										: "btn-outline btn-accent"
 								}  rounded-full mt-4 w-full `}
 								onClick={() => {
 									setMyOrder(demoInfo);

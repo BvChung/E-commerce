@@ -16,7 +16,7 @@ export default function Nav() {
 		user.role === accessRoles.Admin || user.role === accessRoles.Manager;
 
 	return (
-		<nav className="navbar fixed bg-white z-10 h-14 px-4 border-b-[1px]">
+		<nav className="navbar fixed bg-white z-20 h-14 px-4 border-b-[1px]">
 			<div className="navbar-start">
 				<div className="flex-none lg:hidden">
 					<label htmlFor="app-drawer" className="btn btn-square btn-ghost">
@@ -146,6 +146,7 @@ export default function Nav() {
 							/>
 						</svg>
 					</label>
+
 					<ul
 						tabIndex={0}
 						className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52"

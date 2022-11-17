@@ -290,7 +290,7 @@ export default function Payment() {
 						>
 							Return
 						</Link>
-						<button className="btn px-10 h-11 rounded-full btn-primary">
+						<button className="btn px-10 h-11 rounded-full btn-secondary">
 							Save & Continue
 						</button>
 					</div>
@@ -312,7 +312,7 @@ export default function Payment() {
 						<span className="font-semibold">Free</span>
 					</div>
 
-					<div className="w-full flex items-center justify-between border-b-[1px] pb-2 mb-4">
+					<div className="w-full flex items-center justify-between border-b-[1px] border-gray-400 pb-2 mb-4">
 						<span className="font-medium text-sm">Taxes</span>
 						<span className="font-semibold">
 							${(cartItemsInfo.subTotal * 0.0625).toFixed(2)}

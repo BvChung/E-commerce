@@ -9,7 +9,7 @@ export default function CheckoutNav() {
 	const navigate = useNavigate();
 
 	return (
-		<nav className="navbar fixed flex justify-between z-10 h-14 px-4 border-b-[1px]">
+		<nav className="navbar fixed flex justify-between z-20 h-14 px-4 border-b-[1px]">
 			<div className="tooltip tooltip-bottom z-50" data-tip="Return">
 				<label
 					htmlFor="return-modal"
@@ -53,7 +53,7 @@ export default function CheckoutNav() {
 					<div className="modal-action justify-end gap-4">
 						<label
 							htmlFor="return-modal"
-							className="btn px-6 rounded-full btn-outline h-11 normal-case"
+							className="btn px-6 rounded-full btn-outline btn-accent h-11 normal-case"
 							onClick={() => {
 								navigate("/cart");
 								clearMyOrder();
@@ -63,13 +63,13 @@ export default function CheckoutNav() {
 						</label>
 						<label
 							htmlFor="return-modal"
-							className="btn btn-primary hidden md:inline-flex h-11 sm:px-0 md:px-8 rounded-full normal-case"
+							className="btn btn-secondary hidden md:inline-flex h-11 sm:px-0 md:px-8 rounded-full normal-case"
 						>
 							Continue checking out
 						</label>
 						<label
 							htmlFor="return-modal"
-							className="btn btn-primary md:hidden px-8 rounded-full normal-case"
+							className="btn btn-secondary md:hidden px-8 rounded-full normal-case"
 						>
 							Continue
 						</label>
@@ -77,7 +77,7 @@ export default function CheckoutNav() {
 				</label>
 			</label>
 
-			<button className=" btn btn-ghost btn-circle flex items-center justify-center">
+			<button className="btn btn-ghost btn-circle flex items-center justify-center">
 				<label htmlFor="cart" className="swap swap-rotate">
 					<input
 						type="checkbox"

@@ -19,7 +19,7 @@ export default function CartItem({
 	}, [itemQuantity]);
 
 	return (
-		<div className="flex items-center w-full h-44 border-b-[1px] last:border-b-0">
+		<div className="flex items-center w-full h-44 border-b border-gray-300 last:border-b-0">
 			<Link to={`/products/${_id}`}>
 				<figure>
 					<img
@@ -37,7 +37,7 @@ export default function CartItem({
 							{name}
 						</span>
 					</Link>
-					<p className="font-bold text-base text-sm md:text-base">
+					<p className="font-bold text-sm md:text-base">
 						${(foundItem?.price! * foundItem?.quantity!).toFixed(2)}
 					</p>
 				</div>

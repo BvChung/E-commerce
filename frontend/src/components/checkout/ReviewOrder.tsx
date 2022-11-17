@@ -142,7 +142,7 @@ export default function ReviewOrder() {
 
 				<div className="flex flex-col md:flex-row justify-center h-max w-full gap-4 lg:max-w-5xl xl:max-w-7xl">
 					<div className="flex flex-col border-[1px] p-4 h-max rounded-lg shadow-sm mb-2 transition-all fade w-full md:w-2/3 md:max-w-3xl">
-						<div className="relative flex flex-col md:flex-row items-center justify-between border-b-[1px] py-4 mb-0 md:mb-4">
+						<div className="relative flex flex-col md:flex-row items-center justify-between border-b-[1px] border-gray-300 py-4 mb-0 md:mb-4">
 							<svg
 								xmlns="http://www.w3.org/2000/svg"
 								fill="none"
@@ -174,7 +174,7 @@ export default function ReviewOrder() {
 								</svg>
 
 								<span className="font-medium text-lg md:text-2xl">
-									Shipping
+									Delivery Date
 								</span>
 							</div>
 
@@ -192,7 +192,7 @@ export default function ReviewOrder() {
 							</div>
 						</div>
 
-						<div className="flex flex-col md:flex-row justify-between items-center border-b-[1px] py-4 mb-4">
+						<div className="flex flex-col md:flex-row justify-between items-center border-b-[1px] border-gray-300 py-4 mb-4">
 							<div className="relative flex md:hidden w-full justify-center items-center font-medium text-lg md:text-xl mb-4">
 								<svg
 									xmlns="http://www.w3.org/2000/svg"
@@ -209,7 +209,9 @@ export default function ReviewOrder() {
 									/>
 								</svg>
 								<div className="w-full flex items-center justify-center">
-									Sending to
+									<span className="font-medium text-lg md:text-2xl">
+										Shipping to
+									</span>
 								</div>
 								<Link
 									to={"/checkout/shipping"}
@@ -295,7 +297,9 @@ export default function ReviewOrder() {
 									/>
 								</svg>
 								<div className="w-full flex items-center justify-center">
-									Paying with
+									<span className="font-medium text-lg md:text-2xl">
+										Paying with
+									</span>
 								</div>
 								<Link
 									to={"/checkout/payment"}
@@ -385,7 +389,7 @@ export default function ReviewOrder() {
 							<span className="font-semibold">Free</span>
 						</div>
 
-						<div className="w-full flex items-center justify-between border-b-[1px] pb-2 mb-4">
+						<div className="w-full flex items-center justify-between border-b-[1px] border-gray-400 pb-2 mb-4">
 							<span className="font-medium text-sm">Taxes</span>
 							<span className="font-semibold">${taxAmount}</span>
 						</div>
@@ -399,7 +403,7 @@ export default function ReviewOrder() {
 							onClick={() => {
 								mutate(orderDetails!);
 							}}
-							className="btn btn-primary h-11 w-full rounded-full"
+							className="btn btn-info h-11 w-full rounded-full"
 						>
 							Place order
 						</button>
