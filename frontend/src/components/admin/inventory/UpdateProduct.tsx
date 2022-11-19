@@ -6,7 +6,7 @@ import { useGetProductInfo } from "../../../hooks/products/useGetProductInfo";
 import { useUpdateProduct } from "../../../hooks/admin/useUpdateProduct";
 import { ProductForm } from "../../../interfaces/productInterface";
 
-export default function ManageProducts() {
+export default function ManageProduct() {
 	const params = useParams();
 	const { isSuccess, data: productInfo } = useGetProductInfo(params.id);
 	const { mutate } = useUpdateProduct(params.id);
@@ -81,7 +81,7 @@ export default function ManageProducts() {
 		if (!file) {
 			mutate({
 				...productFormData,
-				price: +productFormData.price,
+				price: +parseFloat(productFormData.price).toFixed(2),
 			});
 		} else {
 			mutate({
@@ -264,9 +264,11 @@ export default function ManageProducts() {
 						</div>
 					</div>
 
-					<button className="btn btn-primary h-11 w-fit rounded-md px-8 self-end">
-						Save Changes
-					</button>
+					<div className="flex justify-end max-w-2xl">
+						<button className="btn btn-primary h-11 w-fit rounded-full px-8">
+							Save Changes
+						</button>
+					</div>
 				</form>
 			</div>
 		</div>

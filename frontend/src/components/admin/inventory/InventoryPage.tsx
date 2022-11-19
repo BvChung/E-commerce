@@ -1,14 +1,17 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { useGetProducts } from "../../../hooks/products/useGetProducts";
 import InventoryRow from "./InventoryRow";
+import { useAuthContext } from "../../../hooks/context/useAuthContext";
+import { useGetProducts } from "../../../hooks/products/useGetProducts";
 import { useDeleteProduct } from "../../../hooks/admin/useDeleteProduct";
 import {
 	ProductInfo,
 	SortProducts,
 } from "../../../interfaces/productInterface";
+import { toast } from "react-toastify";
 
 export default function ProductTable() {
+	const { user } = useAuthContext();
 	const { isLoading, isError, isSuccess, data: products } = useGetProducts();
 	const [deleteConfirmation, setDeleteConfirmation] = useState<boolean>(false);
 	const [itemId, setItemId] = useState<string>("");
@@ -89,6 +92,16 @@ export default function ProductTable() {
 					/>
 				);
 			});
+	}
+
+	function deleteItem() {
+		if (user.email === process.env.REACT_APP_GUEST_EMAIL) {
+			return toast.error("Guest account cannot delete products.");
+		}
+
+		setDeleteConfirmation(false);
+		mutate(itemId);
+		setItemId("");
 	}
 
 	return (
@@ -303,18 +316,14 @@ export default function ProductTable() {
 								setDeleteConfirmation(false);
 								setItemId("");
 							}}
-							className="btn px-6 rounded-full btn-outline normal-case"
+							className="btn px-6 rounded-full btn-outline btn-accent h-11 normal-case"
 						>
 							Cancel
 						</button>
 
 						<button
-							onClick={() => {
-								setDeleteConfirmation(false);
-								mutate(itemId);
-								setItemId("");
-							}}
-							className="btn px-6 rounded-full btn-primary normal-case"
+							onClick={deleteItem}
+							className="btn px-6 rounded-full h-11 btn-secondary normal-case"
 						>
 							Delete
 						</button>

@@ -25,7 +25,7 @@ export const getProduct = async (
 	}
 };
 
-export const getProducts = async (
+export const queryProducts = async (
 	req: Request,
 	res: Response,
 	next: NextFunction
@@ -36,7 +36,7 @@ export const getProducts = async (
 			return;
 		}
 
-		let filteredProducts;
+		let queriedProducts;
 		let minPrice;
 		let maxPrice;
 
@@ -53,23 +53,23 @@ export const getProducts = async (
 		}
 
 		if (req.query.category && minPrice && maxPrice) {
-			filteredProducts = await ProductModel.find({
+			queriedProducts = await ProductModel.find({
 				category: { $in: req.query.category },
 				price: { $gte: minPrice, $lt: maxPrice },
 			});
 		} else if (minPrice && maxPrice) {
-			filteredProducts = await ProductModel.find({
+			queriedProducts = await ProductModel.find({
 				price: { $gte: minPrice, $lt: maxPrice },
 			});
 		} else if (req.query.category) {
-			filteredProducts = await ProductModel.find({
+			queriedProducts = await ProductModel.find({
 				category: { $in: req.query.category },
 			});
 		} else {
-			filteredProducts = await ProductModel.find({});
+			queriedProducts = await ProductModel.find({});
 		}
 
-		res.status(200).json(filteredProducts);
+		res.status(200).json(queriedProducts);
 	} catch (error) {
 		res.status(400);
 		next(error);
@@ -114,7 +114,8 @@ export const createProduct = async (
 	next: NextFunction
 ) => {
 	try {
-		const { name, description, price, category, image, fileName } = req.body;
+		const { name, description, color, price, category, image, fileName } =
+			req.body;
 
 		const uploadedImage = await cloudinaryConnection.uploader.upload(
 			image,
@@ -132,6 +133,7 @@ export const createProduct = async (
 		const createdProduct = await ProductModel.create({
 			name,
 			description,
+			color,
 			price,
 			category,
 			image: uploadedImage.secure_url,

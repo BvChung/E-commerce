@@ -23,7 +23,7 @@ export const useUpdateProduct = (productId: string | undefined) => {
 
 	return useMutation(updateProduct, {
 		onSuccess: (data: ProductInfo) => {
-			queryClient.invalidateQueries(`product-${productId}`);
+			queryClient.invalidateQueries(`product-${data._id}`);
 			queryClient.invalidateQueries("products");
 			queryClient.invalidateQueries("cart");
 

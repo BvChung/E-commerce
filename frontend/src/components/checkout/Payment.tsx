@@ -286,7 +286,7 @@ export default function Payment() {
 					<div className="flex w-full gap-4 justify-end">
 						<Link
 							to="/checkout/shipping"
-							className="btn btn-outline h-11 rounded-full px-7"
+							className="btn btn-outline btn-accent h-11 rounded-full px-7"
 						>
 							Return
 						</Link>

@@ -3,6 +3,7 @@ import { Schema, model } from "mongoose";
 interface Product {
 	name: string;
 	description: string;
+	color: string;
 	price: number;
 	category: string;
 	image: string;
@@ -19,6 +20,11 @@ const productSchema = new Schema<Product>(
 		description: {
 			type: String,
 			required: [true, "Product description is required"],
+			default: "",
+		},
+		color: {
+			type: String,
+			required: [true, "Product color is required"],
 			default: "",
 		},
 		price: {

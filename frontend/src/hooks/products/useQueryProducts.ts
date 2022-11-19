@@ -9,13 +9,9 @@ interface FilterProducts {
 	priceHigh: number | string;
 }
 
-export const useGetProduct = (filter: FilterProducts) => {
+export const useQueryProducts = (filter: FilterProducts) => {
 	const getProducts = async () => {
-		// console.log(filter);
-		if (filter.priceHigh !== -1 && filter.priceLow !== -1) {
-		}
-
-		const response = await eCommerceApiPublic.get("/api/products/get", {
+		const response = await eCommerceApiPublic.get("/api/products/query", {
 			params: {
 				category: filter.category,
 				priceLow: filter.priceLow,

@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { useGetProduct } from "../../hooks/products/useGetProduct";
+import { useQueryProducts } from "../../hooks/products/useQueryProducts";
 import { ProductInfo } from "../../interfaces/productInterface";
 import ProductDisplay from "./ProductDisplay";
 import FiltersModal from "./modal/FiltersModal";
@@ -74,7 +74,7 @@ export default function ProductPage() {
 		isError,
 		isSuccess,
 		data: products,
-	} = useGetProduct(filter);
+	} = useQueryProducts(filter);
 
 	const displayProducts =
 		isSuccess && products.length !== 0 ? (

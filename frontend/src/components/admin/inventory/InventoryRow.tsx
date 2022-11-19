@@ -23,13 +23,13 @@ export default function InventoryRow({
 							/>
 						</figure>
 
-						<div>
-							<div className="text-base font-medium">{name}</div>
-						</div>
+						<span className="text-base font-medium">{name}</span>
 					</div>
 				</td>
 				<td className="hidden md:table-cell text-base py-6">{category}</td>
-				<td className="hidden md:table-cell text-base py-6">${price}</td>
+				<td className="hidden md:table-cell text-base py-6">
+					${price.toFixed(2)}
+				</td>
 				<td className="py-6 text-center align-middle">
 					<div className="flex flex-col items-center md:flex-row">
 						<div

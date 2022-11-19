@@ -1,10 +1,9 @@
 import { IRouter, Router } from "express";
 import verifyJWT from "../../middleware/authJWT";
 import validateRequest from "../../middleware/validateReq";
-
 import {
 	getProduct,
-	getProducts,
+	queryProducts,
 	getProductInfo,
 	getSpecifiedProducts,
 	createProduct,
@@ -24,7 +23,7 @@ router
 	.get(getProduct)
 	.post(validateRequest(productCreationBodySchema), createProduct);
 
-router.route("/get").get(getProducts);
+router.route("/query").get(queryProducts);
 
 router.route("/cart").get(getSpecifiedProducts);
 
