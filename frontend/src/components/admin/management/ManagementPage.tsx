@@ -16,7 +16,7 @@ export default function ManagementPage() {
 		role: 0,
 	});
 	const { data: accounts, isSuccess } = useGetAccounts();
-	console.log(currentAccount);
+	// console.log(currentAccount);
 	const { mutate: updateAccount } = useUpdateRole();
 	const { mutate: deleteAccount } = useDeleteAccount();
 	// console.log(accounts);
@@ -124,7 +124,7 @@ export default function ManagementPage() {
 									role: 0,
 								});
 							}}
-							className="btn px-6 rounded-full btn-outline normal-case"
+							className="btn px-6 rounded-full btn-outline btn-accent normal-case"
 						>
 							Cancel
 						</button>
@@ -138,7 +138,7 @@ export default function ManagementPage() {
 									role: 0,
 								});
 							}}
-							className="btn px-6 rounded-full btn-primary normal-case"
+							className="btn px-6 rounded-full btn-secondary normal-case"
 						>
 							Save changes
 						</button>

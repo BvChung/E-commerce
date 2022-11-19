@@ -16,8 +16,8 @@ import LandingPage from "./components/landingPage/LandingPage";
 import ProductPage from "./components/products/ProductPage";
 import InventoryPage from "./components/admin/inventory/InventoryPage";
 import ProductInfo from "./components/products/ProductInfo";
-import CreateProducts from "./components/admin/create/CreateProducts";
-import UpdateProducts from "./components/admin/inventory/UpdateProducts";
+import CreateProduct from "./components/admin/create/CreateProduct";
+import UpdateProduct from "./components/admin/inventory/UpdateProduct";
 import ManagementPage from "./components/admin/management/ManagementPage";
 import Payment from "./components/checkout/Payment";
 import Shipping from "./components/checkout/Shipping";
@@ -79,10 +79,10 @@ const appRouter = createBrowserRouter(
 				>
 					<Route path="admin" element={<Outlet />}>
 						<Route index element={<Admin />} />
-						<Route path="create" element={<CreateProducts />} />
+						<Route path="create" element={<CreateProduct />} />
 						<Route path="inventory" element={<Outlet />}>
 							<Route index element={<InventoryPage />} />
-							<Route path=":id" element={<UpdateProducts />} />
+							<Route path=":id" element={<UpdateProduct />} />
 						</Route>
 
 						<Route path="manage" element={<ManagementPage />} />
