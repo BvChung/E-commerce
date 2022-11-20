@@ -1,7 +1,5 @@
 import { Link } from "react-router-dom";
 import { ProductInfo } from "../../interfaces/productInterface";
-import { toast } from "react-toastify";
-import { useCartContext } from "../../hooks/context/useCartContext";
 
 export default function ProductDisplay({
 	_id,
@@ -10,9 +8,6 @@ export default function ProductDisplay({
 	category,
 	image,
 }: ProductInfo) {
-	const { addCartItem, findCartItem } = useCartContext();
-	const foundItem = findCartItem(_id);
-
 	return (
 		<div className="w-full fade transition-all">
 			<Link

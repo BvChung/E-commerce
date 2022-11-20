@@ -42,6 +42,9 @@ export const productUpdateBodySchema = object({
 		description: string({
 			required_error: "Product description is required.",
 		}),
+		color: string({
+			required_error: "Product color is required.",
+		}),
 		price: number({
 			required_error: "Product price is required.",
 		}),

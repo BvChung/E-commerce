@@ -1,5 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 import ProductModel from "../../models/productModel";
+import OrderModel from "../../models/orderModel";
 import global from "../../types/types";
 import cloudinaryConnection from "../../config/cloudinaryConfig";
 import {
@@ -10,7 +11,7 @@ import {
 import dotenv from "dotenv";
 dotenv.config();
 
-export const getProduct = async (
+export const getAllProducts = async (
 	req: Request,
 	res: Response,
 	next: NextFunction
@@ -31,7 +32,6 @@ export const queryProducts = async (
 	next: NextFunction
 ) => {
 	try {
-		// console.log(req.query);
 		if (!req.query.priceLow || !req.query.priceHigh) {
 			return;
 		}
@@ -52,6 +52,11 @@ export const queryProducts = async (
 			maxPrice = +req.query.priceHigh;
 		}
 
+		// Products are returned based on query
+		// 1) Query contains category + price filter
+		// 2) Query contains price filter
+		// 3) Query contains category filter
+		// 4) No query => returns all products
 		if (req.query.category && minPrice && maxPrice) {
 			queriedProducts = await ProductModel.find({
 				category: { $in: req.query.category },
@@ -76,12 +81,14 @@ export const queryProducts = async (
 	}
 };
 
-export const getSpecifiedProducts = async (
+export const getCartItemsInfo = async (
 	req: Request,
 	res: Response,
 	next: NextFunction
 ) => {
 	try {
+		// productIds is an array containing item ids from the current account's cart
+		// Iterates through productIds array and returns array with info of each product from the database
 		const myCartItems = await ProductModel.find({
 			_id: { $in: req.query.productIds },
 		});
@@ -153,7 +160,8 @@ export const updateProduct = async (
 	next: NextFunction
 ) => {
 	try {
-		const { name, description, price, category, image, fileName } = req.body;
+		const { name, description, color, price, category, image, fileName } =
+			req.body;
 
 		const foundProduct = await ProductModel.findById(req.params.id);
 		if (!foundProduct) throw new Error("Product not found.");
@@ -181,6 +189,7 @@ export const updateProduct = async (
 			{
 				name,
 				description,
+				color,
 				price,
 				category,
 				image: uploadedImage ? uploadedImage.secure_url : foundProduct.image,
@@ -206,7 +215,23 @@ export const deleteProduct = async (
 	next: NextFunction
 ) => {
 	try {
-		const deletedProduct = await ProductModel.findByIdAndDelete(req.params.id);
+		const { id: productId } = req.params;
+		const deletedProduct = await ProductModel.findByIdAndDelete(productId);
+
+		// Finds all orders and $pull removes deleted product from purchasedItems array
+		await OrderModel.updateMany(
+			{},
+			{
+				$pull: {
+					purchasedItems: {
+						_id: productId,
+					},
+				},
+			},
+			{
+				new: true,
+			}
+		);
 
 		if (!deletedProduct) throw new Error("Product not found.");
 

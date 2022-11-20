@@ -3,6 +3,7 @@ import ProductInfo from "../components/products/ProductInfo";
 interface Product {
 	name: string;
 	description: string;
+	color: string;
 	category: string;
 }
 
@@ -31,6 +32,7 @@ export interface ProductUpdate extends Product {
 
 export interface ProductForm extends Product {
 	price: string;
+	color: string;
 }
 
 export interface SortProducts {

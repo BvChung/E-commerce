@@ -2,10 +2,10 @@ import { IRouter, Router } from "express";
 import verifyJWT from "../../middleware/authJWT";
 import validateRequest from "../../middleware/validateReq";
 import {
-	getProduct,
+	getAllProducts,
 	queryProducts,
 	getProductInfo,
-	getSpecifiedProducts,
+	getCartItemsInfo,
 	createProduct,
 	updateProduct,
 	deleteProduct,
@@ -20,12 +20,11 @@ const router: IRouter = Router();
 
 router
 	.route("/")
-	.get(getProduct)
+	.get(getAllProducts)
 	.post(validateRequest(productCreationBodySchema), createProduct);
 
 router.route("/query").get(queryProducts);
-
-router.route("/cart").get(getSpecifiedProducts);
+router.route("/cart").get(getCartItemsInfo);
 
 router
 	.route("/:id")

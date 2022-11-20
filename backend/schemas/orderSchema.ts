@@ -49,6 +49,9 @@ export const orderBodySchema = object({
 				description: string({
 					required_error: "Description is required.",
 				}),
+				color: string({
+					required_error: "Color is required.",
+				}),
 				category: string({
 					required_error: "Category is required.",
 				}),

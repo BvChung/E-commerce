@@ -20,8 +20,6 @@ export const useQueryProducts = (filter: FilterProducts) => {
 			paramsSerializer: (params) => qs.stringify(params),
 		});
 
-		console.log(response.data);
-
 		return response.data.sort((a: ProductInfo, b: ProductInfo) => {
 			if (a.name < b.name) {
 				return -1;

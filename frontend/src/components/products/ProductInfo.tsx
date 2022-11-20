@@ -130,7 +130,7 @@ export default function ProductInfo() {
 										/>
 									</svg>
 
-									<p className="text-sm">{productInfo.name.split(" ")[1]}</p>
+									<span className="text-sm">{productInfo.color}</span>
 								</div>
 
 								<div className="flex items-center gap-2">
