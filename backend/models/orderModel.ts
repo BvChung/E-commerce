@@ -6,6 +6,7 @@ interface Order {
 		_id: Schema.Types.ObjectId;
 		name: string;
 		description: string;
+		color: string;
 		category: string;
 		price: number;
 		quantity: number;
@@ -61,6 +62,7 @@ const orderSchema = new Schema<Order>(
 				},
 				name: { type: String, required: true, ref: "Product" },
 				description: { type: String, required: true, ref: "Product" },
+				color: { type: String, required: true, ref: "Product" },
 				category: { type: String, required: true, ref: "Product" },
 				price: { type: Number, required: true, ref: "Product" },
 				quantity: { type: Number, required: true },

@@ -163,6 +163,7 @@ export default function OrderInfo() {
 							_id={item._id}
 							category={item.category}
 							description={item.description}
+							color={item.color}
 							image={item.image}
 							imageCloudId={item.imageCloudId}
 							name={item.name}

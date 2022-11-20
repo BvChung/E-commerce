@@ -15,6 +15,7 @@ export default function ManageProduct() {
 	const [productFormData, setProductFormData] = useState<ProductForm>({
 		name: "",
 		description: "",
+		color: "",
 		price: "",
 		category: "",
 	});
@@ -25,7 +26,8 @@ export default function ManageProduct() {
 		setProductFormData({
 			name: productInfo.name,
 			description: productInfo.description,
-			price: String(productInfo.price),
+			color: productInfo.color,
+			price: productInfo.price.toFixed(2),
 			category: productInfo.category,
 		});
 	}, [isSuccess]);
@@ -182,6 +184,21 @@ export default function ManageProduct() {
 							className="input input-bordered w-full md:w-[688px]"
 							name="price"
 							value={productFormData.price}
+							onChange={handleChange}
+							required
+						/>
+					</div>
+
+					<div className="form-control w-full ">
+						<label className="label">
+							<span className="label-text">Color</span>
+						</label>
+						<input
+							type="text"
+							placeholder="Color"
+							className="input input-bordered w-full md:w-[688px]"
+							name="color"
+							value={productFormData.color}
 							onChange={handleChange}
 							required
 						/>

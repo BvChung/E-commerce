@@ -11,6 +11,7 @@ export default function CreateProduct() {
 	const [productFormData, setProductFormData] = useState<ProductForm>({
 		name: "",
 		description: "",
+		color: "",
 		price: "",
 		category: "",
 	});
@@ -79,6 +80,7 @@ export default function CreateProduct() {
 		setProductFormData({
 			name: "",
 			description: "",
+			color: "",
 			price: "",
 			category: "",
 		});
@@ -162,6 +164,21 @@ export default function CreateProduct() {
 								className="input input-bordered w-full md:w-[688px]"
 								name="price"
 								value={productFormData.price}
+								onChange={handleChange}
+								required
+							/>
+						</div>
+
+						<div className="form-control w-full ">
+							<label className="label">
+								<span className="label-text">Color</span>
+							</label>
+							<input
+								type="text"
+								placeholder="Color"
+								className="input input-bordered w-full md:w-[688px]"
+								name="color"
+								value={productFormData.color}
 								onChange={handleChange}
 								required
 							/>
