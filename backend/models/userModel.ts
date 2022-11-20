@@ -7,6 +7,7 @@ interface User {
 	password: string;
 	refreshToken: string;
 	role: number;
+	isActive: boolean;
 }
 
 const userSchema = new Schema<User>(
@@ -39,6 +40,10 @@ const userSchema = new Schema<User>(
 		role: {
 			type: Number,
 			default: 5050,
+		},
+		isActive: {
+			type: Boolean,
+			default: false,
 		},
 	},
 	{

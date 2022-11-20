@@ -13,9 +13,9 @@ export default function AccountPage() {
 			<div className="flex flex-col lg:max-w-3xl xl:max-w-4xl items-center w-full rounded-lg border-[1px] shadow-sm">
 				<Link
 					to="/account/name"
-					className="w-full px-6 rounded-t-lg hover:bg-gray-100 cursor-pointer"
+					className="w-full px-6 rounded-t-lg border-b-[1px] hover:bg-gray-100 cursor-pointer"
 				>
-					<div className="flex items-center justify-center py-6 border-b-[1px]">
+					<div className="flex items-center justify-center py-6">
 						<div className="flex flex-1">
 							<div className="flex items-center gap-3 basis-44 mr-6">
 								<svg
@@ -59,9 +59,9 @@ export default function AccountPage() {
 
 				<Link
 					to="/account/email"
-					className="w-full px-6 hover:bg-gray-100 cursor-pointer"
+					className="w-full px-6 border-b-[1px] hover:bg-gray-100 cursor-pointer peer"
 				>
-					<div className="flex items-center justify-center border-b-[1px] py-6 ">
+					<div className="flex items-center justify-center py-6">
 						<div className="flex flex-1">
 							<div className="flex items-center gap-3 basis-44 mr-6">
 								<svg

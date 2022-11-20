@@ -126,12 +126,11 @@ export const deleteAccount = async (
 	next: NextFunction
 ) => {
 	try {
-		// Delete account info and orders associated
-		console.log(req.params);
-		// const deletedAccount = await UserModel.findByIdAndDelete(req.params.id);
-		// await OrderModel.deleteMany({ accountId: req.params.id });
+		// Deletes account info and all orders associated
+		const deletedAccount = await UserModel.findByIdAndDelete(req.params.id);
+		await OrderModel.deleteMany({ accountId: req.params.id });
 
-		// res.status(200).json(deletedAccount);
+		res.status(200).json(deletedAccount);
 	} catch (error) {
 		res.status(404);
 		next(error);
