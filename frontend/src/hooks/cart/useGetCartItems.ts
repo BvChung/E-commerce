@@ -5,6 +5,7 @@ import { CartStorageData, CartItemInfo } from "../../interfaces/cartInterface";
 import qs from "qs";
 
 export const useGetCartItems = (myCartItems: CartStorageData[]) => {
+	// console.log(myCartItems);
 	const productIds = myCartItems.map((item: CartStorageData) => item._id);
 
 	const getCartItems = async (): Promise<CartItemInfo[]> => {

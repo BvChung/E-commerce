@@ -8,11 +8,12 @@ import {
 	ProductInfo,
 	SortProducts,
 } from "../../../interfaces/productInterface";
+import Spinner from "../../loading/Spinner";
 import { toast } from "react-toastify";
 
 export default function ProductTable() {
 	const { user } = useAuthContext();
-	const { isLoading, isError, isSuccess, data: products } = useGetProducts();
+	const { isLoading, isSuccess, data: products } = useGetProducts();
 	const [deleteConfirmation, setDeleteConfirmation] = useState<boolean>(false);
 	const [itemId, setItemId] = useState<string>("");
 	const { mutate } = useDeleteProduct();
@@ -83,6 +84,7 @@ export default function ProductTable() {
 						_id={product._id}
 						category={product.category}
 						description={product.description}
+						color={product.color}
 						image={product.image}
 						imageCloudId={product.imageCloudId}
 						name={product.name}
@@ -105,7 +107,7 @@ export default function ProductTable() {
 	}
 
 	return (
-		<div className="flex flex-col items-center justify-center mb-10 mx-4 sm:mx-6 lg:mx-0">
+		<div className="flex flex-col items-center h-full mb-10 mx-4 sm:mx-6 lg:mx-0">
 			<div className="flex items-center gap-2 w-full mt-8 mb-8 pb-2 border-b-[1px] lg:max-w-5xl xl:max-w-6xl">
 				<Link to={"/admin"} className="mr-2 cursor-pointer">
 					<svg
@@ -156,145 +158,151 @@ export default function ProductTable() {
 				</div>
 			</div>
 
-			<div className="w-full lg:max-w-5xl xl:max-w-6xl border-[1px] rounded-lg mb-10 ">
-				<table className="table table-compact w-full">
-					<thead className="px-4">
-						<tr>
-							<th className="p-4 ">
-								<div className="flex items-center gap-2">
-									<span>Name</span>
-									<div
-										className="tooltip tooltip-bottom normal-case font-normal z-10"
-										data-tip={
-											sortTable.name.sortDescending
-												? "Sort ascending"
-												: "Sort descending"
-										}
-									>
-										<button
-											onClick={() => {
-												setSortTable((prev) => {
-													return {
-														...prev,
-														field: "name",
-														name: {
-															sortDescending: !prev.name.sortDescending,
-														},
-													};
-												});
-											}}
-											className="btn-ghost p-2 h-fit w-fit rounded-full active:bg-gray-400 dark:active:bg-gray-700"
+			{!isLoading ? (
+				<div className="w-full lg:max-w-5xl xl:max-w-6xl border-[1px] rounded-lg mb-10 ">
+					<table className="table table-compact w-full">
+						<thead className="px-4">
+							<tr>
+								<th className="p-4 ">
+									<div className="flex items-center gap-2">
+										<span>Name</span>
+										<div
+											className="tooltip tooltip-bottom normal-case font-normal z-10"
+											data-tip={
+												sortTable.name.sortDescending
+													? "Sort ascending"
+													: "Sort descending"
+											}
 										>
-											<svg
-												xmlns="http://www.w3.org/2000/svg"
-												fill="none"
-												viewBox="0 0 24 24"
-												strokeWidth={1.5}
-												stroke="currentColor"
-												className="w-5 h-5"
+											<button
+												onClick={() => {
+													setSortTable((prev) => {
+														return {
+															...prev,
+															field: "name",
+															name: {
+																sortDescending: !prev.name.sortDescending,
+															},
+														};
+													});
+												}}
+												className="btn-ghost p-2 h-fit w-fit rounded-full active:bg-gray-400 dark:active:bg-gray-700"
 											>
-												<path
-													strokeLinecap="round"
-													strokeLinejoin="round"
-													d="M3 7.5L7.5 3m0 0L12 7.5M7.5 3v13.5m13.5 0L16.5 21m0 0L12 16.5m4.5 4.5V7.5"
-												/>
-											</svg>
-										</button>
+												<svg
+													xmlns="http://www.w3.org/2000/svg"
+													fill="none"
+													viewBox="0 0 24 24"
+													strokeWidth={1.5}
+													stroke="currentColor"
+													className="w-5 h-5"
+												>
+													<path
+														strokeLinecap="round"
+														strokeLinejoin="round"
+														d="M3 7.5L7.5 3m0 0L12 7.5M7.5 3v13.5m13.5 0L16.5 21m0 0L12 16.5m4.5 4.5V7.5"
+													/>
+												</svg>
+											</button>
+										</div>
 									</div>
-								</div>
-							</th>
-							<th>
-								<div className="hidden md:flex items-center gap-2">
-									<p>Category</p>
-									<div
-										className="tooltip tooltip-bottom normal-case font-normal z-10"
-										data-tip={
-											sortTable.category.sortDescending
-												? "Sort ascending"
-												: "Sort descending"
-										}
-									>
-										<button
-											onClick={() => {
-												setSortTable((prev) => {
-													return {
-														...prev,
-														field: "category",
-														category: {
-															sortDescending: !prev.category.sortDescending,
-														},
-													};
-												});
-											}}
-											className="btn-ghost p-2 h-fit w-fit rounded-full active:bg-gray-400 dark:active:bg-gray-700"
+								</th>
+								<th>
+									<div className="hidden md:flex items-center gap-2">
+										<p>Category</p>
+										<div
+											className="tooltip tooltip-bottom normal-case font-normal z-10"
+											data-tip={
+												sortTable.category.sortDescending
+													? "Sort ascending"
+													: "Sort descending"
+											}
 										>
-											<svg
-												xmlns="http://www.w3.org/2000/svg"
-												fill="none"
-												viewBox="0 0 24 24"
-												strokeWidth={1.5}
-												stroke="currentColor"
-												className="w-5 h-5"
+											<button
+												onClick={() => {
+													setSortTable((prev) => {
+														return {
+															...prev,
+															field: "category",
+															category: {
+																sortDescending: !prev.category.sortDescending,
+															},
+														};
+													});
+												}}
+												className="btn-ghost p-2 h-fit w-fit rounded-full active:bg-gray-400 dark:active:bg-gray-700"
 											>
-												<path
-													strokeLinecap="round"
-													strokeLinejoin="round"
-													d="M3 7.5L7.5 3m0 0L12 7.5M7.5 3v13.5m13.5 0L16.5 21m0 0L12 16.5m4.5 4.5V7.5"
-												/>
-											</svg>
-										</button>
+												<svg
+													xmlns="http://www.w3.org/2000/svg"
+													fill="none"
+													viewBox="0 0 24 24"
+													strokeWidth={1.5}
+													stroke="currentColor"
+													className="w-5 h-5"
+												>
+													<path
+														strokeLinecap="round"
+														strokeLinejoin="round"
+														d="M3 7.5L7.5 3m0 0L12 7.5M7.5 3v13.5m13.5 0L16.5 21m0 0L12 16.5m4.5 4.5V7.5"
+													/>
+												</svg>
+											</button>
+										</div>
 									</div>
-								</div>
-							</th>
-							<th>
-								<div className="hidden md:flex items-center gap-2">
-									<p>Price</p>
-									<div
-										className="tooltip tooltip-bottom normal-case font-normal z-10"
-										data-tip={
-											sortTable.price.sortDescending
-												? "Sort ascending"
-												: "Sort descending"
-										}
-									>
-										<button
-											onClick={() => {
-												setSortTable((prev) => {
-													return {
-														...prev,
-														field: "price",
-														price: {
-															sortDescending: !prev.price.sortDescending,
-														},
-													};
-												});
-											}}
-											className="btn-ghost p-2 h-fit w-fit rounded-full active:bg-gray-400 dark:active:bg-gray-700"
+								</th>
+								<th>
+									<div className="hidden md:flex items-center gap-2">
+										<p>Price</p>
+										<div
+											className="tooltip tooltip-bottom normal-case font-normal z-10"
+											data-tip={
+												sortTable.price.sortDescending
+													? "Sort ascending"
+													: "Sort descending"
+											}
 										>
-											<svg
-												xmlns="http://www.w3.org/2000/svg"
-												fill="none"
-												viewBox="0 0 24 24"
-												strokeWidth={1.5}
-												stroke="currentColor"
-												className="w-5 h-5"
+											<button
+												onClick={() => {
+													setSortTable((prev) => {
+														return {
+															...prev,
+															field: "price",
+															price: {
+																sortDescending: !prev.price.sortDescending,
+															},
+														};
+													});
+												}}
+												className="btn-ghost p-2 h-fit w-fit rounded-full active:bg-gray-400 dark:active:bg-gray-700"
 											>
-												<path
-													strokeLinecap="round"
-													strokeLinejoin="round"
-													d="M3 7.5L7.5 3m0 0L12 7.5M7.5 3v13.5m13.5 0L16.5 21m0 0L12 16.5m4.5 4.5V7.5"
-												/>
-											</svg>
-										</button>
+												<svg
+													xmlns="http://www.w3.org/2000/svg"
+													fill="none"
+													viewBox="0 0 24 24"
+													strokeWidth={1.5}
+													stroke="currentColor"
+													className="w-5 h-5"
+												>
+													<path
+														strokeLinecap="round"
+														strokeLinejoin="round"
+														d="M3 7.5L7.5 3m0 0L12 7.5M7.5 3v13.5m13.5 0L16.5 21m0 0L12 16.5m4.5 4.5V7.5"
+													/>
+												</svg>
+											</button>
+										</div>
 									</div>
-								</div>
-							</th>
-							<th></th>
-						</tr>
-					</thead>
-					<tbody>{displayRows()}</tbody>
-				</table>
-			</div>
+								</th>
+								<th></th>
+							</tr>
+						</thead>
+						<tbody>{displayRows()}</tbody>
+					</table>
+				</div>
+			) : (
+				<div className="h-full">
+					<Spinner />
+				</div>
+			)}
 
 			<div className={`modal ${deleteConfirmation && "modal-open"} `}>
 				<div className="modal-box relative">

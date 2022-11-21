@@ -39,12 +39,12 @@ const productSchema = new Schema<Product>(
 		},
 		image: {
 			type: String,
-			required: [true, "Product image is required"],
+			required: [true, "Image is required"],
 			default: "",
 		},
 		imageCloudId: {
 			type: String,
-			required: [true, "Product image is required"],
+			required: [true, "Image cloud id is required"],
 			default: "",
 		},
 		createdBy: {

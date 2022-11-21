@@ -2,17 +2,19 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { CartItemInfo } from "../../interfaces/cartInterface";
 import { useCartContext } from "../../hooks/context/useCartContext";
+import { cldConfig } from "../../config/cloudinaryConfig";
+import { AdvancedImage, lazyload } from "@cloudinary/react";
 
-export default function CartItem({
-	_id,
-	name,
-
-	image,
-}: CartItemInfo) {
+export default function CartItem({ _id, name, imageCloudId }: CartItemInfo) {
 	const { updateCartQuantity, removeCartItem, findCartItem } = useCartContext();
 	const foundItem = findCartItem(_id);
 
 	const [itemQuantity, setItemQuantity] = useState(foundItem?.quantity);
+
+	const productImg = cldConfig
+		.image(imageCloudId)
+		.format("auto")
+		.quality("auto");
 
 	useEffect(() => {
 		updateCartQuantity({ _id, quantity: itemQuantity! });
@@ -21,13 +23,22 @@ export default function CartItem({
 	return (
 		<div className="flex items-center w-full h-44 border-b border-gray-300 last:border-b-0">
 			<Link to={`/products/${_id}`}>
-				<figure>
+				{/* <figure>
 					<img
 						src={image}
 						alt="Product"
 						className="rounded-md h-32 w-32 object-cover"
 					></img>
-				</figure>
+				</figure> */}
+
+				<AdvancedImage
+					cldImg={productImg}
+					plugins={[
+						lazyload({ rootMargin: "10px 20px 10px 30px", threshold: 0.25 }),
+					]}
+					className="rounded-md h-32 w-32 object-cover"
+					alt="Product"
+				/>
 			</Link>
 
 			<div className="flex flex-col flex-1 justify-center h-full px-2 md:px-6 py-4">

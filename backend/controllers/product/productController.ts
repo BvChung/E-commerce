@@ -145,6 +145,7 @@ export const createProduct = async (
 			category,
 			image: uploadedImage.secure_url,
 			imageCloudId: uploadedImage.public_id,
+			createdBy: req.user.id,
 		});
 
 		res.status(200).json(createdProduct);
@@ -163,7 +164,9 @@ export const updateProduct = async (
 		const { name, description, color, price, category, image, fileName } =
 			req.body;
 
-		const foundProduct = await ProductModel.findById(req.params.id);
+		const { id: productId } = req.params;
+
+		const foundProduct = await ProductModel.findById(productId);
 		if (!foundProduct) throw new Error("Product not found.");
 
 		let uploadedImage;
@@ -185,7 +188,7 @@ export const updateProduct = async (
 		}
 
 		const updatedProduct = await ProductModel.findByIdAndUpdate(
-			req.params.id,
+			productId,
 			{
 				name,
 				description,
@@ -194,8 +197,32 @@ export const updateProduct = async (
 				category,
 				image: uploadedImage ? uploadedImage.secure_url : foundProduct.image,
 				imageCloudId: uploadedImage
-					? uploadedImage.secure_url
+					? uploadedImage.public_id
 					: foundProduct.imageCloudId,
+			},
+			{
+				new: true,
+			}
+		);
+
+		await OrderModel.updateMany(
+			{
+				"purchasedItems._id": productId,
+			},
+			{
+				$set: {
+					"purchasedItems.$.name": name,
+					"purchasedItems.$.description": description,
+					"purchasedItems.$.color": color,
+					"purchasedItems.$.price": price,
+					"purchasedItems.$.category": category,
+					"purchasedItems.$.image": uploadedImage
+						? uploadedImage.secure_url
+						: foundProduct.image,
+					"purchasedItems.$.imageCloudId": uploadedImage
+						? uploadedImage.public_id
+						: foundProduct.imageCloudId,
+				},
 			},
 			{
 				new: true,
@@ -218,14 +245,32 @@ export const deleteProduct = async (
 		const { id: productId } = req.params;
 		const deletedProduct = await ProductModel.findByIdAndDelete(productId);
 
-		// Finds all orders and $pull removes deleted product from purchasedItems array
+		// Finds all orders with the product and $pull removes deleted product from purchasedItems array
+		// await OrderModel.updateMany(
+		// 	{
+		// 		purchasedItems: {
+		// 			$elemMatch: { _id: productId },
+		// 		},
+		// 	},
+		// 	{
+		// 		$pull: {
+		// 			purchasedItems: {
+		// 				_id: productId,
+		// 			},
+		// 		},
+		// 	},
+		// 	{
+		// 		new: true,
+		// 	}
+		// );
+
 		await OrderModel.updateMany(
-			{},
+			{
+				"purchasedItems._id": productId,
+			},
 			{
 				$pull: {
-					purchasedItems: {
-						_id: productId,
-					},
+					"purchasedItems.$._id": productId,
 				},
 			},
 			{

@@ -35,6 +35,8 @@ export const CartProvider = ({ children }: AuthProviderProps) => {
 	const [cartItemsInfo, setCartItemsInfo] = useState<CartCheckoutInfo>({
 		subTotal: 0,
 		numItems: 0,
+		tax: 0,
+		grandTotal: 0,
 	});
 
 	function findCartItem(_id: string | undefined) {
@@ -141,6 +143,7 @@ export const CartProvider = ({ children }: AuthProviderProps) => {
 	}
 
 	useEffect(() => {
+		// Sort products by id
 		setMyCart((prev) =>
 			prev.sort((a, b) => {
 				if (a._id < b._id) {
@@ -152,14 +155,24 @@ export const CartProvider = ({ children }: AuthProviderProps) => {
 				return 0;
 			})
 		);
+
 		localStorage.setItem("cart", JSON.stringify(myCart));
+
+		// Update subtotal, number of items, tax, grandTotal
 		setCartItemsInfo(() => {
+			const subTotal = parseFloat(
+				myCart
+					.reduce((prev, curr) => prev + curr.price * curr.quantity, 0)
+					.toFixed(2)
+			);
+			const tax = parseFloat((subTotal * 0.0625).toFixed(2));
+			const grandTotal = parseFloat((subTotal + tax).toFixed(2));
+
 			return {
-				subTotal: myCart.reduce(
-					(prev, curr) => prev + curr.price * curr.quantity,
-					0
-				),
+				subTotal,
 				numItems: myCart.reduce((prev, curr) => prev + curr.quantity, 0),
+				tax,
+				grandTotal,
 			};
 		});
 	}, [myCart]);
@@ -187,38 +200,3 @@ export const CartProvider = ({ children }: AuthProviderProps) => {
 };
 
 export default CartContext;
-
-// function updateCartItem(updatedItem: CartStorageData, itemProperty: string) {
-// 		switch (itemProperty) {
-// 			case "quantity":
-// 				setMyCart((prev) => {
-// 					return prev.map((item) => {
-// 						if (item._id === updatedItem._id) {
-// 							return {
-// 								...item,
-// 								quantity: updatedItem.quantity,
-// 							};
-// 						} else {
-// 							return { ...item };
-// 						}
-// 					});
-// 				});
-// 				break;
-// 			case "price":
-// 				setMyCart((prev) => {
-// 					return prev.map((item) => {
-// 						if (item._id === updatedItem._id) {
-// 							return {
-// 								...item,
-// 								price: updatedItem.price,
-// 							};
-// 						} else {
-// 							return { ...item };
-// 						}
-// 					});
-// 				});
-// 				break;
-// 			default:
-// 				break;
-// 		}
-// 	}

@@ -12,11 +12,25 @@ export default function Cart() {
 	const { myCart, cartItemsInfo } = useCartContext();
 	const { setMyOrder } = useOrderContext();
 	const navigate = useNavigate();
-	const {
-		data: displayCartItems,
-		isSuccess,
-		isLoading,
-	} = useGetCartItems(myCart);
+	const { data: cartItems, isSuccess, isLoading } = useGetCartItems(myCart);
+
+	const displayCart =
+		isSuccess &&
+		cartItems.map((item: CartItemInfo) => {
+			return (
+				<CartItem
+					key={item._id}
+					_id={item._id}
+					name={item.name}
+					category={item.category}
+					description={item.description}
+					color={item.color}
+					image={item.image}
+					imageCloudId={item.imageCloudId}
+					price={item.price}
+				/>
+			);
+		});
 
 	const guestAccountActive =
 		user.firstName === process.env.REACT_APP_GUEST_CARDFIRSTNAME &&
@@ -57,9 +71,9 @@ export default function Cart() {
 
 			<div className="flex flex-col-reverse md:flex-row justify-center h-max w-full gap-4 lg:max-w-5xl xl:max-w-6xl">
 				<div className="border-[1px] py-2 px-6 h-max rounded-lg shadow-sm transition-all fade w-full md:w-2/3">
-					{displayCartItems?.length === 0 && (
-						<div className="flex flex-col items-center justify-center gap-6 h-[262px]">
-							<div className="flex items-center gap-2 text-2xl font-semibold">
+					{cartItems?.length === 0 && (
+						<div className="flex flex-col items-center justify-center gap-8 h-[262px]">
+							<div className="flex items-center justify-center gap-3">
 								<svg
 									xmlns="http://www.w3.org/2000/svg"
 									viewBox="0 0 24 24"
@@ -69,33 +83,25 @@ export default function Cart() {
 									<path d="M2.25 2.25a.75.75 0 000 1.5h1.386c.17 0 .318.114.362.278l2.558 9.592a3.752 3.752 0 00-2.806 3.63c0 .414.336.75.75.75h15.75a.75.75 0 000-1.5H5.378A2.25 2.25 0 017.5 15h11.218a.75.75 0 00.674-.421 60.358 60.358 0 002.96-7.228.75.75 0 00-.525-.965A60.864 60.864 0 005.68 4.509l-.232-.867A1.875 1.875 0 003.636 2.25H2.25zM3.75 20.25a1.5 1.5 0 113 0 1.5 1.5 0 01-3 0zM16.5 20.25a1.5 1.5 0 113 0 1.5 1.5 0 01-3 0z" />
 								</svg>
 
-								<span>Your cart is empty</span>
+								<span className="text-gray-800 text-2xl font-semibold">
+									Your cart is empty
+								</span>
 							</div>
 							<Link
 								to={"/products"}
-								className="btn btn-secondary w-64 rounded-full"
+								className="btn btn-secondary h-11 px-10 rounded-full"
 							>
 								Browse our products
 							</Link>
 						</div>
 					)}
-					{isSuccess ? (
-						displayCartItems.map((item: CartItemInfo) => {
-							return (
-								<CartItem
-									key={item._id}
-									_id={item._id}
-									name={item.name}
-									category={item.category}
-									description={item.description}
-									image={item.image}
-									imageCloudId={item.imageCloudId}
-									price={item.price}
-								/>
-							);
-						})
+
+					{!isLoading ? (
+						displayCart
 					) : (
-						<Spinner mt={6} />
+						<div className="h-[262px]">
+							<Spinner />
+						</div>
 					)}
 				</div>
 
@@ -107,7 +113,9 @@ export default function Cart() {
 								({cartItemsInfo.numItems} items)
 							</span>
 						</div>
-						<div className="font-semibold">${cartItemsInfo.subTotal}</div>
+						<div className="font-semibold">
+							${cartItemsInfo.subTotal.toFixed(2)}
+						</div>
 					</div>
 
 					<div className="w-full flex items-center justify-between mb-4">
@@ -122,7 +130,9 @@ export default function Cart() {
 
 					<div className="w-full flex items-center justify-between mb-2">
 						<div className="font-semibold">Estimated Total</div>
-						<div className="font-bold">${cartItemsInfo.subTotal}</div>
+						<div className="font-bold">
+							${cartItemsInfo.subTotal.toFixed(2)}
+						</div>
 					</div>
 
 					<div className="w-full flex items-center justify-between mb-6">
@@ -131,7 +141,7 @@ export default function Cart() {
 						</span>
 					</div>
 
-					<div className="w-full mb-4">
+					<div className="w-full">
 						<Link
 							className={`btn h-11 ${
 								cartItemsInfo.numItems === 0 ? "btn-disabled" : "btn-info"
@@ -143,7 +153,7 @@ export default function Cart() {
 					</div>
 
 					{guestAccountActive && (
-						<div className="w-full border-t-[1px]">
+						<div className="w-full border-t-[1px] mt-4">
 							<button
 								className={`btn h-11 ${
 									cartItemsInfo.numItems === 0
