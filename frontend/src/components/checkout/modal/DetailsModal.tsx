@@ -1,6 +1,11 @@
 import { CartCheckoutInfo } from "../../../interfaces/cartInterface";
 
-export default function DetailsModal({ numItems, subTotal }: CartCheckoutInfo) {
+export default function DetailsModal({
+	numItems,
+	subTotal,
+	grandTotal,
+	tax,
+}: CartCheckoutInfo) {
 	return (
 		<div className="md:hidden w-full">
 			<div className="rounded-lg shadow-sm h-fit w-full md:w-1/3 lg:max-w-[350px] border-[1px] py-6 px-4 flex flex-col items-center mb-6 md:mb-0">
@@ -55,7 +60,7 @@ export default function DetailsModal({ numItems, subTotal }: CartCheckoutInfo) {
 									({numItems} items)
 								</span>
 							</div>
-							<div className="font-semibold">${subTotal}</div>
+							<div className="font-semibold">${subTotal.toFixed(2)}</div>
 						</div>
 
 						<div className="w-full flex items-center justify-between mb-4">
@@ -65,16 +70,12 @@ export default function DetailsModal({ numItems, subTotal }: CartCheckoutInfo) {
 
 						<div className="w-full flex items-center justify-between border-b-[1px] pb-2 mb-4">
 							<span className="font-medium text-sm">Taxes</span>
-							<span className="font-semibold">
-								${(subTotal * 0.0625).toFixed(2)}
-							</span>
+							<span className="font-semibold">${tax.toFixed(2)}</span>
 						</div>
 
 						<div className="w-full flex items-center justify-between">
 							<div className="font-semibold ">Estimated total</div>
-							<div className="font-semibold">
-								${(subTotal + subTotal * 0.0625).toFixed(2)}
-							</div>
+							<div className="font-semibold">${grandTotal.toFixed(2)}</div>
 						</div>
 					</div>
 				</label>

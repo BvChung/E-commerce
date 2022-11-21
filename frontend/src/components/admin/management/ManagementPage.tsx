@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useGetAccounts } from "../../../hooks/admin/useGetAccounts";
 import AccountRow from "./ManagementRow";
@@ -6,23 +6,39 @@ import { accessRoles } from "../../../helper/accessRoles";
 import { CurrentInfo } from "../../../interfaces/adminInterface";
 import { useUpdateRole } from "../../../hooks/admin/useUpdateRole";
 import { useDeleteAccount } from "../../../hooks/admin/useDeleteAccount";
+import Spinner from "../../loading/Spinner";
 
 export default function ManagementPage() {
 	const [deleteConfirmation, setDeleteConfirmation] = useState<boolean>(false);
 	const [editingAccount, setEditingAccount] = useState<boolean>(false);
-	const [accessRole, setAccessRole] = useState<string>("");
 	const [currentAccount, setCurrentAccount] = useState<CurrentInfo>({
 		_id: "",
 		role: 0,
 	});
-	const { data: accounts, isSuccess } = useGetAccounts();
-	// console.log(currentAccount);
+	const { data: accounts, isSuccess, isLoading } = useGetAccounts();
 	const { mutate: updateAccount } = useUpdateRole();
 	const { mutate: deleteAccount } = useDeleteAccount();
-	// console.log(accounts);
+
+	const displayAccounts =
+		isSuccess &&
+		accounts.map((account) => {
+			return (
+				<AccountRow
+					key={account._id}
+					_id={account._id}
+					firstName={account.firstName}
+					lastName={account.lastName}
+					email={account.email}
+					role={account.role}
+					setCurrentAccount={setCurrentAccount}
+					setEditingAccount={setEditingAccount}
+					setDeleteConfirmation={setDeleteConfirmation}
+				/>
+			);
+		});
 
 	return (
-		<div className="flex flex-col items-center justify-center mb-10 mx-4 ">
+		<div className="flex flex-col items-center h-full mb-10 mx-4 ">
 			<div className="flex items-center gap-2 w-full mt-8 mb-8 pb-2 border-b-[1px] border-gray-200 lg:max-w-5xl xl:max-w-6xl">
 				<Link to={"/admin"} className="mr-2 cursor-pointer">
 					<svg
@@ -43,35 +59,24 @@ export default function ManagementPage() {
 				<span className="font-medium text-xl sm:text-2xl">Manage</span>
 			</div>
 
-			<div className="w-full lg:max-w-5xl xl:max-w-6xl border-[1px] rounded-lg mb-10 ">
-				<table className="table table-compact w-full">
-					<thead>
-						<tr>
-							<th className="px-6 py-4">Name</th>
-							<th className="px-6 py-4">Role</th>
-							<th></th>
-						</tr>
-					</thead>
-					<tbody>
-						{isSuccess &&
-							accounts.map((account) => {
-								return (
-									<AccountRow
-										key={account._id}
-										_id={account._id}
-										firstName={account.firstName}
-										lastName={account.lastName}
-										email={account.email}
-										role={account.role}
-										setCurrentAccount={setCurrentAccount}
-										setEditingAccount={setEditingAccount}
-										setDeleteConfirmation={setDeleteConfirmation}
-									/>
-								);
-							})}
-					</tbody>
-				</table>
-			</div>
+			{!isLoading ? (
+				<div className="w-full lg:max-w-5xl xl:max-w-6xl border-[1px] rounded-lg mb-10 ">
+					<table className="table table-compact w-full">
+						<thead>
+							<tr>
+								<th className="px-6 py-4">Name</th>
+								<th className="px-6 py-4">Role</th>
+								<th></th>
+							</tr>
+						</thead>
+						<tbody>{displayAccounts}</tbody>
+					</table>
+				</div>
+			) : (
+				<div className="h-full">
+					<Spinner />
+				</div>
+			)}
 
 			<div className={`modal ${editingAccount && "modal-open"} `}>
 				<div className="modal-box relative">

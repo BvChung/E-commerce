@@ -7,7 +7,6 @@ export default function ManagementRow({
 	_id,
 	firstName,
 	lastName,
-	email,
 	role,
 	setEditingAccount,
 	setDeleteConfirmation,
@@ -23,6 +22,7 @@ export default function ManagementRow({
 								src={DefaultAvatar}
 								alt="Product"
 								className="rounded-full h-12 w-12 object-cover"
+								loading="lazy"
 							/>
 						</figure>
 

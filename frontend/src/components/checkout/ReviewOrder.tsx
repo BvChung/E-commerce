@@ -15,12 +15,10 @@ export default function ReviewOrder() {
 	const navigate = useNavigate();
 	const { data: displayCartItems } = useGetCartItems(myCart);
 
-	const taxAmount = (cartItemsInfo.subTotal * 0.0625).toFixed(2);
-	const grandTotal = (cartItemsInfo.subTotal + +taxAmount).toFixed(2);
-
 	const orderDetails = displayCartItems && {
 		accountId: user._id,
 		...myOrder,
+		// Pair quantity in cart with item
 		purchasedItems: displayCartItems!
 			.sort((a, b) => {
 				if (a._id < b._id) {
@@ -44,7 +42,7 @@ export default function ReviewOrder() {
 			}),
 		paymentInfo: {
 			...myOrder.paymentInfo,
-			subTotal: +grandTotal,
+			subTotal: +cartItemsInfo.grandTotal,
 		},
 	};
 
@@ -381,7 +379,9 @@ export default function ReviewOrder() {
 									({cartItemsInfo.numItems} items)
 								</span>
 							</div>
-							<div className="font-semibold">${cartItemsInfo.subTotal}</div>
+							<div className="font-semibold">
+								${cartItemsInfo.subTotal.toFixed(2)}
+							</div>
 						</div>
 
 						<div className="w-full flex items-center justify-between mb-4">
@@ -391,12 +391,16 @@ export default function ReviewOrder() {
 
 						<div className="w-full flex items-center justify-between border-b-[1px] border-gray-400 pb-2 mb-4">
 							<span className="font-medium text-sm">Taxes</span>
-							<span className="font-semibold">${taxAmount}</span>
+							<span className="font-semibold">
+								${cartItemsInfo.tax.toFixed(2)}
+							</span>
 						</div>
 
 						<div className="w-full flex items-center justify-between mb-6">
 							<div className="font-semibold">Grand Total</div>
-							<div className="font-bold">${grandTotal}</div>
+							<div className="font-bold">
+								${cartItemsInfo.grandTotal.toFixed(2)}
+							</div>
 						</div>
 
 						<button

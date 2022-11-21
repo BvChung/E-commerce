@@ -304,7 +304,9 @@ export default function Payment() {
 								({cartItemsInfo.numItems} items)
 							</span>
 						</div>
-						<div className="font-semibold">${cartItemsInfo.subTotal}</div>
+						<div className="font-semibold">
+							${cartItemsInfo.subTotal.toFixed(2)}
+						</div>
 					</div>
 
 					<div className="w-full flex items-center justify-between mb-4">
@@ -315,18 +317,14 @@ export default function Payment() {
 					<div className="w-full flex items-center justify-between border-b-[1px] border-gray-400 pb-2 mb-4">
 						<span className="font-medium text-sm">Taxes</span>
 						<span className="font-semibold">
-							${(cartItemsInfo.subTotal * 0.0625).toFixed(2)}
+							${cartItemsInfo.tax.toFixed(2)}
 						</span>
 					</div>
 
 					<div className="w-full flex items-center justify-between">
 						<div className="font-semibold ">Estimated total</div>
 						<div className="font-semibold">
-							$
-							{(
-								cartItemsInfo.subTotal +
-								cartItemsInfo.subTotal * 0.0625
-							).toFixed(2)}
+							${cartItemsInfo.grandTotal.toFixed(2)}
 						</div>
 					</div>
 				</div>
@@ -334,6 +332,8 @@ export default function Payment() {
 				<DetailsModal
 					numItems={cartItemsInfo.numItems}
 					subTotal={cartItemsInfo.subTotal}
+					tax={cartItemsInfo.tax}
+					grandTotal={cartItemsInfo.grandTotal}
 				/>
 			</form>
 		</div>

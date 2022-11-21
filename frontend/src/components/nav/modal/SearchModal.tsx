@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
 import { useSearchProducts } from "../../../hooks/products/useSearchProducts";
 import SearchedProducts from "./SearchedProducts";
 
@@ -11,6 +10,7 @@ export default function SearchModal() {
 		isSuccess,
 		remove,
 	} = useSearchProducts();
+
 	return (
 		<>
 			<div
@@ -103,19 +103,6 @@ export default function SearchModal() {
 								searchText.length < 0 && "border-[1px] rounded-lg"
 							}`}
 						>
-							{searchedProducts?.length === 0 && (
-								<div className="flex flex-col items-center justify-center gap-6 h-[262px]">
-									<div className="text-2xl font-semibold">
-										Your cart is empty
-									</div>
-									<Link
-										to={"/products"}
-										className="btn btn-primary rounded-full"
-									>
-										Browse our products
-									</Link>
-								</div>
-							)}
 							{isSuccess &&
 								searchedProducts
 									.filter((product) => {
@@ -132,6 +119,7 @@ export default function SearchModal() {
 												_id={product._id}
 												category={product.category}
 												description={product.description}
+												color={product.color}
 												image={product.image}
 												imageCloudId={product.imageCloudId}
 												name={product.name}

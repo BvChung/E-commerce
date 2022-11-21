@@ -69,7 +69,7 @@ export default function CheckoutNav() {
 						</label>
 						<label
 							htmlFor="return-modal"
-							className="btn btn-secondary md:hidden px-8 rounded-full normal-case"
+							className="btn btn-secondary md:hidden px-8 h-11 sm:px-0 md:px-8 rounded-full normal-case"
 						>
 							Continue
 						</label>
