@@ -1,7 +1,10 @@
 import { useState, useEffect, useRef, useId } from "react";
 import { Link } from "react-router-dom";
-import { carouselData, CarouselData } from "../../../helper/displayImages";
+import { CarouselData } from "../../../helper/displayImages";
 import Indicator from "./Indicator";
+import { cldConfig } from "../../../config/cloudinaryConfig";
+import { AdvancedImage, lazyload } from "@cloudinary/react";
+import { fill, crop, scale, fit } from "@cloudinary/url-gen/actions/resize";
 
 export default function Carou({ slides }: CarouselData) {
 	const [currentIndex, setCurrentIndex] = useState<number>(0);
@@ -50,13 +53,26 @@ export default function Carou({ slides }: CarouselData) {
 									className="relative w-full
                              h-[34rem]"
 								>
-									<img
+									{/* <img
 										src={img}
 										alt="Carousel"
 										className="absolute block w-full object-cover h-[34rem] ease-out duration-1000"
 										style={{ transform: `translateX(${-currentIndex * 100}%)` }}
-										loading="eager"
-									></img>
+										loading="lazy"
+									/> */}
+
+									<AdvancedImage
+										cldImg={img}
+										plugins={[
+											lazyload({
+												rootMargin: "10px 20px 10px 30px",
+												threshold: 0.25,
+											}),
+										]}
+										className="absolute block w-full object-cover h-[34rem] ease-out duration-1000"
+										style={{ transform: `translateX(${-currentIndex * 100}%)` }}
+										alt="Carousel"
+									/>
 								</div>
 							</div>
 						);

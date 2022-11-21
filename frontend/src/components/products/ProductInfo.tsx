@@ -2,6 +2,8 @@ import { useParams } from "react-router-dom";
 import { useGetProductInfo } from "../../hooks/products/useGetProductInfo";
 import { useCartContext } from "../../hooks/context/useCartContext";
 import { toast } from "react-toastify";
+import { cldConfig } from "../../config/cloudinaryConfig";
+import { AdvancedImage, lazyload } from "@cloudinary/react";
 
 export default function ProductInfo() {
 	const params = useParams();
@@ -11,9 +13,7 @@ export default function ProductInfo() {
 		incrementCartQuantity,
 		decrementCartQuantity,
 	} = useCartContext();
-
 	const { isSuccess, data: productInfo } = useGetProductInfo(params.id);
-
 	const foundItem = findCartItem(productInfo?._id);
 
 	return (
@@ -22,11 +22,26 @@ export default function ProductInfo() {
 				<div className="flex flex-col items-center justify-center w-full lg:max-w-5xl xl:max-w-6xl">
 					<div className="flex flex-col-reverse md:flex-row w-full gap-8 md:gap-20 md:justify-between mb-8 md:mb-10">
 						<div className="flex justify-center">
-							<img
+							{/* <img
 								className="h-[300px] w-full sm:w-[500px] md:w-[700px] md:h-[500px] xl:w-[800px] object-fill "
 								src={productInfo.image}
 								alt="Product"
-							></img>
+							></img> */}
+
+							<AdvancedImage
+								cldImg={cldConfig
+									.image(productInfo.imageCloudId)
+									.format("auto")
+									.quality("auto")}
+								plugins={[
+									lazyload({
+										rootMargin: "10px 20px 10px 30px",
+										threshold: 0.25,
+									}),
+								]}
+								className="h-[300px] w-full sm:w-[500px] md:w-[700px] md:h-[500px] xl:w-[800px] object-fill"
+								alt="Product"
+							/>
 						</div>
 						<div className="flex flex-col w-full md:w-80 h-fit p-4 border-[1px] rounded-lg shadow-sm">
 							<p className="font-semibold text-xl text-gray-800 mb-4">

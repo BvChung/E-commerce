@@ -1,16 +1,23 @@
 import { Link } from "react-router-dom";
 import { OrderPurchasedItems } from "../../interfaces/orderInterface";
 import { useCartContext } from "../../hooks/context/useCartContext";
+import { cldConfig } from "../../config/cloudinaryConfig";
+import { AdvancedImage, lazyload } from "@cloudinary/react";
 import { toast } from "react-toastify";
 
 export default function OrderedItems({
 	_id,
-	image,
+	imageCloudId,
 	name,
 	quantity,
 	price,
 }: OrderPurchasedItems) {
 	const { addCartItem, findCartItem } = useCartContext();
+
+	const productImg = cldConfig
+		.image(imageCloudId)
+		.format("auto")
+		.quality("auto");
 
 	return (
 		<div
@@ -18,13 +25,20 @@ export default function OrderedItems({
 			className="flex py-6 border-b border-gray-300 last:border-b-0 last:mb-0"
 		>
 			<Link to={`/products/${_id}`}>
-				<figure>
-					<img
+				{/* <img
 						src={image}
 						alt="product"
 						className="rounded-md h-32 w-32 object-cover"
-					></img>
-				</figure>
+					></img> */}
+
+				<AdvancedImage
+					cldImg={productImg}
+					plugins={[
+						lazyload({ rootMargin: "10px 20px 10px 30px", threshold: 0.25 }),
+					]}
+					className="rounded-md h-32 w-32 object-cover"
+					alt="Product"
+				/>
 			</Link>
 
 			<div className="flex flex-col flex-1 pl-4 md:px-6">

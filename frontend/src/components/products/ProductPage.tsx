@@ -1,8 +1,8 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useQueryProducts } from "../../hooks/products/useQueryProducts";
 import { ProductInfo } from "../../interfaces/productInterface";
-import ProductDisplay from "./ProductDisplay";
+import DisplayItem from "./DisplayItem";
 import FiltersModal from "./modal/FiltersModal";
 import { useSearchParams } from "react-router-dom";
 import Spinner from "../loading/Spinner";
@@ -14,8 +14,6 @@ interface FilterProducts {
 }
 
 export default function ProductPage() {
-	const ref = useRef<HTMLInputElement>(null);
-
 	const navigate = useNavigate();
 	let [searchParams, setSearchParams] = useSearchParams();
 	const [filter, setFilter] = useState<FilterProducts>({
@@ -76,7 +74,7 @@ export default function ProductPage() {
 			<div className="grid gap-10 w-full products justify-center mt-6">
 				{products.map((product: ProductInfo) => {
 					return (
-						<ProductDisplay
+						<DisplayItem
 							key={product._id}
 							_id={product._id}
 							name={product.name}
@@ -92,18 +90,18 @@ export default function ProductPage() {
 			</div>
 		) : (
 			isSuccess && (
-				<div className="flex flex-col items-center justify-center w-full lg:min-w-[1040px]">
+				<div className="flex flex-col items-center justify-center w-full lg:min-w-[1040px] mb-9">
 					<h1 className="font-bold text-gray-800 text-3xl mb-6">
 						We couldn't find a match
 					</h1>
-					<p className="text-base mb-8">
+					<p className="text-base mb-6">
 						Let's reset your filters and try again
 					</p>
 					<button
 						onClick={() => {
 							navigate(0);
 						}}
-						className="btn h-11 rounded-full"
+						className="btn btn-secondary h-11 rounded-full"
 					>
 						Clear filters
 					</button>
@@ -113,21 +111,21 @@ export default function ProductPage() {
 
 	return (
 		<>
-			{!isLoading ? (
-				<div className="flex justify-center my-8 w-full h-full">
-					<div className="flex flex-col justify-center w-full h-full lg:max-w-6xl xl:max-w-7xl mx-4 sm:mx-6 lg:mx-0">
-						<div className="flex gap-2 justify-start w-full lg:max-w-3xl xl:max-w-4xl">
-							<FiltersModal handleChange={handleChange} setFilter={setFilter} />
-						</div>
+			<div className="flex justify-center my-8 w-full h-full">
+				<div className="flex flex-col justify-center w-full h-full lg:max-w-6xl xl:max-w-7xl mx-4 sm:mx-6 lg:mx-0">
+					<div className="flex gap-2 justify-start w-full lg:max-w-3xl xl:max-w-4xl">
+						<FiltersModal handleChange={handleChange} setFilter={setFilter} />
+					</div>
 
+					{!isLoading ? (
 						<div className="flex justify-center w-full h-full">
 							{displayProducts}
 						</div>
-					</div>
+					) : (
+						<Spinner />
+					)}
 				</div>
-			) : (
-				<Spinner />
-			)}
+			</div>
 		</>
 	);
 }

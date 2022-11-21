@@ -1,22 +1,19 @@
-//@ts-ignore
-import Desk from "../assets/desk.jpg";
-//@ts-ignore
-import Sofa from "../assets/sofa.jpg";
-//@ts-ignore
-import Chair from "../assets/chair.jpg";
-//@ts-ignore
-import Drawer from "../assets/drawer.jpg";
-//@ts-ignore
-import Shelf from "../assets/shelf.jpg";
-//@ts-ignore
-import Table from "../assets/table.jpg";
+import { cldConfig } from "../config/cloudinaryConfig";
+import { CloudinaryImage } from "@cloudinary/url-gen";
 
 export interface CarouselData {
-	slides: string[];
+	slides: CloudinaryImage[];
+	// slides: string[];
 }
 
+const sofaImg = cldConfig
+	.image("Commerce_Products/sven-brandsma-GZ5cKOgeIB0-unsplash_naus7q.jpg")
+	.format("auto")
+	.quality("auto");
+
 export const carouselData: CarouselData = {
-	slides: [Sofa, Desk, Table, Chair, Drawer],
+	slides: [sofaImg, sofaImg, sofaImg, sofaImg, sofaImg],
+	// slides: [Sofa, Desk, Table, Chair, Drawer],
 };
 
-export const categoryData = [Sofa, Table, Desk, Chair, Drawer, Shelf];
+export const categoryData = [];
