@@ -1,3 +1,4 @@
+import { lazy, Suspense } from "react";
 import "./App.css";
 import {
 	createBrowserRouter,
@@ -6,34 +7,45 @@ import {
 	Outlet,
 	createRoutesFromElements,
 } from "react-router-dom";
-import SignIn from "./components/user/SignIn";
-import Register from "./components/user/Register";
-import AccountPage from "./components/account/AccountPage";
-import Admin from "./components/admin/Admin";
-import AdminSignIn from "./components/admin/AdminSignIn";
 import Layout from "./components/layout/Layout";
 import LandingPage from "./components/landingPage/LandingPage";
 import ProductPage from "./components/products/ProductPage";
-import InventoryPage from "./components/admin/inventory/InventoryPage";
-import ProductInfo from "./components/products/ProductInfo";
-import CreateProduct from "./components/admin/create/CreateProduct";
-import UpdateProduct from "./components/admin/inventory/UpdateProduct";
-import ManagementPage from "./components/admin/management/ManagementPage";
-import Payment from "./components/checkout/Payment";
-import Shipping from "./components/checkout/Shipping";
-import ReviewOrder from "./components/checkout/ReviewOrder";
 import OrderPage from "./components/orders/OrderPage";
-import OrderInfo from "./components/orders/OrderInfo";
 import Cart from "./components/cart/Cart";
-import EditName from "./components/account/EditName";
-import EditEmail from "./components/account/EditEmail";
-import EditPassword from "./components/account/EditPassword";
+import Admin from "./components/admin/Admin";
+import PersistLogin from "./components/protected/PersistLogin";
 import RequireAuth from "./components/protected/RequireAuth";
 import AdminAuth from "./components/protected/AdminAuth";
-import Unauthorized from "./components/protected/Unauthorized";
 import { accessRoles } from "./helper/accessRoles";
-import PersistLogin from "./components/protected/PersistLogin";
 import "react-toastify/dist/ReactToastify.css";
+
+// import ProductInfo from "./components/products/ProductInfo";
+// const OrderPage = lazy(() => import("./components/orders/OrderPage"));
+const ProductInfo = lazy(() => import("./components/products/ProductInfo"));
+const OrderInfo = lazy(() => import("./components/orders/OrderInfo"));
+const Payment = lazy(() => import("./components/checkout/Payment"));
+const Shipping = lazy(() => import("./components/checkout/Shipping"));
+const ReviewOrder = lazy(() => import("./components/checkout/ReviewOrder"));
+const SignIn = lazy(() => import("./components/user/SignIn"));
+const Register = lazy(() => import("./components/user/Register"));
+const AccountPage = lazy(() => import("./components/checkout/Shipping"));
+const EditName = lazy(() => import("./components/account/EditName"));
+const EditEmail = lazy(() => import("./components/account/EditEmail"));
+const EditPassword = lazy(() => import("./components/account/EditPassword"));
+const AdminSignIn = lazy(() => import("./components/admin/AdminSignIn"));
+const ManagementPage = lazy(
+	() => import("./components/admin/management/ManagementPage")
+);
+const InventoryPage = lazy(
+	() => import("./components/admin/inventory/InventoryPage")
+);
+const CreateProduct = lazy(
+	() => import("./components/admin/create/CreateProduct")
+);
+const UpdateProduct = lazy(
+	() => import("./components/admin/inventory/UpdateProduct")
+);
+const Unauthorized = lazy(() => import("./components/protected/Unauthorized"));
 
 const appRouter = createBrowserRouter(
 	createRoutesFromElements(
@@ -97,6 +109,8 @@ const appRouter = createBrowserRouter(
 
 export default function App() {
 	return (
-		<RouterProvider router={appRouter} fallbackElement={<p>Loading...</p>} />
+		<Suspense fallback={<div>Loading...</div>}>
+			<RouterProvider router={appRouter} />
+		</Suspense>
 	);
 }
