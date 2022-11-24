@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { ProductInfo } from "../../interfaces/productInterface";
 import { cldConfig } from "../../config/cloudinaryConfig";
 import { AdvancedImage, lazyload } from "@cloudinary/react";
+import { Delivery } from "@cloudinary/url-gen/actions";
 import { fill, crop, scale, fit } from "@cloudinary/url-gen/actions/resize";
 
 export default function DisplayItem({

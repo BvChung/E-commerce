@@ -22,12 +22,6 @@ export default function ProductInfo() {
 				<div className="flex flex-col items-center justify-center w-full lg:max-w-5xl xl:max-w-6xl">
 					<div className="flex flex-col-reverse md:flex-row w-full gap-8 md:gap-20 md:justify-between mb-8 md:mb-10">
 						<div className="flex justify-center">
-							{/* <img
-								className="h-[300px] w-full sm:w-[500px] md:w-[700px] md:h-[500px] xl:w-[800px] object-fill "
-								src={productInfo.image}
-								alt="Product"
-							></img> */}
-
 							<AdvancedImage
 								cldImg={cldConfig
 									.image(productInfo.imageCloudId)
@@ -99,8 +93,6 @@ export default function ProductInfo() {
 											»
 										</button>
 									</div>
-
-									// flex bg-gray-100 text-base font-semibold text-gray-800 items-center justify-center w-28 md:w-[98px] px-4
 								)}
 							</div>
 

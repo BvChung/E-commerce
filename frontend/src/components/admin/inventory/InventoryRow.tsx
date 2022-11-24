@@ -1,27 +1,38 @@
 import { Link } from "react-router-dom";
 import { ProductInfo } from "../../../interfaces/productInterface";
+import { cldConfig } from "../../../config/cloudinaryConfig";
+import { AdvancedImage, lazyload } from "@cloudinary/react";
 
 export default function InventoryRow({
 	_id,
 	category,
-	image,
+	imageCloudId,
 	name,
 	price,
 	setDeleteConfirmation,
 	setItemId,
 }: ProductInfo) {
+	const productImg = cldConfig
+		.image(imageCloudId)
+		.format("auto")
+		.quality("auto");
+
 	return (
 		<>
 			<tr>
 				<td className="pl-6 py-6">
 					<div className="flex items-center space-x-6">
-						<figure>
-							<img
-								src={image}
-								alt="Product"
-								className="rounded-md h-32 w-32 object-cover"
-							/>
-						</figure>
+						<AdvancedImage
+							cldImg={productImg}
+							plugins={[
+								lazyload({
+									rootMargin: "10px 20px 10px 30px",
+									threshold: 0.25,
+								}),
+							]}
+							className="rounded-md h-32 w-32 object-cover"
+							alt="Product"
+						/>
 
 						<span className="text-base font-medium">{name}</span>
 					</div>

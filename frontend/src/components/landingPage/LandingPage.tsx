@@ -1,5 +1,5 @@
-import { useId } from "react";
-import { carouselData } from "../../helper/displayImages";
+import { carouselData, categoryData } from "../../helper/displayImages";
+import Category from "./display/Category";
 import Carousel from "./display/Carousel";
 
 function LandingPage() {
@@ -14,14 +14,13 @@ function LandingPage() {
 				<p className="">Explore our unique line of collections.</p>
 			</div>
 
-			{/* <div className="w-full h-fit md:max-w-7xl grid justify-center items-center grid-cols-1 sm:grid-cols-2 md:grid-cols-2 gap-6 mb-16">
-				<Category key={useId()} image={Sofa} title={"Sofas"} />
-				<Category key={useId()} image={Table} title={"Tables"} />
-				<Category key={useId()} image={Desk} title={"Desks"} />
-				<Category key={useId()} image={Chair} title={"Chairs"} />
-				<Category key={useId()} image={Drawer} title={"Drawers"} />
-				<Category key={useId()} image={Shelf} title={"Shelves"} />
-			</div> */}
+			<div className="w-full h-fit md:max-w-7xl grid justify-center items-center grid-cols-1 sm:grid-cols-2 md:grid-cols-2 gap-6 mb-16">
+				{categoryData.map((el) => {
+					return (
+						<Category key={el.id} imgPubId={el.imgPubId} title={el.title} />
+					);
+				})}
+			</div>
 		</div>
 	);
 }
