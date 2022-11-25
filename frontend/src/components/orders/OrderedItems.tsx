@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { OrderPurchasedItems } from "../../interfaces/orderInterface";
 import { useCartContext } from "../../hooks/context/useCartContext";
 import { cldConfig } from "../../config/cloudinaryConfig";
-import { AdvancedImage, lazyload } from "@cloudinary/react";
+import { AdvancedImage, lazyload, placeholder } from "@cloudinary/react";
 import { toast } from "react-toastify";
 
 export default function OrderedItems({
@@ -25,17 +25,9 @@ export default function OrderedItems({
 			className="flex py-6 border-b border-gray-300 last:border-b-0 last:mb-0"
 		>
 			<Link to={`/products/${_id}`}>
-				{/* <img
-						src={image}
-						alt="product"
-						className="rounded-md h-32 w-32 object-cover"
-					></img> */}
-
 				<AdvancedImage
 					cldImg={productImg}
-					plugins={[
-						lazyload({ rootMargin: "10px 20px 10px 30px", threshold: 0.25 }),
-					]}
+					plugins={[lazyload(), placeholder({ mode: "blur" })]}
 					className="rounded-md h-32 w-32 object-cover"
 					alt="Product"
 				/>

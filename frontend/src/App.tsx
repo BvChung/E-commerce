@@ -10,17 +10,19 @@ import {
 import Layout from "./components/layout/Layout";
 import LandingPage from "./components/landingPage/LandingPage";
 import ProductPage from "./components/products/ProductPage";
-import OrderPage from "./components/orders/OrderPage";
-import Cart from "./components/cart/Cart";
-import Admin from "./components/admin/Admin";
+// import OrderPage from "./components/orders/OrderPage";
+// import Cart from "./components/cart/Cart";
+// import Admin from "./components/admin/Admin";
 import PersistLogin from "./components/protected/PersistLogin";
 import RequireAuth from "./components/protected/RequireAuth";
-import AdminAuth from "./components/protected/AdminAuth";
+// import AdminAuth from "./components/protected/AdminAuth";
 import { accessRoles } from "./helper/accessRoles";
 import "react-toastify/dist/ReactToastify.css";
 
 // import ProductInfo from "./components/products/ProductInfo";
-// const OrderPage = lazy(() => import("./components/orders/OrderPage"));
+// const ProductPage = lazy(() => import("./components/products/ProductPage"));
+const Cart = lazy(() => import("./components/cart/Cart"));
+const OrderPage = lazy(() => import("./components/orders/OrderPage"));
 const ProductInfo = lazy(() => import("./components/products/ProductInfo"));
 const OrderInfo = lazy(() => import("./components/orders/OrderInfo"));
 const Payment = lazy(() => import("./components/checkout/Payment"));
@@ -28,11 +30,13 @@ const Shipping = lazy(() => import("./components/checkout/Shipping"));
 const ReviewOrder = lazy(() => import("./components/checkout/ReviewOrder"));
 const SignIn = lazy(() => import("./components/user/SignIn"));
 const Register = lazy(() => import("./components/user/Register"));
-const AccountPage = lazy(() => import("./components/checkout/Shipping"));
+const AccountPage = lazy(() => import("./components/account/AccountPage"));
 const EditName = lazy(() => import("./components/account/EditName"));
 const EditEmail = lazy(() => import("./components/account/EditEmail"));
 const EditPassword = lazy(() => import("./components/account/EditPassword"));
+const Admin = lazy(() => import("./components/admin/Admin"));
 const AdminSignIn = lazy(() => import("./components/admin/AdminSignIn"));
+const AdminAuth = lazy(() => import("./components/protected/AdminAuth"));
 const ManagementPage = lazy(
 	() => import("./components/admin/management/ManagementPage")
 );
@@ -108,9 +112,5 @@ const appRouter = createBrowserRouter(
 );
 
 export default function App() {
-	return (
-		<Suspense fallback={<div>Loading...</div>}>
-			<RouterProvider router={appRouter} />
-		</Suspense>
-	);
+	return <RouterProvider router={appRouter} />;
 }

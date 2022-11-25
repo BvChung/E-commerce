@@ -7,7 +7,7 @@ import { useOrderContext } from "../../hooks/context/useOrderContext";
 import { useAuthContext } from "../../hooks/context/useAuthContext";
 import Spinner from "../loading/Spinner";
 
-export default function Cart() {
+export default function CartPage() {
 	const { user } = useAuthContext();
 	const { myCart, cartItemsInfo } = useCartContext();
 	const { setMyOrder } = useOrderContext();

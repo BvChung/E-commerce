@@ -71,7 +71,7 @@ export default function ProductPage() {
 
 	const displayProducts =
 		isSuccess && products.length !== 0 ? (
-			<div className="grid gap-10 w-full products justify-center mt-6">
+			<div className="flex flex-wrap gap-8 w-full justify-center mt-6">
 				{products.map((product: ProductInfo) => {
 					return (
 						<DisplayItem

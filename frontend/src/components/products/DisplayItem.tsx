@@ -1,9 +1,8 @@
 import { Link } from "react-router-dom";
 import { ProductInfo } from "../../interfaces/productInterface";
 import { cldConfig } from "../../config/cloudinaryConfig";
-import { AdvancedImage, lazyload } from "@cloudinary/react";
-import { Delivery } from "@cloudinary/url-gen/actions";
-import { fill, crop, scale, fit } from "@cloudinary/url-gen/actions/resize";
+import { scale } from "@cloudinary/transformation-builder-sdk/actions/resize";
+import { AdvancedImage, lazyload, placeholder } from "@cloudinary/react";
 
 export default function DisplayItem({
 	_id,
@@ -12,33 +11,25 @@ export default function DisplayItem({
 	category,
 	imageCloudId,
 }: ProductInfo) {
-	// console.log(imageCloudId);
 	const productImg = cldConfig
 		.image(imageCloudId)
 		.format("auto")
-		.quality("auto");
+		.quality("auto")
+		.resize(scale().width(286));
 
 	return (
-		<div className="w-full fade transition-all">
+		<div className="w-full sm:w-fit fade transition-all">
 			<Link
 				to={_id}
-				className="card w-full min-w-[18rem] md:max-w-[20rem] rounded-md h-fit bg-base-100 border-[1px] shadow-sm"
+				className="card w-full lg:w-[18rem] min-w-[18rem] md:max-w-[20rem] rounded-md h-fit bg-base-100 border-[1px] shadow-sm"
 			>
 				<div className="overflow-hidden">
 					<AdvancedImage
 						cldImg={productImg}
-						plugins={[
-							lazyload({ rootMargin: "10px 20px 10px 30px", threshold: 0.25 }),
-						]}
+						plugins={[lazyload(), placeholder({ mode: "blur" })]}
 						className="h-[200px] w-full relative object-cover hover:scale-105 transition-transform duration-500"
 						alt="Product"
 					/>
-					{/* <img
-						src={image}
-						alt="Product"
-						className="h-[200px] w-full relative object-cover hover:scale-105 transition-transform duration-500"
-						loading="lazy"
-					/> */}
 				</div>
 
 				<div className="card-body p-6">

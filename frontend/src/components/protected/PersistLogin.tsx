@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import { Outlet } from "react-router-dom";
-import { useAuthContext } from "../../hooks/context/useAuthContext";
 import { useGetUser } from "../../hooks/user/useGetUser";
+import { useAuthContext } from "../../hooks/context/useAuthContext";
+import Spinner from "../loading/Spinner";
 
 export default function PersistLogin() {
 	const [isLoading, setIsLoading] = useState<boolean>(true);
@@ -15,7 +16,6 @@ export default function PersistLogin() {
 				console.log("Verifying user");
 				await getUser();
 			} catch (error) {
-				console.error(error);
 			} finally {
 				setIsLoading(false);
 			}
@@ -24,5 +24,23 @@ export default function PersistLogin() {
 		!user?.accessToken ? verifyUser() : setIsLoading(false);
 	}, []);
 
-	return <>{!isLoading && <Outlet />}</>;
+	return <>{!isLoading ? <Outlet /> : <Spinner />}</>;
 }
+
+// export default function PersistLogin() {
+// 	const getUser = useGetUser();
+
+// 	// Authenticate cookie on user device to load account information
+// 	useEffect(() => {
+// 		const verifyUser = async (): Promise<void> => {
+// 			try {
+// 				console.log("Verifying user");
+// 				await getUser();
+// 			} catch (error) {}
+// 		};
+
+// 		verifyUser();
+// 	}, []);
+
+// 	return <Outlet />;
+// }
