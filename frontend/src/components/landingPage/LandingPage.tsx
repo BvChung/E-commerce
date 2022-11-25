@@ -14,7 +14,7 @@ function LandingPage() {
 				<p className="">Explore our unique line of collections.</p>
 			</div>
 
-			<div className="w-full h-fit md:max-w-7xl grid justify-center items-center grid-cols-1 sm:grid-cols-2 md:grid-cols-2 gap-6 mb-16">
+			<div className="w-full h-fit sm:max-w-6xl md:max-w-7xl grid justify-center items-center grid-cols-1 sm:grid-cols-2 md:grid-cols-2 gap-6 mb-16">
 				{categoryData.map((el) => {
 					return (
 						<Category key={el.id} imgPubId={el.imgPubId} title={el.title} />

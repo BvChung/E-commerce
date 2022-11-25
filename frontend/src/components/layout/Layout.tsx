@@ -1,23 +1,22 @@
 import { useState } from "react";
+import { Suspense } from "react";
 import { Outlet, useLocation, ScrollRestoration, Link } from "react-router-dom";
 import Nav from "../nav/Nav";
 import CheckoutNav from "../nav/CheckoutNav";
-import MainFooter from "../footer/MainFooter";
-import SubFooter from "../footer/SubFooter";
-import { useThemeContext } from "../../hooks/context/useThemeContext";
+import Footer from "../footer/Footer";
 import { ToastContainer, Flip } from "react-toastify";
+import Spinner from "../loading/Spinner";
 
 export default function Layout() {
-	const { theme } = useThemeContext();
 	const location = useLocation();
 	const [activeSidebar, setActiveSidebar] = useState<boolean>(false);
 
 	return (
 		<div
-			className={`drawer ${activeSidebar ? "h-screen" : "h-full"} ${
-				theme && "dark"
+			className={`drawer ${
+				activeSidebar ? "h-screen" : "h-full"
 			} min-h-screen min-w-full relative`}
-			data-theme={theme ? "pastel" : "lofi"}
+			data-theme="lofi"
 		>
 			<input
 				onChange={(e) => {
@@ -40,29 +39,25 @@ export default function Layout() {
 				{/* <!-- Page content here --> */}
 
 				<div className="flex flex-col justify-between h-full mt-16">
-					<Outlet />
-					{location.pathname === "/" ? <MainFooter /> : <SubFooter />}
+					<Suspense fallback={<Spinner />}>
+						<Outlet />
+					</Suspense>
 				</div>
 
-				{/* <div className="flex flex-col justify-between h-full w-full fade">
-					<Outlet />
-					{location.pathname === "/" ? <MainFooter /> : <SubFooter />}
-				</div> */}
+				<Footer />
+
+				{/* {location.pathname === "/" ? <MainFooter /> : <SubFooter />} */}
+
 				<ToastContainer
 					limit={5}
 					autoClose={1500}
 					transition={Flip}
-					theme={theme ? "dark" : "light"}
+					theme={"light"}
 				/>
-				{/* {location.pathname === "/" && <Footer />} */}
 			</div>
 			<div className="drawer-side">
 				<label htmlFor="app-drawer" className="drawer-overlay"></label>
 				<div className="menu p-4 overflow-y-auto w-80 bg-base-100">
-					{/* <!-- Sidebar content here --> */}
-					{/* <div className="z-20 bg-base-200 bg-opacity-90 backdrop-blur sticky top-0 items-center gap-2 px-4 py-2 ">
-						
-					</div> */}
 					<div className="flex items-center mb-2 px-4">
 						<Link to="/" className="mr-4">
 							<svg

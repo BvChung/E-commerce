@@ -1,7 +1,11 @@
 import { cldConfig } from "../../../config/cloudinaryConfig";
 import { Link } from "react-router-dom";
-import { fit } from "@cloudinary/url-gen/actions/resize";
-import { AdvancedImage, lazyload } from "@cloudinary/react";
+import {
+	AdvancedImage,
+	lazyload,
+	placeholder,
+	responsive,
+} from "@cloudinary/react";
 
 interface CategoryProps {
 	imgPubId: string;
@@ -10,6 +14,7 @@ interface CategoryProps {
 
 export default function Category({ imgPubId, title }: CategoryProps) {
 	const productImg = cldConfig.image(imgPubId).format("auto").quality("auto");
+
 	return (
 		<Link
 			to="products"
@@ -19,10 +24,9 @@ export default function Category({ imgPubId, title }: CategoryProps) {
 				<AdvancedImage
 					cldImg={productImg}
 					plugins={[
-						lazyload({
-							rootMargin: "10px 20px 10px 30px",
-							threshold: 0.25,
-						}),
+						lazyload(),
+						responsive({ steps: [600, 800] }),
+						placeholder({ mode: "blur" }),
 					]}
 					className="h-[250px] w-full object-cover hover:scale-105 transition-transform duration-500"
 					alt="Product Category"

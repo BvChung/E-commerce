@@ -2,9 +2,14 @@ import { useState, useEffect, useRef, useId } from "react";
 import { Link } from "react-router-dom";
 import { CarouselData } from "../../../helper/displayImages";
 import Indicator from "./Indicator";
+import { scale } from "@cloudinary/transformation-builder-sdk/actions/resize";
+import {
+	AdvancedImage,
+	lazyload,
+	placeholder,
+	responsive,
+} from "@cloudinary/react";
 import { cldConfig } from "../../../config/cloudinaryConfig";
-import { AdvancedImage, lazyload } from "@cloudinary/react";
-import { fill, crop, scale, fit } from "@cloudinary/url-gen/actions/resize";
 
 export default function Carou({ slides }: CarouselData) {
 	const [currentIndex, setCurrentIndex] = useState<number>(0);
@@ -45,6 +50,17 @@ export default function Carou({ slides }: CarouselData) {
 			<div className="overflow-hidden w-full">
 				<div className="flex w-full">
 					{slides.map((img, index) => {
+						const productImg = cldConfig
+							.image(img)
+							.format("auto")
+							.quality("auto");
+
+						// const productImg = cldConfig
+						// 	.image(img)
+						// 	.format("auto")
+						// 	.quality("auto")
+						// 	.resize(scale().height(900));
+
 						return (
 							<div key={index} className="relative min-w-full">
 								<div
@@ -53,21 +69,12 @@ export default function Carou({ slides }: CarouselData) {
 									className="relative w-full
                              h-[34rem]"
 								>
-									{/* <img
-										src={img}
-										alt="Carousel"
-										className="absolute block w-full object-cover h-[34rem] ease-out duration-1000"
-										style={{ transform: `translateX(${-currentIndex * 100}%)` }}
-										loading="lazy"
-									/> */}
-
 									<AdvancedImage
-										cldImg={img}
+										cldImg={productImg}
 										plugins={[
-											lazyload({
-												rootMargin: "10px 20px 10px 30px",
-												threshold: 0.25,
-											}),
+											// lazyload({ threshold: 0.99 }),
+											responsive({ steps: [800, 1000, 1900] }),
+											// placeholder({ mode: "blur" }),
 										]}
 										className="absolute block w-full object-cover h-[34rem] ease-out duration-1000"
 										style={{ transform: `translateX(${-currentIndex * 100}%)` }}

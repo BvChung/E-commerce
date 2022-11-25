@@ -1,10 +1,8 @@
 import ReactDOM from "react-dom/client";
 import "./index.css";
-import { RouterProvider, BrowserRouter } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { ReactQueryDevtools } from "react-query/devtools";
 import { AuthProvider } from "./context/AuthProvider";
-import { ThemeProvider } from "./context/ThemeProvider";
 import { CartProvider } from "./context/CartProvider";
 import { OrderProvider } from "./context/OrderProvider";
 import App from "./App";
@@ -17,15 +15,13 @@ const root = ReactDOM.createRoot(
 
 root.render(
 	<QueryClientProvider client={queryClient}>
-		<ThemeProvider>
-			<AuthProvider>
-				<CartProvider>
-					<OrderProvider>
-						<App />
-						<ReactQueryDevtools initialIsOpen />
-					</OrderProvider>
-				</CartProvider>
-			</AuthProvider>
-		</ThemeProvider>
+		<AuthProvider>
+			<CartProvider>
+				<OrderProvider>
+					<App />
+					<ReactQueryDevtools initialIsOpen />
+				</OrderProvider>
+			</CartProvider>
+		</AuthProvider>
 	</QueryClientProvider>
 );
