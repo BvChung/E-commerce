@@ -1,8 +1,7 @@
 export default function Footer() {
 	return (
-		<footer className="w-full bg-base-200 text-base-content">
-			{/* <footer className="footer mx-auto px-4 max-w-6xl py-20"> */}
-			<div className="footer mx-auto max-w-6xl px-4  py-20">
+		<footer className="flex justify-center min-w-full w-full bg-gray-50 text-base-content">
+			<div className="footer max-w-6xl px-4 py-20">
 				<div>
 					<svg
 						width="50"

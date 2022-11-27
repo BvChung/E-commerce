@@ -1,11 +1,11 @@
-import { carouselData, categoryData } from "../../helper/displayImages";
+import { carouselData, categoryData } from "../../helper/images";
 import Category from "./display/Category";
 import Carousel from "./display/Carousel";
 
 function LandingPage() {
 	return (
-		<div className="flex flex-col w-full gap-2 items-center justify-center">
-			<div className="w-full mb-16">
+		<div className="flex flex-col min-w-full w-full gap-2 items-center justify-center">
+			<div className="w-full min-w-full mb-16">
 				<Carousel slides={carouselData.slides} />
 			</div>
 

@@ -64,13 +64,13 @@ export default function CartPage() {
 	};
 
 	return (
-		<div className="flex flex-col items-center justify-center my-8 mx-4 sm:mx-6 lg:mx-0">
+		<div className="flex flex-col items-center justify-center mt-8 mb-16 mx-4 sm:mx-6 lg:mx-0">
 			<div className="flex items-center gap-2 w-full mb-6 lg:max-w-5xl xl:max-w-6xl">
 				<span className="font-medium text-xl sm:text-2xl">My Cart</span>
 			</div>
 
-			<div className="flex flex-col-reverse md:flex-row justify-center h-max w-full gap-4 lg:max-w-5xl xl:max-w-6xl">
-				<div className="border-[1px] py-2 px-6 h-max rounded-lg shadow-sm transition-all fade w-full md:w-2/3">
+			<div className="flex flex-col md:flex-row justify-center h-max w-full gap-4 lg:max-w-5xl xl:max-w-6xl">
+				<div className="border-[1px] py-2 px-6 h-max rounded-lg shadow-sm transition-all fade w-full md:w-2/3 mb-4 md:mb-0">
 					{cartItems?.length === 0 && (
 						<div className="flex flex-col items-center justify-center gap-8 h-[262px]">
 							<div className="flex items-center justify-center gap-3">
@@ -105,7 +105,7 @@ export default function CartPage() {
 					)}
 				</div>
 
-				<div className="flex flex-col items-center md:sticky top-6 rounded-lg shadow-sm h-fit w-full md:w-1/3 border-[1px] py-4 md:py-6 px-4 mb-4 md:mb-0">
+				<div className="flex flex-col items-center md:sticky top-6 rounded-lg shadow-sm h-fit w-full md:w-1/3 border-[1px] py-4 md:py-6 px-4">
 					<div className="w-full flex items-center justify-between mb-4">
 						<div>
 							<span className="font-medium mr-2 text-sm">Subtotal</span>

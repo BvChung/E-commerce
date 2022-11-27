@@ -1,4 +1,4 @@
-import { lazy, Suspense } from "react";
+import { lazy } from "react";
 import "./App.css";
 import {
 	createBrowserRouter,
@@ -10,16 +10,11 @@ import {
 import Layout from "./components/layout/Layout";
 import LandingPage from "./components/landingPage/LandingPage";
 import ProductPage from "./components/products/ProductPage";
-// import OrderPage from "./components/orders/OrderPage";
-// import Cart from "./components/cart/Cart";
-// import Admin from "./components/admin/Admin";
 import PersistLogin from "./components/protected/PersistLogin";
 import RequireAuth from "./components/protected/RequireAuth";
-// import AdminAuth from "./components/protected/AdminAuth";
 import { accessRoles } from "./helper/accessRoles";
 import "react-toastify/dist/ReactToastify.css";
 
-// import ProductInfo from "./components/products/ProductInfo";
 // const ProductPage = lazy(() => import("./components/products/ProductPage"));
 const Cart = lazy(() => import("./components/cart/Cart"));
 const OrderPage = lazy(() => import("./components/orders/OrderPage"));

@@ -1,11 +1,12 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, lazy, Suspense } from "react";
 import { useNavigate } from "react-router-dom";
 import { useQueryProducts } from "../../hooks/products/useQueryProducts";
 import { ProductInfo } from "../../interfaces/productInterface";
-import DisplayItem from "./DisplayItem";
+// import DisplayItem from "./DisplayItem";
 import FiltersModal from "./modal/FiltersModal";
 import { useSearchParams } from "react-router-dom";
 import Spinner from "../loading/Spinner";
+const DisplayItem = lazy(() => import("./DisplayItem"));
 
 interface FilterProducts {
 	category: string[];
@@ -67,11 +68,15 @@ export default function ProductPage() {
 		}
 	}, [filter]);
 
-	const { isLoading, isSuccess, data: products } = useQueryProducts(filter);
+	const { isSuccess, data: products } = useQueryProducts(filter);
 
 	const displayProducts =
 		isSuccess && products.length !== 0 ? (
-			<div className="flex flex-wrap gap-8 w-full justify-center mt-6">
+			<div
+				className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 min-w-full
+				sm:min-w-[640px] md:min-w-[768px] lg:min-w-[1024px]
+			gap-8 w-full sm:justify-center mt-6"
+			>
 				{products.map((product: ProductInfo) => {
 					return (
 						<DisplayItem
@@ -111,19 +116,23 @@ export default function ProductPage() {
 
 	return (
 		<>
-			<div className="flex justify-center my-8 w-full h-full">
+			<div className="flex justify-center mt-8 mb-16 w-full min-w-full h-full">
 				<div className="flex flex-col justify-center w-full h-full lg:max-w-6xl xl:max-w-7xl mx-4 sm:mx-6 lg:mx-0">
 					<div className="flex gap-2 justify-start w-full lg:max-w-3xl xl:max-w-4xl">
 						<FiltersModal handleChange={handleChange} setFilter={setFilter} />
 					</div>
 
-					{!isLoading ? (
+					<div className="flex justify-center w-full h-full">
+						{displayProducts}
+					</div>
+
+					{/* {!isLoading ? (
 						<div className="flex justify-center w-full h-full">
 							{displayProducts}
 						</div>
 					) : (
 						<Spinner />
-					)}
+					)} */}
 				</div>
 			</div>
 		</>

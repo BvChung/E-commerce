@@ -27,9 +27,9 @@ export default function ManagementRow({
 						</figure>
 
 						<div>
-							<div className="text-base font-medium">
+							<span className="text-base font-medium">
 								{firstName} {lastName}
-							</div>
+							</span>
 						</div>
 					</div>
 				</td>
