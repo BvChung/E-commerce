@@ -1,8 +1,7 @@
 import { useState, useEffect, useRef, useId } from "react";
 import { Link } from "react-router-dom";
-import { CarouselData } from "../../../helper/displayImages";
+import { CarouselData } from "../../../helper/images";
 import Indicator from "./Indicator";
-import { scale } from "@cloudinary/transformation-builder-sdk/actions/resize";
 import {
 	AdvancedImage,
 	lazyload,
@@ -13,12 +12,16 @@ import { cldConfig } from "../../../config/cloudinaryConfig";
 
 export default function Carou({ slides }: CarouselData) {
 	const [currentIndex, setCurrentIndex] = useState<number>(0);
-	const slideInterval = useRef<ReturnType<typeof setInterval>>();
+	const intervalRef = useRef<ReturnType<typeof setInterval> | undefined>(
+		undefined
+	);
 
 	function startTimer() {
-		slideInterval.current = setInterval(() => {
+		const id = setInterval(() => {
 			setCurrentIndex((prev) => (prev === slides.length - 1 ? 0 : prev + 1));
-		}, 8000);
+		}, 10000);
+
+		intervalRef.current = id;
 	}
 
 	useEffect(() => {
@@ -40,9 +43,7 @@ export default function Carou({ slides }: CarouselData) {
 	}
 
 	function stopTimer() {
-		if (slideInterval.current) {
-			clearInterval(slideInterval.current);
-		}
+		clearInterval(intervalRef.current);
 	}
 
 	return (
@@ -55,12 +56,6 @@ export default function Carou({ slides }: CarouselData) {
 							.format("auto")
 							.quality("auto");
 
-						// const productImg = cldConfig
-						// 	.image(img)
-						// 	.format("auto")
-						// 	.quality("auto")
-						// 	.resize(scale().height(900));
-
 						return (
 							<div key={index} className="relative min-w-full">
 								<div
@@ -71,11 +66,6 @@ export default function Carou({ slides }: CarouselData) {
 								>
 									<AdvancedImage
 										cldImg={productImg}
-										plugins={[
-											// lazyload({ threshold: 0.99 }),
-											responsive({ steps: [800, 1000, 1900] }),
-											// placeholder({ mode: "blur" }),
-										]}
 										className="absolute block w-full object-cover h-[34rem] ease-out duration-1000"
 										style={{ transform: `translateX(${-currentIndex * 100}%)` }}
 										alt="Carousel"

@@ -2,7 +2,12 @@ import { Link } from "react-router-dom";
 import { ProductInfo } from "../../interfaces/productInterface";
 import { cldConfig } from "../../config/cloudinaryConfig";
 import { scale } from "@cloudinary/transformation-builder-sdk/actions/resize";
-import { AdvancedImage, lazyload, placeholder } from "@cloudinary/react";
+import {
+	AdvancedImage,
+	lazyload,
+	placeholder,
+	responsive,
+} from "@cloudinary/react";
 
 export default function DisplayItem({
 	_id,
@@ -14,14 +19,13 @@ export default function DisplayItem({
 	const productImg = cldConfig
 		.image(imageCloudId)
 		.format("auto")
-		.quality("auto")
-		.resize(scale().width(286));
+		.quality("auto");
 
 	return (
-		<div className="w-full sm:w-fit fade transition-all">
+		<div className="w-full min-w-full fade transition-all">
 			<Link
 				to={_id}
-				className="card w-full lg:w-[18rem] min-w-[18rem] md:max-w-[20rem] rounded-md h-fit bg-base-100 border-[1px] shadow-sm"
+				className="card w-full rounded-md h-fit bg-base-100 border-[1px] shadow-sm"
 			>
 				<div className="overflow-hidden">
 					<AdvancedImage
@@ -32,12 +36,14 @@ export default function DisplayItem({
 					/>
 				</div>
 
-				<div className="card-body p-6">
+				<div className="card-body p-5">
 					<div className="card-actions">
 						<div className="badge badge-sm badge-outline">{category}</div>
 					</div>
-					<h2 className="font-medium text-lg">{name}</h2>
-					<span className="font-semibold text-lg">${price.toFixed(2)}</span>
+					<h2 className="font-medium text-base">{name}</h2>
+					<span className="font-medium text-gray-700 text-base">
+						${price.toFixed(2)}
+					</span>
 				</div>
 			</Link>
 		</div>

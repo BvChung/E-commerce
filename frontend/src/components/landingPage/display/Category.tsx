@@ -23,21 +23,11 @@ export default function Category({ imgPubId, title }: CategoryProps) {
 			<div className="group overflow-hidden w-full relative">
 				<AdvancedImage
 					cldImg={productImg}
-					plugins={[
-						lazyload(),
-						responsive({ steps: [600, 800] }),
-						placeholder({ mode: "blur" }),
-					]}
+					plugins={[lazyload(), responsive(), placeholder({ mode: "blur" })]}
 					className="h-[250px] w-full object-cover hover:scale-105 transition-transform duration-500"
 					alt="Product Category"
 				/>
-				{/* <img
-					src={img}
-					alt="Product"
-					className="h-[250px] w-full object-cover hover:scale-105 transition-transform duration-500"
-					loading="eager"
-				/> */}
-				<div className="absolute bottom-6 left-6">
+				<div className="absolute bottom-4 left-6">
 					<span
 						className="relative before:content-[''] before:absolute before:block before:w-full before:h-[2px] 
 before:bottom-0 before:left-0 before:bg-white

@@ -109,7 +109,3 @@ input[type="number"]::-webkit-outer-spin-button {
 		opacity: 1;
 	}
 }
-
-.products {
-	grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr));
-}

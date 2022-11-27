@@ -11,7 +11,7 @@ export default function OrderInfo() {
 		.split(" ");
 
 	return (
-		<div className="flex flex-col  items-center justify-center my-8 mx-4 lg:mx-0">
+		<div className="flex flex-col items-center justify-center mt-8 mb-16 mx-4 lg:mx-0">
 			<div className="flex items-center gap-2 w-full mb-6 pb-2 border-b-[1px] border-gray-200 lg:max-w-5xl xl:max-w-6xl">
 				<Link to={"/orders"} className="mr-2 cursor-pointer">
 					<svg

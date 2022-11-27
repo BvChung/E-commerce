@@ -23,14 +23,6 @@ export default function CartItem({ _id, name, imageCloudId }: CartItemInfo) {
 	return (
 		<div className="flex items-center w-full h-44 border-b border-gray-300 last:border-b-0">
 			<Link to={`/products/${_id}`}>
-				{/* <figure>
-					<img
-						src={image}
-						alt="Product"
-						className="rounded-md h-32 w-32 object-cover"
-					></img>
-				</figure> */}
-
 				<AdvancedImage
 					cldImg={productImg}
 					plugins={[
@@ -42,7 +34,7 @@ export default function CartItem({ _id, name, imageCloudId }: CartItemInfo) {
 			</Link>
 
 			<div className="flex flex-col flex-1 justify-center h-full px-2 md:px-6 py-4">
-				<div className="flex flex-col md:flex-row items-end md:items-center justify-center md:justify-between h-3/4">
+				<div className="flex flex-col gap-2 sm:gap-0 md:flex-row items-end md:items-center justify-center md:justify-between h-3/4">
 					<Link to={`/products/${_id}`}>
 						<span className="hover:link font-medium text-sm md:text-base">
 							{name}

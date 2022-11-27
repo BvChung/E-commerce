@@ -11,6 +11,11 @@ export default function Layout() {
 	const location = useLocation();
 	const [activeSidebar, setActiveSidebar] = useState<boolean>(false);
 
+	const footerLocations = ["/products", "/orders", "/cart"];
+	const displayFooter =
+		location.pathname === "/" ||
+		footerLocations.some((el) => location.pathname.includes(el));
+
 	return (
 		<div
 			className={`drawer ${
@@ -44,15 +49,14 @@ export default function Layout() {
 					</Suspense>
 				</div>
 
-				<Footer />
-
-				{/* {location.pathname === "/" ? <MainFooter /> : <SubFooter />} */}
+				{displayFooter && <Footer />}
 
 				<ToastContainer
-					limit={5}
+					limit={3}
 					autoClose={1500}
 					transition={Flip}
 					theme={"light"}
+					position="bottom-right"
 				/>
 			</div>
 			<div className="drawer-side">
