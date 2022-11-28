@@ -6,7 +6,7 @@ export default function CheckoutNav() {
 	const navigate = useNavigate();
 
 	return (
-		<nav className="navbar fixed flex bg-white justify-between z-30 h-14 px-4 border-b-[1px]">
+		<nav className="navbar min-w-full fixed flex bg-white justify-between z-30 h-14 px-4 border-b-[1px]">
 			<div className="tooltip tooltip-bottom z-20" data-tip="Return">
 				<label
 					htmlFor="return-modal"

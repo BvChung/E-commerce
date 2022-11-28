@@ -38,10 +38,8 @@ export default function ProductInfo() {
 							/>
 						</div>
 						<div className="flex flex-col w-full md:w-80 h-fit p-4 border-[1px] rounded-lg shadow-sm">
-							<p className="font-semibold text-xl text-gray-800 mb-4">
-								{productInfo.name}
-							</p>
-							<p className="font-bold text-xl text-gray-900 mb-4">
+							<p className="font-semibold text-xl mb-2">{productInfo.name}</p>
+							<p className="font-semibold text-lg text-gray-900 mb-4">
 								${productInfo.price.toFixed(2)}
 							</p>
 
@@ -61,36 +59,60 @@ export default function ProductInfo() {
 												`${productInfo.name} has been added to your cart.`
 											);
 										}}
-										className="btn h-11 px-6 rounded-full"
+										className="btn btn-primary h-11 w-full px-6 rounded-full"
 									>
 										Add to cart
 									</button>
 								) : (
-									<div className="btn-group rounded-full">
+									<div className="w-full flex flex-1 ">
 										<button
-											className={`btn h-11 rounded-full  ${
+											className={`flex grow max-w-[70px]  btn btn-secondary h-11 rounded-l-full ${
 												foundItem?.quantity === 0 && "btn-disabled"
 											} `}
 											onClick={() => {
 												decrementCartQuantity(productInfo._id);
 											}}
 										>
-											«
+											<svg
+												xmlns="http://www.w3.org/2000/svg"
+												viewBox="0 0 20 20"
+												strokeWidth={2}
+												fill="currentColor"
+												className="w-6 h-6"
+											>
+												<path
+													fillRule="evenodd"
+													d="M12.79 5.23a.75.75 0 01-.02 1.06L8.832 10l3.938 3.71a.75.75 0 11-1.04 1.08l-4.5-4.25a.75.75 0 010-1.08l4.5-4.25a.75.75 0 011.06.02z"
+													clipRule="evenodd"
+												/>
+											</svg>
 										</button>
-										<button className="btn h-11 rounded-full">
+										<div className="flex grow  btn btn-primary rounded-none h-11">
 											{foundItem.quantity !== 9
 												? `${foundItem?.quantity} Added`
 												: `Max ${foundItem?.quantity}`}
-										</button>
+										</div>
 										<button
 											onClick={() => {
 												incrementCartQuantity(productInfo._id);
 											}}
-											className={`btn h-11 rounded-full ${
+											className={`flex grow max-w-[70px] btn btn-secondary h-11 rounded-r-full ${
 												foundItem?.quantity === 9 && "btn-disabled"
 											} `}
 										>
-											»
+											<svg
+												xmlns="http://www.w3.org/2000/svg"
+												viewBox="0 0 20 20"
+												strokeWidth={2}
+												fill="currentColor"
+												className="w-6 h-6"
+											>
+												<path
+													fillRule="evenodd"
+													d="M7.21 14.77a.75.75 0 01.02-1.06L11.168 10 7.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z"
+													clipRule="evenodd"
+												/>
+											</svg>
 										</button>
 									</div>
 								)}

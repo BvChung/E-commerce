@@ -2,11 +2,10 @@ import { useState, useEffect, lazy, Suspense } from "react";
 import { useNavigate } from "react-router-dom";
 import { useQueryProducts } from "../../hooks/products/useQueryProducts";
 import { ProductInfo } from "../../interfaces/productInterface";
-// import DisplayItem from "./DisplayItem";
+// import DisplayProduct from "./DisplayProduct";
 import FiltersModal from "./modal/FiltersModal";
 import { useSearchParams } from "react-router-dom";
-import Spinner from "../loading/Spinner";
-const DisplayItem = lazy(() => import("./DisplayItem"));
+const DisplayProduct = lazy(() => import("./DisplayProduct"));
 
 interface FilterProducts {
 	category: string[];
@@ -79,7 +78,7 @@ export default function ProductPage() {
 			>
 				{products.map((product: ProductInfo) => {
 					return (
-						<DisplayItem
+						<DisplayProduct
 							key={product._id}
 							_id={product._id}
 							name={product.name}
