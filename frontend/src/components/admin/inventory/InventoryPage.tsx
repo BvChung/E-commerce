@@ -2,8 +2,8 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import InventoryRow from "./InventoryRow";
 import { useAuthContext } from "../../../hooks/context/useAuthContext";
-import { useGetProducts } from "../../../hooks/products/useGetProducts";
-import { useDeleteProduct } from "../../../hooks/admin/useDeleteProduct";
+import { useGetInventory } from "../../../hooks/admin/inventory/useGetInventory";
+import { useDeleteProduct } from "../../../hooks/admin/inventory/useDeleteProduct";
 import {
 	ProductInfo,
 	SortProducts,
@@ -13,7 +13,7 @@ import { toast } from "react-toastify";
 
 export default function ProductTable() {
 	const { user } = useAuthContext();
-	const { isLoading, isSuccess, data: products } = useGetProducts();
+	const { isLoading, isSuccess, data: products } = useGetInventory();
 	const [deleteConfirmation, setDeleteConfirmation] = useState<boolean>(false);
 	const [itemId, setItemId] = useState<string>("");
 	const { mutate } = useDeleteProduct();

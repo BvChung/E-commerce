@@ -1,10 +1,10 @@
-import { usePrivateApi } from "../auth/usePrivateApi";
+import { usePrivateApi } from "../../auth/usePrivateApi";
 import { useMutation, useQueryClient } from "react-query";
 import {
 	ProductInfo,
 	ProductCreation,
-} from "../../interfaces/productInterface";
-import { CustomError } from "../../interfaces/customInterface";
+} from "../../../interfaces/productInterface";
+import { CustomError } from "../../../interfaces/customInterface";
 import { toast } from "react-toastify";
 
 export const useCreateProduct = () => {

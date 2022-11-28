@@ -1,11 +1,11 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { useGetAccounts } from "../../../hooks/admin/useGetAccounts";
+import { useGetAccounts } from "../../../hooks/admin/management/useGetAccounts";
 import AccountRow from "./ManagementRow";
 import { accessRoles } from "../../../helper/accessRoles";
 import { CurrentInfo } from "../../../interfaces/adminInterface";
-import { useUpdateRole } from "../../../hooks/admin/useUpdateRole";
-import { useDeleteAccount } from "../../../hooks/admin/useDeleteAccount";
+import { useUpdateRole } from "../../../hooks/admin/management/useUpdateRole";
+import { useDeleteAccount } from "../../../hooks/admin/management/useDeleteAccount";
 import Spinner from "../../loading/Spinner";
 
 export default function ManagementPage() {

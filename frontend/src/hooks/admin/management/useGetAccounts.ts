@@ -1,6 +1,6 @@
-import { usePrivateApi } from "../auth/usePrivateApi";
+import { usePrivateApi } from "../../auth/usePrivateApi";
 import { useQuery } from "react-query";
-import { AccountInfo } from "../../interfaces/adminInterface";
+import { AccountInfo } from "../../../interfaces/adminInterface";
 
 export const useGetAccounts = () => {
 	const eCommerceApiPrivate = usePrivateApi();

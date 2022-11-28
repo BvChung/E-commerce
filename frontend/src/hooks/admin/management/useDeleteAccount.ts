@@ -1,7 +1,7 @@
-import { usePrivateApi } from "../auth/usePrivateApi";
+import { usePrivateApi } from "../../auth/usePrivateApi";
 import { useMutation, useQueryClient } from "react-query";
-import { UserInfo } from "../../interfaces/authInterface";
-import { CustomError } from "../../interfaces/customInterface";
+import { UserInfo } from "../../../interfaces/authInterface";
+import { CustomError } from "../../../interfaces/customInterface";
 import { toast } from "react-toastify";
 
 export const useDeleteAccount = () => {

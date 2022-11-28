@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import { useParams } from "react-router-dom";
 import { useGetProductInfo } from "../../../hooks/products/useGetProductInfo";
-import { useUpdateProduct } from "../../../hooks/admin/useUpdateProduct";
+import { useUpdateProduct } from "../../../hooks/admin/inventory/useUpdateProduct";
 import { ProductForm } from "../../../interfaces/productInterface";
 
 export default function ManageProduct() {
