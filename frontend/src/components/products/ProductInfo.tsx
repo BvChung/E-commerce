@@ -56,7 +56,8 @@ export default function ProductInfo() {
 											});
 
 											toast.success(
-												`${productInfo.name} has been added to your cart.`
+												`${productInfo.name} has been added to your cart.`,
+												{ position: "bottom-right" }
 											);
 										}}
 										className="btn btn-primary h-11 w-full px-6 rounded-full"

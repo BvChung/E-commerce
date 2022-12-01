@@ -8,7 +8,7 @@ export const useGetCartItems = (myCartItems: CartStorageData[]) => {
 	// console.log(myCartItems);
 	const productIds = myCartItems.map((item: CartStorageData) => item._id);
 
-	const getCartItems = async (): Promise<CartItemInfo[]> => {
+	const getCartItems = async () => {
 		// Send productsIds through params => on backend accessed through req.query(qs.stringify(params) converts params to query)
 		//Ex: http://localhost:3000/api/products/cart?productIds[0]=1&productIds[1]=2&productIds[2]=3
 
@@ -32,5 +32,5 @@ export const useGetCartItems = (myCartItems: CartStorageData[]) => {
 		});
 	};
 
-	return useQuery(["cart", productIds], () => getCartItems());
+	return useQuery<CartItemInfo[]>(["cart", productIds], () => getCartItems());
 };

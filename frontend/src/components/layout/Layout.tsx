@@ -56,7 +56,7 @@ export default function Layout() {
 					autoClose={1500}
 					transition={Flip}
 					theme={"light"}
-					position="bottom-right"
+					position="top-center"
 				/>
 			</div>
 			<div className="drawer-side">

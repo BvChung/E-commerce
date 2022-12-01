@@ -3,7 +3,7 @@ import { ProductInfo } from "../../interfaces/productInterface";
 import { useQuery } from "react-query";
 
 export const useSearchProducts = () => {
-	const searchProducts = async (): Promise<ProductInfo[]> => {
+	const searchProducts = async () => {
 		const response = await eCommerceApiPublic.get("/api/products");
 
 		return response.data.sort((a: ProductInfo, b: ProductInfo) => {
