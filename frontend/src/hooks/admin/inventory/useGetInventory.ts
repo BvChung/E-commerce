@@ -1,4 +1,3 @@
-import { eCommerceApiPublic } from "../../../api/axios";
 import { usePrivateApi } from "../../auth/usePrivateApi";
 import { ProductInfo } from "../../../interfaces/productInterface";
 import { useQuery } from "react-query";
@@ -6,7 +5,7 @@ import { useQuery } from "react-query";
 export const useGetInventory = () => {
 	const eCommerceApiPrivate = usePrivateApi();
 
-	const getProducts = async () => {
+	const getInventory = async () => {
 		try {
 			const response = await eCommerceApiPrivate.get("/api/products");
 
@@ -23,7 +22,7 @@ export const useGetInventory = () => {
 		} catch (error) {}
 	};
 
-	return useQuery<ProductInfo[]>("products", getProducts, {
+	return useQuery<ProductInfo[]>("inventory", getInventory, {
 		retry: false,
 	});
 };

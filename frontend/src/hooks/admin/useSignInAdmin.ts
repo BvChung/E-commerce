@@ -8,7 +8,6 @@ import { storage } from "../../helper/tokenStorage";
 
 // Make req to api with login info => returns token
 // Store token to local storage
-// Then make req api with token => returns account information using useQuery() to store
 
 export const useSignInAdmin = () => {
 	const { setUser } = useAuthContext();
@@ -25,7 +24,6 @@ export const useSignInAdmin = () => {
 	return useMutation(signIn, {
 		onSuccess: (data: UserInfo) => {
 			toast.success(`${data.firstName} ${data.lastName} logged in.`);
-
 			setUser(data);
 			storage.setToken(data.accessToken);
 		},

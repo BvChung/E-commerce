@@ -11,9 +11,9 @@ import {
 } from "../../helper/JWTGeneration";
 import { accessRoles } from "../../helper/accessRoles";
 
-// @desc Login user
-// @route POST /api/users/login
-// @access Public
+// @desc Signin admin
+// @route POST /api/admin/signin
+// @access Private
 export const signInAdmin = async (
 	req: Request<{}, {}, signInBody["body"]>,
 	res: Response,
@@ -80,6 +80,9 @@ export const signInAdmin = async (
 	}
 };
 
+// @desc Get accounts
+// @route GET /api/admin/manage
+// @access Private
 export const getAccounts = async (
 	req: Request,
 	res: Response,
@@ -95,6 +98,9 @@ export const getAccounts = async (
 	}
 };
 
+// @desc Edit access role
+// @route GET /api/admin/edit
+// @access Private
 export const editRole = async (
 	req: Request<{}, {}, accountBody["body"]>,
 	res: Response,
@@ -120,6 +126,9 @@ export const editRole = async (
 	}
 };
 
+// @desc Delete account
+// @route GET /api/admin/delete/:id
+// @access Private
 export const deleteAccount = async (
 	req: Request<accountParams["params"], {}, {}>,
 	res: Response,

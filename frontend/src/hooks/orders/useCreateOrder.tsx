@@ -28,7 +28,7 @@ export const useCreateOrder = () => {
 			clearMyCart();
 			clearMyOrder();
 			navigate("/");
-			toast.success("Your order has been made.", { position: "top-center" });
+			toast.success("Your order has been made.");
 			console.log(data);
 		},
 		onError: (error: CustomError) => {
