@@ -4,6 +4,7 @@ export interface CustomError extends Error {
 			message: string;
 			stack: string;
 		};
+		status: number;
 	};
 }
 

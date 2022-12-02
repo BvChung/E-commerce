@@ -1,4 +1,4 @@
-import { useMutation, useQueryClient } from "react-query";
+import { useMutation } from "react-query";
 import { toast } from "react-toastify";
 import { useAuthContext } from "../context/useAuthContext";
 import { storage } from "../../helper/tokenStorage";
@@ -7,7 +7,6 @@ import { eCommerceApiPublic } from "../../api/axios";
 import { CustomError } from "../../interfaces/customInterface";
 
 export const useRegisterUser = () => {
-	const queryClient = useQueryClient();
 	const { setUser } = useAuthContext();
 
 	const register = async (

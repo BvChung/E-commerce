@@ -1,4 +1,4 @@
-import { useMutation, useQueryClient, useQuery } from "react-query";
+import { useMutation } from "react-query";
 import { toast } from "react-toastify";
 import { LoginCredentials, UserInfo } from "../../interfaces/authInterface";
 import { useAuthContext } from "../context/useAuthContext";
@@ -11,7 +11,6 @@ import { storage } from "../../helper/tokenStorage";
 // Then make req api with token => returns account information using useQuery() to store
 
 export const useSignInUser = () => {
-	const queryClient = useQueryClient();
 	const { setUser } = useAuthContext();
 
 	const signIn = async (credentials: LoginCredentials): Promise<UserInfo> => {
@@ -26,8 +25,6 @@ export const useSignInUser = () => {
 	return useMutation(signIn, {
 		onSuccess: (data: UserInfo) => {
 			toast.success(`${data.firstName} ${data.lastName} logged in.`);
-			queryClient.setQueryData("signIn", { ...data, isLoggedIn: true });
-
 			setUser(data);
 			storage.setToken(data.accessToken);
 		},
@@ -36,18 +33,3 @@ export const useSignInUser = () => {
 		},
 	});
 };
-
-// export const useLogin = (credentials: LoginCredentials) => {
-// 	return useQuery(
-// 		["user"],
-// 		async (credentials) => {
-// 			const response = await eCommerceApiPublic.post(
-// 				"/api/users/login",
-// 				credentials
-// 			);
-
-// 			return response.data;
-// 		},
-// 		{ enabled: false, cacheTime: Infinity }
-// 	);
-// };

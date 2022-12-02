@@ -18,7 +18,7 @@ const router: IRouter = Router();
 router.get("/manage", verifyJWT, getAccounts);
 router.post("/signin", signInAdmin);
 router.patch(
-	"/edit/",
+	"/edit",
 	[verifyJWT, validateRequest(accountUpdateBodySchema)],
 	editRole
 );

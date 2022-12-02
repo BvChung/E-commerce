@@ -8,7 +8,7 @@ import { storage } from "../../helper/tokenStorage";
 
 export const useLogoutUser = () => {
 	const queryClient = useQueryClient();
-	const { user, logoutUser } = useAuthContext();
+	const { logoutUser } = useAuthContext();
 	const navigate = useNavigate();
 
 	const logout = async () => {
