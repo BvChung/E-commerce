@@ -13,7 +13,7 @@ export default function ProductInfo() {
 		incrementCartQuantity,
 		decrementCartQuantity,
 	} = useCartContext();
-	const { isSuccess, data: productInfo } = useGetProductInfo(params.id);
+	const { isSuccess, data: productInfo } = useGetProductInfo(params.id!);
 	const foundItem = findCartItem(productInfo?._id);
 
 	return (

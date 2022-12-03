@@ -44,7 +44,7 @@ export default function Layout() {
 				{/* <!-- Page content here --> */}
 
 				<div className="flex flex-col justify-between h-full mt-16">
-					<Suspense fallback={<Spinner />}>
+					<Suspense fallback={<Spinner minHeight="min-h-screen" />}>
 						<Outlet />
 					</Suspense>
 				</div>

@@ -1,11 +1,12 @@
-import { useState, useEffect, lazy, Suspense } from "react";
+import { useState, useEffect, lazy } from "react";
 import { useNavigate } from "react-router-dom";
 import { useQueryProducts } from "../../hooks/products/useQueryProducts";
 import { ProductInfo } from "../../interfaces/productInterface";
-// import DisplayProduct from "./DisplayProduct";
+import DisplayProduct from "./DisplayProduct";
+import Spinner from "../loading/Spinner";
 import FiltersModal from "./modal/FiltersModal";
 import { useSearchParams } from "react-router-dom";
-const DisplayProduct = lazy(() => import("./DisplayProduct"));
+// const DisplayProduct = lazy(() => import("./DisplayProduct"));
 
 interface FilterProducts {
 	category: string[];
@@ -67,7 +68,7 @@ export default function ProductPage() {
 		}
 	}, [filter]);
 
-	const { isSuccess, data: products } = useQueryProducts(filter);
+	const { isSuccess, data: products, isLoading } = useQueryProducts(filter);
 
 	const displayProducts =
 		isSuccess && products.length !== 0 ? (
@@ -114,26 +115,20 @@ export default function ProductPage() {
 		);
 
 	return (
-		<>
-			<div className="flex justify-center mt-8 mb-16 w-full min-w-full h-full">
-				<div className="flex flex-col justify-center w-full h-full lg:max-w-6xl xl:max-w-7xl mx-4 sm:mx-6 lg:mx-0">
-					<div className="flex gap-2 justify-start w-full lg:max-w-3xl xl:max-w-4xl">
-						<FiltersModal handleChange={handleChange} setFilter={setFilter} />
-					</div>
+		<div className="flex justify-center mt-8 mb-16 w-full min-w-full h-full">
+			<div className="flex flex-col justify-center w-full h-full lg:max-w-6xl xl:max-w-7xl mx-4 sm:mx-6 lg:mx-0">
+				<div className="flex gap-2 justify-start w-full lg:max-w-3xl xl:max-w-4xl">
+					<FiltersModal handleChange={handleChange} setFilter={setFilter} />
+				</div>
 
+				{!isLoading ? (
 					<div className="flex justify-center w-full h-full">
 						{displayProducts}
 					</div>
-
-					{/* {!isLoading ? (
-						<div className="flex justify-center w-full h-full">
-							{displayProducts}
-						</div>
-					) : (
-						<Spinner />
-					)} */}
-				</div>
+				) : (
+					<Spinner minHeight="min-h-screen" />
+				)}
 			</div>
-		</>
+		</div>
 	);
 }

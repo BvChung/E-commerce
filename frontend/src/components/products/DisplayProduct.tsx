@@ -1,7 +1,12 @@
 import { Link } from "react-router-dom";
 import { ProductInfo } from "../../interfaces/productInterface";
 import { cldConfig } from "../../config/cloudinaryConfig";
-import { scale } from "@cloudinary/transformation-builder-sdk/actions/resize";
+import {
+	scale,
+	imaggaScale,
+	fill,
+	thumbnail,
+} from "@cloudinary/transformation-builder-sdk/actions/resize";
 import {
 	AdvancedImage,
 	lazyload,
@@ -19,8 +24,8 @@ export default function DisplayProduct({
 	const productImg = cldConfig
 		.image(imageCloudId)
 		.format("auto")
-		.quality("auto");
-
+		.quality("auto")
+		.resize(scale().width(600).height(600));
 	return (
 		<div className="w-full min-w-full fade transition-all">
 			<Link
@@ -30,7 +35,6 @@ export default function DisplayProduct({
 				<div className="overflow-hidden">
 					<AdvancedImage
 						cldImg={productImg}
-						plugins={[lazyload(), placeholder({ mode: "blur" })]}
 						className="h-[200px] w-full relative object-cover hover:scale-105 transition-transform duration-500"
 						alt="Product"
 					/>
