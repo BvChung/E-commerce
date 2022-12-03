@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { AxiosRequestConfig, AxiosResponse } from "axios";
 import { eCommerceApiPrivate } from "../../api/axios";
 import { useRefreshToken } from "./useRefreshToken";
-import { storage } from "../../helper/tokenStorage";
+import { storage } from "../../config/tokenStorage";
 
 export const usePrivateApi = () => {
 	const refreshToken = useRefreshToken();

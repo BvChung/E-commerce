@@ -1,24 +1,50 @@
 import { useQuery } from "react-query";
 import { usePrivateApi } from "../auth/usePrivateApi";
 import { OrderInfo } from "../../interfaces/orderInterface";
+import { useNavigate, useLocation } from "react-router-dom";
+import { CustomError } from "../../interfaces/customInterface";
+import { toast } from "react-toastify";
 
 export const useGetOrderInfo = (orderId: string | undefined) => {
 	const eCommerceApiPrivate = usePrivateApi();
+	const navigate = useNavigate();
+	const location = useLocation();
 
-	const getOrderInfo = async (orderId: string | undefined) => {
-		if (typeof orderId === "undefined") {
-			return Promise.reject(new Error("Invalid order id"));
+	const getOrderInfo = async (orderId: string) => {
+		try {
+			const response = await eCommerceApiPrivate.get(`/api/orders/${orderId}`);
+
+			return response.data;
+		} catch (error) {
+			const err = error as CustomError;
+			if (
+				err.response?.status === 403 &&
+				err.response?.data?.message === "jwt malformed"
+			) {
+				toast.info("Your session has expired.");
+				navigate("/signin", { state: { from: location }, replace: true });
+				return Promise.reject(error);
+			}
+
+			if (
+				err.response?.data?.message.includes(
+					"Cast to ObjectId failed for value"
+				)
+			) {
+				toast.error("Order not found");
+				return Promise.reject(error);
+			}
+
+			toast.error(err.response?.data?.message);
+			return Promise.reject(error);
 		}
-
-		const response = await eCommerceApiPrivate.get(`/api/orders/${orderId}`);
-
-		return response.data;
 	};
 
 	return useQuery<OrderInfo>(
 		[`order-${orderId}`, orderId],
-		() => getOrderInfo(orderId),
+		() => getOrderInfo(orderId!),
 		{
+			retry: false,
 			enabled: !!orderId,
 		}
 	);

@@ -11,7 +11,7 @@ import {
 import dotenv from "dotenv";
 dotenv.config();
 
-export const getAllProducts = async (
+export const getInventory = async (
 	req: Request,
 	res: Response,
 	next: NextFunction

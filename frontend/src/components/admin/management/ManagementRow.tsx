@@ -1,7 +1,7 @@
 import { AccountInfo } from "../../../interfaces/adminInterface";
 //@ts-ignore
 import DefaultAvatar from "../../../assets/avatar.avif";
-import { accessRoles } from "../../../helper/accessRoles";
+import { accessRoles } from "../../../config/accessRoles";
 
 export default function ManagementRow({
 	_id,

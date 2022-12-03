@@ -16,32 +16,34 @@ export const useUpdateRole = () => {
 	const navigate = useNavigate();
 	const location = useLocation();
 
-	const updateRole = async (
-		updatedInfo: UpdateManagement
-	): Promise<UserInfo> => {
-		const response = await eCommerceApiPrivate.patch(
-			`/api/admin/edit`,
-			updatedInfo
-		);
+	const updateRole = async (updatedInfo: UpdateManagement) => {
+		try {
+			const response = await eCommerceApiPrivate.patch(
+				`/api/admin/edit`,
+				updatedInfo
+			);
 
-		return response.data;
+			return response.data;
+		} catch (error) {
+			const err = error as CustomError;
+			if (
+				err.response?.status === 403 &&
+				err.response?.data?.message === "jwt malformed"
+			) {
+				toast.info("Your session has expired.");
+				navigate("/signin", { state: { from: location }, replace: true });
+				return Promise.reject(error);
+			}
+
+			toast.error(err.response?.data?.message);
+			return Promise.reject(error);
+		}
 	};
 
 	return useMutation(updateRole, {
 		onSuccess: (data: UserInfo) => {
 			queryClient.invalidateQueries("manage");
 			toast.success(`${data.firstName} has been updated.`);
-		},
-		onError: (error: CustomError) => {
-			if (
-				error.response?.status === 403 &&
-				error.response?.data?.message === "jwt malformed"
-			) {
-				toast.info("Your session has expired.");
-				navigate("/adminsignin", { state: { from: location }, replace: true });
-				return;
-			}
-			toast.error(error.response?.data?.message);
 		},
 	});
 };

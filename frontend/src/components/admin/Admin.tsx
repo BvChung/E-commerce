@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { useAuthContext } from "../../hooks/context/useAuthContext";
-import { accessRoles } from "../../helper/accessRoles";
+import { accessRoles } from "../../config/accessRoles";
 
 export default function Admin() {
 	const { user } = useAuthContext();

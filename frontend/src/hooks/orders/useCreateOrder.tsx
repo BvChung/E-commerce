@@ -5,7 +5,7 @@ import { CustomError } from "../../interfaces/customInterface";
 import { toast } from "react-toastify";
 import { useOrderContext } from "../context/useOrderContext";
 import { useCartContext } from "../context/useCartContext";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
 export const useCreateOrder = () => {
 	const eCommerceApiPrivate = usePrivateApi();
@@ -13,26 +13,37 @@ export const useCreateOrder = () => {
 	const { clearMyOrder } = useOrderContext();
 	const { clearMyCart } = useCartContext();
 	const navigate = useNavigate();
+	const location = useLocation();
 
-	const createOrder = async (
-		myOrder: OrderCreation
-	): Promise<OrderCreation[]> => {
-		const response = await eCommerceApiPrivate.post("/api/orders/", myOrder);
+	const createOrder = async (myOrder: OrderCreation) => {
+		try {
+			const response = await eCommerceApiPrivate.post("/api/orders/", myOrder);
 
-		return response.data;
+			return response.data;
+		} catch (error) {
+			const err = error as CustomError;
+			if (
+				err.response?.status === 403 &&
+				err.response?.data?.message === "jwt malformed"
+			) {
+				toast.info("Your session has expired.");
+				navigate("/signin", { state: { from: location }, replace: true });
+				return Promise.reject(error);
+			}
+
+			toast.error(err.response?.data?.message);
+			return Promise.reject(error);
+		}
 	};
 
 	return useMutation(createOrder, {
-		onSuccess: (data) => {
+		onSuccess: (data: OrderCreation[]) => {
 			queryClient.invalidateQueries("orders");
 			clearMyCart();
 			clearMyOrder();
 			navigate("/");
 			toast.success("Your order has been made.");
 			console.log(data);
-		},
-		onError: (error: CustomError) => {
-			toast.error(error.response?.data?.message);
 		},
 	});
 };

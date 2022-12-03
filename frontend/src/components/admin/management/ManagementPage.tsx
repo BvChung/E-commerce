@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useGetAccounts } from "../../../hooks/admin/management/useGetAccounts";
 import AccountRow from "./ManagementRow";
-import { accessRoles } from "../../../helper/accessRoles";
+import { accessRoles } from "../../../config/accessRoles";
 import { CurrentInfo } from "../../../interfaces/adminInterface";
 import { useUpdateRole } from "../../../hooks/admin/management/useUpdateRole";
 import { useDeleteAccount } from "../../../hooks/admin/management/useDeleteAccount";
@@ -73,9 +73,7 @@ export default function ManagementPage() {
 					</table>
 				</div>
 			) : (
-				<div className="h-full">
-					<Spinner />
-				</div>
+				<Spinner minHeight="min-h-screen" />
 			)}
 
 			<div className={`modal ${editingAccount && "modal-open"} `}>

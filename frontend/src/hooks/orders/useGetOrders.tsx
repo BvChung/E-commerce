@@ -31,7 +31,7 @@ export const useGetOrders = () => {
 			) {
 				toast.info("Your session has expired.");
 				navigate("/signin", { state: { from: location }, replace: true });
-				return;
+				return Promise.reject(error);
 			}
 
 			toast.error(err.response?.data?.message);

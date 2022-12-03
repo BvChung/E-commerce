@@ -426,7 +426,7 @@ export default function ReviewOrder() {
 					</div>
 				</div>
 			) : (
-				<Spinner />
+				<Spinner minHeight="min-h-screen" />
 			)}
 		</>
 	);

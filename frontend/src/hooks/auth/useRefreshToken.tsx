@@ -1,6 +1,6 @@
 import { eCommerceApiPublic } from "../../api/axios";
 
-import { storage } from "../../helper/tokenStorage";
+import { storage } from "../../config/tokenStorage";
 import { useAuthContext } from "../context/useAuthContext";
 
 export const useRefreshToken = () => {
@@ -24,6 +24,7 @@ export const useRefreshToken = () => {
 			return response.data;
 		} catch (error) {
 			console.error(error);
+			// return Promise.reject(error);
 		}
 	};
 

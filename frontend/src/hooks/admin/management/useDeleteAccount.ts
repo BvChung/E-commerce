@@ -11,29 +11,33 @@ export const useDeleteAccount = () => {
 	const navigate = useNavigate();
 	const location = useLocation();
 
-	const deleteAccount = async (accountId: string): Promise<UserInfo> => {
-		const response = await eCommerceApiPrivate.delete(
-			`/api/admin/delete/${accountId}`
-		);
+	const deleteAccount = async (accountId: string) => {
+		try {
+			const response = await eCommerceApiPrivate.delete(
+				`/api/admin/delete/${accountId}`
+			);
 
-		return response.data;
+			return response.data;
+		} catch (error) {
+			const err = error as CustomError;
+			if (
+				err.response?.status === 403 &&
+				err.response?.data?.message === "jwt malformed"
+			) {
+				toast.info("Your session has expired.");
+				navigate("/signin", { state: { from: location }, replace: true });
+				return Promise.reject(error);
+			}
+
+			toast.error(err.response?.data?.message);
+			return Promise.reject(error);
+		}
 	};
 
 	return useMutation(deleteAccount, {
 		onSuccess: (data: UserInfo) => {
 			queryClient.invalidateQueries("manage");
 			toast.success(`${data.firstName} has been deleted.`);
-		},
-		onError: (error: CustomError) => {
-			if (
-				error.response?.status === 403 &&
-				error.response?.data?.message === "jwt malformed"
-			) {
-				toast.info("Your session has expired.");
-				navigate("/adminsignin", { state: { from: location }, replace: true });
-				return;
-			}
-			toast.error(error.response?.data?.message);
 		},
 	});
 };

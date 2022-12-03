@@ -24,23 +24,5 @@ export default function PersistLogin() {
 		!user?.accessToken ? verifyUser() : setIsLoading(false);
 	}, []);
 
-	return <>{!isLoading ? <Outlet /> : <Spinner />}</>;
+	return <>{!isLoading ? <Outlet /> : <Spinner minHeight="min-h-screen" />}</>;
 }
-
-// export default function PersistLogin() {
-// 	const getUser = useGetUser();
-
-// 	// Authenticate cookie on user device to load account information
-// 	useEffect(() => {
-// 		const verifyUser = async (): Promise<void> => {
-// 			try {
-// 				console.log("Verifying user");
-// 				await getUser();
-// 			} catch (error) {}
-// 		};
-
-// 		verifyUser();
-// 	}, []);
-
-// 	return <Outlet />;
-// }
