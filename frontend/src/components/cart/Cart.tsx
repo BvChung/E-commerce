@@ -5,6 +5,7 @@ import { useGetCartItems } from "../../hooks/cart/useGetCartItems";
 import CartItem from "./CartItem";
 import { useOrderContext } from "../../hooks/context/useOrderContext";
 import { useAuthContext } from "../../hooks/context/useAuthContext";
+import { demoInfo } from "../../config/demoInfo";
 import Spinner from "../loading/Spinner";
 
 export default function CartPage() {
@@ -36,32 +37,6 @@ export default function CartPage() {
 		user.firstName === process.env.REACT_APP_GUEST_CARDFIRSTNAME &&
 		user.lastName === process.env.REACT_APP_GUEST_CARDLASTNAME &&
 		user.email === process.env.REACT_APP_GUEST_EMAIL;
-
-	const demoInfo = {
-		shippingInfo: {
-			firstName: process.env.REACT_APP_GUEST_CARDFIRSTNAME!,
-			lastName: process.env.REACT_APP_GUEST_CARDLASTNAME!,
-			address: process.env.REACT_APP_GUEST_ADDRESS!,
-			aptSuiteEtc: "",
-			state: process.env.REACT_APP_GUEST_STATE!,
-			city: process.env.REACT_APP_GUEST_CITY!,
-			zipCode: process.env.REACT_APP_GUEST_ZIPCODE!,
-			phone: process.env.REACT_APP_GUEST_PHONE!,
-			email: process.env.REACT_APP_GUEST_EMAIL!,
-		},
-		paymentInfo: {
-			cardNumber: process.env.REACT_APP_GUEST_CARDNUMBER!,
-			cardHolderFirstName: process.env.REACT_APP_GUEST_CARDFIRSTNAME!,
-			cardHolderLastName: process.env.REACT_APP_GUEST_CARDLASTNAME!,
-			expiryDateMonth: process.env.REACT_APP_GUEST_CARDEXPMONTH!,
-			expiryDateYear: process.env.REACT_APP_GUEST_CARDEXPYEAR!,
-			securityCode: process.env.REACT_APP_GUEST_CARDCVV!,
-			phone: process.env.REACT_APP_GUEST_PHONE!,
-			subTotal: 0,
-		},
-		completedPaymentForm: true,
-		completedShippingForm: true,
-	};
 
 	return (
 		<div className="flex flex-col items-center justify-center mt-8 mb-16 mx-4 sm:mx-6 lg:mx-0">

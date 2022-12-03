@@ -2,7 +2,8 @@ import { Link } from "react-router-dom";
 import { OrderPurchasedItems } from "../../interfaces/orderInterface";
 import { useCartContext } from "../../hooks/context/useCartContext";
 import { cldConfig } from "../../config/cloudinaryConfig";
-import { AdvancedImage, lazyload, placeholder } from "@cloudinary/react";
+import { AdvancedImage } from "@cloudinary/react";
+import { thumbnail } from "@cloudinary/url-gen/actions/resize";
 import { toast } from "react-toastify";
 
 export default function OrderedItems({
@@ -17,7 +18,8 @@ export default function OrderedItems({
 	const productImg = cldConfig
 		.image(imageCloudId)
 		.format("auto")
-		.quality("auto");
+		.quality("auto")
+		.resize(thumbnail().width(200).height(200));
 
 	return (
 		<div
@@ -27,7 +29,6 @@ export default function OrderedItems({
 			<Link to={`/products/${_id}`}>
 				<AdvancedImage
 					cldImg={productImg}
-					plugins={[lazyload(), placeholder({ mode: "blur" })]}
 					className="rounded-md h-32 w-32 object-cover"
 					alt="Product"
 				/>
@@ -68,7 +69,9 @@ export default function OrderedItems({
 									quantity: 1,
 								});
 
-								toast.success(`${name} has been added to your cart.`);
+								toast.success(`${name} has been added to your cart.`, {
+									position: "bottom-right",
+								});
 							}}
 							className={`btn rounded-full ${
 								!findCartItem(_id)?.quantity || findCartItem(_id)?.quantity! < 9
@@ -112,7 +115,9 @@ export default function OrderedItems({
 								quantity: 1,
 							});
 
-							toast.success(`${name} has been added to your cart.`);
+							toast.success(`${name} has been added to your cart.`, {
+								position: "bottom-right",
+							});
 						}}
 						className={`btn rounded-full ${
 							!findCartItem(_id)?.quantity || findCartItem(_id)?.quantity! < 9

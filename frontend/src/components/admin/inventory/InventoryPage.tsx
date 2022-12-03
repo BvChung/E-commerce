@@ -299,9 +299,7 @@ export default function ProductTable() {
 					</table>
 				</div>
 			) : (
-				<div className="h-full">
-					<Spinner />
-				</div>
+				<Spinner minHeight="min-h-screen" />
 			)}
 
 			<div className={`modal ${deleteConfirmation && "modal-open"} `}>

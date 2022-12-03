@@ -1,4 +1,4 @@
-import { carouselData, categoryData } from "../../helper/images";
+import { carouselData, categoryData } from "../../config/images";
 import Category from "./display/Category";
 import Carousel from "./display/Carousel";
 

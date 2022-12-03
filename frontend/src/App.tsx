@@ -12,10 +12,9 @@ import LandingPage from "./components/landingPage/LandingPage";
 import ProductPage from "./components/products/ProductPage";
 import PersistLogin from "./components/protected/PersistLogin";
 import RequireAuth from "./components/protected/RequireAuth";
-import { accessRoles } from "./helper/accessRoles";
+import { accessRoles } from "./config/accessRoles";
 import "react-toastify/dist/ReactToastify.css";
 
-// const ProductPage = lazy(() => import("./components/products/ProductPage"));
 const Cart = lazy(() => import("./components/cart/Cart"));
 const OrderPage = lazy(() => import("./components/orders/OrderPage"));
 const ProductInfo = lazy(() => import("./components/products/ProductInfo"));

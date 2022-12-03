@@ -1,8 +1,14 @@
-export default function Spinner() {
+interface SpinnerProps {
+	minHeight?: string;
+}
+
+export default function Spinner({ minHeight }: SpinnerProps) {
 	return (
-		<div className={`flex justify-center items-center w-full h-full`}>
+		<div
+			className={`flex justify-center items-center w-full h-full ${minHeight}`}
+		>
 			<svg
-				className="animate-spin h-12 w-12 text-gray-800"
+				className="animate-spin h-12 w-12 text-black"
 				xmlns="http://www.w3.org/2000/svg"
 				fill="none"
 				viewBox="0 0 24 24"

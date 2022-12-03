@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef, useId } from "react";
 import { Link } from "react-router-dom";
-import { CarouselData } from "../../../helper/images";
+import { CarouselData } from "../../../config/images";
 import Indicator from "./Indicator";
 import {
 	AdvancedImage,
