@@ -27,13 +27,6 @@ export const useEditPassword = () => {
 			toast.error(err.response?.data?.message);
 			return Promise.reject(error);
 		}
-
-		// const response = await eCommerceApiPublic.patch(
-		// 	"/api/users/edit/password",
-		// 	credentials
-		// );
-
-		// return response.data;
 	};
 
 	return useMutation(editPassword, {
