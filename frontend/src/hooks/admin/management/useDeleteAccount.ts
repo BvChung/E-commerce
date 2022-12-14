@@ -20,12 +20,19 @@ export const useDeleteAccount = () => {
 			return response.data;
 		} catch (error) {
 			const err = error as CustomError;
+
+			if (err.response?.status === 401) {
+				toast.error(err.response?.data?.message);
+				navigate("/adminsignin", { state: { from: location }, replace: true });
+				return Promise.reject(error);
+			}
+
 			if (
 				err.response?.status === 403 &&
 				err.response?.data?.message === "jwt malformed"
 			) {
 				toast.info("Your session has expired.");
-				navigate("/signin", { state: { from: location }, replace: true });
+				navigate("/adminsignin", { state: { from: location }, replace: true });
 				return Promise.reject(error);
 			}
 

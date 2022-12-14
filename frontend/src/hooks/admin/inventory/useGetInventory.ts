@@ -12,7 +12,7 @@ export const useGetInventory = () => {
 
 	const getInventory = async () => {
 		try {
-			const response = await eCommerceApiPrivate.get("/api/products/inventory");
+			const response = await eCommerceApiPrivate.get("/api/admin/inventory");
 
 			return response.data.sort((a: ProductInfo, b: ProductInfo) => {
 				if (a.name < b.name) {
@@ -26,12 +26,19 @@ export const useGetInventory = () => {
 			});
 		} catch (error) {
 			const err = error as CustomError;
+
+			if (err.response?.status === 401) {
+				toast.error(err.response?.data?.message);
+				navigate("/adminsignin", { state: { from: location }, replace: true });
+				return Promise.reject(error);
+			}
+
 			if (
 				err.response?.status === 403 &&
 				err.response?.data?.message === "jwt malformed"
 			) {
 				toast.info("Your session has expired.");
-				navigate("/signin", { state: { from: location }, replace: true });
+				navigate("/adminsignin", { state: { from: location }, replace: true });
 				return Promise.reject(error);
 			}
 

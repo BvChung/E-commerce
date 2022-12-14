@@ -1,4 +1,4 @@
-import { AccountInfo } from "../../../interfaces/adminInterface";
+import { ModifyAccount } from "../../../interfaces/adminInterface";
 //@ts-ignore
 import DefaultAvatar from "../../../assets/avatar.avif";
 import { accessRoles } from "../../../config/accessRoles";
@@ -11,7 +11,7 @@ export default function ManagementRow({
 	setEditingAccount,
 	setDeleteConfirmation,
 	setCurrentAccount,
-}: AccountInfo) {
+}: ModifyAccount) {
 	return (
 		<>
 			<tr>

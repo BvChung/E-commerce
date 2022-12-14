@@ -1,4 +1,4 @@
-export interface AccountInfo {
+export interface ModifyAccount {
 	_id: string;
 	firstName: string;
 	lastName: string;
