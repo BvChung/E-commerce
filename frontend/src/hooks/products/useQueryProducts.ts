@@ -4,21 +4,16 @@ import { useQuery } from "react-query";
 import qs from "qs";
 import { CustomError } from "../../interfaces/customInterface";
 import { toast } from "react-toastify";
+import { QueryProducts } from "../../interfaces/productInterface";
 
-interface Filters {
-	category: string[];
-	priceLow: number | string;
-	priceHigh: number | string;
-}
-
-export const useQueryProducts = (filter: Filters) => {
+export const useQueryProducts = (filters: QueryProducts) => {
 	const getProducts = async () => {
 		try {
 			const response = await eCommerceApiPublic.get("/api/products/query", {
 				params: {
-					category: filter.category,
-					priceLow: filter.priceLow,
-					priceHigh: filter.priceHigh,
+					category: filters.category,
+					priceLow: filters.priceLow,
+					priceHigh: filters.priceHigh,
 				},
 				paramsSerializer: (params) => qs.stringify(params),
 			});
@@ -39,5 +34,5 @@ export const useQueryProducts = (filter: Filters) => {
 		}
 	};
 
-	return useQuery<ProductInfo[]>(["products", filter], getProducts);
+	return useQuery<ProductInfo[]>(["products", filters], getProducts);
 };

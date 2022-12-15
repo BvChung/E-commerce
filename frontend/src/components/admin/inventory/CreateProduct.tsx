@@ -1,11 +1,11 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useCallback } from "react";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import { useCreateProduct } from "../../../hooks/admin/inventory/useCreateProduct";
 import { ProductForm } from "../../../interfaces/productInterface";
 
 export default function CreateProduct() {
-	const { mutate } = useCreateProduct();
+	const { mutate, isLoading } = useCreateProduct();
 	const imageRef = useRef<HTMLInputElement>(null);
 
 	const [productFormData, setProductFormData] = useState<ProductForm>({
@@ -159,7 +159,7 @@ export default function CreateProduct() {
 								<span className="label-text">Price</span>
 							</label>
 							<input
-								type="text"
+								type="number"
 								placeholder="Price"
 								className="input input-bordered w-full md:w-[688px]"
 								name="price"
@@ -260,16 +260,16 @@ export default function CreateProduct() {
 								type="file"
 								id="image"
 								name="image"
-								accept=".png,.jpeg,.jpg"
+								accept=".png,.jpeg,.jpg,.avif,.webp"
 								onChange={handleFile}
 							/>
 
-							<div className="alert p-3 rounded-t-none rounded-b-md shadow-sm">
+							<div className="flex items-center gap-3 bg-gray-50 p-3 rounded-t-none rounded-b-md shadow-sm">
 								<svg
 									xmlns="http://www.w3.org/2000/svg"
 									fill="none"
 									viewBox="0 0 24 24"
-									className="stroke-info flex-shrink-0 w-6 h-6"
+									className="stroke-sky-600 flex-shrink-0 w-6 h-6"
 								>
 									<path
 										strokeLinecap="round"
@@ -278,9 +278,10 @@ export default function CreateProduct() {
 										d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
 									></path>
 								</svg>
-								<span className="text-sm">
-									Recommended size: 2418 x 1734 and less than 5MB.
-								</span>
+								<div className="flex flex-col text-sm justify-center">
+									<p className="text-sm">File format: JPEG, PNG, AVIF, WEBP</p>
+									<p className="">(recommended 1200x480, max 5MB)</p>
+								</div>
 							</div>
 						</div>
 

@@ -17,21 +17,19 @@ export const useGetOrderInfo = (orderId: string | undefined) => {
 			return response.data;
 		} catch (error) {
 			const err = error as CustomError;
+
+			if (err.response?.status === 404 || !orderId) {
+				navigate("/orders");
+				toast.error("This order could not be found.");
+				return Promise.reject(error);
+			}
+
 			if (
 				err.response?.status === 403 &&
 				err.response?.data?.message === "jwt malformed"
 			) {
 				toast.info("Your session has expired.");
 				navigate("/signin", { state: { from: location }, replace: true });
-				return Promise.reject(error);
-			}
-
-			if (
-				err.response?.data?.message.includes(
-					"Cast to ObjectId failed for value"
-				)
-			) {
-				toast.error("Order not found");
 				return Promise.reject(error);
 			}
 

@@ -42,9 +42,23 @@ export const useDeleteAccount = () => {
 	};
 
 	return useMutation(deleteAccount, {
+		onMutate: () => {
+			toast.loading("Deleting this account...", {
+				type: "info",
+				toastId: "deletingAccount",
+			});
+		},
 		onSuccess: (data: UserInfo) => {
 			queryClient.invalidateQueries("manage");
-			toast.success(`${data.firstName} has been deleted.`);
+
+			toast.update("deletingAccount", {
+				render: `${data.firstName} has been deleted.`,
+				type: "success",
+				isLoading: false,
+				autoClose: 1500,
+				draggable: true,
+				closeOnClick: true,
+			});
 		},
 	});
 };

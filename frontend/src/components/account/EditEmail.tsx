@@ -2,18 +2,17 @@ import React, { useState, useId, useEffect } from "react";
 import { useAuthContext } from "../../hooks/context/useAuthContext";
 import FormInput from "../form/FormInput";
 import { FormInputProps } from "../../interfaces/formInterface";
-import { EditEmailCredentials } from "../../interfaces/authInterface";
+import { EditedEmail } from "../../interfaces/authInterface";
 import { useEditEmail } from "../../hooks/account/useEditEmail";
 import { useNavigate } from "react-router-dom";
 
 export default function EditEmail() {
 	const { user } = useAuthContext();
-	const { mutate, isSuccess } = useEditEmail();
+	const { mutate } = useEditEmail();
 	const navigate = useNavigate();
-	const [emailCredentials, setEmailCredentials] =
-		useState<EditEmailCredentials>({
-			email: user.email,
-		});
+	const [emailCredentials, setEmailCredentials] = useState<EditedEmail>({
+		email: user.email,
+	});
 
 	function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
 		const { name, value } = e.target;
@@ -36,7 +35,7 @@ export default function EditEmail() {
 		setEmailCredentials({
 			email: user.email,
 		});
-	}, [isSuccess]);
+	}, [user]);
 
 	const emailInput: FormInputProps[] = [
 		{

@@ -1,5 +1,5 @@
 import { useMutation } from "react-query";
-import { EditNameCredentials } from "../../interfaces/authInterface";
+import { EditedName } from "../../interfaces/authInterface";
 import { useAuthContext } from "../context/useAuthContext";
 import { usePrivateApi } from "../auth/usePrivateApi";
 import { useNavigate, useLocation } from "react-router-dom";
@@ -12,7 +12,7 @@ export const useEditName = () => {
 	const navigate = useNavigate();
 	const location = useLocation();
 
-	const editName = async (credentials: EditNameCredentials) => {
+	const editName = async (credentials: EditedName) => {
 		try {
 			const response = await eCommerceApiPrivate.patch(
 				"/api/users/edit/name",
@@ -22,30 +22,60 @@ export const useEditName = () => {
 			return response.data;
 		} catch (error) {
 			const err = error as CustomError;
+
 			if (
 				err.response?.status === 403 &&
 				err.response?.data?.message === "jwt malformed"
 			) {
-				toast.info("Your session has expired.");
+				toast.update("updatingName", {
+					render: "Your session has expired.",
+					type: "info",
+					isLoading: false,
+					autoClose: 1500,
+					draggable: true,
+					closeOnClick: true,
+				});
+
 				navigate("/signin", { state: { from: location }, replace: true });
 				return Promise.reject(error);
 			}
 
-			toast.error(err.response?.data?.message);
+			toast.update("updatingName", {
+				render: err.response?.data?.message,
+				type: "error",
+				isLoading: false,
+				autoClose: 1500,
+				draggable: true,
+				closeOnClick: true,
+			});
+
 			return Promise.reject(error);
 		}
 	};
 
 	return useMutation(editName, {
-		onSuccess: (data: EditNameCredentials) => {
-			toast.success("Your name has been updated");
-
+		onMutate: () => {
+			toast.loading("Updating your account...", {
+				type: "info",
+				toastId: "updatingName",
+			});
+		},
+		onSuccess: (data: EditedName) => {
 			setUser((prev) => {
 				return {
 					...prev,
 					firstName: data.firstName,
 					lastName: data.lastName,
 				};
+			});
+
+			toast.update("updatingName", {
+				render: "Your name has been changed.",
+				type: "success",
+				isLoading: false,
+				autoClose: 1500,
+				draggable: true,
+				closeOnClick: true,
 			});
 		},
 	});

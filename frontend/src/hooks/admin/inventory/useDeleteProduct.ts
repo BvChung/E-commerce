@@ -24,7 +24,15 @@ export const useDeleteProduct = () => {
 			const err = error as CustomError;
 
 			if (err.response?.status === 401) {
-				toast.error(err.response?.data?.message);
+				toast.update("deletingProduct", {
+					render: err.response?.data?.message,
+					type: "error",
+					isLoading: false,
+					autoClose: 1500,
+					draggable: true,
+					closeOnClick: true,
+				});
+
 				navigate("/adminsignin", { state: { from: location }, replace: true });
 				return Promise.reject(error);
 			}
@@ -33,24 +41,53 @@ export const useDeleteProduct = () => {
 				err.response?.status === 403 &&
 				err.response?.data?.message === "jwt malformed"
 			) {
-				toast.info("Your session has expired.");
+				toast.update("deletingProduct", {
+					render: "Your session has expired.",
+					type: "info",
+					isLoading: false,
+					autoClose: 1500,
+					draggable: true,
+					closeOnClick: true,
+				});
+
 				navigate("/adminsignin", { state: { from: location }, replace: true });
 				return Promise.reject(error);
 			}
 
-			toast.error(err.response?.data?.message);
+			toast.update("deletingProduct", {
+				render: err.response?.data?.message,
+				type: "error",
+				isLoading: false,
+				autoClose: 1500,
+				draggable: true,
+				closeOnClick: true,
+			});
 			return Promise.reject(error);
 		}
 	};
 
 	return useMutation(deleteProduct, {
+		onMutate: () => {
+			toast.loading("Deleting this product...", {
+				type: "info",
+				toastId: "deletingProduct",
+			});
+		},
 		onSuccess: (data: ProductInfo) => {
 			queryClient.invalidateQueries("inventory");
 			queryClient.invalidateQueries(`product-${data._id}`);
 			queryClient.invalidateQueries("products");
 			queryClient.invalidateQueries("cart");
 			removeCartItem(data._id);
-			toast.success(`${data.name} has been deleted.`);
+
+			toast.update("deletingProduct", {
+				render: `${data.name} has been deleted.`,
+				type: "success",
+				isLoading: false,
+				autoClose: 1500,
+				draggable: true,
+				closeOnClick: true,
+			});
 		},
 	});
 };

@@ -1,8 +1,7 @@
 import React, { useState, useId } from "react";
-import { useAuthContext } from "../../hooks/context/useAuthContext";
 import FormInput from "../form/FormInput";
 import { FormInputProps } from "../../interfaces/formInterface";
-import { EditPasswordCredentials } from "../../interfaces/authInterface";
+import { EditedPassword } from "../../interfaces/authInterface";
 import { useEditPassword } from "../../hooks/account/useEditPassword";
 import { useNavigate } from "react-router-dom";
 
@@ -11,7 +10,7 @@ export default function EditPassword() {
 	const navigate = useNavigate();
 
 	const [passwordCredentials, setPasswordCredentials] =
-		useState<EditPasswordCredentials>({
+		useState<EditedPassword>({
 			currentPassword: "",
 			newPassword: "",
 			verifyNewPassword: "",
@@ -55,8 +54,6 @@ export default function EditPassword() {
 			type: showPassword ? "text" : "password",
 			value: passwordCredentials.currentPassword,
 			pattern: "(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])[A-Za-z0-9d=!-@._*]{8,25}$",
-			// prettier-ignore
-			// pattern: "(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])[A-Za-z0-9\d=!\-@._*]{8,25}$",
 			maxLength: 25,
 		},
 		{
@@ -71,8 +68,6 @@ export default function EditPassword() {
 			type: showPassword ? "text" : "password",
 			value: passwordCredentials.newPassword,
 			pattern: "(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])[A-Za-z0-9d=!-@._*]{8,25}$",
-			// prettier-ignore
-			// pattern: "(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])[A-Za-z0-9\d=!\-@._*]{8,25}$",
 			maxLength: 25,
 		},
 		{
@@ -87,8 +82,6 @@ export default function EditPassword() {
 			type: showPassword ? "text" : "password",
 			value: passwordCredentials.verifyNewPassword,
 			pattern: "(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])[A-Za-z0-9d=!-@._*]{8,25}$",
-			// prettier-ignore
-			// pattern: "(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])[A-Za-z0-9\d=!\-@._*]{8,25}$",
 			maxLength: 25,
 		},
 	];

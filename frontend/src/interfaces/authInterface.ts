@@ -20,16 +20,16 @@ export interface UserInfo {
 	accessToken: string;
 }
 
-export interface EditNameCredentials {
+export interface EditedName {
 	firstName: string;
 	lastName: string;
 }
 
-export interface EditEmailCredentials {
+export interface EditedEmail {
 	email: string;
 }
 
-export interface EditPasswordCredentials {
+export interface EditedPassword {
 	currentPassword: string;
 	newPassword: string;
 	verifyNewPassword?: string;

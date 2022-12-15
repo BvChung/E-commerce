@@ -1,4 +1,5 @@
 export interface CustomError extends Error {
+	code?: string;
 	response?: {
 		data: {
 			message: string;

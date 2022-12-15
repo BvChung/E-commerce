@@ -28,7 +28,15 @@ export const useUpdateProduct = (productId: string | undefined) => {
 			const err = error as CustomError;
 
 			if (err.response?.status === 401) {
-				toast.error(err.response?.data?.message);
+				toast.update("updatingProduct", {
+					render: err.response?.data?.message,
+					type: "error",
+					isLoading: false,
+					autoClose: 1500,
+					draggable: true,
+					closeOnClick: true,
+				});
+
 				navigate("/adminsignin", { state: { from: location }, replace: true });
 				return Promise.reject(error);
 			}
@@ -37,17 +45,52 @@ export const useUpdateProduct = (productId: string | undefined) => {
 				err.response?.status === 403 &&
 				err.response?.data?.message === "jwt malformed"
 			) {
-				toast.info("Your session has expired.");
+				toast.update("updatingProduct", {
+					render: "Your session has expired.",
+					type: "info",
+					isLoading: false,
+					autoClose: 1500,
+					draggable: true,
+					closeOnClick: true,
+				});
+
 				navigate("/adminsignin", { state: { from: location }, replace: true });
 				return Promise.reject(error);
 			}
 
-			toast.error(err.response?.data?.message);
+			if (err.name === "AxiosError" && err.code === "ERR_NETWORK") {
+				toast.update("updatingProduct", {
+					render: "Cors error, please use a different image.",
+					type: "error",
+					isLoading: false,
+					autoClose: 1500,
+					draggable: true,
+					closeOnClick: true,
+				});
+
+				return Promise.reject(error);
+			}
+
+			toast.update("updatingProduct", {
+				render: err.response?.data?.message,
+				type: "error",
+				isLoading: false,
+				autoClose: 1500,
+				draggable: true,
+				closeOnClick: true,
+			});
+
 			return Promise.reject(error);
 		}
 	};
 
 	return useMutation(updateProduct, {
+		onMutate: () => {
+			toast.loading("Updating this product...", {
+				type: "info",
+				toastId: "updatingProduct",
+			});
+		},
 		onSuccess: (data: ProductInfo) => {
 			queryClient.invalidateQueries(`product-${data._id}`);
 			queryClient.invalidateQueries("products");
@@ -56,7 +99,15 @@ export const useUpdateProduct = (productId: string | undefined) => {
 			if (findCartItem(productId)?.price !== data.price) {
 				updateCartPrice({ _id: data._id, price: data.price });
 			}
-			toast.success(`${data.name} has been updated.`);
+
+			toast.update("updatingProduct", {
+				render: `${data.name} has been updated.`,
+				type: "success",
+				isLoading: false,
+				autoClose: 1500,
+				draggable: true,
+				closeOnClick: true,
+			});
 		},
 	});
 };

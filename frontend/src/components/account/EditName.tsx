@@ -3,14 +3,14 @@ import { useNavigate } from "react-router-dom";
 import { useAuthContext } from "../../hooks/context/useAuthContext";
 import FormInput from "../form/FormInput";
 import { FormInputProps } from "../../interfaces/formInterface";
-import { EditNameCredentials } from "../../interfaces/authInterface";
+import { EditedName } from "../../interfaces/authInterface";
 import { useEditName } from "../../hooks/account/useEditName";
 
 export default function EditName() {
 	const { user } = useAuthContext();
-	const { mutate, isSuccess } = useEditName();
+	const { mutate } = useEditName();
 	const navigate = useNavigate();
-	const [nameCredentials, setNameCredentials] = useState<EditNameCredentials>({
+	const [nameCredentials, setNameCredentials] = useState<EditedName>({
 		firstName: user.firstName,
 		lastName: user.lastName,
 	});
@@ -37,7 +37,7 @@ export default function EditName() {
 			firstName: user.firstName,
 			lastName: user.lastName,
 		});
-	}, [isSuccess]);
+	}, [user]);
 
 	const nameInput: FormInputProps[] = [
 		{

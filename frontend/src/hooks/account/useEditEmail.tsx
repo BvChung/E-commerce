@@ -1,5 +1,5 @@
 import { useMutation } from "react-query";
-import { EditEmailCredentials } from "../../interfaces/authInterface";
+import { EditedEmail } from "../../interfaces/authInterface";
 import { useAuthContext } from "../context/useAuthContext";
 import { usePrivateApi } from "../auth/usePrivateApi";
 import { useNavigate, useLocation } from "react-router-dom";
@@ -12,7 +12,7 @@ export const useEditEmail = () => {
 	const navigate = useNavigate();
 	const location = useLocation();
 
-	const editEmail = async (credentials: EditEmailCredentials) => {
+	const editEmail = async (credentials: EditedEmail) => {
 		try {
 			const response = await eCommerceApiPrivate.patch(
 				"/api/users/edit/email",
@@ -26,25 +26,54 @@ export const useEditEmail = () => {
 				err.response?.status === 403 &&
 				err.response?.data?.message === "jwt malformed"
 			) {
-				toast.info("Your session has expired.");
+				toast.update("updatingEmail", {
+					render: "Your session has expired.",
+					type: "info",
+					isLoading: false,
+					autoClose: 1500,
+					draggable: true,
+					closeOnClick: true,
+				});
+
 				navigate("/signin", { state: { from: location }, replace: true });
 				return Promise.reject(error);
 			}
 
-			toast.error(err.response?.data?.message);
+			toast.update("updatingEmail", {
+				render: err.response?.data?.message,
+				type: "error",
+				isLoading: false,
+				autoClose: 1500,
+				draggable: true,
+				closeOnClick: true,
+			});
+
 			return Promise.reject(error);
 		}
 	};
 
 	return useMutation(editEmail, {
-		onSuccess: (data: EditEmailCredentials) => {
-			toast.success("Your email has been updated");
-
+		onMutate: () => {
+			toast.loading("Updating your account...", {
+				type: "info",
+				toastId: "updatingEmail",
+			});
+		},
+		onSuccess: (data: EditedEmail) => {
 			setUser((prev) => {
 				return {
 					...prev,
 					email: data.email,
 				};
+			});
+
+			toast.update("updatingEmail", {
+				render: "Your email has been changed.",
+				type: "success",
+				isLoading: false,
+				autoClose: 1500,
+				draggable: true,
+				closeOnClick: true,
 			});
 		},
 	});
