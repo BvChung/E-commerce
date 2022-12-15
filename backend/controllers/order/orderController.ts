@@ -9,9 +9,9 @@ export const getOrder = async (
 	next: NextFunction
 ) => {
 	try {
-		const myOrder = await OrderModel.find({ accountId: req.user.id });
+		const foundOrder = await OrderModel.find({ accountId: req.user.id });
 
-		res.status(200).json(myOrder);
+		res.status(200).json(foundOrder);
 	} catch (error) {
 		res.status(400);
 		next(error);
@@ -31,8 +31,8 @@ export const getOrderInfo = async (
 		}
 
 		res.status(200).json(foundOrder);
-	} catch (error: any) {
-		res.status(400);
+	} catch (error) {
+		res.status(404);
 		next(error);
 	}
 };

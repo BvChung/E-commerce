@@ -33,25 +33,6 @@ app.use(
 );
 
 app.use(cookieParser());
-// app.use(function (req: Request, res: Response, next: NextFunction) {
-// 	res.header("Access-Control-Allow-Origin", "http://localhost:3000");
-// 	res.setHeader(
-// 		"Access-Control-Allow-Methods",
-// 		"GET, POST, OPTIONS, PUT, PATCH, DELETE"
-// 	);
-// 	// res.setHeader(
-// 	// 	"Access-Control-Allow-Headers",
-// 	// 	"X-Requested-With,content-type"
-// 	// );
-// 	res.header(
-// 		"Access-Control-Allow-Headers",
-// 		"Origin, X-Requested-With, Content-Type, Accept"
-// 	);
-// 	// @ts-ignore
-// 	res.setHeader("Access-Control-Allow-Credentials", true);
-
-// 	next();
-// });
 
 app.use("/api/users", userRoutes);
 app.use("/api/admin", adminRoutes);

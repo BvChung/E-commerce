@@ -6,38 +6,17 @@ import {
 	queryProducts,
 	getProductInfo,
 	getCartItemsInfo,
-	createProduct,
-	updateProduct,
-	deleteProduct,
 } from "../../controllers/product/productController";
-import {
-	productCreationBodySchema,
-	productUpdateBodySchema,
-	productParamsSchema,
-} from "../../schemas/productSchema";
+import { productParamsSchema } from "../../schemas/productSchema";
 
 const router: IRouter = Router();
 
-router
-	.route("/")
-	.get(getInventory)
-	.post([verifyJWT, validateRequest(productCreationBodySchema)], createProduct);
+router.route("/").get(getInventory);
 
 router.route("/inventory").get(verifyJWT, getInventory);
 router.route("/query").get(queryProducts);
 router.route("/cart").get(getCartItemsInfo);
 
-router
-	.route("/:id")
-	.get(validateRequest(productParamsSchema), getProductInfo)
-	.patch(
-		[
-			verifyJWT,
-			validateRequest(productParamsSchema),
-			validateRequest(productUpdateBodySchema),
-		],
-		updateProduct
-	)
-	.delete([verifyJWT, validateRequest(productParamsSchema)], deleteProduct);
+router.route("/:id").get(validateRequest(productParamsSchema), getProductInfo);
 
 export default router;
