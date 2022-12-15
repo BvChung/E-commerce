@@ -1,18 +1,8 @@
 import { Link } from "react-router-dom";
 import { ProductInfo } from "../../interfaces/productInterface";
 import { cldConfig } from "../../config/cloudinaryConfig";
-import {
-	scale,
-	imaggaScale,
-	fill,
-	thumbnail,
-} from "@cloudinary/transformation-builder-sdk/actions/resize";
-import {
-	AdvancedImage,
-	lazyload,
-	placeholder,
-	responsive,
-} from "@cloudinary/react";
+import { scale } from "@cloudinary/transformation-builder-sdk/actions/resize";
+import { AdvancedImage } from "@cloudinary/react";
 
 export default function DisplayProduct({
 	_id,

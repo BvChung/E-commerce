@@ -38,7 +38,7 @@ const InventoryPage = lazy(
 	() => import("./components/admin/inventory/InventoryPage")
 );
 const CreateProduct = lazy(
-	() => import("./components/admin/create/CreateProduct")
+	() => import("./components/admin/inventory/CreateProduct")
 );
 const UpdateProduct = lazy(
 	() => import("./components/admin/inventory/UpdateProduct")

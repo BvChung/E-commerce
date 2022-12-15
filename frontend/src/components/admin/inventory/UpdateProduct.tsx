@@ -37,7 +37,7 @@ export default function ManageProduct() {
 			price: productInfo.price.toFixed(2),
 			category: productInfo.category,
 		});
-	}, [isSuccess]);
+	}, [isSuccess, productInfo]);
 
 	function handleChange(
 		e:
@@ -187,7 +187,7 @@ export default function ManageProduct() {
 									<span className="label-text">Price</span>
 								</label>
 								<input
-									type="text"
+									type="number"
 									placeholder="Price"
 									className="input input-bordered w-full md:w-[688px]"
 									name="price"

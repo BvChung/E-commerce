@@ -28,7 +28,6 @@ export default function ReviewOrder() {
 				if (a._id > b._id) {
 					return 1;
 				}
-				// names must be equal
 				return 0;
 			})
 			.map((product, i: number) => {
