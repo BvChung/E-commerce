@@ -9,6 +9,7 @@ import {
 	createProduct,
 	deleteProduct,
 	getInventory,
+	getInventoryItem,
 	updateProduct,
 } from "../../controllers/admin/inventoryController";
 import verifyJWT from "../../middleware/authJWT";
@@ -40,6 +41,7 @@ router
 
 router
 	.route("/inventory/:id")
+	.get([verifyJWT, verifyAdmin], getInventoryItem)
 	.patch(
 		[
 			verifyJWT,

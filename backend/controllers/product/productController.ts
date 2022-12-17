@@ -5,7 +5,7 @@ import { productParams } from "../../schemas/productSchema";
 import dotenv from "dotenv";
 dotenv.config();
 
-export const getInventory = async (
+export const getAllProducts = async (
 	req: Request,
 	res: Response,
 	next: NextFunction

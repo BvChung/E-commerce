@@ -11,7 +11,7 @@ const verifyJWT = async (req: Request, res: Response, next: NextFunction) => {
 				req.headers.authorization.startsWith("Bearer")
 			)
 		) {
-			throw new Error("Unauthorized, no authorization headers.");
+			throw new Error("Unauthorized.");
 		}
 
 		// Get token from header

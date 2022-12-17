@@ -77,7 +77,7 @@ export const deleteOrder = async (
 
 		res.status(200).json(deletedOrder);
 	} catch (error) {
-		res.status(400);
+		res.status(404);
 		next(error);
 	}
 };

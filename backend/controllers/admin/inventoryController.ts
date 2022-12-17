@@ -26,6 +26,25 @@ export const getInventory = async (
 	}
 };
 
+export const getInventoryItem = async (
+	req: Request<productParams["params"], {}, {}>,
+	res: Response,
+	next: NextFunction
+) => {
+	try {
+		const productInfo = await ProductModel.findById(req.params.id);
+
+		if (!productInfo) {
+			throw new Error("This product could not be found.");
+		}
+
+		res.status(200).json(productInfo);
+	} catch (error) {
+		res.status(404);
+		next(error);
+	}
+};
+
 export const createProduct = async (
 	req: Request<{}, {}, productCreationBody["body"]>,
 	res: Response,
