@@ -3,7 +3,12 @@ import { useGetProductInfo } from "../../hooks/products/useGetProductInfo";
 import { useCartContext } from "../../hooks/context/useCartContext";
 import { toast } from "react-toastify";
 import { cldConfig } from "../../config/cloudinaryConfig";
-import { AdvancedImage, lazyload } from "@cloudinary/react";
+import {
+	AdvancedImage,
+	lazyload,
+	placeholder,
+	responsive,
+} from "@cloudinary/react";
 
 export default function ProductInfo() {
 	const params = useParams();
@@ -28,10 +33,9 @@ export default function ProductInfo() {
 									.format("auto")
 									.quality("auto")}
 								plugins={[
-									lazyload({
-										rootMargin: "10px 20px 10px 30px",
-										threshold: 0.25,
-									}),
+									lazyload(),
+									responsive(),
+									placeholder({ mode: "blur" }),
 								]}
 								className="h-[300px] w-full sm:w-[500px] md:w-[700px] md:h-[500px] xl:w-[800px] object-fill"
 								alt="Product"

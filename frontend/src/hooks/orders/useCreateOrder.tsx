@@ -26,23 +26,52 @@ export const useCreateOrder = () => {
 				err.response?.status === 403 &&
 				err.response?.data?.message === "jwt malformed"
 			) {
-				toast.info("Your session has expired.");
+				toast.update("deletingOrder", {
+					render: "Your session has expired.",
+					type: "info",
+					isLoading: false,
+					autoClose: 1500,
+					draggable: true,
+					closeOnClick: true,
+				});
+
 				navigate("/signin", { state: { from: location }, replace: true });
 				return Promise.reject(error);
 			}
 
-			toast.error(err.response?.data?.message);
+			toast.update("deletingOrder", {
+				render: err.response?.data?.message,
+				type: "error",
+				isLoading: false,
+				autoClose: 1500,
+				draggable: true,
+				closeOnClick: true,
+			});
 			return Promise.reject(error);
 		}
 	};
 
 	return useMutation(createOrder, {
+		onMutate: () => {
+			toast.loading("Creating your order...", {
+				type: "info",
+				toastId: "deletingOrder",
+			});
+		},
 		onSuccess: (data: OrderCreation[]) => {
 			queryClient.invalidateQueries("orders");
 			clearMyCart();
 			clearMyOrder();
 			navigate("/");
-			toast.success("Your order has been made.");
+
+			toast.update("deletingOrder", {
+				render: "Your order has been made.",
+				type: "success",
+				isLoading: false,
+				autoClose: 1500,
+				draggable: true,
+				closeOnClick: true,
+			});
 			console.log(data);
 		},
 	});

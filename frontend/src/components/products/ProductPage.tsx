@@ -43,7 +43,6 @@ export default function ProductPage() {
 	}
 
 	useEffect(() => {
-		//
 		if (filter.priceLow && filter.priceHigh) {
 			setSearchParams((prev) => {
 				return {

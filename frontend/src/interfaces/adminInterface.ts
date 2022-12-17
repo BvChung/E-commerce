@@ -15,3 +15,8 @@ export interface CurrentInfo {
 	_id: string;
 	role: number;
 }
+
+export interface UpdateManagement {
+	_id: string;
+	role: number;
+}

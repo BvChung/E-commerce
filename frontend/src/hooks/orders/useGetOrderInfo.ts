@@ -5,7 +5,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { CustomError } from "../../interfaces/customInterface";
 import { toast } from "react-toastify";
 
-export const useGetOrderInfo = (orderId: string | undefined) => {
+export const useGetOrderInfo = (orderId: string) => {
 	const eCommerceApiPrivate = usePrivateApi();
 	const navigate = useNavigate();
 	const location = useLocation();

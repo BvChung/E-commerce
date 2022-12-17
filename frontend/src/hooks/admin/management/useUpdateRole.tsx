@@ -4,11 +4,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { UserInfo } from "../../../interfaces/authInterface";
 import { CustomError } from "../../../interfaces/customInterface";
 import { toast } from "react-toastify";
-
-interface UpdateManagement {
-	_id: string;
-	role: number;
-}
+import { UpdateManagement } from "../../../interfaces/adminInterface";
 
 export const useUpdateRole = () => {
 	const eCommerceApiPrivate = usePrivateApi();
@@ -28,7 +24,15 @@ export const useUpdateRole = () => {
 			const err = error as CustomError;
 
 			if (err.response?.status === 401) {
-				toast.error(err.response?.data?.message);
+				toast.update("updatingAccount", {
+					render: err.response?.data?.message,
+					type: "error",
+					isLoading: false,
+					autoClose: 1500,
+					draggable: true,
+					closeOnClick: true,
+				});
+
 				navigate("/adminsignin", { state: { from: location }, replace: true });
 				return Promise.reject(error);
 			}
@@ -37,12 +41,28 @@ export const useUpdateRole = () => {
 				err.response?.status === 403 &&
 				err.response?.data?.message === "jwt malformed"
 			) {
-				toast.info("Your session has expired.");
+				toast.update("updatingAccount", {
+					render: "Your session has expired.",
+					type: "info",
+					isLoading: false,
+					autoClose: 1500,
+					draggable: true,
+					closeOnClick: true,
+				});
+
 				navigate("/adminsignin", { state: { from: location }, replace: true });
 				return Promise.reject(error);
 			}
 
-			toast.error(err.response?.data?.message);
+			toast.update("updatingAccount", {
+				render: err.response?.data?.message,
+				type: "error",
+				isLoading: false,
+				autoClose: 1500,
+				draggable: true,
+				closeOnClick: true,
+			});
+
 			return Promise.reject(error);
 		}
 	};

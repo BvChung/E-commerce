@@ -1,5 +1,5 @@
 import { useAuthContext } from "../context/useAuthContext";
-import { usePrivateApi } from "../auth/usePrivateApi";
+import { usePrivateApi } from "./usePrivateApi";
 import { storage } from "../../config/tokenStorage";
 
 export const useGetUser = () => {

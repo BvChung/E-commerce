@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Outlet } from "react-router-dom";
-import { useGetUser } from "../../hooks/user/useGetUser";
+import { useGetUser } from "../../hooks/auth/useGetUser";
 import { useAuthContext } from "../../hooks/context/useAuthContext";
 import Spinner from "../loading/Spinner";
 

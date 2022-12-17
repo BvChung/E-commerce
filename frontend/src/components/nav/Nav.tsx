@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { useAuthContext } from "../../hooks/context/useAuthContext";
 import { useCartContext } from "../../hooks/context/useCartContext";
 import SearchModal from "./modal/SearchModal";
-import { useLogoutUser } from "../../hooks/user/useLogoutUser";
+import { useLogoutUser } from "../../hooks/auth/useLogoutUser";
 import { accessRoles } from "../../config/accessRoles";
 
 export default function Nav() {

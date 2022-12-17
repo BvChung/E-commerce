@@ -1,37 +1,35 @@
-import { usePrivateApi } from "../../auth/usePrivateApi";
+import { usePrivateApi } from "../auth/usePrivateApi";
 import { useMutation, useQueryClient } from "react-query";
+import { OrderInfo } from "../../interfaces/orderInterface";
 import { useNavigate, useLocation } from "react-router-dom";
-import { UserInfo } from "../../../interfaces/authInterface";
-import { CustomError } from "../../../interfaces/customInterface";
+import { CustomError } from "../../interfaces/customInterface";
 import { toast } from "react-toastify";
 
-export const useDeleteAccount = () => {
+export const useDeleteOrder = (orderId: string) => {
 	const eCommerceApiPrivate = usePrivateApi();
 	const queryClient = useQueryClient();
 	const navigate = useNavigate();
 	const location = useLocation();
 
-	const deleteAccount = async (accountId: string) => {
+	const deleteOrder = async () => {
 		try {
 			const response = await eCommerceApiPrivate.delete(
-				`/api/admin/delete/${accountId}`
+				`/api/orders/${orderId}`
 			);
-
 			return response.data;
 		} catch (error) {
 			const err = error as CustomError;
 
-			if (err.response?.status === 401) {
-				toast.update("deletingAccount", {
-					render: err.response?.data?.message,
+			if (err.response?.status === 404 || !orderId) {
+				navigate("/orders");
+				toast.update("deletingOrder", {
+					render: "This order could not be found.",
 					type: "error",
 					isLoading: false,
 					autoClose: 1500,
 					draggable: true,
 					closeOnClick: true,
 				});
-
-				navigate("/adminsignin", { state: { from: location }, replace: true });
 				return Promise.reject(error);
 			}
 
@@ -39,7 +37,7 @@ export const useDeleteAccount = () => {
 				err.response?.status === 403 &&
 				err.response?.data?.message === "jwt malformed"
 			) {
-				toast.update("deletingAccount", {
+				toast.update("deletingOrder", {
 					render: "Your session has expired.",
 					type: "info",
 					isLoading: false,
@@ -48,11 +46,11 @@ export const useDeleteAccount = () => {
 					closeOnClick: true,
 				});
 
-				navigate("/adminsignin", { state: { from: location }, replace: true });
+				navigate("/signin", { state: { from: location }, replace: true });
 				return Promise.reject(error);
 			}
 
-			toast.update("deletingAccount", {
+			toast.update("deletingOrder", {
 				render: err.response?.data?.message,
 				type: "error",
 				isLoading: false,
@@ -60,29 +58,30 @@ export const useDeleteAccount = () => {
 				draggable: true,
 				closeOnClick: true,
 			});
-
 			return Promise.reject(error);
 		}
 	};
 
-	return useMutation(deleteAccount, {
+	return useMutation(deleteOrder, {
 		onMutate: () => {
-			toast.loading("Deleting this account...", {
+			toast.loading("Deleting this order...", {
 				type: "info",
-				toastId: "deletingAccount",
+				toastId: "deletingOrder",
 			});
 		},
-		onSuccess: (data: UserInfo) => {
-			queryClient.invalidateQueries("manage");
+		onSuccess: (data: OrderInfo) => {
+			queryClient.invalidateQueries("orders");
 
-			toast.update("deletingAccount", {
-				render: `${data.firstName} has been deleted.`,
+			toast.update("deletingOrder", {
+				render: `Order number: ${data._id} has been deleted.`,
 				type: "success",
 				isLoading: false,
 				autoClose: 1500,
 				draggable: true,
 				closeOnClick: true,
 			});
+
+			navigate("/orders");
 		},
 	});
 };

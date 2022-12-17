@@ -94,6 +94,8 @@ export const useUpdateProduct = (productId: string | undefined) => {
 		onSuccess: (data: ProductInfo) => {
 			queryClient.invalidateQueries(`product-${data._id}`);
 			queryClient.invalidateQueries("products");
+			queryClient.invalidateQueries("inventory");
+			queryClient.invalidateQueries(`inventory-${data._id}`);
 			queryClient.invalidateQueries("cart");
 
 			if (findCartItem(productId)?.price !== data.price) {

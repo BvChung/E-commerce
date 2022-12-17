@@ -21,7 +21,6 @@ export const useGetInventory = () => {
 				if (a.name > b.name) {
 					return 1;
 				}
-				// names must be equal
 				return 0;
 			});
 		} catch (error) {

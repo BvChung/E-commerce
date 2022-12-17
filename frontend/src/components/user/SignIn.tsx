@@ -1,7 +1,7 @@
 import React, { useState, useId, useEffect } from "react";
 import { useNavigate, Link, useLocation } from "react-router-dom";
 import { LoginCredentials } from "../../interfaces/authInterface";
-import { useSignInUser } from "../../hooks/user/useSignInUser";
+import { useSignInUser } from "../../hooks/auth/useSignInUser";
 import { CustomLocationState } from "../../interfaces/customInterface";
 import { FormInputProps } from "../../interfaces/formInterface";
 import FormInput from "../form/FormInput";

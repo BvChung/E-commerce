@@ -74,9 +74,10 @@ export const useDeleteProduct = () => {
 			});
 		},
 		onSuccess: (data: ProductInfo) => {
-			queryClient.invalidateQueries("inventory");
-			queryClient.invalidateQueries(`product-${data._id}`);
 			queryClient.invalidateQueries("products");
+			queryClient.invalidateQueries(`product-${data._id}`);
+			queryClient.invalidateQueries("inventory");
+			queryClient.invalidateQueries(`inventory-${data._id}`);
 			queryClient.invalidateQueries("cart");
 			removeCartItem(data._id);
 
