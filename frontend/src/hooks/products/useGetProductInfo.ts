@@ -32,6 +32,7 @@ export const useGetProductInfo = (productId: string) => {
 		{
 			// The query will not execute until the productId exists
 			enabled: !!productId,
+			refetchOnWindowFocus: false,
 		}
 	);
 };
