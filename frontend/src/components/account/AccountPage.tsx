@@ -14,6 +14,7 @@ export default function AccountPage() {
 				<Link
 					to="/account/name"
 					className="w-full px-6 rounded-t-lg border-b-[1px] hover:bg-gray-100 cursor-pointer"
+					aria-label="Move to edit name page"
 				>
 					<div className="flex items-center justify-center py-6">
 						<div className="flex flex-1">
@@ -60,6 +61,7 @@ export default function AccountPage() {
 				<Link
 					to="/account/email"
 					className="w-full px-6 border-b-[1px] hover:bg-gray-100 cursor-pointer peer"
+					aria-label="Move to edit email page"
 				>
 					<div className="flex items-center justify-center py-6">
 						<div className="flex flex-1">
@@ -107,6 +109,7 @@ export default function AccountPage() {
 				<Link
 					to="/account/password"
 					className="w-full px-6 rounded-b-lg hover:bg-gray-100 cursor-pointer"
+					aria-label="Move to edit password page"
 				>
 					<div className="flex items-center justify-center py-6 ">
 						<div className="flex flex-1">

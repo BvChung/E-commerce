@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { CartItemInfo } from "../../interfaces/cartInterface";
 import { useCartContext } from "../../hooks/context/useCartContext";
 import { cldConfig } from "../../config/cloudinaryConfig";
+import { thumbnail } from "@cloudinary/url-gen/actions/resize";
 import { AdvancedImage, lazyload } from "@cloudinary/react";
 
 export default function CartItem({ _id, name, imageCloudId }: CartItemInfo) {
@@ -14,26 +15,25 @@ export default function CartItem({ _id, name, imageCloudId }: CartItemInfo) {
 	const productImg = cldConfig
 		.image(imageCloudId)
 		.format("auto")
-		.quality("auto");
+		.quality("auto")
+		.resize(thumbnail().width(250).height(250));
 
 	useEffect(() => {
 		updateCartQuantity({ _id, quantity: itemQuantity! });
 	}, [itemQuantity]);
 
 	return (
-		<div className="flex items-center w-full h-44 border-b border-gray-300 last:border-b-0">
+		<div className="flex items-center w-full h-44 py-6 border-b border-gray-300 last:border-b-0">
 			<Link to={`/products/${_id}`}>
 				<AdvancedImage
 					cldImg={productImg}
-					plugins={[
-						lazyload({ rootMargin: "10px 20px 10px 30px", threshold: 0.25 }),
-					]}
+					plugins={[lazyload()]}
 					className="rounded-md h-32 w-32 object-cover"
 					alt="Product"
 				/>
 			</Link>
 
-			<div className="flex flex-col flex-1 justify-center h-full px-2 md:px-6 py-4">
+			<div className="flex flex-col flex-1 justify-center h-full px-2 md:px-6">
 				<div className="flex flex-col gap-2 sm:gap-0 md:flex-row items-end md:items-center justify-center md:justify-between h-3/4">
 					<Link to={`/products/${_id}`}>
 						<span className="hover:link font-medium text-sm md:text-base">

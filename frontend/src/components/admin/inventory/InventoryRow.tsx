@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { ProductInfo } from "../../../interfaces/productInterface";
 import { cldConfig } from "../../../config/cloudinaryConfig";
 import { AdvancedImage, lazyload } from "@cloudinary/react";
+import { thumbnail } from "@cloudinary/url-gen/actions/resize";
 
 export default function InventoryRow({
 	_id,
@@ -15,7 +16,8 @@ export default function InventoryRow({
 	const productImg = cldConfig
 		.image(imageCloudId)
 		.format("auto")
-		.quality("auto");
+		.quality("auto")
+		.resize(thumbnail().width(250).height(250));
 
 	return (
 		<>

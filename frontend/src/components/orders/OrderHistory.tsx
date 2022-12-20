@@ -16,38 +16,54 @@ export default function OrderHistory({
 			<div className="flex flex-col md:flex-row flex-1 justify-between w-full pt-4 px-4 pb-4 md:pb-6 border-b-[1px] bg-gray-100 first:rounded-t-lg">
 				<div className="hidden items-center w-full mb-4 md:mb-0 md:flex">
 					<div className="flex flex-col items-center md:items-baseline justify-center gap-[2px] basis-60">
-						<p className="uppercase font-medium text-sm text-gray-600">
-							Order Placed
-						</p>
-						<p className="text-sm text-gray-600">
+						<h6 className="uppercase font-medium text-sm text-gray-900">
+							Order Date
+						</h6>
+						<span className="text-sm text-gray-900">
 							{datePurchased[1]} {datePurchased[2]}, {datePurchased[3]}
-						</p>
+						</span>
 					</div>
 					<div className="flex flex-col items-center md:items-baseline gap-[2px] basis-60 w-fit">
-						<p className="uppercase font-medium text-sm text-gray-600">Total</p>
-						<p className="text-sm text-gray-600">
+						<h6 className="uppercase font-medium text-sm text-gray-900">
+							Total
+						</h6>
+						<span className="text-sm text-gray-900">
 							${paymentInfo.subTotal.toFixed(2)}
-						</p>
+						</span>
 					</div>
 					<div className="flex flex-col items-center md:items-baseline gap-[2px] basis-60 w-fit">
-						<p className="uppercase font-medium text-sm text-gray-600">
+						<h6 className="uppercase font-medium text-sm text-gray-900">
 							Shipped to
-						</p>
-						<p className="text-sm text-gray-600">
+						</h6>
+						<span className="text-sm text-gray-900">
 							{shippingInfo.firstName} {shippingInfo.lastName}
-						</p>
+						</span>
 					</div>
 				</div>
-				<div className="flex flex-col gap-[2px] items-start md:items-end justify-end w-full">
-					<p className="font-medium text-sm text-gray-600">Order#: {_id}</p>
-					<Link to={`${_id}`}>
-						<p className="font-medium text-sm text-gray-600 hover:text-gray-900 hover:link">
-							View order details
-						</p>
+
+				<div className="flex flex-col gap-1 items-start md:items-end justify-end w-full">
+					<div className="text-sm text-gray-900">
+						<span className="font-semibold mr-1">Order#:</span>
+						<span className="font-medium ">{_id}</span>
+					</div>
+
+					<div className="md:hidden text-sm text-gray-900">
+						<span className="font-semibold mr-1">Order Date:</span>
+						<span className="font-medium ">
+							{" "}
+							{datePurchased[1]} {datePurchased[2]}, {datePurchased[3]}
+						</span>
+					</div>
+
+					<Link
+						to={`${_id}`}
+						className="font-bold text-sm text-gray-800 hover:text-gray-900 hover:link"
+					>
+						View Details
 					</Link>
 				</div>
 			</div>
-			<div className="h-fit w-full px-4 md:px-6">
+			<div className="h-fit w-full px-4 md:px-7">
 				{purchasedItems.map((item) => {
 					return (
 						<OrderedItems

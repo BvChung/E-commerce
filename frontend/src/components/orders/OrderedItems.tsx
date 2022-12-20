@@ -19,7 +19,7 @@ export default function OrderedItems({
 		.image(imageCloudId)
 		.format("auto")
 		.quality("auto")
-		.resize(thumbnail().width(200).height(200));
+		.resize(thumbnail().width(250).height(250));
 
 	return (
 		<div
@@ -34,33 +34,40 @@ export default function OrderedItems({
 				/>
 			</Link>
 
-			<div className="flex flex-col flex-1 pl-4 md:px-6">
-				<div className="flex">
-					<div className="flex flex-col justify-center w-full mb-3">
-						<Link
-							to={`/products/${_id}`}
-							className="hover:link font-semibold mb-1 w-fit"
-						>
-							{name}
-						</Link>
-						<span className="hidden md:flex text-xs text-gray-500 mb-2">
-							ITEM {_id.slice(0, 7)}
-						</span>
-
-						<div className="text-sm mb-2">
-							<span className="font-medium mr-1">Quantity: </span>
-							<span className="font-semibold">{quantity}</span>
+			<div className="flex flex-col flex-1 pl-6 w-full">
+				<div className="flex flex-grow w-full">
+					<div className="hidden md:flex flex-grow gap-10 w-fit mb-3">
+						<div className="flex flex-col basis-64">
+							<Link
+								to={`/products/${_id}`}
+								className="hover:link font-semibold mb-1 w-fit"
+							>
+								{name}
+							</Link>
+							<span className="hidden md:flex text-xs text-gray-500 mb-2">
+								ITEM {_id.slice(0, 7)}
+							</span>
 						</div>
 
-						<div className="text-sm">
-							<span className="font-medium mr-1">Price: </span>
-							<span className="font-semibold">
+						<div className="flex flex-col basis-32">
+							<h6 className="font-semibold mb-3">Price</h6>
+							<span className="text-sm font-medium">${price.toFixed(2)}</span>
+						</div>
+
+						<div className="flex flex-col basis-32">
+							<h6 className="font-semibold mb-3">Quantity</h6>
+							<span className="text-sm font-medium">{quantity}</span>
+						</div>
+
+						<div className="flex flex-col basis-32">
+							<h6 className="font-semibold mb-3">Amount</h6>
+							<span className="text-sm font-medium">
 								${(quantity! * price).toFixed(2)}
 							</span>
 						</div>
 					</div>
 
-					<div className="hidden md:flex justify-center items-start">
+					<div className="hidden md:flex">
 						<button
 							onClick={() => {
 								addCartItem({
@@ -73,36 +80,48 @@ export default function OrderedItems({
 									position: "bottom-right",
 								});
 							}}
-							className={`btn rounded-full ${
+							className={`btn w-40 rounded-full ${
 								!findCartItem(_id)?.quantity || findCartItem(_id)?.quantity! < 9
-									? "btn-outline btn-accent"
+									? " btn-info"
 									: "btn-disabled"
-							} flex items-center h-8 gap-2`}
+							} flex items-center h-11 gap-2`}
 						>
-							{(!findCartItem(_id)?.quantity ||
-								findCartItem(_id)?.quantity! < 9) && (
-								<svg
-									xmlns="http://www.w3.org/2000/svg"
-									fill="none"
-									viewBox="0 0 24 24"
-									strokeWidth={1.5}
-									stroke="currentColor"
-									className="w-4 h-4"
-								>
-									<path
-										strokeLinecap="round"
-										strokeLinejoin="round"
-										d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99"
-									/>
-								</svg>
-							)}
 							<span className="text-xs">
 								{!findCartItem(_id)?.quantity ||
 								findCartItem(_id)?.quantity! < 9
-									? "Reorder"
+									? "Add to Cart"
 									: "9 items max"}
 							</span>
 						</button>
+					</div>
+				</div>
+
+				<div className="md:hidden flex flex-col justify-center w-full mb-3">
+					<Link
+						to={`/products/${_id}`}
+						className="hover:link font-semibold mb-1 w-fit"
+					>
+						{name}
+					</Link>
+					<span className="hidden md:flex text-xs text-gray-500 mb-2">
+						ITEM {_id.slice(0, 7)}
+					</span>
+
+					<div className="text-sm mb-2">
+						<span className="font-medium mr-1">Price: </span>
+						<span className="font-semibold">${price.toFixed(2)}</span>
+					</div>
+
+					<div className="text-sm mb-2">
+						<span className="font-medium mr-1">Quantity: </span>
+						<span className="font-semibold">{quantity}</span>
+					</div>
+
+					<div className="text-sm">
+						<span className="font-medium mr-1">Amount: </span>
+						<span className="font-semibold">
+							${(quantity! * price).toFixed(2)}
+						</span>
 					</div>
 				</div>
 
@@ -121,30 +140,13 @@ export default function OrderedItems({
 						}}
 						className={`btn rounded-full ${
 							!findCartItem(_id)?.quantity || findCartItem(_id)?.quantity! < 9
-								? "btn-outline btn-accent"
+								? "btn-info"
 								: "btn-disabled"
 						} flex items-center h-8 gap-2`}
 					>
-						{(!findCartItem(_id)?.quantity ||
-							findCartItem(_id)?.quantity! < 9) && (
-							<svg
-								xmlns="http://www.w3.org/2000/svg"
-								fill="none"
-								viewBox="0 0 24 24"
-								strokeWidth={1.5}
-								stroke="currentColor"
-								className="w-4 h-4"
-							>
-								<path
-									strokeLinecap="round"
-									strokeLinejoin="round"
-									d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99"
-								/>
-							</svg>
-						)}
 						<span className="text-xs">
 							{!findCartItem(_id)?.quantity || findCartItem(_id)?.quantity! < 9
-								? "Reorder"
+								? "Add to Cart"
 								: "9 items max"}
 						</span>
 					</button>

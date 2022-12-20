@@ -45,7 +45,7 @@ export default function CartPage() {
 			</div>
 
 			<div className="flex flex-col md:flex-row justify-center h-max w-full gap-4 lg:max-w-5xl xl:max-w-6xl">
-				<div className="border-[1px] py-2 px-6 h-max rounded-lg shadow-sm transition-all w-full md:w-2/3 mb-4 md:mb-0">
+				<div className="border-[1px] px-7 h-max rounded-lg shadow-sm transition-all w-full md:w-2/3 mb-4 md:mb-0">
 					{cartItems?.length === 0 && (
 						<div className="flex flex-col items-center justify-center gap-8 h-[262px]">
 							<div className="flex items-center justify-center gap-3">

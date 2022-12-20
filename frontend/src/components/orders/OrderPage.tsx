@@ -7,7 +7,7 @@ import Spinner from "../loading/Spinner";
 export default function OrderPage() {
 	const { data: orders, isSuccess, isLoading } = useGetOrders();
 
-	const displayOrders =
+	const orderList =
 		isSuccess && orders.length !== 0 ? (
 			<div className="border-[1px] h-max rounded-lg shadow-sm transition-all fade w-full">
 				{isSuccess &&
@@ -65,7 +65,7 @@ export default function OrderPage() {
 					</div>
 
 					<div className="flex justify-center h-max w-full gap-4 lg:max-w-5xl xl:max-w-6xl">
-						{displayOrders}
+						{orderList}
 					</div>
 				</div>
 			) : (

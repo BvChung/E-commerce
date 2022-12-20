@@ -13,7 +13,6 @@ export default function FormInput({
 	errorMessage,
 	inputMode,
 	maxLength,
-	htmlInputSize,
 	width,
 }: FormInputProps) {
 	const [inputFocused, setInputFocused] = useState(false);
@@ -43,6 +42,7 @@ export default function FormInput({
 				onBlur={() => {
 					setInputFocused(false);
 				}}
+				aria-label={`${label} form`}
 			/>
 			<div
 				className={`label pt-1 pb-0 hidden ${displayErrorMsg} justify-start items-center gap-1 label-text-alt text-red-600 font-medium transition-all`}

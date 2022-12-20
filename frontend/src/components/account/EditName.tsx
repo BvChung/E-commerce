@@ -72,7 +72,7 @@ export default function EditName() {
 		<div className="flex flex-col items-center justify-center mx-4 lg:mx-0">
 			<div className="flex w-full items-center justify-center px-1 mt-8 mb-6">
 				<div className="flex items-center w-full md:w-[30rem]">
-					<div
+					<button
 						onClick={(e) => {
 							e.preventDefault();
 
@@ -82,6 +82,7 @@ export default function EditName() {
 							});
 							navigate("/account");
 						}}
+						aria-label="Return to account page"
 						className="mr-4 cursor-pointer"
 					>
 						<svg
@@ -98,7 +99,7 @@ export default function EditName() {
 								d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18"
 							/>
 						</svg>
-					</div>
+					</button>
 
 					<span className="font-medium text-lg sm:text-xl">Update Name</span>
 				</div>
@@ -142,10 +143,14 @@ export default function EditName() {
 								navigate("/account");
 							}}
 							className="btn btn-outline btn-accent rounded-full h-11"
+							aria-label="Cancel editing name"
 						>
 							Cancel
 						</button>
-						<button className="btn btn-secondary rounded-full h-11 px-6">
+						<button
+							className="btn btn-secondary rounded-full h-11 px-6"
+							aria-label="Submit new name"
+						>
 							Save
 						</button>
 					</div>
