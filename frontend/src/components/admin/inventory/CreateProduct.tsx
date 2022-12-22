@@ -91,7 +91,11 @@ export default function CreateProduct() {
 	return (
 		<div className="flex flex-col items-center justify-center mb-6 mx-4 sm:mx-6 lg:mx-0">
 			<div className="flex items-center gap-2 w-full mt-8 mb-6 pb-2 border-b-[1px] border-gray-200 lg:max-w-5xl xl:max-w-6xl">
-				<Link to={"/admin"} className="mr-2 cursor-pointer">
+				<Link
+					to={"/admin"}
+					className="mr-2 cursor-pointer"
+					aria-label="Return to admin page"
+				>
 					<svg
 						xmlns="http://www.w3.org/2000/svg"
 						fill="none"
@@ -128,6 +132,7 @@ export default function CreateProduct() {
 								value={productFormData.name}
 								onChange={handleChange}
 								required
+								aria-label="Product name input"
 							/>
 						</div>
 
@@ -141,6 +146,7 @@ export default function CreateProduct() {
 								onChange={handleChange}
 								className="select select-bordered w-full md:w-[688px]"
 								required
+								aria-label="Product category select"
 							>
 								<option disabled value="">
 									Assign category
@@ -166,6 +172,7 @@ export default function CreateProduct() {
 								value={productFormData.price}
 								onChange={handleChange}
 								required
+								aria-label="Product price input"
 							/>
 						</div>
 
@@ -181,6 +188,7 @@ export default function CreateProduct() {
 								value={productFormData.color}
 								onChange={handleChange}
 								required
+								aria-label="Product color input"
 							/>
 						</div>
 
@@ -262,6 +270,7 @@ export default function CreateProduct() {
 								name="image"
 								accept=".png,.jpeg,.jpg,.avif,.webp"
 								onChange={handleFile}
+								aria-label="Product image upload"
 							/>
 
 							<div className="flex items-center gap-3 bg-gray-50 p-3 rounded-t-none rounded-b-md shadow-sm">
@@ -286,7 +295,10 @@ export default function CreateProduct() {
 						</div>
 
 						<div className="flex justify-end max-w-2xl">
-							<button className="btn btn-primary rounded-full w-fit px-8">
+							<button
+								className="btn btn-primary rounded-full w-fit px-8"
+								aria-label="Create product"
+							>
 								Create product
 							</button>
 						</div>

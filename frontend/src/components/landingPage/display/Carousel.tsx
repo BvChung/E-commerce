@@ -2,12 +2,7 @@ import { useState, useEffect, useRef, useId } from "react";
 import { Link } from "react-router-dom";
 import { CarouselData } from "../../../config/images";
 import Indicator from "./Indicator";
-import {
-	AdvancedImage,
-	lazyload,
-	placeholder,
-	responsive,
-} from "@cloudinary/react";
+import { AdvancedImage } from "@cloudinary/react";
 import { cldConfig } from "../../../config/cloudinaryConfig";
 
 export default function Carou({ slides }: CarouselData) {
@@ -85,6 +80,7 @@ export default function Carou({ slides }: CarouselData) {
 				<Link
 					to={"/products"}
 					className="btn border-white hover:border-gray-200 hover:bg-gray-200 bg-white text-black"
+					aria-label="Move to products page"
 				>
 					Shop now
 				</Link>
@@ -96,6 +92,7 @@ export default function Carou({ slides }: CarouselData) {
 					onMouseLeave={startTimer}
 					onClick={toPrevSlide}
 					className="btn h-14 w-14 flex items-center justify-center bg-opacity-0 btn-circle border-none hover:bg-opacity-70 hover:bg-gray-900"
+					aria-label="Move to previous carousel image"
 				>
 					<svg
 						xmlns="http://www.w3.org/2000/svg"
@@ -117,6 +114,7 @@ export default function Carou({ slides }: CarouselData) {
 					onMouseLeave={startTimer}
 					onClick={toNextSlide}
 					className="btn h-14 w-14 flex items-center justify-center bg-opacity-0 btn-circle border-none hover:bg-opacity-70 hover:bg-gray-900"
+					aria-label="Move to next carousel image"
 				>
 					<svg
 						xmlns="http://www.w3.org/2000/svg"

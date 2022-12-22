@@ -13,6 +13,7 @@ export default function FormInput({
 	errorMessage,
 	inputMode,
 	maxLength,
+	htmlInputSize,
 	width,
 }: FormInputProps) {
 	const [inputFocused, setInputFocused] = useState(false);
@@ -32,7 +33,7 @@ export default function FormInput({
 				value={value}
 				onChange={onChange}
 				inputMode={inputMode}
-				className={`peer input ${displayErrorInput} input-md ${width} input-bordered `}
+				className={`peer input ${displayErrorInput} input-sm  md:input-md ${width} input-bordered `}
 				pattern={pattern}
 				required={required}
 				maxLength={maxLength}

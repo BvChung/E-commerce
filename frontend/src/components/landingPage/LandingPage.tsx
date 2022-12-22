@@ -2,7 +2,7 @@ import { carouselData, categoryData } from "../../config/images";
 import Category from "./display/Category";
 import Carousel from "./display/Carousel";
 
-function LandingPage() {
+export default function LandingPage() {
 	return (
 		<div className="flex flex-col min-w-full w-full gap-2 items-center justify-center">
 			<div className="w-full min-w-full mb-16">
@@ -24,5 +24,3 @@ function LandingPage() {
 		</div>
 	);
 }
-
-export default LandingPage;

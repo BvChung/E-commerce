@@ -24,7 +24,7 @@ export default function CartItem({ _id, name, imageCloudId }: CartItemInfo) {
 
 	return (
 		<div className="flex items-center w-full h-44 py-6 border-b border-gray-300 last:border-b-0">
-			<Link to={`/products/${_id}`}>
+			<Link to={`/products/${_id}`} aria-label="Move to product">
 				<AdvancedImage
 					cldImg={productImg}
 					plugins={[lazyload()]}
@@ -35,14 +35,14 @@ export default function CartItem({ _id, name, imageCloudId }: CartItemInfo) {
 
 			<div className="flex flex-col flex-1 justify-center h-full px-2 md:px-6">
 				<div className="flex flex-col gap-2 sm:gap-0 md:flex-row items-end md:items-center justify-center md:justify-between h-3/4">
-					<Link to={`/products/${_id}`}>
+					<Link to={`/products/${_id}`} aria-label="Move to product">
 						<span className="hover:link font-medium text-sm md:text-base">
 							{name}
 						</span>
 					</Link>
-					<p className="font-bold text-sm md:text-base">
+					<span className="font-bold text-sm md:text-base">
 						${(foundItem?.price! * foundItem?.quantity!).toFixed(2)}
-					</p>
+					</span>
 				</div>
 
 				<div className="flex justify-end items-center h-1/4 gap-2 md:gap-5">
@@ -51,6 +51,7 @@ export default function CartItem({ _id, name, imageCloudId }: CartItemInfo) {
 							removeCartItem(_id);
 						}}
 						className="hover:link"
+						aria-label="Remove cart item"
 					>
 						<span className="text-xs">Remove</span>
 					</button>
@@ -65,6 +66,7 @@ export default function CartItem({ _id, name, imageCloudId }: CartItemInfo) {
 							onChange={(e) => setItemQuantity(+e.target.value)}
 							className="select rounded-lg select-bordered text-xs md:text-sm min-h-0 h-8 md:h-9"
 							required
+							aria-label="Change item quantity"
 						>
 							<option value="1">1</option>
 							<option value="2">2</option>

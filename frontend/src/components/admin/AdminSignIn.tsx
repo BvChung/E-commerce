@@ -1,5 +1,5 @@
 import React, { useState, useId, useEffect } from "react";
-import { useNavigate, Link, useLocation } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { LoginCredentials } from "../../interfaces/authInterface";
 import { useSignInAdmin } from "../../hooks/admin/useSignInAdmin";
 import { CustomLocationState } from "../../interfaces/customInterface";
@@ -59,7 +59,7 @@ export default function AdminSignIn() {
 			value: loginCredentials.email,
 			pattern: "^[a-zA-Z0-9]+@[a-zA-Z]+(?:.[a-zA-Z]+)*$",
 			maxLength: 50,
-			htmlInputSize: "md",
+			htmlInputSize: "input-md",
 		},
 		{
 			key: useId(),
@@ -73,19 +73,19 @@ export default function AdminSignIn() {
 			value: loginCredentials.password,
 			pattern: "(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])[A-Za-z0-9d=!-@._*]{8,25}$",
 			maxLength: 25,
-			htmlInputSize: "md",
+			htmlInputSize: "input-md",
 		},
 	];
 
 	return (
 		<div className="flex items-center justify-center my-4 md:my-32">
 			<form
-				className="flex flex-col justify-center items-center w-full px-4 md:p-6 md:w-[30rem] md:border-[1px] md:rounded-lg md:shadow-sm"
+				className="flex flex-col justify-center items-center w-full px-4 md:p-8 md:w-[30rem] md:border-[1px] border-gray-300 md:rounded-lg md:shadow-sm"
 				onSubmit={handleSubmit}
 			>
-				<p className=" font-semibold text-lg md:text-xl mt-2 mb-4">
+				<h2 className=" font-semibold text-lg md:text-xl mt-2 mb-4">
 					Sign In as Admin
-				</p>
+				</h2>
 
 				<div className="flex flex-col items-center w-full mb-4">
 					{loginInput.map((input) => {
@@ -113,17 +113,23 @@ export default function AdminSignIn() {
 							<span className="label-text mr-2">Show password</span>
 							<input
 								type="checkbox"
-								className="checkbox"
+								className="checkbox checkbox-sm checkbox-secondary rounded-md border-2 border-gray-500"
 								onChange={() => {
 									setShowPassword((prev) => !prev);
 								}}
+								aria-label="Show password"
 							/>
 						</label>
 					</div>
 				</div>
 
-				<div className="flex flex-col w-full justify-center items-start mb-6">
-					<button className="btn w-full mb-4">Sign in</button>
+				<div className="flex flex-col w-full justify-center items-start">
+					<button
+						className="btn btn-info h-11 rounded-full w-full mb-4"
+						aria-label="Sign in"
+					>
+						Sign in
+					</button>
 					<button
 						onClick={() => {
 							setLoginCredentials({
@@ -131,7 +137,8 @@ export default function AdminSignIn() {
 								password: process.env.REACT_APP_GUEST_PASSWORD!,
 							});
 						}}
-						className="btn px-8 btn-primary w-full"
+						className="btn btn-secondary btn-outline h-11 rounded-full w-full"
+						aria-label="Sign in as guest"
 					>
 						Sign in as guest
 					</button>

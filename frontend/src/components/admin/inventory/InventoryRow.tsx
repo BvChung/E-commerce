@@ -49,7 +49,11 @@ export default function InventoryRow({
 							className="tooltip tooltip-bottom mr-0 mb-2 md:mr-2 md:mb-0 z-20"
 							data-tip="Edit"
 						>
-							<Link to={_id} className="btn btn-ghost btn-circle">
+							<Link
+								to={_id}
+								className="btn btn-ghost btn-circle"
+								aria-label="Move to edit product page"
+							>
 								<svg
 									xmlns="http://www.w3.org/2000/svg"
 									viewBox="0 0 24 24"
@@ -61,6 +65,7 @@ export default function InventoryRow({
 								</svg>
 							</Link>
 						</div>
+
 						<div
 							className="tooltip tooltip-bottom mr-0 mb-2 md:mr-2 md:mb-0 z-10"
 							data-tip="Delete"
@@ -71,6 +76,7 @@ export default function InventoryRow({
 									setDeleteConfirmation!(true);
 									setItemId!(_id);
 								}}
+								aria-label="Open delete product modal"
 							>
 								<svg
 									xmlns="http://www.w3.org/2000/svg"

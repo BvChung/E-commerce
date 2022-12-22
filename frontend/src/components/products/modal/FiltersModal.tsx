@@ -111,7 +111,6 @@ export default function FilterModal({ handleChange, setFilter }: FilterFunc) {
 								<div className="flex items-center gap-2">
 									<input
 										onChange={(e) => {
-											// console.log(e.target.checked);
 											handleChange(e, "Drawer");
 										}}
 										autoComplete="off"

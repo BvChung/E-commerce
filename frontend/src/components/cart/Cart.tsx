@@ -65,6 +65,7 @@ export default function CartPage() {
 							<Link
 								to={"/products"}
 								className="btn btn-secondary h-11 px-10 rounded-full"
+								aria-label="Move to products page"
 							>
 								Browse our products
 							</Link>
@@ -122,6 +123,7 @@ export default function CartPage() {
 								cartItemsInfo.numItems === 0 ? "btn-disabled" : "btn-info"
 							}  rounded-full w-full `}
 							to={"/checkout/shipping"}
+							aria-label="Move to checkout page"
 						>
 							Continue to checkout
 						</Link>
@@ -140,6 +142,7 @@ export default function CartPage() {
 
 									navigate("/checkout/confirmation");
 								}}
+								aria-label="Checkout with demo info"
 							>
 								Checkout with demo info
 							</button>

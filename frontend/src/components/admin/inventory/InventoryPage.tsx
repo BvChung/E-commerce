@@ -109,7 +109,11 @@ export default function ProductTable() {
 	return (
 		<div className="flex flex-col items-center h-full mb-10 mx-4 sm:mx-6 lg:mx-0">
 			<div className="flex items-center gap-2 w-full mt-8 mb-8 pb-2 border-b-[1px] lg:max-w-5xl xl:max-w-6xl">
-				<Link to={"/admin"} className="mr-2 cursor-pointer">
+				<Link
+					to={"/admin"}
+					className="mr-2 cursor-pointer"
+					aria-label="Return to admin page"
+				>
 					<svg
 						xmlns="http://www.w3.org/2000/svg"
 						fill="none"
@@ -187,6 +191,11 @@ export default function ProductTable() {
 													});
 												}}
 												className="btn-ghost p-2 h-fit w-fit rounded-full active:bg-gray-400 dark:active:bg-gray-700"
+												aria-label={
+													sortTable.name.sortDescending
+														? "Sort name ascending"
+														: "Sort name descending"
+												}
 											>
 												<svg
 													xmlns="http://www.w3.org/2000/svg"
@@ -230,6 +239,11 @@ export default function ProductTable() {
 													});
 												}}
 												className="btn-ghost p-2 h-fit w-fit rounded-full active:bg-gray-400 dark:active:bg-gray-700"
+												aria-label={
+													sortTable.category.sortDescending
+														? "Sort category ascending"
+														: "Sort category descending"
+												}
 											>
 												<svg
 													xmlns="http://www.w3.org/2000/svg"
@@ -273,6 +287,11 @@ export default function ProductTable() {
 													});
 												}}
 												className="btn-ghost p-2 h-fit w-fit rounded-full active:bg-gray-400 dark:active:bg-gray-700"
+												aria-label={
+													sortTable.price.sortDescending
+														? "Sort price ascending"
+														: "Sort price descending"
+												}
 											>
 												<svg
 													xmlns="http://www.w3.org/2000/svg"
@@ -310,6 +329,7 @@ export default function ProductTable() {
 							setItemId("");
 						}}
 						className="btn btn-sm btn-circle absolute right-2 top-2"
+						aria-label="Close delete modal"
 					>
 						✕
 					</button>
@@ -323,6 +343,7 @@ export default function ProductTable() {
 								setItemId("");
 							}}
 							className="btn px-6 rounded-full btn-outline btn-accent h-11 normal-case"
+							aria-label="Cancel product deletion"
 						>
 							Cancel
 						</button>
@@ -330,6 +351,7 @@ export default function ProductTable() {
 						<button
 							onClick={deleteItem}
 							className="btn px-6 rounded-full h-11 btn-secondary normal-case"
+							aria-label="Delete product"
 						>
 							Delete
 						</button>

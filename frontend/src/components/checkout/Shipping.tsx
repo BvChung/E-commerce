@@ -169,7 +169,11 @@ export default function Shipping() {
 								/>
 							</svg>
 
-							<Link to="/cart" className="hover:link">
+							<Link
+								to="/cart"
+								className="hover:link"
+								aria-label="Move to cart page"
+							>
 								<span>Cart</span>
 							</Link>
 						</li>
@@ -239,6 +243,7 @@ export default function Shipping() {
 								onChange={handleShipping}
 								className="select select-md select-bordered"
 								required
+								aria-label="Select state"
 							>
 								<option disabled value="">
 									Select a State
@@ -319,7 +324,10 @@ export default function Shipping() {
 					</div>
 
 					<div className="flex justify-end w-full">
-						<button className="btn px-10 h-11 rounded-full btn-secondary">
+						<button
+							className="btn px-10 h-11 rounded-full btn-secondary"
+							aria-label="Save and continue to payment page"
+						>
 							Save & Continue
 						</button>
 					</div>

@@ -33,7 +33,7 @@ export default function Nav() {
 					</label>
 				</div>
 
-				<Link to="/" className="btn btn-ghost">
+				<Link to="/" className="btn btn-ghost" aria-label="Move to home page">
 					<span className="normal-case font-bold text-lg">ModernfyDesign</span>
 				</Link>
 			</div>
@@ -45,7 +45,11 @@ export default function Nav() {
 					</li>
 					<li className="hidden md:inline-flex">
 						<div className="tooltip tooltip-bottom z-50" data-tip="Shop">
-							<Link to="/products" className="btn btn-ghost btn-circle">
+							<Link
+								to="/products"
+								className="btn btn-ghost btn-circle"
+								aria-label="Move to product page"
+							>
 								<div className="flex items-center justify-center">
 									<svg
 										xmlns="http://www.w3.org/2000/svg"
@@ -68,7 +72,11 @@ export default function Nav() {
 					{user.accessToken && (
 						<li className="hidden md:inline-flex">
 							<div className="tooltip tooltip-bottom z-50" data-tip="Orders">
-								<Link to="/orders" className="btn btn-ghost btn-circle">
+								<Link
+									to="/orders"
+									className="btn btn-ghost btn-circle"
+									aria-label="Move to orders page"
+								>
 									<div className="flex items-center justify-center">
 										<svg
 											xmlns="http://www.w3.org/2000/svg"
@@ -91,7 +99,11 @@ export default function Nav() {
 					)}
 					<li className="hidden md:inline-flex">
 						<div className="tooltip tooltip-bottom z-50" data-tip="My Cart">
-							<Link to="/cart" className="btn btn-ghost btn-circle ">
+							<Link
+								to="/cart"
+								className="btn btn-ghost btn-circle "
+								aria-label="Move to cart page"
+							>
 								<div className="indicator">
 									<svg
 										xmlns="http://www.w3.org/2000/svg"
@@ -139,7 +151,7 @@ export default function Nav() {
 							>
 								{!user.accessToken && (
 									<li>
-										<Link to="/signin">
+										<Link to="/signin" aria-label="Move to sign in page">
 											<div className="flex items-center gap-2">
 												<svg
 													xmlns="http://www.w3.org/2000/svg"
@@ -164,7 +176,7 @@ export default function Nav() {
 
 								{adminAccess && (
 									<li>
-										<Link to="/admin">
+										<Link to="/admin" aria-label="Move to admin page">
 											<div className="flex items-center gap-2">
 												<svg
 													xmlns="http://www.w3.org/2000/svg"
@@ -189,7 +201,7 @@ export default function Nav() {
 
 								{user.accessToken && (
 									<li>
-										<Link to="/account">
+										<Link to="/account" aria-label="Move to account page">
 											<div className="flex items-center gap-2">
 												<svg
 													xmlns="http://www.w3.org/2000/svg"

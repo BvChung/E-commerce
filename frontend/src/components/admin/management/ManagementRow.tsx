@@ -58,6 +58,7 @@ export default function ManagementRow({
 									setEditingAccount!(true);
 									setCurrentAccount!({ _id, role });
 								}}
+								aria-label="Open role modal"
 							>
 								<svg
 									xmlns="http://www.w3.org/2000/svg"
@@ -80,6 +81,7 @@ export default function ManagementRow({
 									setDeleteConfirmation!(true);
 									setCurrentAccount!({ _id, role });
 								}}
+								aria-label="Open delete modal"
 							>
 								<svg
 									xmlns="http://www.w3.org/2000/svg"

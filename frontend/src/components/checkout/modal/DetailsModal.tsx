@@ -44,6 +44,7 @@ export default function DetailsModal({
 					<label
 						className="btn btn-sm btn-circle absolute right-2 top-2"
 						htmlFor="payment-modal"
+						aria-label="Close checkout details modal"
 					>
 						✕
 					</label>

@@ -40,7 +40,11 @@ export default function ManagementPage() {
 	return (
 		<div className="flex flex-col items-center h-full mb-10 mx-4 ">
 			<div className="flex items-center gap-2 w-full mt-8 mb-8 pb-2 border-b-[1px] border-gray-200 lg:max-w-5xl xl:max-w-6xl">
-				<Link to={"/admin"} className="mr-2 cursor-pointer">
+				<Link
+					to={"/admin"}
+					className="mr-2 cursor-pointer"
+					aria-label="Return to admin page"
+				>
 					<svg
 						xmlns="http://www.w3.org/2000/svg"
 						fill="none"
@@ -87,6 +91,7 @@ export default function ManagementPage() {
 							});
 						}}
 						className="btn btn-sm btn-circle absolute right-2 top-2"
+						aria-label="Close role modification modal"
 					>
 						✕
 					</button>
@@ -106,6 +111,7 @@ export default function ManagementPage() {
 							}}
 							className="select rounded-none select-md select-bordered w-full "
 							required
+							aria-label="Role selection"
 						>
 							<option disabled value="">
 								{Object.keys(accessRoles).find(
@@ -128,6 +134,7 @@ export default function ManagementPage() {
 								});
 							}}
 							className="btn px-6 rounded-full btn-outline btn-accent normal-case"
+							aria-label="Cancel role modification"
 						>
 							Cancel
 						</button>
@@ -142,6 +149,7 @@ export default function ManagementPage() {
 								});
 							}}
 							className="btn px-6 rounded-full btn-secondary normal-case"
+							aria-label="Save updated account role"
 						>
 							Save changes
 						</button>
@@ -160,6 +168,7 @@ export default function ManagementPage() {
 							});
 						}}
 						className="btn btn-sm btn-circle absolute right-2 top-2"
+						aria-label="Close delete account modal"
 					>
 						✕
 					</button>
@@ -176,6 +185,7 @@ export default function ManagementPage() {
 								});
 							}}
 							className="btn px-6 rounded-full btn-outline normal-case"
+							aria-label="Cancel account deletion"
 						>
 							Cancel
 						</button>
@@ -190,6 +200,7 @@ export default function ManagementPage() {
 								});
 							}}
 							className="btn px-6 rounded-full btn-primary normal-case"
+							aria-label="Delete account"
 						>
 							Delete
 						</button>

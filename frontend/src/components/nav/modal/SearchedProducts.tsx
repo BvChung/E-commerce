@@ -7,6 +7,7 @@ export default function SearchedProducts({
 	setSearchText,
 }: ProductInfo) {
 	const navigate = useNavigate();
+
 	return (
 		<label
 			onClick={() => {
@@ -15,6 +16,7 @@ export default function SearchedProducts({
 			}}
 			htmlFor="product-search"
 			className="flex items-center justify-between p-3 border-b-[1px] border-l-[1px] border-r-[1px] hover:bg-gray-100 first:rounded-t-lg first:border-t-[1px] last:rounded-b-lg cursor-pointer"
+			aria-label="Move to product"
 		>
 			<span>{name}</span>
 			<svg

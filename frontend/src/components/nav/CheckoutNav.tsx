@@ -11,6 +11,7 @@ export default function CheckoutNav() {
 				<label
 					htmlFor="return-modal"
 					className="btn btn-ghost btn-circle modal-button"
+					aria-label="Return to cart page"
 				>
 					<svg
 						xmlns="http://www.w3.org/2000/svg"
@@ -39,6 +40,7 @@ export default function CheckoutNav() {
 					<label
 						className="btn btn-sm btn-circle absolute right-2 top-2"
 						htmlFor="return-modal"
+						aria-label="Close order cancellation modal"
 					>
 						✕
 					</label>
@@ -55,18 +57,21 @@ export default function CheckoutNav() {
 								navigate("/cart");
 								clearMyOrder();
 							}}
+							aria-label="Cancel order"
 						>
 							Cancel order
 						</label>
 						<label
 							htmlFor="return-modal"
 							className="btn btn-secondary hidden md:inline-flex h-11 sm:px-0 md:px-8 rounded-full normal-case"
+							aria-label="Continue checking out"
 						>
 							Continue checking out
 						</label>
 						<label
 							htmlFor="return-modal"
 							className="btn btn-secondary md:hidden px-8 h-11 sm:px-0 md:px-8 rounded-full normal-case"
+							aria-label="Continue checking out"
 						>
 							Continue
 						</label>

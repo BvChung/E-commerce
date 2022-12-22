@@ -19,6 +19,7 @@ export default function Category({ imgPubId, title }: CategoryProps) {
 		<Link
 			to="products"
 			className="flex justify-center items-center rounded-md shadow-sm w-full"
+			aria-label={`Move to ${title} page`}
 		>
 			<div className="group overflow-hidden w-full relative">
 				<AdvancedImage

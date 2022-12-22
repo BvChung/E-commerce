@@ -15,6 +15,7 @@ export default function Admin() {
 				<Link
 					to={"inventory"}
 					className="w-full px-6 rounded-t-lg  border-b-[1px] hover:bg-gray-100 cursor-pointer"
+					aria-label="Move to inventory page"
 				>
 					<div className="flex items-center justify-center py-6">
 						<div className="flex flex-1">
@@ -62,6 +63,7 @@ export default function Admin() {
 				<Link
 					to={"create"}
 					className="w-full px-6 hover:bg-gray-100 cursor-pointer"
+					aria-label="Move to product creation page"
 				>
 					<div className="flex items-center justify-center py-6 ">
 						<div className="flex flex-1">
@@ -110,6 +112,7 @@ export default function Admin() {
 					<Link
 						to={"manage"}
 						className="w-full px-6 rounded-b-lg border-t-[1px] hover:bg-gray-100 cursor-pointer"
+						aria-label="Move to account management page"
 					>
 						<div className="flex items-center justify-center py-6 ">
 							<div className="flex flex-1">

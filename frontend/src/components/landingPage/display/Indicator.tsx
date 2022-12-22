@@ -19,6 +19,7 @@ export default function Indicator({
 			}}
 			name="carouselButtons"
 			className={`rounded-full h-1 w-12 ${active}`}
+			aria-label="Move to specific carousel image"
 		/>
 	);
 }

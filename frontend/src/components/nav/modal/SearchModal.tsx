@@ -23,6 +23,7 @@ export default function SearchModal() {
 				<label
 					htmlFor="product-search"
 					className="btn modal-button btn-ghost btn-circle"
+					aria-label="Open search modal"
 				>
 					<svg
 						xmlns="http://www.w3.org/2000/svg"
@@ -61,6 +62,7 @@ export default function SearchModal() {
 					<label
 						className="btn btn-sm btn-circle absolute right-2 top-2"
 						htmlFor="product-search"
+						aria-label="Close search modal"
 					>
 						✕
 					</label>
@@ -79,6 +81,7 @@ export default function SearchModal() {
 									value={searchText}
 									onChange={(e) => setSearchText(e.target.value)}
 									className="input input-bordered w-full"
+									aria-label="Search input"
 								/>
 								<span>
 									<svg
