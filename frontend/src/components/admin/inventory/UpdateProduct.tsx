@@ -31,13 +31,15 @@ export default function ManageProduct() {
 	useEffect(() => {
 		if (!productInfo) return;
 
-		setProductFormData({
-			name: productInfo.name,
-			description: productInfo.description,
-			color: productInfo.color,
-			price: productInfo.price.toFixed(2),
-			category: productInfo.category,
-		});
+		if (isSuccess) {
+			setProductFormData({
+				name: productInfo.name,
+				description: productInfo.description,
+				color: productInfo.color,
+				price: productInfo.price.toFixed(2),
+				category: productInfo.category,
+			});
+		}
 	}, [isSuccess, productInfo]);
 
 	function handleChange(
@@ -277,24 +279,25 @@ export default function ManageProduct() {
 									aria-label="Product image upload"
 								/>
 
-								<div className="alert p-3 rounded-t-none rounded-b-md shadow-sm">
-									<div>
-										<svg
-											xmlns="http://www.w3.org/2000/svg"
-											fill="none"
-											viewBox="0 0 24 24"
-											className="stroke-info flex-shrink-0 w-6 h-6"
-										>
-											<path
-												strokeLinecap="round"
-												strokeLinejoin="round"
-												strokeWidth="2"
-												d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-											></path>
-										</svg>
+								<div className="flex items-center gap-3 bg-gray-50 p-3 rounded-t-none rounded-b-md shadow-sm">
+									<svg
+										xmlns="http://www.w3.org/2000/svg"
+										fill="none"
+										viewBox="0 0 24 24"
+										className="stroke-sky-600 flex-shrink-0 w-6 h-6"
+									>
+										<path
+											strokeLinecap="round"
+											strokeLinejoin="round"
+											strokeWidth="2"
+											d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+										></path>
+									</svg>
+									<div className="flex flex-col text-sm justify-center">
 										<span className="text-sm">
-											Recommended size: 2418 x 1734 and less than 5MB.
+											File format: JPEG, PNG, AVIF, WEBP
 										</span>
+										<span>(Recommended 1200x480, max 5 MB)</span>
 									</div>
 								</div>
 							</div>

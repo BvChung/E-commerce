@@ -1,11 +1,11 @@
-import React, { useState, useRef, useCallback } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import { useCreateProduct } from "../../../hooks/admin/inventory/useCreateProduct";
 import { ProductForm } from "../../../interfaces/productInterface";
 
 export default function CreateProduct() {
-	const { mutate, isLoading } = useCreateProduct();
+	const { mutate, isSuccess } = useCreateProduct();
 	const imageRef = useRef<HTMLInputElement>(null);
 
 	const [productFormData, setProductFormData] = useState<ProductForm>({
@@ -72,21 +72,25 @@ export default function CreateProduct() {
 			image,
 			fileName: file.name,
 		});
-
-		if (imageRef.current) {
-			imageRef.current.value = "";
-		}
-
-		setProductFormData({
-			name: "",
-			description: "",
-			color: "",
-			price: "",
-			category: "",
-		});
-		setImage(null);
-		setFile(null);
 	}
+
+	useEffect(() => {
+		if (isSuccess) {
+			if (imageRef.current) {
+				imageRef.current.value = "";
+			}
+
+			setProductFormData({
+				name: "",
+				description: "",
+				color: "",
+				price: "",
+				category: "",
+			});
+			setImage(null);
+			setFile(null);
+		}
+	}, [isSuccess]);
 
 	return (
 		<div className="flex flex-col items-center justify-center mb-6 mx-4 sm:mx-6 lg:mx-0">
@@ -288,8 +292,10 @@ export default function CreateProduct() {
 									></path>
 								</svg>
 								<div className="flex flex-col text-sm justify-center">
-									<p className="text-sm">File format: JPEG, PNG, AVIF, WEBP</p>
-									<p className="">(recommended 1200x480, max 5MB)</p>
+									<span className="text-sm">
+										File format: JPEG, PNG, AVIF, WEBP
+									</span>
+									<span>(Recommended 1200x480, max 5 MB)</span>
 								</div>
 							</div>
 						</div>

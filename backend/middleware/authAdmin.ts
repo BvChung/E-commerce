@@ -18,7 +18,6 @@ export const verifyAdmin = async (
 		res.status(401);
 		next(error);
 	}
-	console.log("Auth admin");
 
 	next();
 };

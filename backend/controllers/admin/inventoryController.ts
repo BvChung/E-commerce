@@ -54,6 +54,19 @@ export const createProduct = async (
 		const { name, description, color, price, category, image, fileName } =
 			req.body;
 
+		const products = await ProductModel.find({});
+
+		let guestCreatedProduct = 0;
+		for (let i = 0; i < products.length; i++) {
+			if (products[i].createdBy === process.env.GUEST_ACCOUNT_ID) {
+				guestCreatedProduct += 1;
+			}
+		}
+
+		if (guestCreatedProduct === 1) {
+			throw new Error("Guest account can only have one created product.");
+		}
+
 		const uploadedImage = await cloudinaryConnection.uploader.upload(
 			image,
 			{
