@@ -20,6 +20,7 @@ export default function FilterModal({ handleChange, setFilter }: FilterFunc) {
 			<label
 				htmlFor="filters-modal"
 				className="btn btn-sm bg-gray-200 hover:bg-gray-300 text-black border-0 rounded-full px-5 h-9"
+				aria-label="Open filter modal"
 			>
 				<svg
 					xmlns="http://www.w3.org/2000/svg"
@@ -49,6 +50,7 @@ export default function FilterModal({ handleChange, setFilter }: FilterFunc) {
 					<label
 						className="btn btn-sm btn-circle absolute right-2 top-2"
 						htmlFor="filters-modal"
+						aria-label="Close filter modal"
 					>
 						✕
 					</label>
@@ -56,7 +58,11 @@ export default function FilterModal({ handleChange, setFilter }: FilterFunc) {
 					<h3 className="text-center text-lg font-bold mb-4">Filters</h3>
 
 					<div className="collapse collapse-arrow border-t border-base-300 bg-base-100 h-fit w-full">
-						<input type="checkbox" className="peer" />
+						<input
+							type="checkbox"
+							className="peer"
+							aria-label="Open category filter"
+						/>
 						<div className="collapse-title font-semibold peer-hover:underline">
 							Category
 						</div>
@@ -69,9 +75,9 @@ export default function FilterModal({ handleChange, setFilter }: FilterFunc) {
 										}}
 										id="sofa"
 										name="sofa"
-										// autoComplete="off"
 										type="checkbox"
 										className="checkbox checkbox-sm checkbox-secondary rounded-md border-2 border-gray-500"
+										aria-label="Filter for sofas"
 									/>
 									<span>Sofa</span>
 								</div>
@@ -83,6 +89,7 @@ export default function FilterModal({ handleChange, setFilter }: FilterFunc) {
 										autoComplete="off"
 										type="checkbox"
 										className="checkbox checkbox-sm checkbox-secondary rounded-md border-2 border-gray-500"
+										aria-label="Filter for tables"
 									/>
 									<span>Table</span>
 								</div>
@@ -94,6 +101,7 @@ export default function FilterModal({ handleChange, setFilter }: FilterFunc) {
 										autoComplete="off"
 										type="checkbox"
 										className="checkbox checkbox-sm checkbox-secondary rounded-md border-2 border-gray-500"
+										aria-label="Filter for chairs"
 									/>
 									<span>Chair</span>
 								</div>
@@ -105,6 +113,7 @@ export default function FilterModal({ handleChange, setFilter }: FilterFunc) {
 										autoComplete="off"
 										type="checkbox"
 										className="checkbox checkbox-sm checkbox-secondary rounded-md border-2 border-gray-500"
+										aria-label="Filter for desks"
 									/>
 									<span>Desk</span>
 								</div>
@@ -116,6 +125,7 @@ export default function FilterModal({ handleChange, setFilter }: FilterFunc) {
 										autoComplete="off"
 										type="checkbox"
 										className="checkbox checkbox-sm checkbox-secondary rounded-md border-2 border-gray-500"
+										aria-label="Filter for drawers"
 									/>
 									<span>Drawer</span>
 								</div>
@@ -127,6 +137,7 @@ export default function FilterModal({ handleChange, setFilter }: FilterFunc) {
 										autoComplete="off"
 										type="checkbox"
 										className="checkbox checkbox-sm checkbox-secondary rounded-md border-2 border-gray-500"
+										aria-label="Filter for shelves"
 									/>
 									<span>Shelf</span>
 								</div>
@@ -135,7 +146,11 @@ export default function FilterModal({ handleChange, setFilter }: FilterFunc) {
 					</div>
 
 					<div className="collapse collapse-arrow border-y border-base-300 bg-base-100 h-fit w-full">
-						<input type="checkbox" className="peer" />
+						<input
+							type="checkbox"
+							className="peer"
+							aria-label="Open price filter"
+						/>
 						<div className="collapse-title font-semibold peer-hover:underline">
 							Price Range
 						</div>
@@ -144,7 +159,7 @@ export default function FilterModal({ handleChange, setFilter }: FilterFunc) {
 								<div className="flex items-center gap-2">
 									<input
 										type="radio"
-										name="filtersP"
+										name="filterPrice"
 										onChange={(e) => {
 											if (e.target.checked) {
 												setFilter((prev) => {
@@ -157,13 +172,14 @@ export default function FilterModal({ handleChange, setFilter }: FilterFunc) {
 											}
 										}}
 										className="radio radio-sm radio-secondary border-2 border-gray-500"
+										aria-label="Filter price under $100"
 									/>
 									<span>Under $100</span>
 								</div>
 								<div className="flex items-center gap-2">
 									<input
 										type="radio"
-										name="filtersP"
+										name="filterPrice"
 										onChange={(e) => {
 											if (e.target.checked) {
 												setFilter((prev) => {
@@ -176,6 +192,7 @@ export default function FilterModal({ handleChange, setFilter }: FilterFunc) {
 											}
 										}}
 										className="radio radio-sm radio-secondary border-2 border-gray-500"
+										aria-label="Filter price between $100 to $500"
 									/>
 
 									<span>$100 to $500</span>
@@ -183,7 +200,7 @@ export default function FilterModal({ handleChange, setFilter }: FilterFunc) {
 								<div className="flex items-center gap-2">
 									<input
 										type="radio"
-										name="filtersP"
+										name="filterPrice"
 										onChange={(e) => {
 											if (e.target.checked) {
 												setFilter((prev) => {
@@ -196,13 +213,14 @@ export default function FilterModal({ handleChange, setFilter }: FilterFunc) {
 											}
 										}}
 										className="radio radio-sm radio-secondary border-2 border-gray-500"
+										aria-label="Filter price between $500 to $1000"
 									/>
 									<span>$500 to $1000</span>
 								</div>
 								<div className="flex items-center gap-2">
 									<input
 										type="radio"
-										name="filtersP"
+										name="filterPrice"
 										onChange={(e) => {
 											if (e.target.checked) {
 												setFilter((prev) => {
@@ -215,6 +233,7 @@ export default function FilterModal({ handleChange, setFilter }: FilterFunc) {
 											}
 										}}
 										className="radio radio-sm radio-secondary border-2 border-gray-500"
+										aria-label="Filter price above $1000"
 									/>
 									<span>$1000 and above</span>
 								</div>
@@ -229,12 +248,14 @@ export default function FilterModal({ handleChange, setFilter }: FilterFunc) {
 							onClick={() => {
 								navigate(0);
 							}}
+							aria-label="Clear all filters"
 						>
 							Clear all
 						</label>
 						<label
 							htmlFor="filters-modal"
 							className="btn btn-primary h-11 px-8 rounded-full normal-case"
+							aria-label="Show results"
 						>
 							Show results
 						</label>

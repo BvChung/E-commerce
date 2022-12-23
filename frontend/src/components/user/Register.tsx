@@ -6,12 +6,13 @@ import { FormInputProps } from "../../interfaces/formInterface";
 import { CustomLocationState } from "../../interfaces/customInterface";
 import FormInput from "../form/FormInput";
 import { toast } from "react-toastify";
+import SpinnerSm from "../loading/SpinnerSm";
 
 export default function Register() {
 	const navigate = useNavigate();
 	const location = useLocation() as CustomLocationState;
 	const from = location.state?.from?.pathname || "/";
-	const { isSuccess, mutate } = useRegisterUser();
+	const { isSuccess, isLoading, mutate } = useRegisterUser();
 
 	const [registerCredentials, setRegisterCredentials] =
 		useState<RegisterCredentials>({
@@ -43,19 +44,19 @@ export default function Register() {
 		}
 
 		mutate(registerCredentials);
-
-		setRegisterCredentials({
-			firstName: "",
-			lastName: "",
-			email: "",
-			password: "",
-			verifyPassword: "",
-		});
 	}
 
 	useEffect(() => {
 		if (isSuccess) {
 			navigate(from, { replace: true });
+
+			setRegisterCredentials({
+				firstName: "",
+				lastName: "",
+				email: "",
+				password: "",
+				verifyPassword: "",
+			});
 		}
 	}, [isSuccess, navigate, from]);
 
@@ -64,7 +65,7 @@ export default function Register() {
 			key: useId(),
 			errorMessage: "Please enter a valid first name.",
 			id: "firstName",
-			label: "First name*",
+			label: "First name",
 			required: true,
 			pattern: "^[a-zA-Z0-9]{1,25}$",
 			name: "firstName",
@@ -79,7 +80,7 @@ export default function Register() {
 			key: useId(),
 			errorMessage: "Please enter a valid last name.",
 			id: "lastName",
-			label: "Last name*",
+			label: "Last name",
 			required: true,
 			pattern: "^[a-zA-Z]{1,25}$",
 			name: "lastName",
@@ -118,8 +119,6 @@ export default function Register() {
 			type: showPassword ? "text" : "password",
 			value: registerCredentials.password,
 			pattern: "(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])[A-Za-z0-9d=!-@._*]{8,25}$",
-			// prettier-ignore
-			// pattern: "(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])[A-Za-z0-9\d=!\-@._*]{8,25}$",
 			maxLength: 25,
 			htmlInputSize: "md",
 		},
@@ -135,8 +134,6 @@ export default function Register() {
 			type: showPassword ? "text" : "password",
 			value: registerCredentials.verifyPassword,
 			pattern: "(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])[A-Za-z0-9d=!-@._*]{8,25}$",
-			// prettier-ignore
-			// pattern: "(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])[A-Za-z0-9\d=!\-@._*]{8,25}$",
 			maxLength: 25,
 			htmlInputSize: "md",
 		},
@@ -146,11 +143,11 @@ export default function Register() {
 		<div className="flex items-center justify-center my-4 md:my-32">
 			<form
 				onSubmit={handleSubmit}
-				className="flex flex-col justify-center items-center w-full px-4 md:p-6 md:w-[32rem] md:border-[1px] md:rounded-lg md:shadow-sm"
+				className="flex flex-col justify-center items-center w-full px-4 md:p-8 md:w-[30rem] md:border-[1px] border-gray-300 md:rounded-lg md:shadow-sm"
 			>
-				<p className="font-semibold text-lg md:text-xl mt-2 mb-4">
+				<h1 className="font-semibold text-lg md:text-xl mt-2 mb-4">
 					Create Your Account
-				</p>
+				</h1>
 				<div className="grid grid-cols-1 md:grid-cols-2 w-full  md:gap-4">
 					{registerName.map((input) => {
 						return (
@@ -199,7 +196,7 @@ export default function Register() {
 							<span className="label-text mr-2">Show password</span>
 							<input
 								type="checkbox"
-								className="checkbox"
+								className="checkbox checkbox-sm checkbox-secondary rounded-md border-2 border-gray-500"
 								onChange={() => {
 									setShowPassword((prev) => !prev);
 								}}
@@ -209,14 +206,23 @@ export default function Register() {
 				</div>
 
 				<div className="flex flex-col w-full justify-center items-start mb-6">
-					<button className="btn w-full">Register</button>
+					<button
+						className="btn btn-info h-11 rounded-full w-full"
+						aria-label="Sign in"
+					>
+						{isLoading ? <SpinnerSm color="text-white" /> : "Register"}
+					</button>
 				</div>
 
 				<div className="flex justify-center items-center gap-2 px-8">
 					<span>Already have an account?</span>
-					<span className="font-semibold link">
-						<Link to="/signin">Sign-In</Link>
-					</span>
+					<Link
+						to="/signin"
+						className="font-semibold hover:link"
+						aria-label="Move to sign in page"
+					>
+						Sign in
+					</Link>
 				</div>
 			</form>
 		</div>

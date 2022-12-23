@@ -1,4 +1,5 @@
 export interface LoginCredentials {
+	isGuestAccount?: boolean;
 	email: string;
 	password: string;
 }

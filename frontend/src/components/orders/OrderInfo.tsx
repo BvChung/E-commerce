@@ -20,7 +20,11 @@ export default function OrderInfo() {
 					<div className="flex flex-col items-center justify-center mt-8 mb-16 mx-4 lg:mx-0">
 						<div className="flex items-center justify-between gap-2 w-full mb-6 pb-2 border-b-[1px] border-gray-200 lg:max-w-5xl xl:max-w-6xl">
 							<div className="flex items-center">
-								<Link to={"/orders"} className="mr-3 cursor-pointer">
+								<Link
+									to={"/orders"}
+									className="mr-3 cursor-pointer"
+									aria-label="Return to order list page"
+								>
 									<svg
 										xmlns="http://www.w3.org/2000/svg"
 										fill="none"
@@ -49,7 +53,8 @@ export default function OrderInfo() {
 									onClick={() => {
 										mutate();
 									}}
-									className=" btn btn-ghost btn-circle"
+									className="btn btn-ghost btn-circle"
+									aria-label="Delete order"
 								>
 									<svg
 										xmlns="http://www.w3.org/2000/svg"

@@ -8,7 +8,7 @@ interface Product {
 	category: string;
 	image: string;
 	imageCloudId: string;
-	createdBy: Schema.Types.ObjectId;
+	createdBy: string;
 }
 
 const productSchema = new Schema<Product>(
@@ -48,7 +48,7 @@ const productSchema = new Schema<Product>(
 			default: "",
 		},
 		createdBy: {
-			type: Schema.Types.ObjectId,
+			type: String,
 			required: [true, "Creator id is required"],
 			ref: "User",
 		},

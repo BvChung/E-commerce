@@ -1,3 +1,4 @@
+import { useMemo } from "react";
 import { useParams } from "react-router-dom";
 import { useGetProductInfo } from "../../hooks/products/useGetProductInfo";
 import { useCartContext } from "../../hooks/context/useCartContext";
@@ -21,26 +22,29 @@ export default function ProductInfo() {
 	const { isSuccess, data: productInfo } = useGetProductInfo(params.id!);
 	const foundItem = findCartItem(productInfo?._id);
 
+	const productImage = useMemo(() => {
+		if (!productInfo) return;
+
+		return renderImage(productInfo.imageCloudId);
+	}, [productInfo]);
+
+	function renderImage(imgSrc: string) {
+		return (
+			<AdvancedImage
+				cldImg={cldConfig.image(imgSrc).format("auto").quality("auto")}
+				plugins={[lazyload(), responsive(), placeholder({ mode: "blur" })]}
+				className="h-[300px] w-full sm:w-[500px] md:w-[700px] md:h-[500px] xl:w-[800px] object-fill"
+				alt="Product"
+			/>
+		);
+	}
+
 	return (
 		<div className="flex flex-col items-center justify-center my-8 md:my-10 mx-2">
 			{isSuccess && (
 				<div className="flex flex-col items-center justify-center w-full lg:max-w-5xl xl:max-w-6xl">
 					<div className="flex flex-col-reverse md:flex-row w-full gap-8 md:gap-20 md:justify-between mb-8 md:mb-10">
-						<div className="flex justify-center">
-							<AdvancedImage
-								cldImg={cldConfig
-									.image(productInfo.imageCloudId)
-									.format("auto")
-									.quality("auto")}
-								plugins={[
-									lazyload(),
-									responsive(),
-									placeholder({ mode: "blur" }),
-								]}
-								className="h-[300px] w-full sm:w-[500px] md:w-[700px] md:h-[500px] xl:w-[800px] object-fill"
-								alt="Product"
-							/>
-						</div>
+						<div className="flex justify-center">{productImage}</div>
 						<div className="flex flex-col w-full md:w-80 h-fit p-4 border-[1px] rounded-lg shadow-sm">
 							<p className="font-semibold text-xl mb-2">{productInfo.name}</p>
 							<p className="font-semibold text-lg text-gray-900 mb-4">
@@ -65,6 +69,7 @@ export default function ProductInfo() {
 											);
 										}}
 										className="btn btn-primary h-11 w-full px-6 rounded-full"
+										aria-label="Add to cart"
 									>
 										Add to cart
 									</button>
@@ -77,6 +82,7 @@ export default function ProductInfo() {
 											onClick={() => {
 												decrementCartQuantity(productInfo._id);
 											}}
+											aria-label="Decrement item quantity"
 										>
 											<svg
 												xmlns="http://www.w3.org/2000/svg"
@@ -104,6 +110,7 @@ export default function ProductInfo() {
 											className={`flex grow max-w-[70px] btn btn-secondary h-11 rounded-r-full ${
 												foundItem?.quantity === 9 && "btn-disabled"
 											} `}
+											aria-label="Increment item quantity"
 										>
 											<svg
 												xmlns="http://www.w3.org/2000/svg"

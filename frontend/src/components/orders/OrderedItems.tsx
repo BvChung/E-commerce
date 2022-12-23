@@ -26,7 +26,7 @@ export default function OrderedItems({
 			key={_id}
 			className="flex py-6 border-b border-gray-300 last:border-b-0 last:mb-0"
 		>
-			<Link to={`/products/${_id}`}>
+			<Link to={`/products/${_id}`} aria-label="Move to product details">
 				<AdvancedImage
 					cldImg={productImg}
 					className="rounded-md h-32 w-32 object-cover"
@@ -41,6 +41,7 @@ export default function OrderedItems({
 							<Link
 								to={`/products/${_id}`}
 								className="hover:link font-semibold mb-1 w-fit"
+								aria-label="Move to product details"
 							>
 								{name}
 							</Link>
@@ -50,17 +51,17 @@ export default function OrderedItems({
 						</div>
 
 						<div className="flex flex-col basis-32">
-							<h6 className="font-semibold mb-3">Price</h6>
+							<span className="font-semibold mb-3">Price</span>
 							<span className="text-sm font-medium">${price.toFixed(2)}</span>
 						</div>
 
 						<div className="flex flex-col basis-32">
-							<h6 className="font-semibold mb-3">Quantity</h6>
+							<span className="font-semibold mb-3">Quantity</span>
 							<span className="text-sm font-medium">{quantity}</span>
 						</div>
 
 						<div className="flex flex-col basis-32">
-							<h6 className="font-semibold mb-3">Amount</h6>
+							<span className="font-semibold mb-3">Amount</span>
 							<span className="text-sm font-medium">
 								${(quantity! * price).toFixed(2)}
 							</span>
@@ -85,6 +86,7 @@ export default function OrderedItems({
 									? " btn-info"
 									: "btn-disabled"
 							} flex items-center h-11 gap-2`}
+							aria-label="Add item to cart"
 						>
 							<span className="text-xs">
 								{!findCartItem(_id)?.quantity ||
@@ -100,6 +102,7 @@ export default function OrderedItems({
 					<Link
 						to={`/products/${_id}`}
 						className="hover:link font-semibold mb-1 w-fit"
+						aria-label="Move to product details"
 					>
 						{name}
 					</Link>
@@ -143,6 +146,7 @@ export default function OrderedItems({
 								? "btn-info"
 								: "btn-disabled"
 						} flex items-center h-8 gap-2`}
+						aria-label="Add item to cart"
 					>
 						<span className="text-xs">
 							{!findCartItem(_id)?.quantity || findCartItem(_id)?.quantity! < 9

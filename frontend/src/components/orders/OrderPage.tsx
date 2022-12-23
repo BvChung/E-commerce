@@ -49,6 +49,7 @@ export default function OrderPage() {
 					<Link
 						to={"/products"}
 						className="btn btn-secondary h-11 w-56 md:w-64 rounded-full"
+						aria-label="Move to product page"
 					>
 						Browse our products
 					</Link>

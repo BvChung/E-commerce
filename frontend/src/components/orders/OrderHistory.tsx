@@ -16,25 +16,25 @@ export default function OrderHistory({
 			<div className="flex flex-col md:flex-row flex-1 justify-between w-full pt-4 px-4 pb-4 md:pb-6 border-b-[1px] bg-gray-100 first:rounded-t-lg">
 				<div className="hidden items-center w-full mb-4 md:mb-0 md:flex">
 					<div className="flex flex-col items-center md:items-baseline justify-center gap-[2px] basis-60">
-						<h6 className="uppercase font-medium text-sm text-gray-900">
+						<span className="uppercase font-medium text-sm text-gray-900">
 							Order Date
-						</h6>
+						</span>
 						<span className="text-sm text-gray-900">
 							{datePurchased[1]} {datePurchased[2]}, {datePurchased[3]}
 						</span>
 					</div>
 					<div className="flex flex-col items-center md:items-baseline gap-[2px] basis-60 w-fit">
-						<h6 className="uppercase font-medium text-sm text-gray-900">
+						<span className="uppercase font-medium text-sm text-gray-900">
 							Total
-						</h6>
+						</span>
 						<span className="text-sm text-gray-900">
 							${paymentInfo.subTotal.toFixed(2)}
 						</span>
 					</div>
 					<div className="flex flex-col items-center md:items-baseline gap-[2px] basis-60 w-fit">
-						<h6 className="uppercase font-medium text-sm text-gray-900">
+						<span className="uppercase font-medium text-sm text-gray-900">
 							Shipped to
-						</h6>
+						</span>
 						<span className="text-sm text-gray-900">
 							{shippingInfo.firstName} {shippingInfo.lastName}
 						</span>
@@ -58,6 +58,7 @@ export default function OrderHistory({
 					<Link
 						to={`${_id}`}
 						className="font-bold text-sm text-gray-800 hover:text-gray-900 hover:link"
+						aria-label="Move to order details"
 					>
 						View Details
 					</Link>

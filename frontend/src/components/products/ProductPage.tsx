@@ -7,7 +7,6 @@ import Spinner from "../loading/Spinner";
 import FiltersModal from "./modal/FiltersModal";
 import { useSearchParams } from "react-router-dom";
 import { QueryProducts } from "../../interfaces/productInterface";
-// const DisplayProduct = lazy(() => import("./DisplayProduct"));
 
 export default function ProductPage() {
 	const navigate = useNavigate();
@@ -101,6 +100,7 @@ export default function ProductPage() {
 							navigate(0);
 						}}
 						className="btn btn-secondary h-11 rounded-full"
+						aria-label="Clear all filters"
 					>
 						Clear filters
 					</button>

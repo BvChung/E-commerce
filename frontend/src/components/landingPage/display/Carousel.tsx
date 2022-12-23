@@ -72,7 +72,7 @@ export default function Carou({ slides }: CarouselData) {
 				</div>
 			</div>
 
-			<div className="absolute top-14 left-16 w-fit">
+			<div className="absolute left-6 top-14 md:left-16 w-fit">
 				<h2 className="text-2xl font-semibold text-white mb-2">
 					The Modern Collection
 				</h2>

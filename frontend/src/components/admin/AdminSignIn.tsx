@@ -33,16 +33,16 @@ export default function AdminSignIn() {
 		e.preventDefault();
 
 		mutate(loginCredentials);
-
-		setLoginCredentials({
-			email: "",
-			password: "",
-		});
 	}
 
 	useEffect(() => {
 		if (isSuccess) {
 			navigate(from, { replace: true });
+
+			setLoginCredentials({
+				email: "",
+				password: "",
+			});
 		}
 	}, [isSuccess, navigate, from]);
 
@@ -83,9 +83,9 @@ export default function AdminSignIn() {
 				className="flex flex-col justify-center items-center w-full px-4 md:p-8 md:w-[30rem] md:border-[1px] border-gray-300 md:rounded-lg md:shadow-sm"
 				onSubmit={handleSubmit}
 			>
-				<h2 className=" font-semibold text-lg md:text-xl mt-2 mb-4">
+				<h1 className=" font-semibold text-lg md:text-xl mt-2 mb-4">
 					Sign In as Admin
-				</h2>
+				</h1>
 
 				<div className="flex flex-col items-center w-full mb-4">
 					{loginInput.map((input) => {

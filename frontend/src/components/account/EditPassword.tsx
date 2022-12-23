@@ -1,4 +1,4 @@
-import React, { useState, useId } from "react";
+import React, { useState, useId, useEffect } from "react";
 import FormInput from "../form/FormInput";
 import { FormInputProps } from "../../interfaces/formInterface";
 import { EditedPassword } from "../../interfaces/authInterface";
@@ -6,7 +6,7 @@ import { useEditPassword } from "../../hooks/account/useEditPassword";
 import { useNavigate } from "react-router-dom";
 
 export default function EditPassword() {
-	const { mutate } = useEditPassword();
+	const { mutate, isSuccess } = useEditPassword();
 	const navigate = useNavigate();
 
 	const [passwordCredentials, setPasswordCredentials] =
@@ -33,13 +33,17 @@ export default function EditPassword() {
 		e.preventDefault();
 
 		mutate(passwordCredentials);
-
-		setPasswordCredentials({
-			currentPassword: "",
-			newPassword: "",
-			verifyNewPassword: "",
-		});
 	}
+
+	useEffect(() => {
+		if (isSuccess) {
+			setPasswordCredentials({
+				currentPassword: "",
+				newPassword: "",
+				verifyNewPassword: "",
+			});
+		}
+	}, [isSuccess]);
 
 	const passwordInput: FormInputProps[] = [
 		{

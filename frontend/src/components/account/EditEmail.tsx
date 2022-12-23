@@ -8,7 +8,7 @@ import { useNavigate } from "react-router-dom";
 
 export default function EditEmail() {
 	const { user } = useAuthContext();
-	const { mutate } = useEditEmail();
+	const { mutate, isSuccess } = useEditEmail();
 	const navigate = useNavigate();
 	const [emailCredentials, setEmailCredentials] = useState<EditedEmail>({
 		email: user.email,
@@ -32,10 +32,12 @@ export default function EditEmail() {
 	}
 
 	useEffect(() => {
-		setEmailCredentials({
-			email: user.email,
-		});
-	}, [user]);
+		if (isSuccess) {
+			setEmailCredentials({
+				email: user.email,
+			});
+		}
+	}, [user, isSuccess]);
 
 	const emailInput: FormInputProps[] = [
 		{

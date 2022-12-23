@@ -30,7 +30,7 @@ export const useSignInUser = () => {
 
 	return useMutation(signIn, {
 		onSuccess: (data: UserInfo) => {
-			toast.success(`${data.firstName} ${data.lastName} logged in.`);
+			toast.success("User has been logged in.");
 			setUser(data);
 			storage.setToken(data.accessToken);
 		},
