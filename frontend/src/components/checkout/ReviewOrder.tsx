@@ -150,16 +150,16 @@ export default function ReviewOrder() {
 					</ul>
 				</div>
 
-				<div className="flex flex-col md:flex-row justify-center h-max w-full gap-4 lg:max-w-5xl xl:max-w-7xl">
-					<div className="flex flex-col border-[1px] p-4 h-max rounded-lg shadow-sm mb-2 transition-all fade w-full md:w-2/3 md:max-w-3xl">
-						<div className="relative flex flex-col md:flex-row items-center justify-between border-b-[1px] border-gray-300 py-4 mb-0 md:mb-4">
+				<div className="flex flex-col lg:flex-row justify-center h-max w-full gap-4 lg:max-w-5xl xl:max-w-7xl">
+					<div className="flex flex-col border-[1px] p-4 h-max rounded-lg shadow-sm mb-2 transition-all fade w-full lg:w-2/3 lg:max-w-3xl">
+						<div className="relative flex flex-col lg:flex-row items-center justify-between border-b-[1px] border-gray-300 py-4 mb-0 lg:mb-4">
 							<svg
 								xmlns="http://www.w3.org/2000/svg"
 								fill="none"
 								viewBox="0 0 24 24"
 								strokeWidth={1.5}
 								stroke="currentColor"
-								className="w-8 h-8 stroke-green-600 absolute left-0 md:hidden"
+								className="w-8 h-8 stroke-green-600 absolute left-0 lg:hidden"
 							>
 								<path
 									strokeLinecap="round"
@@ -167,14 +167,14 @@ export default function ReviewOrder() {
 									d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
 								/>
 							</svg>
-							<div className="flex gap-2 items-center mb-4 md:mb-0">
+							<div className="flex gap-2 items-center mb-4 lg:mb-0">
 								<svg
 									xmlns="http://www.w3.org/2000/svg"
 									fill="none"
 									viewBox="0 0 24 24"
 									strokeWidth={1.5}
 									stroke="currentColor"
-									className="w-12 h-12 stroke-green-600 hidden md:inline-flex"
+									className="w-12 h-12 stroke-green-600 hidden lg:inline-flex"
 								>
 									<path
 										strokeLinecap="round"
@@ -183,18 +183,18 @@ export default function ReviewOrder() {
 									/>
 								</svg>
 
-								<span className="font-medium text-lg md:text-2xl">
+								<span className="font-medium text-lg lg:text-2xl">
 									Delivery Date
 								</span>
 							</div>
 
-							<div className="flex items-center justify-between w-full md:w-auto">
-								<div className="flex flex-col w-36 justify-between items-end mr-6 md:mr-8 text-xs md:text-base">
+							<div className="flex items-center justify-between w-full lg:w-auto">
+								<div className="flex flex-col w-36 justify-between items-end mr-6 lg:mr-8 text-xs lg:text-base">
 									<span className="text-sm text-gray-500">Arrival</span>
 								</div>
 								<div className="flex flex-col">
 									<div className="flex gap-4">
-										<div className="flex flex-col w-48 md:w-[232px] font-base md:font-medium text-sm md:text-base">
+										<div className="flex flex-col w-48 lg:w-[232px] font-base lg:font-medium text-sm lg:text-base">
 											<span className="">Arriving tomorrow</span>
 										</div>
 									</div>
@@ -202,15 +202,15 @@ export default function ReviewOrder() {
 							</div>
 						</div>
 
-						<div className="flex flex-col md:flex-row justify-between items-center border-b-[1px] border-gray-300 py-4 mb-4">
-							<div className="relative flex md:hidden w-full justify-center items-center font-medium text-lg md:text-xl mb-4">
+						<div className="flex flex-col lg:flex-row justify-between items-center border-b-[1px] border-gray-300 py-4 mb-4">
+							<div className="relative flex lg:hidden w-full justify-center items-center font-medium text-lg lg:text-xl mb-4">
 								<svg
 									xmlns="http://www.w3.org/2000/svg"
 									fill="none"
 									viewBox="0 0 24 24"
 									strokeWidth={1.5}
 									stroke="currentColor"
-									className="w-8 h-8 stroke-green-600 absolute left-0 md:hidden"
+									className="w-8 h-8 stroke-green-600 absolute left-0 lg:hidden"
 								>
 									<path
 										strokeLinecap="round"
@@ -219,26 +219,26 @@ export default function ReviewOrder() {
 									/>
 								</svg>
 								<div className="w-full flex items-center justify-center">
-									<span className="font-medium text-lg md:text-2xl">
+									<span className="font-medium text-lg lg:text-2xl">
 										Shipping to
 									</span>
 								</div>
 								<Link
 									to={"/checkout/shipping"}
-									className="absolute right-0 hover:link text-sm"
+									className="absolute right-0 h-fit"
 									aria-label="Edit shipping info"
 								>
-									Edit
+									<span className="hover:link text-sm">Edit</span>
 								</Link>
 							</div>
-							<div className="flex items-center gap-2 md:basis-48">
+							<div className="flex items-center gap-2 lg:basis-48">
 								<svg
 									xmlns="http://www.w3.org/2000/svg"
 									fill="none"
 									viewBox="0 0 24 24"
 									strokeWidth={1.5}
 									stroke="currentColor"
-									className="w-12 h-12 stroke-green-600 hidden md:inline-flex"
+									className="w-12 h-12 stroke-green-600 hidden lg:inline-flex"
 								>
 									<path
 										strokeLinecap="round"
@@ -247,11 +247,11 @@ export default function ReviewOrder() {
 									/>
 								</svg>
 
-								<div className="font-medium text-lg md:text-2xl hidden md:inline-flex">
+								<div className="font-medium text-lg lg:text-2xl hidden lg:inline-flex">
 									Shipping to
 									<Link
 										to={"/checkout/shipping"}
-										className="hover:link text-sm inline-flex mt-2 md:hidden"
+										className="hover:link text-sm inline-flex mt-2 lg:hidden"
 										aria-label="Edit shipping info"
 									>
 										Edit
@@ -259,8 +259,8 @@ export default function ReviewOrder() {
 								</div>
 							</div>
 
-							<div className="flex w-full md:w-auto justify-between">
-								<div className="flex flex-col w-36 justify-between items-end mr-6 md:mr-8 text-xs md:text-base">
+							<div className="flex w-full lg:w-auto justify-between">
+								<div className="flex flex-col w-36 justify-between items-end mr-6 lg:mr-8 text-xs lg:text-base">
 									<span className="text-gray-500 text-sm">
 										Delivery address
 									</span>
@@ -268,24 +268,26 @@ export default function ReviewOrder() {
 								</div>
 								<div className="flex flex-col">
 									<div className="flex gap-4">
-										<div className="flex flex-col w-48 gap-2 font-base md:font-medium text-sm md:text-base">
-											<span>
+										<div className="flex flex-col w-48 max-w-[12rem] gap-2 font-base lg:font-medium text-sm lg:text-base">
+											<p className="text-clip">
 												{myOrder.shippingInfo.firstName}{" "}
 												{myOrder.shippingInfo.lastName}
-											</span>
-											<span>{myOrder.shippingInfo.address}</span>
-											<span>
+											</p>
+											<p className="text-clip">
+												{myOrder.shippingInfo.address}
+											</p>
+											<p className="text-clip">
 												{myOrder.shippingInfo.city},{" "}
 												{myOrder.shippingInfo.state}{" "}
 												{myOrder.shippingInfo.zipCode}
-											</span>
-											<span>{myOrder.shippingInfo.email}</span>
+											</p>
+											<p>{myOrder.shippingInfo.email}</p>
 										</div>
 									</div>
 								</div>
 								<Link
 									to={"/checkout/shipping"}
-									className="hover:link ml-4 text-sm hidden md:inline-flex"
+									className="hover:link ml-4 text-sm hidden lg:inline-flex"
 									aria-label="Edit shipping info"
 								>
 									Edit
@@ -293,15 +295,15 @@ export default function ReviewOrder() {
 							</div>
 						</div>
 
-						<div className="flex flex-col md:flex-row justify-between items-center py-4">
-							<div className="relative flex md:hidden w-full justify-center items-center font-semibold text-lg md:text-xl mb-4">
+						<div className="flex flex-col lg:flex-row justify-between items-center py-4">
+							<div className="relative flex lg:hidden w-full justify-center items-center font-semibold text-lg lg:text-xl mb-4">
 								<svg
 									xmlns="http://www.w3.org/2000/svg"
 									fill="none"
 									viewBox="0 0 24 24"
 									strokeWidth={1.5}
 									stroke="currentColor"
-									className="w-8 h-8 stroke-green-600 absolute left-0 md:hidden"
+									className="w-8 h-8 stroke-green-600 absolute left-0 lg:hidden"
 								>
 									<path
 										strokeLinecap="round"
@@ -310,7 +312,7 @@ export default function ReviewOrder() {
 									/>
 								</svg>
 								<div className="w-full flex items-center justify-center">
-									<span className="font-medium text-lg md:text-2xl">
+									<span className="font-medium text-lg lg:text-2xl">
 										Paying with
 									</span>
 								</div>
@@ -322,7 +324,7 @@ export default function ReviewOrder() {
 									Edit
 								</Link>
 							</div>
-							<div className="items-center gap-2 md:basis-48 hidden md:inline-flex">
+							<div className="items-center gap-2 lg:basis-48 hidden lg:inline-flex">
 								<svg
 									xmlns="http://www.w3.org/2000/svg"
 									fill="none"
@@ -338,11 +340,11 @@ export default function ReviewOrder() {
 									/>
 								</svg>
 
-								<div className="font-medium text-lg md:text-2xl">
+								<div className="font-medium text-lg lg:text-2xl">
 									Paying with
 									<Link
 										to={"/checkout/payment"}
-										className="hover:link text-sm inline-flex mt-2 md:hidden"
+										className="hover:link text-sm inline-flex mt-2 lg:hidden"
 										aria-label="Edit payment info"
 									>
 										Edit
@@ -350,15 +352,15 @@ export default function ReviewOrder() {
 								</div>
 							</div>
 
-							<div className="flex w-full md:w-auto justify-between">
-								<div className="flex flex-col w-36 justify-between items-end mr-6 md:mr-8 text-xs md:text-base">
+							<div className="flex w-full lg:w-auto justify-between">
+								<div className="flex flex-col w-36 justify-between items-end mr-6 lg:mr-8 text-xs lg:text-base">
 									<span className="text-gray-500 text-sm">Card number</span>
 									<span className="text-gray-500 text-sm">Name on card</span>
 									<span className="text-gray-500 text-sm">Expiration</span>
 								</div>
 								<div className="flex flex-col">
 									<div className="flex gap-4">
-										<div className="flex flex-col w-48 gap-2 font-base md:font-medium text-sm md:text-base">
+										<div className="flex flex-col w-48 gap-2 font-base lg:font-medium text-sm lg:text-base">
 											<span>
 												Ending in{" "}
 												{myOrder.paymentInfo.cardNumber.slice(
@@ -380,7 +382,7 @@ export default function ReviewOrder() {
 								</div>
 								<Link
 									to={"/checkout/payment"}
-									className="hover:link ml-4 text-sm hidden md:inline-flex"
+									className="hover:link ml-4 text-sm hidden lg:inline-flex"
 									aria-label="Edit payment info"
 								>
 									Edit
@@ -389,7 +391,7 @@ export default function ReviewOrder() {
 						</div>
 					</div>
 
-					<div className="rounded-lg shadow-sm h-fit w-full md:w-1/3 border-[1px] py-6 px-4 flex flex-col items-center">
+					<div className="rounded-lg shadow-sm h-fit w-full lg:w-1/3 border-[1px] py-6 px-4 flex flex-col items-center">
 						<div className="w-full flex items-center justify-between mb-4">
 							<div>
 								<span className="font-medium mr-2 text-sm">Subtotal</span>

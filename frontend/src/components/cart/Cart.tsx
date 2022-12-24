@@ -5,7 +5,7 @@ import { useGetCartItems } from "../../hooks/cart/useGetCartItems";
 import CartItem from "./CartItem";
 import { useOrderContext } from "../../hooks/context/useOrderContext";
 import { useAuthContext } from "../../hooks/context/useAuthContext";
-import { demoInfo } from "../../config/demoInfo";
+import { guestDemoInfo, adminDemoInfo } from "../../config/demoInfo";
 import Spinner from "../loading/Spinner";
 
 export default function CartPage() {
@@ -34,9 +34,8 @@ export default function CartPage() {
 		});
 
 	const guestAccountActive =
-		user.firstName === process.env.REACT_APP_GUEST_CARDFIRSTNAME &&
-		user.lastName === process.env.REACT_APP_GUEST_CARDLASTNAME &&
-		user.email === process.env.REACT_APP_GUEST_EMAIL;
+		user.email === process.env.REACT_APP_GUEST_EMAIL ||
+		user.email === process.env.REACT_APP_GUEST_ADMIN_EMAIL;
 
 	return (
 		<div className="flex flex-col items-center justify-center mt-8 mb-16 mx-4 sm:mx-6 lg:mx-0">
@@ -138,7 +137,13 @@ export default function CartPage() {
 										: "btn-outline btn-accent"
 								}  rounded-full mt-4 w-full `}
 								onClick={() => {
-									setMyOrder(demoInfo);
+									if (user.email === process.env.REACT_APP_GUEST_EMAIL) {
+										setMyOrder(guestDemoInfo);
+									} else if (
+										user.email === process.env.REACT_APP_GUEST_ADMIN_EMAIL
+									) {
+										setMyOrder(adminDemoInfo);
+									}
 
 									navigate("/checkout/confirmation");
 								}}

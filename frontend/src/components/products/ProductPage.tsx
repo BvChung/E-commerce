@@ -82,6 +82,7 @@ export default function ProductPage() {
 							category={product.category}
 							image={product.image}
 							imageCloudId={product.imageCloudId}
+							createdBy={product.createdBy}
 						/>
 					);
 				})}
