@@ -127,6 +127,7 @@ export default function SearchModal() {
 												imageCloudId={product.imageCloudId}
 												name={product.name}
 												price={product.price}
+												createdBy={product.createdBy}
 												setSearchText={setSearchText}
 											/>
 										);

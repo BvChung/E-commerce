@@ -4,6 +4,7 @@ import { toast } from "react-toastify";
 import { useParams } from "react-router-dom";
 import { useGetInventoryItem } from "../../../hooks/admin/inventory/useGetInventoryItem";
 import { useUpdateProduct } from "../../../hooks/admin/inventory/useUpdateProduct";
+import { useDeleteProduct } from "../../../hooks/admin/inventory/useDeleteProduct";
 import { ProductForm } from "../../../interfaces/productInterface";
 import Spinner from "../../loading/Spinner";
 
@@ -15,7 +16,8 @@ export default function ManageProduct() {
 		data: productInfo,
 	} = useGetInventoryItem(params.id!);
 
-	const { mutate } = useUpdateProduct(params.id);
+	const { mutate: updateProduct } = useUpdateProduct(params.id);
+	const { mutate: deleteProduct } = useDeleteProduct(params.id!);
 	const imageRef = useRef<HTMLInputElement>(null);
 
 	const [productFormData, setProductFormData] = useState<ProductForm>({
@@ -88,14 +90,14 @@ export default function ManageProduct() {
 		e.preventDefault();
 
 		if (file) {
-			mutate({
+			updateProduct({
 				...productFormData,
 				price: +productFormData.price,
 				image,
 				fileName: file.name,
 			});
 		} else {
-			mutate({
+			updateProduct({
 				...productFormData,
 				price: +parseFloat(productFormData.price).toFixed(2),
 			});
@@ -114,30 +116,60 @@ export default function ManageProduct() {
 		<>
 			{!isLoading ? (
 				<div className="flex flex-col items-center justify-center mb-6 mx-4 sm:mx-6 lg:mx-0">
-					<div className="flex items-center gap-2 w-full mt-8 mb-6 pb-2 border-b-[1px] border-gray-200 lg:max-w-5xl xl:max-w-6xl">
-						<Link
-							to={"/admin/inventory"}
-							className="mr-2 cursor-pointer"
-							aria-label="Return to inventory page"
-						>
-							<svg
-								xmlns="http://www.w3.org/2000/svg"
-								fill="none"
-								viewBox="0 0 24 24"
-								strokeWidth={2}
-								stroke="currentColor"
-								className="w-5 h-5"
+					<div className="flex items-center justify-between w-full mt-8 mb-6 pb-2 border-b-[1px] border-gray-200 lg:max-w-5xl xl:max-w-6xl">
+						<div className="flex items-center gap-2">
+							<Link
+								to={"/admin/inventory"}
+								className="mr-2 cursor-pointer"
+								aria-label="Return to inventory page"
 							>
-								<path
-									strokeLinecap="round"
-									strokeLinejoin="round"
-									d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18"
-								/>
-							</svg>
-						</Link>
-						<span className="font-medium text-xl sm:text-2xl">
-							Update Product
-						</span>
+								<svg
+									xmlns="http://www.w3.org/2000/svg"
+									fill="none"
+									viewBox="0 0 24 24"
+									strokeWidth={2}
+									stroke="currentColor"
+									className="w-5 h-5"
+								>
+									<path
+										strokeLinecap="round"
+										strokeLinejoin="round"
+										d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18"
+									/>
+								</svg>
+							</Link>
+							<span className="font-medium text-xl sm:text-2xl">
+								Update Product
+							</span>
+						</div>
+
+						<div
+							className="tooltip tooltip-left md:tooltip-bottom"
+							data-tip="Delete product"
+						>
+							<button
+								onClick={() => {
+									deleteProduct();
+								}}
+								className="btn btn-ghost btn-circle"
+								aria-label="Delete product"
+							>
+								<svg
+									xmlns="http://www.w3.org/2000/svg"
+									fill="none"
+									viewBox="0 0 24 24"
+									strokeWidth={1.5}
+									stroke="currentColor"
+									className="w-6 h-6"
+								>
+									<path
+										strokeLinecap="round"
+										strokeLinejoin="round"
+										d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0"
+									/>
+								</svg>
+							</button>
+						</div>
 					</div>
 
 					<div className="flex items-center gap-2 w-full mb-2 lg:max-w-5xl xl:max-w-6xl">
@@ -244,7 +276,7 @@ export default function ManageProduct() {
 										<img
 											src={image ? image : productInfo?.image}
 											alt="Product"
-											className="rounded-t-md w-full h-72 object-cover"
+											className="rounded-t-md w-full h-72 object-cover border-[1px] border-gray-300"
 										/>
 										<svg
 											xmlns="http://www.w3.org/2000/svg"

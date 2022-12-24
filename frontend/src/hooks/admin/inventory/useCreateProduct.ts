@@ -73,7 +73,7 @@ export const useCreateProduct = () => {
 				render: err.response?.data?.message,
 				type: "error",
 				isLoading: false,
-				autoClose: false,
+				autoClose: 3000,
 				draggable: true,
 				closeOnClick: true,
 			});

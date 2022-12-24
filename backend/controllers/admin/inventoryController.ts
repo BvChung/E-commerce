@@ -54,17 +54,11 @@ export const createProduct = async (
 		const { name, description, color, price, category, image, fileName } =
 			req.body;
 
-		const products = await ProductModel.find({});
-
-		let guestCreatedProduct = 0;
-		for (let i = 0; i < products.length; i++) {
-			if (products[i].createdBy === process.env.GUEST_ACCOUNT_ID) {
-				guestCreatedProduct += 1;
-			}
-		}
-
-		if (guestCreatedProduct === 1) {
-			throw new Error("Guest account can only have one created product.");
+		const verifyProducts = await ProductModel.find({
+			createdBy: process.env.GUEST_ADMIN_ACCOUNT_ID,
+		});
+		if (verifyProducts.length > 0) {
+			throw new Error("Guest account can only have one created product demo.");
 		}
 
 		const uploadedImage = await cloudinaryConnection.uploader.upload(
@@ -110,8 +104,15 @@ export const updateProduct = async (
 	try {
 		const { name, description, color, price, category, image, fileName } =
 			req.body;
-
 		const { id: productId } = req.params;
+
+		const verifyProduct = await ProductModel.findById(productId);
+		if (
+			req.user.id === process.env.GUEST_ADMIN_ACCOUNT_ID &&
+			verifyProduct?.createdBy !== process.env.GUEST_ADMIN_ACCOUNT_ID
+		) {
+			throw new Error("Guest account can only update product demo.");
+		}
 
 		const foundProduct = await ProductModel.findById(productId);
 		if (!foundProduct) throw new Error("Product not found.");
@@ -190,6 +191,15 @@ export const deleteProduct = async (
 ) => {
 	try {
 		const { id: productId } = req.params;
+
+		const verifyProduct = await ProductModel.findById(productId);
+		if (
+			req.user.id === process.env.GUEST_ADMIN_ACCOUNT_ID &&
+			verifyProduct?.createdBy !== process.env.GUEST_ADMIN_ACCOUNT_ID
+		) {
+			throw new Error("Guest account can only delete product demo.");
+		}
+
 		const deletedProduct = await ProductModel.findByIdAndDelete(productId);
 
 		// Finds all orders with the product and $pull removes deleted product from purchasedItems array;

@@ -6,14 +6,14 @@ import { CustomError } from "../../../interfaces/customInterface";
 import { useCartContext } from "../../context/useCartContext";
 import { toast } from "react-toastify";
 
-export const useDeleteProduct = () => {
+export const useDeleteProduct = (productId: string) => {
 	const eCommerceApiPrivate = usePrivateApi();
 	const queryClient = useQueryClient();
 	const { removeCartItem } = useCartContext();
 	const navigate = useNavigate();
 	const location = useLocation();
 
-	const deleteProduct = async (productId: string) => {
+	const deleteProduct = async () => {
 		try {
 			const response = await eCommerceApiPrivate.delete(
 				`/api/admin/inventory/${productId}`
@@ -58,7 +58,7 @@ export const useDeleteProduct = () => {
 				render: err.response?.data?.message,
 				type: "error",
 				isLoading: false,
-				autoClose: 1500,
+				autoClose: 3000,
 				draggable: true,
 				closeOnClick: true,
 			});
@@ -77,9 +77,10 @@ export const useDeleteProduct = () => {
 			queryClient.invalidateQueries("products");
 			queryClient.invalidateQueries(`product-${data._id}`);
 			queryClient.invalidateQueries("inventory");
-			queryClient.invalidateQueries(`inventory-${data._id}`);
 			queryClient.invalidateQueries("cart");
 			removeCartItem(data._id);
+
+			navigate("/admin/inventory");
 
 			toast.update("deletingProduct", {
 				render: `${data.name} has been deleted.`,

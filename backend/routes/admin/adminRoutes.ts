@@ -14,11 +14,7 @@ import {
 } from "../../controllers/admin/inventoryController";
 import verifyJWT from "../../middleware/authJWT";
 import { verifyAdmin } from "../../middleware/authAdmin";
-import {
-	accountUpdateBodySchema,
-	accountParamsSchema,
-	signInSchema,
-} from "../../schemas/adminSchema";
+import { accountUpdateBodySchema } from "../../schemas/adminSchema";
 import {
 	productParamsSchema,
 	productUpdateBodySchema,
@@ -33,11 +29,10 @@ router.post("/signin", signInAdmin);
 router
 	.route("/inventory")
 	.get([verifyJWT, verifyAdmin], getInventory)
-	.post([verifyJWT, verifyAdmin], createProduct);
-// .post(
-// 	[verifyJWT, verifyAdmin, validateRequest(productCreationBodySchema)],
-// 	createProduct
-// );
+	.post(
+		[verifyJWT, verifyAdmin, validateRequest(productCreationBodySchema)],
+		createProduct
+	);
 
 router
 	.route("/inventory/:id")

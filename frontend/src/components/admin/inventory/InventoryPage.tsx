@@ -1,23 +1,17 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import InventoryRow from "./InventoryRow";
-import { useAuthContext } from "../../../hooks/context/useAuthContext";
 import { useGetInventory } from "../../../hooks/admin/inventory/useGetInventory";
-import { useDeleteProduct } from "../../../hooks/admin/inventory/useDeleteProduct";
 import {
 	ProductInfo,
 	SortProducts,
 } from "../../../interfaces/productInterface";
 import Spinner from "../../loading/Spinner";
-import { toast } from "react-toastify";
+import { useAuthContext } from "../../../hooks/context/useAuthContext";
 
 export default function ProductTable() {
-	const { user } = useAuthContext();
 	const { isLoading, isSuccess, data: products } = useGetInventory();
-	const [deleteConfirmation, setDeleteConfirmation] = useState<boolean>(false);
-	const [itemId, setItemId] = useState<string>("");
-	const { mutate } = useDeleteProduct();
-
+	const { user } = useAuthContext();
 	const [sortTable, setSortTable] = useState<SortProducts>({
 		field: "",
 		name: {
@@ -26,7 +20,7 @@ export default function ProductTable() {
 		category: { sortDescending: false },
 		price: { sortDescending: false },
 	});
-
+	const [findGuestProduct, setFindGuestProduct] = useState<boolean>(false);
 	const [searchText, setSearchText] = useState<string>("");
 
 	function displayRows() {
@@ -34,7 +28,11 @@ export default function ProductTable() {
 
 		return products
 			.filter((product) => {
-				return product.name.toLowerCase().includes(searchText.toLowerCase());
+				if (findGuestProduct) {
+					return product.createdBy === "6321829716505e77a630034b";
+				} else {
+					return product.name.toLowerCase().includes(searchText.toLowerCase());
+				}
 			})
 			.sort((a: ProductInfo, b: ProductInfo) => {
 				if (sortTable.field === "") return 0;
@@ -55,7 +53,6 @@ export default function ProductTable() {
 					if (itemA > itemB) {
 						return -1;
 					}
-					// names must be equal
 					return 0;
 				} else {
 					const itemA =
@@ -73,7 +70,6 @@ export default function ProductTable() {
 					if (itemA > itemB) {
 						return 1;
 					}
-					// names must be equal
 					return 0;
 				}
 			})
@@ -89,21 +85,10 @@ export default function ProductTable() {
 						imageCloudId={product.imageCloudId}
 						name={product.name}
 						price={product.price}
-						setItemId={setItemId}
-						setDeleteConfirmation={setDeleteConfirmation}
+						createdBy={product.createdBy}
 					/>
 				);
 			});
-	}
-
-	function deleteItem() {
-		if (user.email === process.env.REACT_APP_GUEST_EMAIL) {
-			return toast.error("Guest account cannot delete products.");
-		}
-
-		setDeleteConfirmation(false);
-		mutate(itemId);
-		setItemId("");
 	}
 
 	return (
@@ -132,8 +117,17 @@ export default function ProductTable() {
 				<span className="font-medium text-xl sm:text-2xl">Inventory</span>
 			</div>
 
-			<div className="flex justify-end w-full mb-4 lg:max-w-5xl xl:max-w-6xl">
-				<div className="form-control w-fit ">
+			<div className="flex items-center justify-between w-full mb-4 lg:max-w-5xl xl:max-w-6xl">
+				<button
+					onClick={() => {
+						setFindGuestProduct((prev) => !prev);
+					}}
+					className="btn btn-outline btn-info h-11 w-40 rounded-full"
+				>
+					<span className="text-sm">Product Demo</span>
+				</button>
+
+				<div className="form-control w-fit">
 					<label className="input-group">
 						<span>
 							<svg
@@ -156,7 +150,7 @@ export default function ProductTable() {
 							placeholder="Search for product"
 							value={searchText}
 							onChange={(e) => setSearchText(e.target.value)}
-							className="input input-bordered input-sm md:input-md"
+							className="input input-bordered input-md"
 						/>
 					</label>
 				</div>
@@ -320,44 +314,6 @@ export default function ProductTable() {
 			) : (
 				<Spinner minHeight="min-h-screen" />
 			)}
-
-			<div className={`modal ${deleteConfirmation && "modal-open"} `}>
-				<div className="modal-box relative">
-					<button
-						onClick={() => {
-							setDeleteConfirmation(false);
-							setItemId("");
-						}}
-						className="btn btn-sm btn-circle absolute right-2 top-2"
-						aria-label="Close delete modal"
-					>
-						✕
-					</button>
-
-					<h3 className="text-lg font-bold">Confirm deletion</h3>
-					<p className="py-4">Are you sure you want to delete this item?</p>
-					<div className="modal-action justify-end gap-4">
-						<button
-							onClick={() => {
-								setDeleteConfirmation(false);
-								setItemId("");
-							}}
-							className="btn px-6 rounded-full btn-outline btn-accent h-11 normal-case"
-							aria-label="Cancel product deletion"
-						>
-							Cancel
-						</button>
-
-						<button
-							onClick={deleteItem}
-							className="btn px-6 rounded-full h-11 btn-secondary normal-case"
-							aria-label="Delete product"
-						>
-							Delete
-						</button>
-					</div>
-				</div>
-			</div>
 		</div>
 	);
 }

@@ -133,8 +133,8 @@ export default function AdminSignIn() {
 					<button
 						onClick={() => {
 							setLoginCredentials({
-								email: process.env.REACT_APP_GUEST_EMAIL!,
-								password: process.env.REACT_APP_GUEST_PASSWORD!,
+								email: process.env.REACT_APP_GUEST_ADMIN_EMAIL!,
+								password: process.env.REACT_APP_GUEST_ADMIN_PASSWORD!,
 							});
 						}}
 						className="btn btn-secondary btn-outline h-11 rounded-full w-full"

@@ -75,7 +75,7 @@ export const useUpdateProduct = (productId: string | undefined) => {
 				render: err.response?.data?.message,
 				type: "error",
 				isLoading: false,
-				autoClose: 1500,
+				autoClose: 3000,
 				draggable: true,
 				closeOnClick: true,
 			});
