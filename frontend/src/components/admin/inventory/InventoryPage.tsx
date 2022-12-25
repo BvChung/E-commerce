@@ -7,11 +7,9 @@ import {
 	SortProducts,
 } from "../../../interfaces/productInterface";
 import Spinner from "../../loading/Spinner";
-import { useAuthContext } from "../../../hooks/context/useAuthContext";
 
 export default function ProductTable() {
 	const { isLoading, isSuccess, data: products } = useGetInventory();
-	const { user } = useAuthContext();
 	const [sortTable, setSortTable] = useState<SortProducts>({
 		field: "",
 		name: {
@@ -26,14 +24,48 @@ export default function ProductTable() {
 	function displayRows() {
 		if (!isSuccess) return;
 
-		return products
-			.filter((product) => {
-				if (findGuestProduct) {
-					return product.createdBy === "6321829716505e77a630034b";
-				} else {
-					return product.name.toLowerCase().includes(searchText.toLowerCase());
-				}
-			})
+		const filteredProducts = products.filter((product) => {
+			if (findGuestProduct) {
+				return (
+					product.createdBy === process.env.REACT_APP_GUEST_ADMIN_ACCOUNT_ID!
+				);
+			} else {
+				return product.name.toLowerCase().includes(searchText.toLowerCase());
+			}
+		});
+
+		if (filteredProducts.length === 0) {
+			return (
+				<tr>
+					<td className="pl-6 py-6">
+						<div className="flex items-center gap-3">
+							<svg
+								xmlns="http://www.w3.org/2000/svg"
+								fill="none"
+								viewBox="0 0 24 24"
+								className="stroke-sky-600 flex-shrink-0 w-6 h-6"
+							>
+								<path
+									strokeLinecap="round"
+									strokeLinejoin="round"
+									strokeWidth="2"
+									d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+								></path>
+							</svg>
+							<div className="flex flex-col text-sm justify-center">
+								<span className="text-base font-medium">
+									Demo product has not been created
+								</span>
+							</div>
+						</div>
+					</td>
+					<td className="hidden md:table-cell text-base py-6"></td>
+					<td className="hidden md:table-cell text-base py-6"></td>
+				</tr>
+			);
+		}
+
+		return filteredProducts
 			.sort((a: ProductInfo, b: ProductInfo) => {
 				if (sortTable.field === "") return 0;
 
@@ -122,7 +154,9 @@ export default function ProductTable() {
 					onClick={() => {
 						setFindGuestProduct((prev) => !prev);
 					}}
-					className="btn btn-outline btn-info h-11 w-40 rounded-full"
+					className={`btn btn-info ${
+						findGuestProduct ? "" : "btn-outline"
+					} h-11 w-40 rounded-full`}
 				>
 					<span className="text-sm">Product Demo</span>
 				</button>

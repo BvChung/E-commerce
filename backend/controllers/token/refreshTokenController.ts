@@ -4,7 +4,10 @@ import jwt from "jsonwebtoken";
 import { generateAccessToken } from "../../helper/JWTGeneration";
 import { DecodedToken } from "../../types/types";
 
-const handleRefreshToken = async (
+// @desc Refresh JWT
+// @route GET /api/refresh/
+// @access Public
+export const handleRefreshToken = async (
 	req: Request,
 	res: Response,
 	next: NextFunction
@@ -33,5 +36,3 @@ const handleRefreshToken = async (
 		next(error);
 	}
 };
-
-export default handleRefreshToken;

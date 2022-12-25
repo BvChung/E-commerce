@@ -21,7 +21,7 @@ export default function InventoryRow({
 		<>
 			<tr>
 				<td className="pl-6 py-6">
-					<div className="flex items-center space-x-6">
+					<div className="flex items-center space-x-6 max-w-fit">
 						<AdvancedImage
 							cldImg={productImg}
 							plugins={[
@@ -34,7 +34,9 @@ export default function InventoryRow({
 							alt="Product"
 						/>
 
-						<span className="text-base font-medium">{name}</span>
+						<div className="max-w-xs">
+							<p className="text-base font-medium truncate break-all">{name}</p>
+						</div>
 					</div>
 				</td>
 				<td className="hidden md:table-cell text-base py-6">{category}</td>

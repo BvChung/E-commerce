@@ -176,7 +176,7 @@ export const getUser = async (
 };
 
 // @desc Logout user
-// @route PUT /api/users/logout
+// @route POST /api/users/logout
 // @access Public
 export const logoutUser = async (
 	req: Request,

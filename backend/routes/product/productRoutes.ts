@@ -1,5 +1,4 @@
 import { IRouter, Router } from "express";
-import verifyJWT from "../../middleware/authJWT";
 import validateRequest from "../../middleware/validateReq";
 import {
 	getAllProducts,

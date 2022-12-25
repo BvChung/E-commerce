@@ -7,9 +7,11 @@ import { useUpdateProduct } from "../../../hooks/admin/inventory/useUpdateProduc
 import { useDeleteProduct } from "../../../hooks/admin/inventory/useDeleteProduct";
 import { ProductForm } from "../../../interfaces/productInterface";
 import Spinner from "../../loading/Spinner";
+import { useAuthContext } from "../../../hooks/context/useAuthContext";
 
 export default function ManageProduct() {
 	const params = useParams();
+	const { user } = useAuthContext();
 	const {
 		isSuccess,
 		isLoading,
@@ -72,8 +74,18 @@ export default function ManageProduct() {
 	function handleFile(e: React.ChangeEvent<HTMLInputElement>) {
 		if (!e.target.files) return;
 
-		// file size measured in bytes: max size of 5 MB
-		if (e.target.files[0].size <= 5 * 10 ** 6) {
+		// file size measured in bytes:
+		// max size of 1 MB for guest account
+		// 5 MB for admin
+		const fileSizeLimit =
+			user.email === process.env.REACT_APP_GUEST_ADMIN_EMAIL
+				? 1 * 10 ** 6
+				: 5 * 10 ** 6;
+
+		const errDisplay =
+			user.email === process.env.REACT_APP_GUEST_ADMIN_EMAIL ? "1" : "5";
+
+		if (e.target.files[0].size <= fileSizeLimit) {
 			const productImageFile = e.target.files[0];
 			setFile(productImageFile);
 			readFile(productImageFile);
@@ -82,7 +94,7 @@ export default function ManageProduct() {
 				imageRef.current.value = "";
 			}
 
-			return toast.error("File must be less than 5 MB");
+			return toast.error(`File must be less than ${errDisplay} MB`);
 		}
 	}
 
@@ -329,7 +341,13 @@ export default function ManageProduct() {
 										<span className="text-sm">
 											File format: JPEG, PNG, AVIF, WEBP
 										</span>
-										<span>(Recommended 1200x480, max 5 MB)</span>
+										<span>
+											(Recommended 1200x480, max{" "}
+											{user.email === process.env.REACT_APP_GUEST_ADMIN_EMAIL
+												? "1"
+												: "5"}{" "}
+											MB)
+										</span>
 									</div>
 								</div>
 							</div>

@@ -2,7 +2,7 @@ import dotenv from "dotenv";
 import path from "path";
 import cors from "cors";
 import cookieParser from "cookie-parser";
-import express, { Express, Request, Response, NextFunction } from "express";
+import express, { Express, Request, Response } from "express";
 import "colors";
 import { connectDatabase } from "./config/mongoConfig";
 import errorHandler from "./middleware/errorHandler";
@@ -41,6 +41,18 @@ app.use("/api/orders", orderRoutes);
 app.use("/api/refresh", refreshTokenRoutes);
 
 app.use(errorHandler);
+
+if (process.env.NODE_ENV === "production") {
+	app.use(express.static(path.join(__dirname, "../frontend/build")));
+
+	app.get("*", (req: Request, res: Response) =>
+		res.sendFile(
+			path.resolve(__dirname, "../", "frontend", "build", "index.html")
+		)
+	);
+} else {
+	app.get("/", (req, res) => res.send("Please set to production"));
+}
 
 app.listen(port, () => {
 	console.log(`Server live on port: ${port}`.underline.magenta);

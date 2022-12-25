@@ -5,6 +5,9 @@ import { productParams } from "../../schemas/productSchema";
 import dotenv from "dotenv";
 dotenv.config();
 
+// @desc Get all products
+// @route GET /api/products/
+// @access Public
 export const getAllProducts = async (
 	req: Request,
 	res: Response,
@@ -20,6 +23,9 @@ export const getAllProducts = async (
 	}
 };
 
+// @desc Get queried products
+// @route GET /api/products/query
+// @access Public
 export const queryProducts = async (
 	req: Request,
 	res: Response,
@@ -75,6 +81,9 @@ export const queryProducts = async (
 	}
 };
 
+// @desc Get cart items
+// @route GET /api/products/cart
+// @access Public
 export const getCartItemsInfo = async (
 	req: Request,
 	res: Response,
@@ -94,6 +103,9 @@ export const getCartItemsInfo = async (
 	}
 };
 
+// @desc Get product info
+// @route GET /api/products/:id
+// @access Public
 export const getProductInfo = async (
 	req: Request<productParams["params"], {}, {}>,
 	res: Response,

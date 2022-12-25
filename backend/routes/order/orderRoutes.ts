@@ -2,7 +2,7 @@ import { IRouter, Router } from "express";
 import verifyJWT from "../../middleware/authJWT";
 import validateRequest from "../../middleware/validateReq";
 import {
-	getOrder,
+	getOrderHistory,
 	getOrderInfo,
 	createOrder,
 	deleteOrder,
@@ -13,7 +13,7 @@ const router: IRouter = Router();
 
 router
 	.route("/")
-	.get(verifyJWT, getOrder)
+	.get(verifyJWT, getOrderHistory)
 	.post([verifyJWT, validateRequest(orderBodySchema)], createOrder);
 router
 	.route("/:id")

@@ -99,7 +99,7 @@ export const getAccounts = async (
 };
 
 // @desc Edit access role
-// @route GET /api/admin/edit
+// @route PATCH /api/admin/edit
 // @access Private
 export const editRole = async (
 	req: Request<{}, {}, accountBody["body"]>,

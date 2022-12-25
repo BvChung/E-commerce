@@ -3,10 +3,12 @@ import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import { useCreateProduct } from "../../../hooks/admin/inventory/useCreateProduct";
 import { ProductForm } from "../../../interfaces/productInterface";
+import { useAuthContext } from "../../../hooks/context/useAuthContext";
 
 export default function CreateProduct() {
 	const { mutate, isSuccess } = useCreateProduct();
 	const imageRef = useRef<HTMLInputElement>(null);
+	const { user } = useAuthContext();
 
 	const [productFormData, setProductFormData] = useState<ProductForm>({
 		name: "",
@@ -47,8 +49,18 @@ export default function CreateProduct() {
 	function handleFile(e: React.ChangeEvent<HTMLInputElement>) {
 		if (!e.target.files) return;
 
-		// file size measured in bytes: max size of 5 MB
-		if (e.target.files[0].size <= 5 * 10 ** 6) {
+		// file size measured in bytes:
+		// max size of 1 MB for guest account
+		// 5 MB for admin
+		const fileSizeLimit =
+			user.email === process.env.REACT_APP_GUEST_ADMIN_EMAIL
+				? 1 * 10 ** 6
+				: 5 * 10 ** 6;
+
+		const errDisplay =
+			user.email === process.env.REACT_APP_GUEST_ADMIN_EMAIL ? "1" : "5";
+
+		if (e.target.files[0].size <= fileSizeLimit) {
 			const productImageFile = e.target.files[0];
 			setFile(productImageFile);
 			readFile(productImageFile);
@@ -57,7 +69,7 @@ export default function CreateProduct() {
 				imageRef.current.value = "";
 			}
 
-			return toast.error("File must be less than 5 MB");
+			return toast.error(`File must be less than ${errDisplay} MB`);
 		}
 	}
 
@@ -295,7 +307,14 @@ export default function CreateProduct() {
 									<span className="text-sm">
 										File format: JPEG, PNG, AVIF, WEBP
 									</span>
-									<span>(Recommended 1200x480, max 5 MB)</span>
+
+									<span>
+										(Recommended 1200x480, max{" "}
+										{user.email === process.env.REACT_APP_GUEST_ADMIN_EMAIL
+											? "1"
+											: "5"}{" "}
+										MB)
+									</span>
 								</div>
 							</div>
 						</div>

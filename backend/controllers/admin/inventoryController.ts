@@ -11,6 +11,9 @@ import {
 import dotenv from "dotenv";
 dotenv.config();
 
+// @desc Get inventory
+// @route GET /api/admin/inventory
+// @access Private
 export const getInventory = async (
 	req: Request,
 	res: Response,
@@ -26,6 +29,9 @@ export const getInventory = async (
 	}
 };
 
+// @desc Get inventory item
+// @route GET /api/admin/inventory/:id
+// @access Private
 export const getInventoryItem = async (
 	req: Request<productParams["params"], {}, {}>,
 	res: Response,
@@ -45,6 +51,9 @@ export const getInventoryItem = async (
 	}
 };
 
+// @desc Create product
+// @route POST /api/admin/inventory
+// @access Private
 export const createProduct = async (
 	req: Request<{}, {}, productCreationBody["body"]>,
 	res: Response,
@@ -96,6 +105,9 @@ export const createProduct = async (
 	}
 };
 
+// @desc Update product
+// @route PATCH /api/admin/inventory/:id
+// @access Private
 export const updateProduct = async (
 	req: Request<productParams["params"], {}, productUpdateBody["body"]>,
 	res: Response,
@@ -184,6 +196,9 @@ export const updateProduct = async (
 	}
 };
 
+// @desc Delete product
+// @route GET /api/admin/inventory/:id
+// @access Private
 export const deleteProduct = async (
 	req: Request<productParams["params"], {}, {}>,
 	res: Response,

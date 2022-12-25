@@ -3,7 +3,10 @@ import OrderModel from "../../models/orderModel";
 import global from "../../types/types";
 import { orderBody, orderParams } from "../../schemas/orderSchema";
 
-export const getOrder = async (
+// @desc Get order history
+// @route GET /api/order/
+// @access Private
+export const getOrderHistory = async (
 	req: Request,
 	res: Response,
 	next: NextFunction
@@ -18,6 +21,9 @@ export const getOrder = async (
 	}
 };
 
+// @desc Get order info
+// @route GET /api/order/:id
+// @access Private
 export const getOrderInfo = async (
 	req: Request<orderParams["params"], {}, {}>,
 	res: Response,
@@ -37,6 +43,9 @@ export const getOrderInfo = async (
 	}
 };
 
+// @desc Create order
+// @route POST /api/order/
+// @access Private
 export const createOrder = async (
 	req: Request<{}, {}, orderBody["body"]>,
 	res: Response,
@@ -63,6 +72,9 @@ export const createOrder = async (
 	}
 };
 
+// @desc Delete order
+// @route DELETE /api/order/:id
+// @access Private
 export const deleteOrder = async (
 	req: Request<orderParams["params"], {}, {}>,
 	res: Response,
