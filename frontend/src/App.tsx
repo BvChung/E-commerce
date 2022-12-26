@@ -12,6 +12,7 @@ import LandingPage from "./components/landingPage/LandingPage";
 import ProductPage from "./components/products/ProductPage";
 import PersistLogin from "./components/protected/PersistLogin";
 import RequireAuth from "./components/protected/RequireAuth";
+import NotFound from "./components/error/NotFound";
 import { accessRoles } from "./config/accessRoles";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -43,7 +44,6 @@ const CreateProduct = lazy(
 const UpdateProduct = lazy(
 	() => import("./components/admin/inventory/UpdateProduct")
 );
-const Unauthorized = lazy(() => import("./components/protected/Unauthorized"));
 
 const appRouter = createBrowserRouter(
 	createRoutesFromElements(
@@ -59,7 +59,6 @@ const appRouter = createBrowserRouter(
 					<Route path=":id" element={<ProductInfo />} />
 				</Route>
 				<Route path="cart" element={<Cart />} />
-				<Route path="unauthorized" element={<Unauthorized />} />
 
 				{/* Private Routes */}
 				<Route element={<RequireAuth />}>
@@ -100,7 +99,7 @@ const appRouter = createBrowserRouter(
 				</Route>
 			</Route>
 
-			<Route path="*" element={<p>Not Found</p>} />
+			<Route path="*" element={<NotFound />} />
 		</Route>
 	)
 );

@@ -3,7 +3,7 @@ import { OrderPurchasedItems } from "../../interfaces/orderInterface";
 import { useCartContext } from "../../hooks/context/useCartContext";
 import { cldConfig } from "../../config/cloudinaryConfig";
 import { AdvancedImage } from "@cloudinary/react";
-import { thumbnail } from "@cloudinary/url-gen/actions/resize";
+import { scale } from "@cloudinary/url-gen/actions/resize";
 import { toast } from "react-toastify";
 
 export default function OrderedItems({
@@ -19,7 +19,7 @@ export default function OrderedItems({
 		.image(imageCloudId)
 		.format("auto")
 		.quality("auto")
-		.resize(thumbnail().width(250).height(250));
+		.resize(scale().width(150).height(150));
 
 	return (
 		<div

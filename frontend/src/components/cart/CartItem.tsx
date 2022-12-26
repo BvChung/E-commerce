@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { CartItemInfo } from "../../interfaces/cartInterface";
 import { useCartContext } from "../../hooks/context/useCartContext";
 import { cldConfig } from "../../config/cloudinaryConfig";
-import { thumbnail } from "@cloudinary/url-gen/actions/resize";
+import { scale } from "@cloudinary/url-gen/actions/resize";
 import { AdvancedImage, lazyload } from "@cloudinary/react";
 
 export default function CartItem({ _id, name, imageCloudId }: CartItemInfo) {
@@ -16,7 +16,7 @@ export default function CartItem({ _id, name, imageCloudId }: CartItemInfo) {
 		.image(imageCloudId)
 		.format("auto")
 		.quality("auto")
-		.resize(thumbnail().width(250).height(250));
+		.resize(scale().width(150).height(150));
 
 	useEffect(() => {
 		updateCartQuantity({ _id, quantity: itemQuantity! });
