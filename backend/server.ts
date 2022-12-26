@@ -2,6 +2,7 @@ import dotenv from "dotenv";
 import path from "path";
 import cors from "cors";
 import cookieParser from "cookie-parser";
+import compression from "compression";
 import express, { Express, Request, Response } from "express";
 import "colors";
 import { connectDatabase } from "./config/mongoConfig";
@@ -34,6 +35,7 @@ app.use(
 );
 
 app.use(cookieParser());
+app.use(compression());
 
 app.use("/api/users", userRoutes);
 app.use("/api/admin", adminRoutes);

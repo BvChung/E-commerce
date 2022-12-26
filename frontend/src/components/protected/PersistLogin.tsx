@@ -9,11 +9,10 @@ export default function PersistLogin() {
 	const { user } = useAuthContext();
 	const getUser = useGetUser();
 
-	// Authenticate cookie on user device to load account information
+	// Authenticate JWT sent by cookie on user device to backend to load account information
 	useEffect(() => {
 		const verifyUser = async (): Promise<void> => {
 			try {
-				console.log("Verifying user");
 				await getUser();
 			} catch (error) {
 			} finally {
