@@ -28,7 +28,7 @@ app.use(
 			"http://localhost:3000",
 			"http://127.0.0.1:5500",
 			"http://localhost:3001",
-			process.env.DEPLOYMENT_URL!,
+			"https://modernfydesign.onrender.com",
 		],
 		credentials: true,
 	})
